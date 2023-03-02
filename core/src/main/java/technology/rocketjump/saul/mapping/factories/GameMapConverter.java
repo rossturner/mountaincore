@@ -15,10 +15,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttri
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.mapgen.model.input.GemType;
 import technology.rocketjump.saul.mapgen.model.input.OreType;
-import technology.rocketjump.saul.mapgen.model.output.GameMap;
-import technology.rocketjump.saul.mapgen.model.output.GameMapTile;
-import technology.rocketjump.saul.mapgen.model.output.MapRegion;
-import technology.rocketjump.saul.mapgen.model.output.TileType;
+import technology.rocketjump.saul.mapgen.model.output.*;
 import technology.rocketjump.saul.mapping.OutdoorLightProcessor;
 import technology.rocketjump.saul.mapping.model.InvalidMapGenerationException;
 import technology.rocketjump.saul.mapping.model.TiledMap;
@@ -39,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.mapgen.model.FloorType.Rock;
 import static technology.rocketjump.saul.mapgen.model.output.TileSubType.LOAMY_FLOOR_CAVE;
+import static technology.rocketjump.saul.mapgen.model.output.TileSubType.TUNDRA;
 
 public class GameMapConverter {
 
@@ -88,6 +86,7 @@ public class GameMapConverter {
 		GameMaterial waterMaterial = materialDictionary.getByName("Water");
 
 		List<Entity> plantsThatReplaceAllInRegion = new ArrayList<>();
+		List<GridPoint2> treeLocations = new ArrayList<>();
 
 		for (int x = 0; x < generatedSourceMap.getWidth(); x++) {
 			for (int y = 0; y < generatedSourceMap.getHeight(); y++) {
@@ -127,24 +126,35 @@ public class GameMapConverter {
 					targetTile.getRoof().setState(TileRoofState.OPEN);
 
 					switch (sourceTile.getSubRegion().getSubRegionType()) {
-						case FOREST:
-						case GRASSLAND:
-							targetTile.getFloor().setFloorType(grassFloorType);
-							targetTile.getFloor().setMaterial(grassMaterial);
-							break;
-						case PLAINS:
-							if (random.nextBoolean()) {
-								targetTile.getFloor().setFloorType(grassFloorType);
-								targetTile.getFloor().setMaterial(grassMaterial);
-							} else {
+						case FOREST -> {
+							if (random.nextFloat() < 0.1f) {
 								targetTile.getFloor().setFloorType(dirtFloorType);
 								targetTile.getFloor().setMaterial(grassMaterial);
+							} else {
+								targetTile.getFloor().setFloorType(grassFloorType);
+								targetTile.getFloor().setMaterial(grassMaterial);
 							}
-							break;
-						case TUNDRA:
+						}
+						case PLAINS -> {
+							if (orthogonallyBorders(TUNDRA, sourceTile, generatedSourceMap) && random.nextFloat() < 0.7f) {
+								targetTile.getFloor().setFloorType(dirtFloorType);
+							} else {
+								targetTile.getFloor().setFloorType(grassFloorType);
+							}
+							targetTile.getFloor().setMaterial(grassMaterial);
+						}
+						case GRASSLAND -> {
+							if (orthogonallyBorders(TUNDRA, sourceTile, generatedSourceMap) && random.nextFloat() < 0.7f) {
+								targetTile.getFloor().setFloorType(dirtFloorType);
+							} else {
+								targetTile.getFloor().setFloorType(grassFloorType);
+							}
+							targetTile.getFloor().setMaterial(grassMaterial);
+						}
+						case TUNDRA -> {
 							targetTile.getFloor().setFloorType(gravelFloorType);
 							targetTile.getFloor().setMaterial(gravelMaterial);
-							break;
+						}
 					}
 
 
@@ -164,6 +174,7 @@ public class GameMapConverter {
 				Entity createdPlant = null;
 				if (sourceTile.hasTree()) {
 					createdPlant = entityStore.createPlantForMap(sourceTile.getTree().getSpeciesName(), sourceTile.getPosition(), random);
+					treeLocations.add(sourceTile.getPosition());
 				} else if (sourceTile.hasShrub()) {
 					createdPlant = entityStore.createPlantForMap(sourceTile.getShrubType().getName(), sourceTile.getPosition(), random);
 				} else if (sourceTile.hasMushroom()) {
@@ -179,8 +190,12 @@ public class GameMapConverter {
 			}
 		}
 
+		for (GridPoint2 treeLocation : treeLocations) {
+			addDirtAroundTree(treeLocation, targetMap, dirtFloorType, grassFloorType, random);
+		}
+
 		for (Entity replacerPlant : plantsThatReplaceAllInRegion) {
-			PlantSpecies replacementSpecies = ((PlantEntityAttributes)replacerPlant.getPhysicalEntityComponent().getAttributes()).getSpecies();
+			PlantSpecies replacementSpecies = ((PlantEntityAttributes) replacerPlant.getPhysicalEntityComponent().getAttributes()).getSpecies();
 			int numToReplace = replacementSpecies.getReplacesOtherPlantsInRegion();
 			MapTile originTile = targetMap.getTile(replacerPlant.getLocationComponent().getWorldPosition());
 			GameMapTile sourceMapTile = generatedSourceMap.get(originTile.getTileX(), originTile.getTileY());
@@ -213,7 +228,6 @@ public class GameMapConverter {
 		Logger.info("River generation took " + (System.currentTimeMillis() - beforeRiverGen) + "ms");
 
 
-
 		for (int x = 0; x < generatedSourceMap.getWidth() + 1; x++) {
 			for (int y = 0; y < generatedSourceMap.getHeight() + 1; y++) {
 				float heightmapValue = generatedSourceMap.getVertexGameMap().get(x, y).getHeight();
@@ -244,6 +258,35 @@ public class GameMapConverter {
 		setupRiverAccessZones(targetMap, generatedSourceMap.getRiverTiles());
 
 		Logger.info("Total map conversion took " + (System.currentTimeMillis() - startTime) + "ms");
+	}
+
+	private boolean orthogonallyBorders(TileSubType otherRegion, GameMapTile sourceTile, GameMap sourceMap) {
+		GameMapTile tile = sourceMap.get(sourceTile.getPosition().x - 1, sourceTile.getPosition().y);
+		if (tile != null && tile.getTileSubType().equals(otherRegion)) {
+			return true;
+		}
+		tile = sourceMap.get(sourceTile.getPosition().x + 1, sourceTile.getPosition().y);
+		if (tile != null && tile.getTileSubType().equals(otherRegion)) {
+			return true;
+		}
+		tile = sourceMap.get(sourceTile.getPosition().x, sourceTile.getPosition().y - 1);
+		if (tile != null && tile.getTileSubType().equals(otherRegion)) {
+			return true;
+		}
+		tile = sourceMap.get(sourceTile.getPosition().x, sourceTile.getPosition().y + 1);
+		if (tile != null && tile.getTileSubType().equals(otherRegion)) {
+			return true;
+		}
+		return false;
+	}
+
+	private void addDirtAroundTree(GridPoint2 sourcePosition, TiledMap targetMap, FloorType dirtFloorType, FloorType grassFloorType, Random random) {
+		for (int i = 0; i < 8; i++) {
+			MapTile tile = targetMap.getTile(sourcePosition.x - 1 + random.nextInt(3), sourcePosition.y - 1 + random.nextInt(3));
+			if (tile != null && tile.getFloor().getFloorType().equals(grassFloorType)) {
+				tile.getFloor().setFloorType(dirtFloorType);
+			}
+		}
 	}
 
 	private void setupRiverAccessZones(TiledMap targetMap, List<GridPoint2> riverTiles) {
@@ -398,8 +441,6 @@ public class GameMapConverter {
 			}
 		}
 
-
-
 		MapRegion largestOutsideRegion = new MapRegion(TileType.OUTSIDE);
 		for (MapRegion mapRegion : generatedMap.getRegions().values()) {
 			if (mapRegion.getTileType().equals(TileType.OUTSIDE)) {
@@ -537,7 +578,7 @@ public class GameMapConverter {
 
 
 		for (int y = tile.getPosition().y - 1; y >= 0; y--) {
-			GameMapTile cursorTile = map.get( tile.getPosition().x, y);
+			GameMapTile cursorTile = map.get(tile.getPosition().x, y);
 			if (cursorTile == null) {
 				if (numTilesWest < numTilesToEdge) {
 					numTilesToEdge = numTilesWest;
@@ -567,8 +608,8 @@ public class GameMapConverter {
 		float mapCenterScore = 1 - (mapCenter.cpy().sub(tileVector).len() / mapCenter.len());
 
 		surroundingSpaceScore =
-				((numTilesNorth + numTilesSouth) / (float)map.getHeight()) +
-				((numTilesWest + numTilesEast) / (float)map.getWidth()) / 2f;
+				((numTilesNorth + numTilesSouth) / (float) map.getHeight()) +
+						((numTilesWest + numTilesEast) / (float) map.getWidth()) / 2f;
 
 		return (mountainNearnessScore + surroundingSpaceScore + edgeNearnessScore + mapCenterScore) / 4;
 	}

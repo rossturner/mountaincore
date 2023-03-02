@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class ShrubPlanter {
 
-	private static final int NUM_SHRUBS_TO_SPAWN_FROM_EACH_TREE = 3;
+	private static final int NUM_SHRUBS_TO_SPAWN_FROM_EACH_TREE = 2;
 	public static final int MAX_SHRUB_NEIGHBOURS_ALLOWED = 2;
 
 	// Used by randomPointNear()
