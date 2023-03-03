@@ -75,7 +75,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 				return;
 			}
 			PathfindingRequestMessage pathfindingRequestMessage = new PathfindingRequestMessage(
-					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldPosition(),
+					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
 					destination, gameContext.getAreaMap(), this, parent.parentEntity.getId(), pathfindingFlags);
 
 			parent.messageDispatcher.dispatchMessage(MessageType.PATHFINDING_REQUEST, pathfindingRequestMessage);
@@ -99,7 +99,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 
 	private void followPath(GameContext gameContext) {
 		SteeringComponent steeringComponent = parent.parentEntity.getBehaviourComponent().getSteeringComponent();
-		LocationComponent locationComponent = parent.parentEntity.getLocationComponent();
+		LocationComponent locationComponent = parent.parentEntity.getOwnOrVehicleLocationComponent();
 
 		if (pathCursor >= path.getCount()) {
 			// Now out of bounds, this shouldn't happen but was reported in a crash log
@@ -136,7 +136,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			completionType = FAILURE;
 		} else {
 			Vector2 destination = path.get(path.getCount() - 1);
-			Vector2 worldPosition = parent.parentEntity.getLocationComponent().getWorldPosition();
+			Vector2 worldPosition = parent.parentEntity.getLocationComponent().getWorldOrParentPosition();
 
 			boolean arrivedAtDestination = (Math.abs(worldPosition.x - destination.x) < DESTINATION_TOLERANCE &&
 					Math.abs(worldPosition.y - destination.y) < DESTINATION_TOLERANCE);
@@ -198,7 +198,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 				}
 			} else {
 				// Does not block movement
-				return assignedFurniture.getLocationComponent().getWorldPosition();
+				return assignedFurniture.getLocationComponent().getWorldOrParentPosition();
 			}
 
 		} else {

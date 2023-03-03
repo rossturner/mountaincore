@@ -210,8 +210,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			}
 		}
 		if (selectedStockpileGroup == null) {
-			stockpileButtonGroup.getButtons().get(0).setChecked(true);
-			selectedStockpileGroup = stockpileGroupDictionary.getAll().get(0);
+			stockpileButtonGroup.getButtons().get(1).setChecked(true);
+			selectedStockpileGroup = stockpileGroupDictionary.getAll().get(1);
 		}
 
 

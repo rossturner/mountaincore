@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.entities.factories;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
@@ -18,12 +19,14 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.mapping.tile.wall.Wall;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Stream;
 
 import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
@@ -33,11 +36,13 @@ public class ItemEntityAttributesFactory {
 
 	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
 	private final EntityAssetUpdater entityAssetUpdater;
+	private final GameMaterialDictionary gameMaterialDictionary;
 
 	@Inject
-	public ItemEntityAttributesFactory(ItemEntityAssetDictionary itemEntityAssetDictionary, EntityAssetUpdater entityAssetUpdater) {
+	public ItemEntityAttributesFactory(ItemEntityAssetDictionary itemEntityAssetDictionary, EntityAssetUpdater entityAssetUpdater, GameMaterialDictionary gameMaterialDictionary) {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.entityAssetUpdater = entityAssetUpdater;
+		this.gameMaterialDictionary = gameMaterialDictionary;
 	}
 
 	public ItemEntityAttributes resourceFromDoorway(Doorway doorway) {
@@ -121,13 +126,33 @@ public class ItemEntityAttributesFactory {
 
 	public ItemEntityAttributes createItemAttributes(ItemType itemTypeToCreate, int quantityToCreate, List<GameMaterial> materials) {
 		ItemEntityAttributes newItemAttributes = new ItemEntityAttributes(SequentialIdGenerator.nextId());
+		Random random = new RandomXS128(newItemAttributes.getSeed());
 		newItemAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 		newItemAttributes.setItemType(itemTypeToCreate);
 		newItemAttributes.setQuantity(quantityToCreate);
+		for (GameMaterialType materialType : itemTypeToCreate.getMaterialTypes()) {
+			if (materials.stream().noneMatch(m -> m.getMaterialType().equals(materialType))) {
+				newItemAttributes.setMaterial(pickMaterial(itemTypeToCreate, materialType, random));
+			}
+		}
 		for (GameMaterial material : materials) {
 			newItemAttributes.setMaterial(material);
 		}
 		return newItemAttributes;
+	}
+
+	private GameMaterial pickMaterial(ItemType itemTypeToCreate, GameMaterialType materialType, Random random) {
+		if (materialType.equals(itemTypeToCreate.getPrimaryMaterialType()) && !itemTypeToCreate.getSpecificMaterials().isEmpty()) {
+			return itemTypeToCreate.getSpecificMaterials().get(random.nextInt(itemTypeToCreate.getSpecificMaterials().size()));
+		}
+		List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(materialType).stream()
+				.filter(GameMaterial::isUseInRandomGeneration)
+				.toList();
+		if (materialsToPickFrom.isEmpty()) {
+			return gameMaterialDictionary.getExampleMaterial(materialType);
+		} else {
+			return materialsToPickFrom.get(random.nextInt(materialsToPickFrom.size()));
+		}
 	}
 
 	private ItemEntityAttributes createItemAttributes(ItemType itemTypeToCreate, int quantityToCreate, FurnitureEntityAttributes furnitureAttributes) {

@@ -11,6 +11,7 @@ import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
@@ -80,7 +81,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		dustCloudParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
 		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		// FIXME this is also duplicated in FurnitureMessageHandler
-		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
+		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("PaletteConstruct")); // MODDING Expose this
 		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
 
 		messageDispatcher.addListener(this, MessageType.FURNITURE_PLACEMENT);
@@ -538,7 +539,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 				amountToRefund -= refundThisTile;
 
 				ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(refundItemType, refundThisTile, bridgeToRemove.getMaterial());
-				itemEntityFactory.create(itemAttributes, bridgeLocation, true, gameContext);
+				itemEntityFactory.create(itemAttributes, bridgeLocation, true, gameContext, Faction.SETTLEMENT);
 			}
 		}
 

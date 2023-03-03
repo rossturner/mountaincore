@@ -37,6 +37,9 @@ public class ItemAllocation implements Persistable {
 		FOOD_ALLOCATION,
 		CONTENTS_TO_BE_DUMPED,
 		PRODUCTION_IMPORT,
+		TRADING_IMPORT,
+		TRADING_EXPORT,
+		TRADING_PAYMENT,
 		ON_FIRE
 
 	}

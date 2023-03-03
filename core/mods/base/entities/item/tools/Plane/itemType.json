@@ -6,5 +6,6 @@
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
-  "i18nKey" : "TOOL.PLANE"
+  "i18nKey" : "TOOL.PLANE",
+  "hoursInInventoryUntilUnused": 12
 }

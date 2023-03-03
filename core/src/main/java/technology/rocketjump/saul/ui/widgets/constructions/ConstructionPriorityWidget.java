@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.collect.Lists;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.constructions.Construction;
@@ -23,13 +24,13 @@ public class ConstructionPriorityWidget extends Table {
 	private final Construction construction;
 	private final MessageDispatcher messageDispatcher;
 
-	public ConstructionPriorityWidget(Construction construction, Skin skin, TooltipFactory tooltipFactory, MessageDispatcher messageDispatcher) {
+	public ConstructionPriorityWidget(Construction construction, Skin skin, TooltipFactory tooltipFactory, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		this.construction = construction;
 		this.messageDispatcher = messageDispatcher;
 		this.defaults().pad(8);
 
 		for (JobPriority priority : Lists.reverse(Arrays.asList(JobPriority.values()))) {
-			PriorityButton priorityButton = new PriorityButton(priority, skin, tooltipFactory, messageDispatcher, () -> {
+			PriorityButton priorityButton = new PriorityButton(priority, skin, tooltipFactory, messageDispatcher, soundAssetDictionary, () -> {
 				if (priority.equals(JobPriority.DISABLED)) {
 					messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, construction);
 				} else {

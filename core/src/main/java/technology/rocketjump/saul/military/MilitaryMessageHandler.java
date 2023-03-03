@@ -8,6 +8,8 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.military.AttackOpponentAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -51,16 +53,18 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 				MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 				Long squadId = militaryComponent.getSquadId();
 
-				if (squadId != null && !gameContext.getSquads().containsKey(squadId)) {
-					createSquad(squadId);
-				}
+				if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+					if (squadId != null && !gameContext.getSquads().containsKey(squadId)) {
+						createSquad(squadId);
+					}
 
-				for (Squad squad : gameContext.getSquads().values()) {
-					if (squadId != null && squad.getId() == squadId) {
-						squad.getMemberEntityIds().add(entity.getId());
-					} else {
-						squad.getMemberEntityIds().remove(entity.getId());
-						// TODO need to do anything if squad is now empty?
+					for (Squad squad : gameContext.getSquads().values()) {
+						if (squadId != null && squad.getId() == squadId) {
+							squad.getMemberEntityIds().add(entity.getId());
+						} else {
+							squad.getMemberEntityIds().remove(entity.getId());
+							// TODO need to do anything if squad is now empty?
+						}
 					}
 				}
 

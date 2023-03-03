@@ -44,7 +44,9 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 	private HaulingAllocation assignedHaulingAllocation;
 	private FoodAllocation foodAllocation;
 	private LiquidAllocation liquidAllocation;
+	private PlannedTrade plannedTrade;
 	private Long assignedFurnitureId;
+	private Long assignedVehicleId;
 	private Vector2 targetLocation; // Only used for facing toward currently
 	private Memory relevantMemory;
 	private boolean interrupted; // For if the entire goal should be cancelled, but needs to deal with any cleanup
@@ -258,6 +260,14 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		return parentGoal;
 	}
 
+	public PlannedTrade getPlannedTrade() {
+		return plannedTrade;
+	}
+
+	public void setPlannedTrade(PlannedTrade plannedTrade) {
+		this.plannedTrade = plannedTrade;
+	}
+
 	@Override
 	public String toString() {
 		return goal.toString();
@@ -302,6 +312,9 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		if (assignedFurnitureId != null) {
 			asJson.put("assignedFurnitureId", assignedFurnitureId);
 		}
+		if (assignedVehicleId != null) {
+			asJson.put("assignedVehicleId", assignedVehicleId);
+		}
 
 		if (targetLocation != null) {
 			asJson.put("targetLocation", JSONUtils.toJSON(targetLocation));
@@ -311,6 +324,12 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 			JSONObject memoryJson = new JSONObject(true);
 			relevantMemory.writeTo(memoryJson, savedGameStateHolder);
 			asJson.put("relevantMemory", memoryJson);
+		}
+
+		if (plannedTrade != null) {
+			JSONObject plannedTradeJson = new JSONObject(true);
+			plannedTrade.writeTo(plannedTradeJson, savedGameStateHolder);
+			asJson.put("plannedTrade", plannedTrade);
 		}
 
 		if (interrupted) {
@@ -371,6 +390,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		}
 
 		this.assignedFurnitureId = asJson.getLong("assignedFurnitureId");
+		this.assignedVehicleId = asJson.getLong("assignedVehicleId");
 
 		JSONObject targetLocationJson = asJson.getJSONObject("targetLocation");
 		if (targetLocationJson != null) {
@@ -386,7 +406,20 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 			this.relevantMemory.readFrom(memoryJson, savedGameStateHolder, relatedStores);
 		}
 
+		JSONObject tradeJson = asJson.getJSONObject("plannedTrade");
+		if (tradeJson != null) {
+			this.plannedTrade = new PlannedTrade();
+			this.plannedTrade.readFrom(tradeJson, savedGameStateHolder, relatedStores);
+		}
+
 		interrupted = asJson.getBooleanValue("interrupted");
 	}
 
+	public void setAssignedVehicleId(Long assignedVehicleId) {
+		this.assignedVehicleId = assignedVehicleId;
+	}
+
+	public Long getAssignedVehicleId() {
+		return assignedVehicleId;
+	}
 }

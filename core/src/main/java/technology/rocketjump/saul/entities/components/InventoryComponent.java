@@ -19,6 +19,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.FactionChangedMessage;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -258,7 +259,14 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		entityToAdd.getLocationComponent().setWorldPosition(null, false);
 		entityToAdd.getLocationComponent().setContainerEntity(parentEntity);
 		entityToAdd.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
-		entityToAdd.getOrCreateComponent(FactionComponent.class).setFaction(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
+
+		FactionComponent itemFactionComponent = entityToAdd.getOrCreateComponent(FactionComponent.class);
+		if (!itemFactionComponent.getFaction().equals(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
+			messageDispatcher.dispatchMessage(MessageType.ENTITY_FACTION_CHANGED, new FactionChangedMessage(
+					entityToAdd, itemFactionComponent.getFaction(), parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())
+			);
+		}
+
 		InventoryEntry entry = new InventoryEntry(entityToAdd, gameClock, preferredPosition);
 		inventoryEntries.put(entityToAdd.getId(), entry);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entityToAdd);

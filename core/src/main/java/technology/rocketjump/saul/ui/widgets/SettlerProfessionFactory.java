@@ -92,6 +92,7 @@ public class SettlerProfessionFactory {
 			clickingCursorWidget.setHeight(draggableImage.getHeight());
 
 			Table draggableCursors = new Table();
+			draggableCursors.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 			draggableCursors.add(draggingCursorWidget);
 			draggableCursors.add(clickingCursorWidget);
 
@@ -231,7 +232,7 @@ public class SettlerProfessionFactory {
 
 			int numAdded = 0;
 
-			List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getAllProfessions());
+			List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getSelectableProfessions());
 			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 			for (SkillsComponent.QuantifiedSkill quantifiedSkill : skillsComponent.getActiveProfessions()) {
 				professionsForSelection.remove(quantifiedSkill.getSkill());

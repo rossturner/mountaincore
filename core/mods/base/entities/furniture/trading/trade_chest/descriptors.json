@@ -1,0 +1,68 @@
+[ {
+  "uniqueName" : "Trade_Chest-1x1 with workspaces-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADE_CHEST",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Trade_Chest-Open-1x1 with workspaces-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_6"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_7"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : -2.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Trade_Chest-1x1 with workspaces-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "TRADE_CHEST",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Trade_Chest-Open-1x1 with workspaces-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Trade_Chest-1x1 with workspaces-Furniture_Above_Layer_6-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_6",
+  "furnitureTypeName" : "TRADE_CHEST",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Trade_Chest-1x1 with workspaces-Furniture_Above_Layer_6-Wood_Down-2.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -13.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Trade_Chest-1x1 with workspaces-Furniture_Above_Layer_7-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_7",
+  "furnitureTypeName" : "TRADE_CHEST",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Trade_Chest-1x1 with workspaces-Furniture_Above_Layer_7-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -13.5
+      }
+    }
+  }
+} ]

@@ -26,6 +26,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.saul.entities.factories.VehicleEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -91,7 +92,7 @@ public class VehicleUIFactory implements UIFactory {
         VehicleType type = vehicleTypeDictionary.getByName(name);
         VehicleEntityAttributes attributes = new VehicleEntityAttributes();
         attributes.setVehicleType(type);
-        return vehicleEntityFactory.create(attributes, new GridPoint2(), new GameContext());
+        return vehicleEntityFactory.create(attributes, new GridPoint2(), new GameContext(), Faction.SETTLEMENT);
     }
 
     @Override

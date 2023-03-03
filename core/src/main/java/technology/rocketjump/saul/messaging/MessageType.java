@@ -25,7 +25,8 @@ public class MessageType {
 	public static final int INITIALISE_SPAWN_POINT = 7;
 	public static final int SETTLEMENT_SPAWNED = 8;
 	public static final int DEV_MODE_CHANGED = 9;
-	public static final int MENU_ESCAPED = 10;
+	public static final int GET_SETTLEMENT_CONSTANTS = 10;
+	public static final int MENU_ESCAPED = 11;
 
 	// Mouse & Input messages
 	public static final int MOUSE_DOWN = 200;
@@ -306,6 +307,9 @@ public class MessageType {
 	// Invasion messages
 	public static final int TRIGGER_INVASION = 2100;
 	public static final int INVASION_ABOUT_TO_BEGIN = 2101;
+
+	// Trading messages
+	public static final int TRIGGER_TRADE_CARAVAN = 2200;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

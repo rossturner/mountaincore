@@ -5441,6 +5441,594 @@
   },
   "overrideRenderLayer" : 10
 }, {
+  "uniqueName" : "Horse-Body_Outline-Asleep",
+  "type" : "HAIR_OUTLINE",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseFrontLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "HorseBackLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseFrontSideLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseFrontSideLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseBackSideLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseBackSideLinesS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 50
+}, {
+  "uniqueName" : "Horse-Creature_Body-Asleep",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Horse",
+  "bodyShape" : "AVERAGE",
+  "gender" : "ANY",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourFrontS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourFrontSideS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 5.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourFrontSideS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourBackSideS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 5.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 10,
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourBackSideS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 5.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 10,
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "HorseColourBackS.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CREATURE_BODYPAINT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 50,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Horse-Creature_Bodypaint-Asleep",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourSpotsFrontS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "HorseColourSpotsBackS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourSpotsSideS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourSpotsSideS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourSpotsBackSideS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourSpotsBackSideS.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Horse-Creature_Head-Asleep",
+  "type" : "CREATURE_HEAD",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourNoseFrontS.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourNoseSideS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourNoseSideS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourNoseBackSideS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourNoseBackSideS.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 10
+}, {
   "uniqueName" : "Dwarf-Beard01-Color",
   "type" : "CREATURE_BEARD",
   "raceName" : "Dwarf",
@@ -13948,6 +14536,119 @@
     }
   }
 }, {
+  "uniqueName" : "Dwarf-Female-Average-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "FEMALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dwarf-Female-Average-Miner-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -16905,6 +17606,119 @@
     }
   }
 }, {
+  "uniqueName" : "Dwarf-Female-Fat-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "FEMALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Fat-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dwarf-Female-Fat-Miner-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -19845,6 +20659,119 @@
     },
     "UP" : {
       "filename" : "Dwarf-Female-Strong-Lumberjack-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Female-Strong-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "FEMALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up_Left.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -22821,6 +23748,119 @@
     }
   }
 }, {
+  "uniqueName" : "Dwarf-Male-Average-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dwarf-Male-Average-Miner-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -25778,6 +26818,119 @@
     }
   }
 }, {
+  "uniqueName" : "Dwarf-Male-Fat-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dwarf-Male-Fat-Miner-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -27512,6 +28665,7 @@
   "bodyShape" : "STRONG",
   "gender" : "MALE",
   "profession" : "UNARMORED_MILITARY",
+  "consciousnessList" : [ ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -28718,6 +29872,119 @@
     },
     "UP" : {
       "filename" : "Dwarf-Male-Strong-Lumberjack-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Male-Strong-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Up.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Down_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Up_Left.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Merchant-Body_Clothing_Up_Left.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },

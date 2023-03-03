@@ -1,37 +1,28 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
-import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
-import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import static technology.rocketjump.saul.ui.GameInteractionMode.*;
 
 @Singleton
 public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
-	private final Skin skin;
+	private final ButtonFactory buttonFactory;
 	private final Table layoutTable = new Table();
 	private final MessageDispatcher messageDispatcher;
-	private final TooltipFactory tooltipFactory;
 
 	@Inject
-	public OrderSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
-		this.skin = guiSkinRepository.getMainGameSkin();
+	public OrderSelectionGuiView(ButtonFactory buttonFactory, MessageDispatcher messageDispatcher) {
+		this.buttonFactory = buttonFactory;
 		this.messageDispatcher = messageDispatcher;
-		this.tooltipFactory = tooltipFactory;
 
 		layoutTable.setTouchable(Touchable.enabled);
 		layoutTable.defaults().padRight(28f);
@@ -91,15 +82,6 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 	}
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
-		Button button = new Button(skin.getDrawable(drawableName));
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
-		button.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				onClick.run();
-			}
-		});
-		tooltipFactory.simpleTooltip(button, tooltipI18nKey, TooltipLocationHint.ABOVE);
-		return button;
+		return buttonFactory.buildDrawableButton(drawableName, tooltipI18nKey, onClick);
 	}
 }

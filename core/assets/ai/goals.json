@@ -139,8 +139,17 @@
   "interruptedByCombat" : false,
   "initialActions" : [ "GoToDrinkLocation", "DouseSelf" ]
 }, {
+  "i18nDescription" : "GOAL.IDLE.DESCRIPTION",
+  "name" : "Do nothing goal",
+  "actionRelationships" : {
+    "Pause" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "Pause" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.DRINK.DESCRIPTION",
-  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY", "MERCHANT" ],
   "name" : "Drink goal",
   "actionRelationships" : {
     "LocateDrink" : {
@@ -381,7 +390,7 @@
   "creatureCategories" : [ "INVADER" ],
   "name" : "Create camp fire",
   "actionRelationships" : {
-    "SelectInvasionCampLocation" : {
+    "MoveGroupHomeTowardSettlers" : {
       "pass" : [ "GoToGoalTargetLocation" ]
     },
     "GoToGoalTargetLocation" : {
@@ -390,10 +399,10 @@
     "CreateCampfire" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "SelectInvasionCampLocation" ]
+  "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
 }, {
   "i18nDescription" : "GOAL.INVADER.RETREAT.DESCRIPTION",
-  "creatureCategories" : [ "INVADER" ],
+  "creatureCategories" : [ "INVADER", "MERCHANT" ],
   "name" : "Invasion retreat",
   "actionRelationships" : {
     "SelectRetreatLocation" : {
@@ -409,6 +418,13 @@
     "conditions" : [ {
       "invasionStage" : "RETREATING",
       "type" : "INVASION_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  }, {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "LEAVING",
+      "type" : "TRADERS_IN_STAGE"
     } ],
     "priority" : "HIGHEST"
   } ],
@@ -445,6 +461,215 @@
     "priority" : "JOB_NORMAL"
   } ],
   "initialActions" : [ "SelectItemToSteal" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Board vehicle",
+  "actionRelationships" : {
+    "CheckAllVehiclesBoarded" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStage" ]
+    },
+    "BoardVehicle" : {
+      "fail" : [ ],
+      "pass" : [ "CheckAllVehiclesBoarded" ]
+    },
+    "ProgressTraderStage" : { },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ ],
+      "pass" : [ "BoardVehicle" ]
+    },
+    "LocateVehicle" : {
+      "fail" : [ ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "PREPARING_TO_LEAVE",
+      "type" : "TRADERS_IN_STAGE"
+    }, {
+      "skillName" : "MERCHANT",
+      "type" : "SKILL",
+      "value" : 0,
+      "operator" : "GREATER_THAN"
+    }, {
+      "type" : "IS_DRIVING_VEHICLE",
+      "value" : false
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "LocateVehicle" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Dock trade wagon",
+  "actionRelationships" : {
+    "CheckAllGroupVehiclesEmpty" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStageToTrading" ]
+    },
+    "LocateHitchingPostSpace" : {
+      "fail" : [ "ExitVehicle" ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToRandomLocation" : { },
+    "ProgressTraderStageToTrading" : { },
+    "ExitVehicle" : {
+      "fail" : [ "CheckAllGroupVehiclesEmpty" ],
+      "pass" : [ "CheckAllGroupVehiclesEmpty", "GoToRandomLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ "ExitVehicle" ],
+      "pass" : [ "FaceTowardsLocation", "ExitVehicle" ]
+    },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "ARRIVED_AT_TRADE_DEPOT",
+      "type" : "TRADERS_IN_STAGE"
+    }, {
+      "type" : "IS_DRIVING_VEHICLE",
+      "value" : true
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "LocateHitchingPostSpace" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Move group towards settlement",
+  "actionRelationships" : {
+    "ProgressTraderStage" : { },
+    "MerchantNotificationToPlayer" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStage" ]
+    },
+    "MoveGroupHomeTowardSettlers" : {
+      "fail" : [ "MerchantNotificationToPlayer" ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ "MerchantNotificationToPlayer" ],
+      "pass" : [ "MerchantNotificationToPlayer" ]
+    }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Move to trade depot",
+  "actionRelationships" : {
+    "GoToRoomWithGroupHome" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStageToArrived" ]
+    },
+    "MoveGroupHomeToTradeDepot" : { },
+    "ProgressTraderStageToArrived" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "MOVING_TO_TRADE_DEPOT",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "MoveGroupHomeToTradeDepot", "GoToRoomWithGroupHome" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Purchase item as merchant",
+  "actionRelationships" : {
+    "GoToWagonWithItem" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PlaceEntity" ]
+    },
+    "PlaceEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToPaymentLocation" ]
+    },
+    "GoToRandomLocation" : {
+      "fail" : [ "PlacePayment" ],
+      "pass" : [ "PlacePayment" ]
+    },
+    "TradeCompleted" : { },
+    "GoToPaymentLocation" : {
+      "fail" : [ "GoToRandomLocation" ],
+      "pass" : [ "PlacePayment" ]
+    },
+    "RequeueThisGoal" : { },
+    "PlacePayment" : {
+      "fail" : [ "GoToRandomLocation" ],
+      "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
+    },
+    "CancelTrade" : { },
+    "PlanMerchantPurchase" : {
+      "fail" : [ ],
+      "pass" : [ "GoToTradeFurnitureLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToWagonWithItem" ]
+    },
+    "GoToTradeFurnitureLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpEntity" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "TRADING",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "PlanMerchantPurchase" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Sell item as merchant",
+  "actionRelationships" : {
+    "GoToWagonWithItem" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "PlaceEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToPaymentLocation" ]
+    },
+    "TradeCompleted" : { },
+    "GoToPaymentLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpPayment" ]
+    },
+    "RequeueThisGoal" : { },
+    "PickUpPayment" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
+    },
+    "CancelTrade" : { },
+    "PickUpEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToTradeFurnitureLocation" ]
+    },
+    "PlanMerchantSale" : {
+      "fail" : [ ],
+      "pass" : [ "GoToWagonWithItem" ]
+    },
+    "GoToTradeFurnitureLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PlaceEntity" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "TRADING",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "PlanMerchantSale" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],

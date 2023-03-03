@@ -33,12 +33,12 @@ import java.util.List;
 
 public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable, DisplayGhostItemWhenInventoryEmpty {
 
-	private int maxNumItemStacks = 0;
-	private ItemType selectedItemType;
-	private GameMaterial selectedMaterial; // null == ANY
+	protected int maxNumItemStacks = 0;
+	protected ItemType selectedItemType;
+	protected GameMaterial selectedMaterial; // null == ANY
 
-	private final List<Job> incomingHaulingJobs = new ArrayList<>();
-	private JobType haulingJobType;
+	protected final List<Job> incomingHaulingJobs = new ArrayList<>();
+	protected JobType haulingJobType;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -77,9 +77,11 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 	}
 
 	public void setSelectedMaterial(GameMaterial selectedMaterial) {
-		this.selectedMaterial = selectedMaterial;
-		if (selectedMaterial != null) {
-			cancelIncomingHaulingJobs();
+		if (selectedMaterial != this.selectedMaterial) {
+			this.selectedMaterial = selectedMaterial;
+			if (selectedMaterial != null) {
+				cancelIncomingHaulingJobs();
+			}
 		}
 	}
 

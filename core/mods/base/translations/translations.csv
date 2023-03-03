@@ -189,6 +189,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat
 
 FACTION.SETTLEMENT,,Settler
+FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal
 FACTION.WILD_ANIMALS,,Wild Animal
 FACTION.MONSTERS,,Monster
 FACTION.HOSTILE_INVASION,,Hostile Invader
@@ -274,6 +275,7 @@ FURNITURE.FORGE,,Forge
 FURNITURE.FORGE.TOOLTIP,,This is where a {{PROFESSION.BLACKSMITH}} works with {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}} and {{FUEL.SACK}} to craft items and weapons.
 FURNITURE.GRAVE,,Grave
 FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be placed in {{MATERIAL_TYPE.EARTH}}.
+FURNITURE.HITCHING_POST,,Hitching post
 FURNITURE.KITCHEN_WORKTOP,Simple piece of furniture in a kitchen used to hold ingredients on top of it,Kitchen worktop
 FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSION.CHEF}} to cook soup.
 FURNITURE.LANTERN,,Lantern
@@ -281,6 +283,7 @@ FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently 
 FURNITURE.LARGE_TABLE,,Large table
 FURNITURE.LEATHERWORKING_STATION,,Leatherworking station
 FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins
+FURNITURE.LEDGER_TABLE,,Ledger table
 FURNITURE.LOOM,,Loom
 FURNITURE.MALTING_STATION,,Malting station
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. "
@@ -314,6 +317,7 @@ FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
 FURNITURE.TRAINING_DUMMY,,Training dummy
 FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
+FURNITURE.TRADE_BANNER,,Banner
 FURNITURE.WATERWHEEL,,Water Wheel
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
@@ -990,6 +994,10 @@ NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy th
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
 NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
 NOTIFICATION.INVASION.TITLE,,You are being invaded!
+NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!
+NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,,You must construct a Trading Depot to buy and sell goods.
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite
 ORE.BAUXITE.NOUN,,Bauxite
@@ -1090,6 +1098,8 @@ PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
 PRODUCT.CAULDRON.PLURAL,,Cauldrons
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}."
+PRODUCT.CHEST.NOUN,,Chest
+PRODUCT.CHEST.PLURAL,,Chests
 PRODUCT.LEATHER,,Leather
 PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
@@ -1244,6 +1254,7 @@ RACE.ELEPHANT.NOUN,,Elephant
 RACE.FOX.FEMALE_NOUN,,Vixen
 RACE.FOX.MALE_NOUN,,Fox
 RACE.FUNGOLEM,,Fungolem
+RACE.HORSE.NOUN,,Horse
 RACE.PERCH.NOUN,,Perch
 RACE.PIKE.NOUN,,Pike
 RACE.SPIDER,,Spider
@@ -1359,6 +1370,7 @@ ROOMS.STOCKPILE_WITH_GROUP_NAME,,{{stockpileGroupName}} {{roomTypeName}}
 ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
+ROOMS.TRADING_DEPOT,,Trading depot
 
 ROPE.HEMP-ROPE,,Hemp
 ROPE.AGED_ROPE,,Aged
@@ -1436,6 +1448,7 @@ SKIN.BOAR_HIDE,,Boar
 SKIN.DEER_HIDE,,Deer
 SKIN.DWARF_HIDE,,Dwarf
 SKIN.ELEPHANT_HIDE,,Elephant
+SKIN.HORSE_HIDE,,Horse
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl
 STATUS.BLEEDING,,Bleeding

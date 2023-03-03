@@ -1,0 +1,94 @@
+[
+  {
+    "uniqueName": "hitched-south",
+    "rotatesToName": "hitched-west",
+    "extraTiles": [
+      { "x": -1, "y": 0 },
+
+      { "x": -1, "y": -1 },
+      { "x": 0, "y": -1 },
+
+      { "x": -1, "y": -2 },
+      { "x": 0, "y": -2 }
+    ],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 0, "y": -2 }
+      },
+      {
+        "location": { "x": -1, "y": 0 },
+        "accessedFrom": { "x": -1, "y": -2 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "hitched-west",
+    "rotatesToName": "hitched-north",
+    "extraTiles": [
+      { "x": 0, "y": 1 },
+
+      { "x": -1, "y": 0 },
+      { "x": -1, "y": 1 },
+
+      { "x": -2, "y": 0 },
+      { "x": -2, "y": 1 }
+    ],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": -2, "y": 0 }
+      },
+      {
+        "location": { "x": 0, "y": 1 },
+        "accessedFrom": { "x": -2, "y": 1 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "hitched-north",
+    "rotatesToName": "hitched-east",
+    "extraTiles": [
+      { "x": 1, "y": 0 },
+
+      { "x": 1, "y": 1 },
+      { "x": 0, "y": 1 },
+
+      { "x": 1, "y": 2 },
+      { "x": 0, "y": 2 }
+    ],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 0, "y": 2 }
+      },
+      {
+        "location": { "x": 1, "y": 0 },
+        "accessedFrom": { "x": 1, "y": 2 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "hitched-east",
+    "rotatesToName": "hitched-south",
+    "extraTiles": [
+      { "x": 0, "y": -1 },
+
+      { "x": 1, "y": 0 },
+      { "x": 1, "y": -1 },
+
+      { "x": 2, "y": 0 },
+      { "x": 2, "y": -1 }
+    ],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 2, "y": 0 }
+      },
+      {
+        "location": { "x": 0, "y": -1 },
+        "accessedFrom": { "x": 2, "y": -1 }
+      }
+    ]
+  }
+]

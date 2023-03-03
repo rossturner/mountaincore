@@ -11,7 +11,6 @@ import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.saul.entities.components.Faction;
-import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
@@ -103,8 +102,7 @@ public class InvasionGenerator implements GameContextAware {
 				if (!inventoryEntry.getItemType().isStackable()) {
 					inventoryItemAttributes.setItemQuality(pickQuality(participant.getItemQualities()));
 				}
-				Entity inventoryEntity = itemEntityFactory.create(inventoryItemAttributes, null, true, gameContext);
-				inventoryEntity.getComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
+				Entity inventoryEntity = itemEntityFactory.create(inventoryItemAttributes, null, true, gameContext, Faction.HOSTILE_INVASION);
 				inventoryComponent.add(inventoryEntity, invader, messageDispatcher, gameContext.getGameClock());
 			}
 
@@ -178,10 +176,7 @@ public class InvasionGenerator implements GameContextAware {
 		ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(equipmentDescriptor.getItemType(), 1, primaryMaterial);
 		itemAttributes.setItemQuality(quality);
 
-		Entity itemEntity = itemEntityFactory.create(itemAttributes, null, true, gameContext);
-		itemEntity.getComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
-
-		return itemEntity;
+		return itemEntityFactory.create(itemAttributes, null, true, gameContext, Faction.HOSTILE_INVASION);
 	}
 
 	private GameMaterial pickMaterial(GameMaterialType materialType) {

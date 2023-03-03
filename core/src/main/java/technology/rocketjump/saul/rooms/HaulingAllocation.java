@@ -246,6 +246,6 @@ public class HaulingAllocation implements Persistable {
 
 	// Where the allocation is going  to or from
 	public enum AllocationPositionType {
-		ROOM, CONSTRUCTION, FURNITURE, FLOOR, ZONE, CREATURE
+		ROOM, CONSTRUCTION, FURNITURE, FLOOR, ZONE, CREATURE, VEHICLE
 	}
 }

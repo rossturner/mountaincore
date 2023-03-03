@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -35,6 +36,28 @@ public class FurnitureStockpile extends AbstractStockpile implements ChildPersis
 
     @Override
     protected StockpileAllocation findExistingAllocation(Entity entity, TiledMap map, int maxStackSize, int quantityToAllocate) {
+        InventoryComponent parentInventory = parentEntity.getComponent(InventoryComponent.class);
+        if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+            InventoryComponent.InventoryEntry matchingInventoryEntry = parentInventory.findByItemTypeAndMaterial(itemAttributes.getItemType(), itemAttributes.getPrimaryMaterial(), null);
+            if (matchingInventoryEntry != null) {
+                ItemEntityAttributes inventoryItemAttributes = (ItemEntityAttributes) matchingInventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
+                int quantityAssignedToEntry = inventoryItemAttributes.getQuantity();
+                quantityAssignedToEntry += quantityToAllocate;
+                for (StockpileAllocation stockpileAllocation : allocationsByHaulingAllocationId.values()) {
+                    if (stockpileAllocation.getItemType().equals(itemAttributes.getItemType()) &&
+                            stockpileAllocation.getGameMaterial().equals(itemAttributes.getPrimaryMaterial())) {
+                        quantityAssignedToEntry += stockpileAllocation.getIncomingHaulingQuantity();
+                    }
+                }
+
+                if (quantityAssignedToEntry <= maxStackSize) {
+                    StockpileAllocation allocationToUse = new StockpileAllocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+                    allocationToUse.setItemType(inventoryItemAttributes.getItemType());
+                    allocationToUse.setGameMaterial(inventoryItemAttributes.getPrimaryMaterial());
+                    return allocationToUse;
+                }
+            }
+        }
         return null;
     }
 

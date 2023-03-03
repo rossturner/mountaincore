@@ -22,6 +22,7 @@ import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
@@ -162,7 +163,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 			Label draggableMod = new Label(mod.getInfo().getName(), menuSkin, "draggable_mod");
 			draggableMod.setAlignment(Align.center);
-
+			draggableMod.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 			draggableMod.addListener(new ChangeCursorOnHover(draggableMod, GameCursor.REORDER_VERTICAL, messageDispatcher));
 			Label versionLabel = new Label(mod.getInfo().getVersion().toString(), menuSkin, "mod_table_value_label");
 			versionLabel.setAlignment(Align.center);
@@ -175,6 +176,8 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			compatibleLabel.setAlignment(Align.center);
 			Button enabledCheckbox = new Button(menuSkin, "checkbox");
 			enabledCheckbox.setChecked(activeMods.contains(mod));
+			enabledCheckbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+			enabledCheckbox.addListener(new ChangeCursorOnHover(enabledCheckbox, GameCursor.SELECT, messageDispatcher));
 			enabledCheckbox.addListener(new ChangeListener() {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
@@ -186,7 +189,6 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 					orderChanged(modsInOrder);
 				}
 			});
-			enabledCheckbox.addListener(new ChangeCursorOnHover(enabledCheckbox, GameCursor.SELECT, messageDispatcher));
 
 			Button homepageButton = new Button(menuSkin, "btn_homepage");
 
@@ -194,13 +196,14 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 				homepageButton.getColor().a = 0.6f;
 				tooltipFactory.simpleTooltip(homepageButton, "MODS.MISSING_HOMEPAGE_URL", TooltipLocationHint.ABOVE);
 			} else {
+				homepageButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+				homepageButton.addListener(new ChangeCursorOnHover(homepageButton, GameCursor.SELECT, messageDispatcher));
 				homepageButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						Gdx.net.openURI(mod.getInfo().getHomepageUrl());
 					}
 				});
-				homepageButton.addListener(new ChangeCursorOnHover(homepageButton, GameCursor.SELECT, messageDispatcher));
 			}
 
 

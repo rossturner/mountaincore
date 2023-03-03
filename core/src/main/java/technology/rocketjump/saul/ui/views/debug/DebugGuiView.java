@@ -72,6 +72,7 @@ import java.util.stream.IntStream;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
+import static technology.rocketjump.saul.messaging.MessageType.TRIGGER_TRADE_CARAVAN;
 
 /**
  * As this is intended for dev/debug use, it is not translatable or moddable
@@ -304,7 +305,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					}
 
 					ItemEntityAttributes attributes = itemEntityAttributesFactory.createItemAttributes(itemTypeToSpawn, 1, materials);
-					itemEntityFactory.create(attributes, tile.getTilePosition(), true, gameContext);
+					itemEntityFactory.create(attributes, tile.getTilePosition(), true, gameContext, Faction.SETTLEMENT);
 				} else {
 					Logger.warn("Blocked spawning of item in tile that already contains an item");
 				}
@@ -326,7 +327,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 			case SPAWN_VEHICLE: {
 				VehicleEntityAttributes attributes = vehicleEntityAttributesFactory.create(vehicleTypeToSpawn);
-				vehicleEntityFactory.create(attributes, tile.getTilePosition(), gameContext);
+				vehicleEntityFactory.create(attributes, tile.getTilePosition(), gameContext, Faction.SETTLEMENT);
 				break;
 			}
 			case SPAWN_CREATURE:{
@@ -480,6 +481,10 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			case TRIGGER_INVASION: {
 				InvasionDefinition invasionDefinition = new ArrayList<InvasionDefinition>(invasionDefinitionDictionary.getAll()).get(gameContext.getRandom().nextInt(invasionDefinitionDictionary.getAll().size()));
 				messageDispatcher.dispatchMessage(MessageType.TRIGGER_INVASION, invasionDefinition);
+				break;
+			}
+			case TRIGGER_TRADE_CARAVAN: {
+				messageDispatcher.dispatchMessage(TRIGGER_TRADE_CARAVAN);
 				break;
 			}
 			case NONE:

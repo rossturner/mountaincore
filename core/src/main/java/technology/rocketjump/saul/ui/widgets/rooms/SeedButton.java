@@ -7,11 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -25,7 +27,7 @@ public class SeedButton extends Container<Button> {
 	private Runnable onClick;
 
 	public SeedButton(PlantSpecies plantSpecies, Entity seedEntity, Skin skin, TooltipFactory tooltipFactory, MessageDispatcher messageDispatcher,
-					  EntityRenderer entityRenderer, I18nTranslator i18nTranslator) {
+					  EntityRenderer entityRenderer, I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary) {
 		this.plantSpecies = plantSpecies;
 
 		this.backgroundSelectionDrawable = skin.getDrawable("asset_selection_bg_cropped");
@@ -36,6 +38,8 @@ public class SeedButton extends Container<Button> {
 				seedEntity, entityRenderer, true, messageDispatcher
 		).withBackground(itemBackground));
 
+		seedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		seedButton.addListener(new ChangeCursorOnHover(seedButton, GameCursor.SELECT, messageDispatcher));
 		seedButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -45,7 +49,6 @@ public class SeedButton extends Container<Button> {
 				}
 			}
 		});
-		seedButton.addListener(new ChangeCursorOnHover(seedButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(seedButton, i18nTranslator.getDescription(seedEntity).toString(), TooltipLocationHint.ABOVE);
 
 

@@ -8,5 +8,6 @@
   "holdPosition" : "RIGHT_HAND",
   "equippedWhileWorkingOnJob" : false,
   "stockpileGroupName" : "TREASURE",
+  "placementSoundAssetName": "CoinsAllSizes",
   "i18nKey" : "TREASURE.COIN"
 }

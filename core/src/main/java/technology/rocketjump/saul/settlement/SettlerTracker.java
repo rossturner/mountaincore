@@ -28,7 +28,6 @@ import java.util.Map;
 @Singleton
 public class SettlerTracker implements GameContextAware, Telegraph {
 
-	private final Map<Long, Entity> byId = new HashMap<>();
 	private final Map<Long, Entity> livingSettlers = new HashMap<>();
 	private final Map<Long, Entity> deadSettlers = new HashMap<>();
 	private final MessageDispatcher messageDispatcher;
@@ -51,11 +50,9 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 		} else {
 			livingSettlers.put(entity.getId(), entity);
 		}
-		byId.put(entity.getId(), entity);
 	}
 
 	public void settlerRemoved(Entity entity) {
-		byId.remove(entity.getId());
 		livingSettlers.remove(entity.getId());
 		deadSettlers.remove(entity.getId());
 	}
@@ -64,11 +61,6 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 		livingSettlers.remove(entity.getId());
 		deadSettlers.put(entity.getId(), entity);
 	}
-
-	public Collection<Entity> getAll() {
-		return byId.values();
-	}
-
 
 	public Collection<Entity> getLiving() {
 		return livingSettlers.values();
@@ -89,7 +81,6 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 
 	@Override
 	public void clearContextRelatedState() {
-		byId.clear();
 		livingSettlers.clear();
 		deadSettlers.clear();
 	}

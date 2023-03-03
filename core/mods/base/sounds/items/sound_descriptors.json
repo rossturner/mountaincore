@@ -25,5 +25,25 @@
     "minPitch": 0.8,
     "maxPitch": 1.2,
     "volumeModifier": 1
+  },
+  {
+    "name": "PaletteConstruct",
+    "filenames": [
+      "SFX_UI_Object_Palette_Construct.wav"
+    ],
+    "minPitch": 0.8,
+    "maxPitch": 1.2,
+    "volumeModifier": 1
+  },
+  {
+    "name": "CoinsAllSizes",
+    "filenames": [
+      "SFX_UI_Global_Coins_Large.wav",
+      "SFX_UI_Global_Coins_Medium.wav",
+      "SFX_UI_Global_Coins_Small.wav"
+    ],
+    "minPitch": 0.8,
+    "maxPitch": 1.2,
+    "volumeModifier": 1
   }
 ]

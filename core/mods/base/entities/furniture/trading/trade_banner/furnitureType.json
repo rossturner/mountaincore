@@ -1,0 +1,11 @@
+{
+  "name" : "TRADE_BANNER",
+  "i18nKey" : "FURNITURE.TRADE_BANNER",
+  "defaultLayoutName" : "1x1",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 1
+    } ]
+  }
+}

@@ -15,6 +15,7 @@ import technology.rocketjump.saul.entities.components.furniture.DecorationInvent
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
@@ -266,6 +267,14 @@ public class Entity implements Persistable, Disposable {
 		return locationComponent;
 	}
 
+	public LocationComponent getOwnOrVehicleLocationComponent() {
+		Entity vehicle = getContainingVehicle();
+		if (vehicle != null) {
+			return vehicle.getLocationComponent();
+		}
+		return locationComponent;
+	}
+
 	public BehaviourComponent getBehaviourComponent() {
 		return behaviourComponent;
 	}
@@ -285,9 +294,26 @@ public class Entity implements Persistable, Disposable {
 		return statusComponent != null && statusComponent.contains(OnFireStatus.class);
 	}
 
+	public Entity getContainingVehicle() {
+		if (locationComponent.getContainerEntity() != null
+				&& locationComponent.getContainerEntity().getType().equals(EntityType.VEHICLE)) {
+			return locationComponent.getContainerEntity();
+		} else {
+			return null;
+		}
+	}
+
+	public boolean isDrivingVehicle() {
+		Entity vehicleEntity = getContainingVehicle();
+		return vehicleEntity != null && vehicleEntity.getComponent(AttachedEntitiesComponent.class).getAttachedEntities().stream()
+				.anyMatch(a -> a.entity.equals(this) && a.holdPosition.equals(ItemHoldPosition.VEHICLE_DRIVER));
+	}
+
 	public boolean isSettler() {
 		return getBehaviourComponent() instanceof CreatureBehaviour &&
-				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
+				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT) &&
+				(getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) &&
+				attributes.getRace().getBehaviour().getIsSapient();
 	}
 
 	public EntityType getType() {

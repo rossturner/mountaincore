@@ -6,5 +6,7 @@
   "primaryMaterialType" : "VITRIOL",
   "baseValuePerItem": 5,
   "stockpileGroupName" : "PRODUCTS",
-  "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
+  "i18nKey" : "RESOURCE.CRUSHED.VITRIOL",
+  "tradeExportable": true,
+  "tradeImportable": true
 }

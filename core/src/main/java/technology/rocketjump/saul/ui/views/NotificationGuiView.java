@@ -24,11 +24,11 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
 import technology.rocketjump.saul.ui.widgets.NotificationDialog;
 
@@ -49,6 +49,7 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	private Table table;
 	private GameContext gameContext;
 
+	private final ButtonFactory buttonFactory;
 	private final Button invasionInProgressButton;
 	private final Button combatInProgressButton;
 	private int combatSelectionCursor = -1;
@@ -58,13 +59,14 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 
 	@Inject
 	public NotificationGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-	                           GameDialogDictionary gameDialogDictionary,
+							   GameDialogDictionary gameDialogDictionary,
 							   CombatTracker combatTracker, SoundAssetDictionary soundAssetDictionary,
-							   TooltipFactory tooltipFactory) {
+							   TooltipFactory tooltipFactory, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.gameDialogDictionary = gameDialogDictionary;
 		this.combatTracker = combatTracker;
 		this.tooltipFactory = tooltipFactory;
+		this.buttonFactory = buttonFactory;
 		Skin skin = guiSkinRepository.getMainGameSkin();
 		this.openNotificationSound = soundAssetDictionary.getByName("NotificationOpen");
 
@@ -102,6 +104,7 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	@Override
 	public void rebuildUI() {
 		combatInProgressButton.clearListeners();
+		buttonFactory.attachClickCursor(combatInProgressButton, GameCursor.SELECT);
 		combatInProgressButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -112,10 +115,10 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 				}
 			}
 		});
-		combatInProgressButton.addListener(new ChangeCursorOnHover(combatInProgressButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(combatInProgressButton, "GUI.COMBAT_LABEL", TooltipLocationHint.BELOW);
 
 		invasionInProgressButton.clearListeners();
+		buttonFactory.attachClickCursor(invasionInProgressButton, GameCursor.SELECT);
 		invasionInProgressButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -125,7 +128,6 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 				}
 			}
 		});
-		invasionInProgressButton.addListener(new ChangeCursorOnHover(invasionInProgressButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(invasionInProgressButton, "GUI.INVASION_LABEL", TooltipLocationHint.BELOW);
 
 		table.clearChildren();

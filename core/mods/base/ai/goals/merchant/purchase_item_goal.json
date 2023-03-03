@@ -1,0 +1,54 @@
+{
+  "name": "Purchase item as merchant",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "TRADING"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["PlanMerchantPurchase"],
+  "actionRelationships": {
+    "PlanMerchantPurchase": {
+      "pass": ["GoToTradeFurnitureLocation"],
+      "fail": []
+    },
+    "GoToTradeFurnitureLocation": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelTrade"]
+    },
+    "PickUpEntity": {
+      "pass": ["GoToWagonWithItem"],
+      "fail": ["CancelTrade"]
+    },
+    "GoToWagonWithItem": {
+      "pass": ["PlaceEntity"],
+      "fail": ["CancelTrade"]
+    },
+    "PlaceEntity": {
+      "pass": ["GoToPaymentLocation"],
+      "fail": ["CancelTrade"]
+    },
+    "GoToPaymentLocation": {
+      "pass": ["PlacePayment"],
+      "fail": ["GoToRandomLocation"]
+    },
+    "GoToRandomLocation": {
+      "pass": ["PlacePayment"],
+      "fail": ["PlacePayment"]
+    },
+    "PlacePayment": {
+      "pass": ["TradeCompleted", "RequeueThisGoal"],
+      "fail": ["GoToRandomLocation"]
+    },
+    "TradeCompleted": {},
+    "RequeueThisGoal": {},
+    "CancelTrade": {}
+  }
+}

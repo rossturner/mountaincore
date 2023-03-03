@@ -16,7 +16,10 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.model.JobTarget;
 import technology.rocketjump.saul.mapping.model.TiledMap;
-import technology.rocketjump.saul.mapping.tile.*;
+import technology.rocketjump.saul.mapping.tile.CompassDirection;
+import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.mapping.tile.MapVertex;
+import technology.rocketjump.saul.mapping.tile.TileExploration;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -29,7 +32,9 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton

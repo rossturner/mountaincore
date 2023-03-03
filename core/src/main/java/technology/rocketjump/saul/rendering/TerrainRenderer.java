@@ -18,10 +18,8 @@ import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.model.TiledMap;
-import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.MapVertex;
-import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.mapping.tile.floor.BridgeTile;
 import technology.rocketjump.saul.mapping.tile.floor.TileFloor;
 import technology.rocketjump.saul.mapping.tile.layout.TileLayout;
@@ -42,8 +40,9 @@ import technology.rocketjump.saul.sprites.model.BridgeTileLayout;
 import technology.rocketjump.saul.sprites.model.QuadrantSprites;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.rendering.WorldRenderer.CONSTRUCTION_COLOR;
@@ -98,8 +97,8 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 		vertexColorSpriteBatch.begin();
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
-			if (terrainTile.hasFloor()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode, floorSource);
+			if (!terrainTile.hasWall() || terrainTile.getWall().getTrueLayout().getId() != 255) {
+				renderFloor(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode, floorSource);
 			}
 		}
 		vertexColorSpriteBatch.end();
@@ -174,7 +173,7 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
 			if (terrainTile.hasWall()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode, FloorSource.ACTUAL); //todo not sure?
+				renderWall(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
 			}
 		}
 		vertexColorSpriteBatch.end();
@@ -209,8 +208,43 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 		vertexColorSpriteBatch.end();
 	}
 
-	public void render(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode, FloorSource floorSource) {
+	public void renderFloor(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode, FloorSource floorSource) {
+		if (renderMode.equals(RenderMode.DIFFUSE)) {
+			setColor(vertexColorSpriteBatch, mapTile);
+		}
 
+		if (floorSource == FloorSource.ACTUAL) {
+			TileFloor floor = mapTile.getActualFloor();
+			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
+			if (renderMode.equals(RenderMode.DIFFUSE)) {
+				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floor.getVertexColors());
+			} else {
+				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+			}
+		} else if (floorSource == FloorSource.TRANSITORY) {
+			//Overlay transitory floor, like snow covering
+			TileFloor transitoryFloor = mapTile.getTransitoryFloor();
+			if (transitoryFloor != null) {
+				FloorType transitoryFloorType = transitoryFloor.getFloorType();
+
+				Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloorType, mapTile.getSeed());
+				Color[] floorColors = transitoryFloor.getVertexColors();
+				MapVertex[] vertices = gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
+				for (int i = 0; i < 4; i++) {
+					floorColors[i].a = vertices[i].getTransitoryFloorAlpha();
+				}
+
+
+				if (renderMode.equals(RenderMode.DIFFUSE)) {
+					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
+				} else {
+					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+				}
+			}
+		}
+	}
+
+	public void renderWall(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode) {
 		if (mapTile.hasWall()) {
 			Wall wall = mapTile.getWall();
 			renderWall(mapTile.getTileX(), mapTile.getTileY(), wall.getTrueLayout(), mapTile.getSeed(), wall.getWallType(), getWallMaterialColor(mapTile),
@@ -224,40 +258,6 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 					renderWall(mapTile.getTileX(), mapTile.getTileY(), wall.getTrueLayout(), mapTile.getSeed(),
 							oreType.getOverlayWallType(), getWallMaterialColor(mapTile),
 							vertexColorSpriteBatch, spriteCache, renderMode);
-				}
-			}
-		} else {
-			if (renderMode.equals(RenderMode.DIFFUSE)) {
-				setColor(vertexColorSpriteBatch, mapTile);
-			}
-
-			if (floorSource == FloorSource.ACTUAL) {
-				TileFloor floor = mapTile.getActualFloor();
-				Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
-				if (renderMode.equals(RenderMode.DIFFUSE)) {
-					vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floor.getVertexColors());
-				} else {
-					vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
-				}
-			} else if (floorSource == FloorSource.TRANSITORY) {
-				//Overlay transitory floor, like snow covering
-				TileFloor transitoryFloor = mapTile.getTransitoryFloor();
-				if (transitoryFloor != null) {
-					FloorType transitoryFloorType = transitoryFloor.getFloorType();
-
-					Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloorType, mapTile.getSeed());
-					Color[] floorColors = transitoryFloor.getVertexColors();
-					MapVertex[] vertices = gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
-					for (int i = 0; i < 4; i++) {
-						floorColors[i].a = vertices[i].getTransitoryFloorAlpha();
-					}
-
-
-					if (renderMode.equals(RenderMode.DIFFUSE)) {
-						vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
-					} else {
-						vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
-					}
 				}
 			}
 		}

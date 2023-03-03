@@ -59,8 +59,6 @@ public class SelectRetreatLocationAction extends Action {
 			Logger.error("Not yet implemented: " + getSimpleName() + " for creature not part of CreatureGroup");
 			completionType = CompletionType.FAILURE;
 		}
-
-
 	}
 
 	private boolean isAdjacentToMapEdge(GridPoint2 location, GameContext gameContext) {
@@ -70,11 +68,9 @@ public class SelectRetreatLocationAction extends Action {
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		super.writeTo(asJson, savedGameStateHolder);
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		super.readFrom(asJson, savedGameStateHolder, relatedStores);
 	}
 }

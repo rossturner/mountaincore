@@ -40,6 +40,11 @@ public class SelectItemDialog extends GameDialog {
 
 	public SelectItemDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
 	                        TooltipFactory tooltipFactory, List<? extends Option> options, int optionsPerRow) {
+		this(titleText, skin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, optionsPerRow, ClickableSoundsListener.DEFAULT_MENU_CLICK);
+	}
+
+	public SelectItemDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
+	                        TooltipFactory tooltipFactory, List<? extends Option> options, int optionsPerRow, String selectItemClickSound) {
 		super(titleText, skin, messageDispatcher, soundAssetDictionary);
 
 
@@ -66,7 +71,7 @@ public class SelectItemDialog extends GameDialog {
 			});
 
 			innerTable.addListener(new ChangeCursorOnHover(innerTable, GameCursor.SELECT, messageDispatcher));
-			innerTable.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+			innerTable.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, ClickableSoundsListener.DEFAULT_MENU_HOVER, selectItemClickSound));
 			if (option.getTooltipText() != I18nText.BLANK) {
 				tooltipFactory.simpleTooltip(innerTable, option.getTooltipText(), TooltipLocationHint.BELOW);
 			}

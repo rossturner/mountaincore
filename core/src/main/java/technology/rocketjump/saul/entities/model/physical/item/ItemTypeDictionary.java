@@ -38,6 +38,8 @@ public class ItemTypeDictionary {
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
 	private List<ItemType> itemTypesWithWeaponInfo = new ArrayList<>();
+	private List<ItemType> tradeExports = new ArrayList<>();
+	private List<ItemType> tradeImports = new ArrayList<>();
 	private Map<CraftingType, List<ItemType>> byCraftingType = new HashMap<>();
 	private Map<AmmoType, List<ItemType>> byAmmoType = new HashMap<>();
 	private final Map<StockpileGroup, List<ItemType>> byStockpileGroup = new HashMap<>();
@@ -187,6 +189,12 @@ public class ItemTypeDictionary {
 				}
 			}
 		}
+		if (itemType.isTradeExportable()) {
+			tradeExports.add(itemType);
+		}
+		if (itemType.isTradeImportable()) {
+			tradeImports.add(itemType);
+		}
 	}
 
 	public ItemType getByName(String itemTypeName) {
@@ -229,4 +237,11 @@ public class ItemTypeDictionary {
 		return byAmmoType.getOrDefault(ammoType, List.of());
 	}
 
+	public List<ItemType> getTradeExports() {
+		return tradeExports;
+	}
+
+	public List<ItemType> getTradeImports() {
+		return tradeImports;
+	}
 }

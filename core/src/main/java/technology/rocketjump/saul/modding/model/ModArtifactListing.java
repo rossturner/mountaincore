@@ -45,6 +45,7 @@ import technology.rocketjump.saul.modding.validation.*;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.settlement.trading.model.TradeCaravanDefinition;
 import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.hints.model.Hint;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
@@ -108,6 +109,8 @@ public class ModArtifactListing {
 						"definitions/types", "jobTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions", "skills.json", JSON_ARRAY, Skill.class,
 						"definitions/types", "skills", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
+				def("definitions", "tradeCaravan.json", JSON_OBJECT, TradeCaravanDefinition.class,
+						"definitions", "tradeCaravans", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions", "weatherTypes.json", JSON_ARRAY, WeatherType.class,
 						"definitions", "weatherTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 
@@ -143,7 +146,7 @@ public class ModArtifactListing {
 						"definitions/creatureColorSwatches", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class, UniqueFilenames.class),
 				def("entities/creature", "**/race.json", JSON_OBJECT, Race.class,
 						"definitions/types", "races", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
-				def("entities/furniture", "furnitureLayouts.json", JSON_ARRAY, FurnitureLayout.class,
+				def("entities/furniture", "**/furnitureLayouts.json", JSON_ARRAY, FurnitureLayout.class,
 						"definitions/types", "furnitureLayouts", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("entities/furniture", "**/furnitureType.json", JSON_OBJECT, FurnitureType.class,
 						"definitions/types", "furnitureTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),

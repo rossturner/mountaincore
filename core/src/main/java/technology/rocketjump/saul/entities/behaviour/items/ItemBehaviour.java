@@ -5,6 +5,8 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
@@ -75,7 +77,7 @@ public class ItemBehaviour implements BehaviourComponent {
 		ItemAllocationComponent itemAllocationComponent = parentEntity.getComponent(ItemAllocationComponent.class);
 		Vector2 worldPosition = locationComponent.getWorldPosition();
 
-		if (itemAllocationComponent.getNumUnallocated() > 0) {
+		if (itemAllocationComponent.getNumUnallocated() > 0 && parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND)) {
 				// This should haul to a stockpile or to a higher priority stockpile
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));

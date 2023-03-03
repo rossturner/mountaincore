@@ -7,6 +7,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -51,7 +52,13 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 	}
 
 	public void remove(Entity removedEntity) {
-		attachedEntities.removeIf(attachedEntity -> attachedEntity.entity.getId() == removedEntity.getId());
+		if (attachedEntities.removeIf(attachedEntity -> attachedEntity.entity.getId() == removedEntity.getId())) {
+			removedEntity.getLocationComponent().setContainerEntity(null);
+		}
+	}
+
+	public void destroyAllEntities(MessageDispatcher messageDispatcher) {
+		attachedEntities.stream().map(a -> a.entity).toList().forEach(e -> messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY, e));
 	}
 
 	@Override

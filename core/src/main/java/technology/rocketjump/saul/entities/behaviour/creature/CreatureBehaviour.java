@@ -84,7 +84,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
 		this.gameContext = gameContext;
-		steeringComponent.init(parentEntity, gameContext.getAreaMap(), parentEntity.getLocationComponent(), messageDispatcher);
+		steeringComponent.init(parentEntity, gameContext.getAreaMap(), messageDispatcher);
 		combatBehaviour.init(parentEntity, messageDispatcher, gameContext);
 
 		if (currentGoal != null) {
@@ -228,6 +228,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	protected AssignedGoal pickNextGoalFromQueue() throws EnteringCombatException {
+		if (inVehicleAndNotDriving()) {
+			return doNothingGoal(parentEntity, messageDispatcher, gameContext);
+		}
+
 		if (parentEntity.isOnFire()) {
 			return onFireGoal(parentEntity, messageDispatcher, gameContext);
 		}
@@ -274,6 +278,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 		if (creatureGroup != null && creatureGroup instanceof InvasionCreatureGroup invasionCreatureGroup) {
 			SpecialGoal specialGoal = invasionCreatureGroup.popSpecialGoal();
+			if (specialGoal != null) {
+				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
+			}
+		} else if (creatureGroup != null && creatureGroup instanceof TraderCreatureGroup traderCreatureGroup) {
+			SpecialGoal specialGoal = traderCreatureGroup.popSpecialGoal();
 			if (specialGoal != null) {
 				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
 			}
@@ -434,7 +443,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 
-	//TODO: what if some creatures don't stun
+	private boolean inVehicleAndNotDriving() {
+		return parentEntity.getContainingVehicle() != null && !parentEntity.isDrivingVehicle();
+	}
+
 	public void applyStun(Random random) {
 		this.stunTime = 1f + (random.nextFloat() * 3f);
 	}
@@ -447,7 +459,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
-			return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
+			if (squad != null) {
+				return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
+			}
 		}
 		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
 			return attributes.getRace().getBehaviour().getSchedule();

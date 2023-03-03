@@ -8,10 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.entities.components.ItemAllocation;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.LiquidAllocation;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -420,7 +417,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			attributes.setQuantity(1);
 		}
 
-		Entity item = itemEntityFactory.create(attributes, null, message.isAddToGameContext(), gameContext);
+		Entity item = itemEntityFactory.create(attributes, null, message.isAddToGameContext(), gameContext, Faction.SETTLEMENT);
 		message.getCallback().entityCreated(item);
 		return true;
 	}

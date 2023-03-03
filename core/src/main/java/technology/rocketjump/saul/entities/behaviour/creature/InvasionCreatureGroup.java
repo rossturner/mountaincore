@@ -36,10 +36,8 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		if (lastUpdateGameTime == 0) {
 			lastUpdateGameTime = now;
 		}
-
 		double elapsed = now - lastUpdateGameTime;
 		lastUpdateGameTime = now;
-
 		hoursInCurrentStage += elapsed;
 
 		if (invasionStage.equals(InvasionStage.RAIDING) && victoryPointsEarned >= victoryPointsTarget) {

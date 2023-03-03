@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -34,17 +35,19 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 	private boolean displayed;
 	private Construction selectedConstruction;
 	private final ConstructionRequirementsWidget constructionRequirementsWidget;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	@Inject
 	public ConstructionSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer interactionStateContainer,
 									   MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, I18nTranslator i18nTranslator,
-									   ConstructionRequirementsWidget constructionRequirementsWidget) {
+									   ConstructionRequirementsWidget constructionRequirementsWidget, SoundAssetDictionary soundAssetDictionary) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.interactionStateContainer = interactionStateContainer;
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		this.i18nTranslator = i18nTranslator;
 		this.constructionRequirementsWidget = constructionRequirementsWidget;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
@@ -83,7 +86,7 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 		updateDescriptionTable();
 		mainTable.add(descriptionTable).growX().row();
 
-		mainTable.add(new ConstructionPriorityWidget(selectedConstruction, skin, tooltipFactory, messageDispatcher)).center().row();
+		mainTable.add(new ConstructionPriorityWidget(selectedConstruction, skin, tooltipFactory, messageDispatcher, soundAssetDictionary)).center().row();
 
 		constructionRequirementsWidget.setSelectedConstruction(selectedConstruction);
 		mainTable.add(constructionRequirementsWidget).padBottom(40).center().row();

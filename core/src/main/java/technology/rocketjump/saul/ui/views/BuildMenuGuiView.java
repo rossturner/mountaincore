@@ -33,12 +33,12 @@ import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 
@@ -73,6 +73,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final BridgeTypeDictionary bridgeTypeDictionary;
 	private final EntityRenderer entityRenderer;
 	private final RoomEditorFurnitureMap furnitureMap;
+	private final ButtonFactory buttonFactory;
 	private boolean displayed;
 
 	private BuildMenuSelection currentSelection;
@@ -84,7 +85,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 							FurnitureRequirementsWidget furnitureRequirementsWidget,
 							GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary,
 							WallTypeDictionary wallTypeDictionary, BridgeTypeDictionary bridgeTypeDictionary,
-							FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
+							FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap,
+							ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -97,6 +99,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		this.bridgeTypeDictionary = bridgeTypeDictionary;
 		this.entityRenderer = entityRenderer;
 		this.furnitureMap = furnitureMap;
+		this.buttonFactory = buttonFactory;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -131,13 +134,14 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			return;
 		}
 		backButton.clearListeners();
+		buttonFactory.attachClickCursor(backButton, GameCursor.SELECT);
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 			}
 		});
-		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
+
 		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable.clearChildren();
@@ -314,6 +318,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
 		).withBackground(background));
 		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
+		buttonFactory.attachClickCursor(furnitureButton, GameCursor.SELECT);
 		furnitureButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -324,7 +329,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
 			}
 		});
-		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 		buttonContainer.setActor(furnitureButton);
@@ -349,7 +353,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			}
 		}
 		buttonContainer.size(183, 183);
-		fakeFurnitureButton.addListener(new ChangeCursorOnHover(fakeFurnitureButton, GameCursor.SELECT, messageDispatcher));
 
 		buttonContainer.setActor(fakeFurnitureButton);
 		return buttonContainer;
@@ -365,6 +368,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				).withBackground(background);
 				entityDrawable.setScreenPositionOffset(0, 64);
 				Button furnitureButton = new Button(entityDrawable);
+				buttonFactory.attachClickCursor(furnitureButton, GameCursor.SELECT);
 				furnitureButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -398,7 +402,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
 				}
 				image.setColor(material.getColor());
-
+				buttonFactory.attachClickCursor(image, GameCursor.SELECT);
 				image.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -444,7 +448,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
 				}
 				image.setColor(material.getColor());
-
+				buttonFactory.attachClickCursor(image, GameCursor.SELECT);
 				image.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -490,7 +494,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
 				}
 				image.setColor(material.getColor());
-
+				buttonFactory.attachClickCursor(image, GameCursor.SELECT);
 				image.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -580,6 +584,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			floorMaterial = interactionStateContainer.getFloorMaterialSelection().selectedMaterial;
 		}
 		flooringButton.setColor(floorMaterial.getColor());
+		buttonFactory.attachClickCursor(flooringButton, GameCursor.SELECT);
 		flooringButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -588,7 +593,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				rebuildUI();
 			}
 		});
-		flooringButton.addListener(new ChangeCursorOnHover(flooringButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(flooringButton, floorType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 		Container<Image> container = new Container<>();
@@ -639,13 +643,13 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		}
 		deconstructContainer.pad(18);
 		Button deconstructButton = new Button(skin.getDrawable("btn_demolish_small"));
+		buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
 		deconstructButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DECONSTRUCT);
 			}
 		});
-		deconstructButton.addListener(new ChangeCursorOnHover(deconstructContainer, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
 		deconstructContainer.setActor(deconstructButton);
 		cancelDeconstructButtons.add(deconstructContainer);
@@ -656,13 +660,13 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		}
 		cancelContainer.pad(18);
 		Button cancelButton = new Button(skin.getDrawable("btn_cancel_small"));
+		buttonFactory.attachClickCursor(cancelButton, GameCursor.SELECT);
 		cancelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL);
 			}
 		});
-		cancelButton.addListener(new ChangeCursorOnHover(cancelContainer, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(cancelButton, "GUI.CANCEL_LABEL", TooltipLocationHint.ABOVE);
 		cancelContainer.setActor(cancelButton);
 		cancelDeconstructButtons.add(cancelContainer).padRight(20);

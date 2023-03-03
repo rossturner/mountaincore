@@ -71,7 +71,7 @@ public class FurnitureEntityMessageHandler implements GameContextAware, Telegrap
 		this.gameMaterialDictionary = gameMaterialDictionary;
 
 		// FIXME this is also duplicated in ConstructionMessageHandler
-		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
+		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("PaletteConstruct")); // MODDING Expose this
 		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
 
 		messageDispatcher.addListener(this, MessageType.LOOKUP_FURNITURE_TYPE);

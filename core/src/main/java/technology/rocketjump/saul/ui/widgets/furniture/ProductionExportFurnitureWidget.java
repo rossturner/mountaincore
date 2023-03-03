@@ -13,10 +13,12 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.furniture.TradingImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -30,6 +32,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
@@ -40,9 +43,12 @@ import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Singleton
 public class ProductionExportFurnitureWidget extends Table implements DisplaysText, GameContextAware {
@@ -58,6 +64,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final CraftingRecipeDictionary craftingRecipeDictionary;
 	private final GuiSkinRepository guiSkinRepository;
+	private final ItemTypeDictionary itemTypeDictionary;
 
 	private final Container<Button> buttonContainer = new Container<>();
 	private final Drawable noneSelectedDrawable;
@@ -79,7 +86,8 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 										   GameMaterialDictionary gameMaterialDictionary, EntityRenderer entityRenderer,
 										   I18nTranslator i18nTranslator,
 										   SoundAssetDictionary soundAssetDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-										   CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary) {
+										   CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary,
+										   ItemTypeDictionary itemTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.guiSkinRepository = guiSkinRepository;
 		this.tooltipFactory = tooltipFactory;
@@ -93,6 +101,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		this.craftingRecipeDictionary = craftingRecipeDictionary;
 
 		skin = guiSkinRepository.getMainGameSkin();
+		this.itemTypeDictionary = itemTypeDictionary;
 
 		backgroundDrawable = skin.getDrawable("asset_bg");
 		buttonContainer.setBackground(backgroundDrawable);
@@ -149,13 +158,14 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			tooltipFactory.simpleTooltip(button, selectedItemType.getI18nKey(), TooltipLocationHint.ABOVE);
 		}
 
+		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				ProductionExportFurnitureWidget.this.onClickItemType();
 			}
 		});
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		buttonContainer.setActor(button);
 
 		this.add(buttonContainer).center().row();
@@ -163,27 +173,32 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		leftButton.clearListeners();
 		rightButton.clearListeners();
 		if (availableMaterials.size() > 1) {
+			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			leftButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					previousMaterialSelection();
 				}
 			});
-			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
 			leftButton.setDisabled(false);
+			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			rightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					nextMaterialSelection();
 				}
 			});
-			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
 			rightButton.setDisabled(false);
 		} else {
 			leftButton.setDisabled(true);
 			rightButton.setDisabled(true);
 		}
 
+		if (availableMaterials.size() == 1) {
+			productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+		}
 		GameMaterial selectedMaterial = productionExportBehaviour.getSelectedMaterial();
 		String materialI18nKey = selectedMaterial == null ? "MATERIAL_TYPE.ANY" : selectedMaterial.getI18nKey();
 		Label materialLabel = new Label(i18nTranslator.getTranslatedString(materialI18nKey).toString(), skin.get("default-red", Label.LabelStyle.class));
@@ -200,34 +215,21 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		if (selectedItemType == null) {
 			availableMaterials.add(0, null);
 		} else {
-			MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
-			if (tile == null || tile.getRoomTile() == null) {
-				Logger.error("No room tile found under furniture entity {}", furnitureEntity);
-				return;
-			}
-			RoomType currentRoomType = tile.getRoomTile().getRoom().getRoomType();
+			List<GameMaterial> specifiedMaterials = selectedItemType.getSpecificallyAllowedMaterials(craftingRecipeDictionary);
 
-			Set<GameMaterial> specificAllowedMaterials = currentRoomType.getFurnitureNames().stream()
-					.map(furnitureTypeDictionary::getByName)
-					.flatMap(f -> f.getProcessedTags().stream())
-					.filter(t -> t instanceof CraftingStationBehaviourTag)
-					.map(t -> (CraftingStationBehaviourTag) t)
-					.map(c -> c.getCraftingType(craftingTypeDictionary))
-					.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
-					.map(CraftingRecipe::getOutput)
-					.filter(o -> selectedItemType.equals(o.getItemType()))
-					.map(QuantifiedItemTypeWithMaterial::getMaterial)
-					.filter(Objects::nonNull)
-					.collect(Collectors.toSet());
-
-			if (specificAllowedMaterials.isEmpty()) {
+			if (specifiedMaterials.isEmpty() || specifiedMaterials.contains(null)) {
 				availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()).stream()
 						.filter(m -> !m.isHiddenFromUI()).toList());
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				availableMaterials.add(0, null);
+				if (availableMaterials.size() > 1) {
+					availableMaterials.add(0, null);
+				}
 			} else {
-				availableMaterials.addAll(specificAllowedMaterials);
+				availableMaterials.addAll(specifiedMaterials);
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
+				if (availableMaterials.size() > 1) {
+					availableMaterials.add(0, null);
+				}
 				if (!availableMaterials.contains(productionExportBehaviour.getSelectedMaterial())) {
 					productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
 				}
@@ -267,18 +269,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		}
 		RoomType currentRoomType = tile.getRoomTile().getRoom().getRoomType();
 
-		List<ItemType> craftingOutputItems = currentRoomType.getFurnitureNames().stream()
-				.map(furnitureTypeDictionary::getByName)
-				.flatMap(f -> f.getProcessedTags().stream())
-				.filter(t -> t instanceof CraftingStationBehaviourTag)
-				.map(t -> (CraftingStationBehaviourTag) t)
-				.map(c -> c.getCraftingType(craftingTypeDictionary))
-				.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
-				.map(r -> r.getOutput().getItemType())
-				.filter(Objects::nonNull)
-				.collect(Collectors.toSet()).stream()
-				.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
-				.toList();
+		List<ItemType> craftingOutputItems = getSelectableItemTypes(currentRoomType);
 
 		List<SelectItemDialog.Option> options = new ArrayList<>();
 		craftingOutputItems.forEach(itemType -> {
@@ -306,11 +297,40 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			}
 		});
 
-		SelectItemDialog selectItemDialog = new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE"),
+		String key = furnitureEntity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour ? "GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE" : "GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE";
+		SelectItemDialog selectItemDialog = new SelectItemDialog(i18nTranslator.getTranslatedString(key),
 				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options, SelectItemDialog.ITEMS_PER_ROW);
 		selectItemDialog.getContentTable().padLeft(60);
 		selectItemDialog.setShowWithAnimation(false);
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, selectItemDialog);
+	}
+
+	private List<ItemType> getSelectableItemTypes(RoomType currentRoomType) {
+		if (furnitureEntity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour) {
+			return Stream.concat(
+						craftingRecipeDictionary.getAll().stream()
+								.map(CraftingRecipe::getOutput)
+								.map(QuantifiedItemTypeWithMaterial::getItemType)
+								.filter(Objects::nonNull),
+						itemTypeDictionary.getTradeImports().stream()
+					)
+					.collect(Collectors.toSet()).stream()
+					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
+					.toList();
+		} else {
+			return currentRoomType.getFurnitureNames().stream()
+					.map(furnitureTypeDictionary::getByName)
+					.flatMap(f -> f.getProcessedTags().stream())
+					.filter(t -> t instanceof CraftingStationBehaviourTag)
+					.map(t -> (CraftingStationBehaviourTag) t)
+					.map(c -> c.getCraftingType(craftingTypeDictionary))
+					.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
+					.map(r -> r.getOutput().getItemType())
+					.filter(Objects::nonNull)
+					.collect(Collectors.toSet()).stream()
+					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
+					.toList();
+		}
 	}
 
 	@Override

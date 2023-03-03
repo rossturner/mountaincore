@@ -257,4 +257,8 @@ public class AssignedGoalFactory {
 		return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
 	}
 
+	public static AssignedGoal doNothingGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		return new AssignedGoal(DO_NOTHING.getInstance(), parentEntity, messageDispatcher);
+	}
+
 }

@@ -111,6 +111,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	private final JobStore jobStore;
 	private final GameMaterialDictionary materialDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final VehicleTracker vehicleTracker;
 	private final SoundAsset treeFallSoundEffect;
 	private GameContext gameContext;
 	private ParticleEffectType leafExplosionParticleType;
@@ -118,6 +119,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	private ParticleEffectType treeShedLeafEffect;
 	private ParticleEffectType liquidSplashEffect;
 	private ParticleEffectType deconstructParticleEffect;
+	private SoundAsset poofSoundAsset;
 	private Designation deconstructDesignation;
 
 	@Inject
@@ -128,7 +130,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
 								ItemTypeDictionary itemTypeDictionary, I18nTranslator i18nTranslator, JobStore jobStore,
 								GameMaterialDictionary materialDictionary, SoundAssetDictionary soundAssetDictionary,
-								ParticleEffectTypeDictionary particleEffectTypeDictionary, DesignationDictionary designationDictionary) {
+								VehicleTracker vehicleTracker, ParticleEffectTypeDictionary particleEffectTypeDictionary, DesignationDictionary designationDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetUpdater = entityAssetUpdater;
 		this.jobFactory = jobFactory;
@@ -146,6 +148,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		this.jobStore = jobStore;
 		this.materialDictionary = materialDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.vehicleTracker = vehicleTracker;
 		this.deconstructDesignation = designationDictionary.getByName("DECONSTRUCT");
 
 
@@ -154,6 +157,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		treeShedLeafEffect = particleEffectTypeDictionary.getByName("Falling leaf");
 		liquidSplashEffect = particleEffectTypeDictionary.getByName("Liquid splash");
 		deconstructParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above");
+		poofSoundAsset = soundAssetDictionary.getByName("Poof");
 		this.treeFallSoundEffect = this.soundAssetDictionary.getByName("Mining Drop");
 
 		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY);
@@ -215,6 +219,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					settlementFurnitureTracker.furnitureAdded(createdEntity);
 				} else if (createdEntity.getType().equals(ONGOING_EFFECT)) {
 					ongoingEffectTracker.entityAdded(createdEntity);
+				} else if (createdEntity.getType().equals(VEHICLE)) {
+					vehicleTracker.vehicleAdded(createdEntity);
 				}
 
 				return true;
@@ -243,6 +249,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					return true;
 				}
 
+				AttachedEntitiesComponent attachedEntitiesComponent = entity.getComponent(AttachedEntitiesComponent.class);
+				if (attachedEntitiesComponent != null) {
+					attachedEntitiesComponent.destroyAllEntities(messageDispatcher);
+				}
 				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 				if (inventoryComponent != null) {
 					inventoryComponent.destroyAllEntities(messageDispatcher);
@@ -269,6 +279,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						settlementFurnitureTracker.furnitureRemoved(removedEntity);
 					} else if (removedEntity.getType().equals(ONGOING_EFFECT)) {
 						ongoingEffectTracker.entityRemoved(removedEntity);
+					} else if (removedEntity.getType().equals(VEHICLE)) {
+						vehicleTracker.vehicleRemoved(removedEntity);
 					} else if (removedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 						if (removedEntity.isSettler()) {
 							settlerTracker.settlerRemoved(removedEntity);
@@ -447,7 +459,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					if (constructedEntityComponent.isAutoConstructed()) {
 						// FIXME This and its shared usage would be better dealt with by a ACTUALLY_DO_THE_DECONSTRUCT type message
 						deconstructFurniture(entity, entityTile, messageDispatcher, gameContext, itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory,
-								deconstructParticleEffect);
+								deconstructParticleEffect, poofSoundAsset);
 					} else if (!constructedEntityComponent.isBeingDeconstructed()) {
 						Job deconstructionJob = jobFactory.deconstructionJob(entityTile);
 						if (deconstructionJob != null) {
@@ -544,7 +556,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								} else if (
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour ||
-										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour
 								) {
 									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
 								} else {
@@ -826,7 +840,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		historyComponent.setDeathReason(deathReason);
 
-		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+		if (attributes.getRace().getBehaviour().getIsSapient() && deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition, new Selectable(deceased, 0));
 			deathNotification.addTextReplacement("character", i18nTranslator.getDescription(deceased));
 			deathNotification.addTextReplacement("reason", i18nTranslator.getDictionary().getWord(deathReason.getI18nKey()));
@@ -861,16 +875,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		removeFromSquadOrders(deceased);
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
-			boolean allDead = true;
-			for (Entity settler : settlerTracker.getAll()) {
-				CreatureEntityAttributes otherSettlerAttributes = (CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes();
-				if (!otherSettlerAttributes.getConsciousness().equals(DEAD)) {
-					allDead = false;
-					break;
-				}
-			}
-
-			if (allDead) {
+			if (settlerTracker.getLiving().isEmpty()) {
 				Notification gameOverNotification = new Notification(NotificationType.GAME_OVER, null, null);
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, gameOverNotification);
 				gameContext.getSettlementState().setGameState(GameState.GAME_OVER);

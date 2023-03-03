@@ -430,7 +430,11 @@ public class EntityAssetUpdater implements GameContextAware {
 		}
 
 		for (AttachedEntity attachedEntity : entity.getAttachedEntities()) {
-			attachedTags.addAll(findAttachedTags(attachedEntity.entity));
+			for (Tag attachedTag : findAttachedTags(attachedEntity.entity)) {
+				if (attachedTag.appliesToParentEntity()) {
+					attachedTags.add(attachedTag);
+				}
+			}
 		}
 
 		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();

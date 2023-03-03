@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -108,7 +109,7 @@ public class SettlerFactory {
 		InventoryComponent inventoryComponent = settler.getOrCreateComponent(InventoryComponent.class);
 
 		ItemType rationItemType = itemTypeDictionary.getByName("Product-Ration");
-		Entity rationItem = itemEntityFactory.createByItemType(rationItemType, gameContext, true);
+		Entity rationItem = itemEntityFactory.createByItemType(rationItemType, gameContext, true, Faction.SETTLEMENT);
 		ItemEntityAttributes attributes = (ItemEntityAttributes) rationItem.getPhysicalEntityComponent().getAttributes();
 		attributes.setQuantity(50);
 		GameMaterial oldPrimaryMaterial = attributes.getPrimaryMaterial();

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.environment.WeatherTypeDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.environment.model.Season;
@@ -21,6 +22,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -35,6 +37,7 @@ import java.util.Map;
 public class TimeDateWidget extends Container<Table> implements Telegraph, GameContextAware, DisplaysText {
 
 	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
 
 	private final Table layoutTable = new Table();
@@ -58,10 +61,11 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 	@Inject
 	public TimeDateWidget(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, WeatherTypeDictionary weatherTypeDictionary,
-						  MessageDispatcher messageDispatcher) {
+						  MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		this.i18nTranslator = i18nTranslator;
 		this.messageDispatcher = messageDispatcher;
 		this.mainGameSkin = skinRepository.getMainGameSkin();
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		Drawable background = mainGameSkin.getDrawable("info_box_bg");
 		this.setBackground(background);
@@ -121,13 +125,15 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
 			Button speedButton = new Button(mainGameSkin, "game-speed-"+gameSpeed.name().toLowerCase());
+			speedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "MediumHover", "ConfirmMedium"));
+			speedButton.addListener(new ChangeCursorOnHover(speedButton, GameCursor.SELECT, messageDispatcher));
 			speedButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, gameSpeed);
 				}
 			});
-			speedButton.addListener(new ChangeCursorOnHover(speedButton, GameCursor.SELECT, messageDispatcher));
+
 			Cell<Button> cell = gameSpeedControlsTable.add(speedButton);
 			if (gameSpeed.equals(GameSpeed.PAUSED)) {
 				cell.padLeft(0);

@@ -28,10 +28,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.misc.Destructible;
-import technology.rocketjump.saul.settlement.CreatureTracker;
-import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
-import technology.rocketjump.saul.settlement.SettlementItemTracker;
-import technology.rocketjump.saul.settlement.SettlerTracker;
+import technology.rocketjump.saul.settlement.*;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -60,6 +57,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final SettlementItemTracker settlementItemTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
+	private final VehicleTracker vehicleTracker;
 	private final CombatTracker combatTracker;
 	private final ConstantsRepo constantsRepo;
 
@@ -69,7 +67,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   SettlementFurnitureTracker settlementFurnitureTracker,
 					   SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
-					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
+					   VehicleTracker vehicleTracker, CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
@@ -79,6 +77,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		this.settlementItemTracker = settlementItemTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
+		this.vehicleTracker = vehicleTracker;
 		this.combatTracker = combatTracker;
 		this.constantsRepo = constantsRepo;
 	}
@@ -229,7 +228,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 			// Check to see if we should merge into an existing item
 			Entity matchingItem = tile.getItemMatching(itemEntityAttributes);
 			if (matchingItem == null) {
-				itemEntityFactory.create(itemEntityAttributes, worldPosition, true, this.gameContext);
+				itemEntityFactory.create(itemEntityAttributes, worldPosition, true, this.gameContext, Faction.SETTLEMENT);
 			} else {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) matchingItem.getPhysicalEntityComponent().getAttributes();
 				attributes.setQuantity(attributes.getQuantity() + itemEntityAttributes.getQuantity());
@@ -282,7 +281,6 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 						}
 						break;
 					case CREATURE:
-
 						if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 								settlerTracker.settlerDied(entity);
@@ -290,12 +288,15 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 								creatureTracker.creatureDied(entity);
 							}
 						} else {
-							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+							if (entity.isSettler()) {
 								settlerTracker.settlerAdded(entity);
-								for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
-									add(inventoryEntry.entity);
-									if (inventoryEntry.entity.getType().equals(ITEM)) {
-										settlementItemTracker.itemAdded(inventoryEntry.entity);
+								InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+								if (inventoryComponent != null) {
+									for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+										add(inventoryEntry.entity);
+										if (inventoryEntry.entity.getType().equals(ITEM)) {
+											settlementItemTracker.itemAdded(inventoryEntry.entity);
+										}
 									}
 								}
 								HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
@@ -309,7 +310,9 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 								creatureTracker.creatureAdded(entity);
 							}
 						}
-
+						break;
+					case VEHICLE:
+						vehicleTracker.vehicleAdded(entity);
 						break;
 				}
 			}

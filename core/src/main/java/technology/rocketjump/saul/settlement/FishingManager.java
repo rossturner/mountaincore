@@ -112,7 +112,7 @@ public class FishingManager implements Updatable, Telegraph {
 		}
 
 		Entity fisherSettler = null;
-		for (Entity entity : settlerTracker.getAll()) {
+		for (Entity entity : settlerTracker.getLiving()) {
 			SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
 			if (skillsComponent != null) {
 				if (skillsComponent.hasActiveProfession(fishingProfession)) {

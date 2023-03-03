@@ -45,6 +45,7 @@ import static technology.rocketjump.saul.entities.ai.goap.actions.Action.Complet
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.CARRIED_DEAD_BODY;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.VEHICLE;
 
 public class PickUpEntityAction extends Action implements EntityCreatedCallback {
 	public PickUpEntityAction(AssignedGoal parent) {
@@ -185,7 +186,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 				return;
 			}
 			entityToPickUp = createItemFromEntireFurniture(sourceEntity, parent.messageDispatcher, gameContext);
-		} else if (FURNITURE.equals(haulingAllocation.getSourcePositionType())) {
+		} else if (FURNITURE.equals(haulingAllocation.getSourcePositionType()) || VEHICLE.equals(haulingAllocation.getSourcePositionType())) {
 			containerEntity = sourcePositionTile.getEntity(haulingAllocation.getSourceContainerId());
 			if (containerEntity == null) {
 				Logger.error("Could not find container entity to pick up item from");
@@ -201,7 +202,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			entityToPickUp = currentTile.getEntity(haulingAllocation.getHauledEntityId());
 		}
 
-		if (entityToPickUp == null) {
+		if (entityToPickUp == null || currentTile == null) {
 			completionType = FAILURE;
 		} else if (haulingAllocation.getHauledEntityType().equals(EntityType.CREATURE)) {
 			pickUpCreatureEntity(entityToPickUp, gameContext);
@@ -245,7 +246,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 		}
 	}
 
-	private void pickUpItemEntity(GameContext gameContext, MapTile currentTile, Entity entityToPickUp, ItemAllocation itemAllocation) {
+	protected void pickUpItemEntity(GameContext gameContext, MapTile currentTile, Entity entityToPickUp, ItemAllocation itemAllocation) {
 		int quantityToPick = itemAllocation.getAllocationAmount();
 
 		ItemEntityAttributes targetItemAttributes = (ItemEntityAttributes) entityToPickUp.getPhysicalEntityComponent().getAttributes();
@@ -263,11 +264,11 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
 			pickedUpItem.getLocationComponent().clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
-			pickedUpItem.getComponent(FactionComponent.class).setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
+			FactionComponent itemFactionComponent = pickedUpItem.getComponent(FactionComponent.class);
+			itemFactionComponent.setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 
 			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);
-
 
 			// Need to do this before adding to inventory, as it may be destroyed if added to an existing inventory item
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, pickedUpItem);
@@ -276,7 +277,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			if (parent.getParentGoal() != null) {
 				parentGoal = parent.getParentGoal();
 			}
-			if (parentGoal.getAssignedJob() != null && (parentGoal.getAssignedJob().getType().isHaulItemWhileWorking())) {
+			if (isHaulWhileWorkingJob(parentGoal) || isItemBeingTraded(entityToPickUp, parentGoal)) {
 				HaulingComponent haulingComponent = parent.parentEntity.getOrCreateComponent(HaulingComponent.class);
 				haulingComponent.setHauledEntity(pickedUpItem, parent.messageDispatcher, parent.parentEntity);
 			} else {
@@ -305,6 +306,14 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 
 			completionType = SUCCESS;
 		}
+	}
+
+	private static boolean isItemBeingTraded(Entity itemEntity, AssignedGoal parentGoal) {
+		return parentGoal.getPlannedTrade() != null && parentGoal.getPlannedTrade().getHaulingAllocation().getItemAllocation().getTargetItemEntityId() == itemEntity.getId();
+	}
+
+	private static boolean isHaulWhileWorkingJob(AssignedGoal parentGoal) {
+		return parentGoal.getAssignedJob() != null && (parentGoal.getAssignedJob().getType().isHaulItemWhileWorking());
 	}
 
 	private void updateSpecificAssignments(long oldId, long newId) {

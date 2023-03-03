@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
@@ -64,7 +65,7 @@ public class HaulingAllocationTest {
 		messageDispatcher = injector.getInstance(MessageDispatcher.class);
 		itemEntityMessageHandler = injector.getInstance(ItemEntityMessageHandler.class);
 
-		itemEntity = itemEntityFactory.createByItemType(itemTypeDictionary.getByName("Ingredient-Vegetable-Crate"), gameContext, true);
+		itemEntity = itemEntityFactory.createByItemType(itemTypeDictionary.getByName("Ingredient-Vegetable-Crate"), gameContext, true, Faction.SETTLEMENT);
 		attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
 
 	}

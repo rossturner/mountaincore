@@ -7,7 +7,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -22,25 +22,25 @@ import static technology.rocketjump.saul.entities.ai.goap.actions.Action.Complet
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
-public class SelectInvasionCampLocationAction extends Action {
+public class MoveGroupHomeTowardSettlersAction extends Action {
 
 	private static final int RANGE = 8;
 
-	public SelectInvasionCampLocationAction(AssignedGoal parent) {
+	public MoveGroupHomeTowardSettlersAction(AssignedGoal parent) {
 		super(parent);
 	}
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
-				creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
-			MapTile currentHomeTile = gameContext.getAreaMap().getTile(invasionCreatureGroup.getHomeLocation());
+		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
+			MapTile currentHomeTile = gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation());
 			if (currentHomeTile == null) {
 				completionType = FAILURE;
 				return;
 			}
 
-			Vector2 homeAsVector = toVector(invasionCreatureGroup.getHomeLocation());
+			Vector2 homeAsVector = toVector(creatureGroup.getHomeLocation());
 			Vector2 averageSettlerLocation = new Vector2();
 			AtomicInteger numSettlers = new AtomicInteger(0);
 			gameContext.getEntities().values().stream()
@@ -71,7 +71,7 @@ public class SelectInvasionCampLocationAction extends Action {
 			if (targetTile == null) {
 				completionType = FAILURE;
 			} else {
-				invasionCreatureGroup.setHomeLocation(targetTile.getTilePosition());
+				creatureGroup.setHomeLocation(targetTile.getTilePosition());
 				parent.setTargetLocation(toVector(targetTile.getTilePosition()));
 				completionType = SUCCESS;
 			}

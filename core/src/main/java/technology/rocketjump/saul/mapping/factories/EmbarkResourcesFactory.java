@@ -2,21 +2,22 @@ package technology.rocketjump.saul.mapping.factories;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
-import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
-import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
-import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
-import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
+import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -33,10 +34,13 @@ import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMess
 
 import java.util.*;
 
+import static technology.rocketjump.saul.misc.VectorUtils.toVector;
+
 @Singleton
 public class EmbarkResourcesFactory {
 
 	private static final int WAGON_CAPACITY = 16;
+	public static final String DEFAULT_WAGON_DRAUGHT_ANIMAL = "Horse";
 
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final FurnitureEntityAttributesFactory furnitureEntityAttributesFactory;
@@ -44,24 +48,32 @@ public class EmbarkResourcesFactory {
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final EntityStore entityStore;
 	private final MessageDispatcher messageDispatcher;
+	private final RaceDictionary raceDictionary;
 	private final ItemEntityFactory itemEntityFactory;
 	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
 	private final EntityAssetUpdater entityAssetUpdater;
+	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
+	private final CreatureEntityFactory creatureEntityFactory;
 
 	@Inject
 	public EmbarkResourcesFactory(FurnitureTypeDictionary furnitureTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
 								  FurnitureEntityAttributesFactory furnitureEntityAttributesFactory, FurnitureEntityFactory furnitureEntityFactory,
-								  EntityStore entityStore, MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory,
-								  ItemEntityAttributesFactory itemEntityAttributesFactory, EntityAssetUpdater entityAssetUpdater) {
+								  EntityStore entityStore, MessageDispatcher messageDispatcher, RaceDictionary raceDictionary,
+								  ItemEntityFactory itemEntityFactory,
+								  ItemEntityAttributesFactory itemEntityAttributesFactory, EntityAssetUpdater entityAssetUpdater,
+								  CreatureEntityAttributesFactory creatureEntityAttributesFactory, CreatureEntityFactory creatureEntityFactory) {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.furnitureEntityAttributesFactory = furnitureEntityAttributesFactory;
 		this.furnitureEntityFactory = furnitureEntityFactory;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.entityStore = entityStore;
 		this.messageDispatcher = messageDispatcher;
+		this.raceDictionary = raceDictionary;
 		this.itemEntityFactory = itemEntityFactory;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
 		this.entityAssetUpdater = entityAssetUpdater;
+		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
+		this.creatureEntityFactory = creatureEntityFactory;
 	}
 
 	public void spawnEmbarkResources(GridPoint2 embarkPoint, List<QuantifiedItemTypeWithMaterial> embarkResources, GameContext gameContext) {
@@ -109,7 +121,7 @@ public class EmbarkResourcesFactory {
 						if (material == null) {
 							material = pickMaterial(requirement.getItemType().getPrimaryMaterialType(), gameContext.getRandom());
 						}
-						Entity item = itemEntityFactory.createByItemType(requirement.getItemType(), gameContext, true);
+						Entity item = itemEntityFactory.createByItemType(requirement.getItemType(), gameContext, true, Faction.SETTLEMENT);
 						ItemEntityAttributes itemAttributes = (ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes();
 						GameMaterial oldPrimaryMaterial = itemAttributes.getMaterial(requirement.getItemType().getPrimaryMaterialType());
 						itemAttributes.setMaterial(material);
@@ -179,7 +191,35 @@ public class EmbarkResourcesFactory {
 
 		entityStore.add(wagonEntity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, wagonEntity);
+
+		spawnWagonDraughtAnimal(gameContext, primaryLocation);
+
 		return wagonEntity;
+	}
+
+	private void spawnWagonDraughtAnimal(GameContext gameContext, GridPoint2 primaryLocation) {
+		GridPoint2 spawnLocation = null;
+		int attempts = 0;
+		MapTile primaryLocationTile = gameContext.getAreaMap().getTile(primaryLocation);
+
+		while (attempts < 500 && spawnLocation == null) {
+			GridPoint2 potentialLocation = primaryLocation.cpy().add(
+				-3 + gameContext.getRandom().nextInt(7),
+					-3 + gameContext.getRandom().nextInt(7)
+			);
+			MapTile tile = gameContext.getAreaMap().getTile(potentialLocation);
+			if (tile != null && tile.isNavigable(null) && tile.getRegionId() == primaryLocationTile.getRegionId()) {
+				spawnLocation = potentialLocation;
+			}
+			attempts++;
+		}
+
+		if (spawnLocation != null) {
+			CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(raceDictionary.getByName(DEFAULT_WAGON_DRAUGHT_ANIMAL));
+			creatureEntityFactory.create(attributes, toVector(spawnLocation), new Vector2(), gameContext, Faction.SETTLEMENT);
+		} else {
+			Logger.warn("Could not find a valid location to spawn a draught animal for the wagon");
+		}
 	}
 
 }

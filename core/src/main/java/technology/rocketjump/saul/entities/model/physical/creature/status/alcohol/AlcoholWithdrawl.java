@@ -25,7 +25,10 @@ public class AlcoholWithdrawl extends StatusEffect {
             messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null, null));
             messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, AlcoholDependent.class, null, null));
         } else {
-            parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.ALCOHOL_WITHDRAWAL);
+            HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+            if (happinessComponent != null) {
+                happinessComponent.add(HappinessComponent.HappinessModifier.ALCOHOL_WITHDRAWAL);
+            }
         }
     }
 

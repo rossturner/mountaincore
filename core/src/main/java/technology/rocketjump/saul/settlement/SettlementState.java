@@ -19,6 +19,7 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
+import technology.rocketjump.saul.settlement.trading.model.TraderInfo;
 
 import java.util.*;
 
@@ -55,6 +56,8 @@ public class SettlementState implements Persistable {
 	private InvasionDefinition incomingInvasion;
 	private Double hoursUntilInvasion;
 	private boolean peacefulMode;
+
+	private final TraderInfo traderInfo = new TraderInfo();
 
 	public String getSettlementName() {
 		return settlementName;
@@ -156,6 +159,26 @@ public class SettlementState implements Persistable {
 		this.peacefulMode = peacefulMode;
 	}
 
+	public Race getSettlerRace() {
+		return settlerRace;
+	}
+
+	public void setSettlerRace(Race settlerRace) {
+		this.settlerRace = settlerRace;
+	}
+
+	public float getCurrentCombatRoundElapsed() {
+		return currentCombatRoundElapsed;
+	}
+
+	public void setCurrentCombatRoundElapsed(float currentCombatRoundElapsed) {
+		this.currentCombatRoundElapsed = currentCombatRoundElapsed;
+	}
+
+	public TraderInfo getTraderInfo() {
+		return traderInfo;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		JSONObject asJson = savedGameStateHolder.settlementStateJson;
@@ -253,6 +276,10 @@ public class SettlementState implements Persistable {
 		if (hoursUntilInvasion != null) {
 			asJson.put("hoursUntilInvasion", hoursUntilInvasion);
 		}
+
+		JSONObject traderInfoJson = new JSONObject(true);
+		traderInfo.writeTo(traderInfoJson, savedGameStateHolder);
+		asJson.put("traderInfo", traderInfoJson);
 
 		savedGameStateHolder.setSettlementState(this);
 	}
@@ -368,21 +395,9 @@ public class SettlementState implements Persistable {
 			}
 		}
 		this.hoursUntilInvasion = asJson.getDouble("hoursUntilInvasion");
+
+		JSONObject traderInfoJson = asJson.getJSONObject("traderInfo");
+		traderInfo.readFrom(traderInfoJson, savedGameStateHolder, relatedStores);
 	}
 
-	public Race getSettlerRace() {
-		return settlerRace;
-	}
-
-	public void setSettlerRace(Race settlerRace) {
-		this.settlerRace = settlerRace;
-	}
-
-	public float getCurrentCombatRoundElapsed() {
-		return currentCombatRoundElapsed;
-	}
-
-	public void setCurrentCombatRoundElapsed(float currentCombatRoundElapsed) {
-		this.currentCombatRoundElapsed = currentCombatRoundElapsed;
-	}
 }

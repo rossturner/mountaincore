@@ -129,8 +129,9 @@ public class ConsumeLiquidFromContainerAction extends Action {
 	}
 
 	protected void effectsOfDrinkConsumption(GameMaterial consumedLiquid, LiquidAllocation liquidAllocation, GameContext gameContext) {
-		if (liquidAllocation != null && FROM_RIVER.equals(liquidAllocation.getType())) {
-			parent.parentEntity.getComponent(HappinessComponent.class).add(DRANK_FROM_RIVER);
+		HappinessComponent happinessComponent = parent.parentEntity.getComponent(HappinessComponent.class);
+		if (liquidAllocation != null && FROM_RIVER.equals(liquidAllocation.getType()) && happinessComponent != null) {
+			happinessComponent.add(DRANK_FROM_RIVER);
 		}
 
 		if (consumedLiquid == null) {
@@ -146,8 +147,13 @@ public class ConsumeLiquidFromContainerAction extends Action {
 		}
 
 		if (consumedLiquid.isAlcoholic()) {
-			parent.parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.DRANK_ALCOHOL);
-			parent.parentEntity.getComponent(MemoryComponent.class).addShortTerm(new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, gameContext.getGameClock()), gameContext.getGameClock());
+			if (happinessComponent != null) {
+				happinessComponent.add(HappinessComponent.HappinessModifier.DRANK_ALCOHOL);
+			}
+			MemoryComponent memoryComponent = parent.parentEntity.getComponent(MemoryComponent.class);
+			if (memoryComponent != null) {
+				memoryComponent.addShortTerm(new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, gameContext.getGameClock()), gameContext.getGameClock());
+			}
 			parent.parentEntity.getComponent(StatusComponent.class).apply(new Drunk());
 		}
 

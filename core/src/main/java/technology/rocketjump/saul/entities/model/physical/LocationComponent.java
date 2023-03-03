@@ -149,7 +149,6 @@ public class LocationComponent implements ParentDependentEntityComponent {
 	public void setOrientation(EntityAssetOrientation newOrientation) {
 		this.orientation = newOrientation;
 
-
 		if (parentEntity != null) {
 			for (AttachedEntity attachedEntity : parentEntity.getAttachedEntities()) {
 				switch (attachedEntity.entity.getType()) {

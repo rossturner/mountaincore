@@ -1,0 +1,25 @@
+{
+  "name": "Move to trade depot",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "MOVING_TO_TRADE_DEPOT"
+        }
+      ],
+      "priority": "HIGHEST",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["MoveGroupHomeToTradeDepot", "GoToRoomWithGroupHome"],
+  "actionRelationships": {
+    "MoveGroupHomeToTradeDepot": {},
+    "GoToRoomWithGroupHome": {
+      "pass": ["ProgressTraderStageToArrived"],
+      "fail": []
+    },
+    "ProgressTraderStageToArrived": {}
+  }
+}
