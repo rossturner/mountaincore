@@ -1,18 +1,22 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import org.apache.commons.io.FileUtils;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -24,6 +28,8 @@ import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @Singleton
@@ -34,12 +40,15 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
     private final List<String> patreonKickstarters;
     private final I18nTranslator i18nTranslator;
     private final ButtonFactory buttonFactory;
+    private final MessageDispatcher messageDispatcher;
 
     @Inject
-    public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, ButtonFactory buttonFactory) throws IOException {
+    public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, ButtonFactory buttonFactory,
+                       MessageDispatcher messageDispatcher) throws IOException {
         super(skinRepository);
         this.i18nTranslator = i18nTranslator;
         this.buttonFactory = buttonFactory;
+        this.messageDispatcher = messageDispatcher;
         foundingBackers = FileUtils.readLines(Gdx.files.internal("assets/text/credits/founding_backers.csv").file());
         patreonKickstarters = FileUtils.readLines(Gdx.files.internal("assets/text/credits/patreon_kickstarter.csv").file());
     }
@@ -146,6 +155,13 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(patreonKickstarterTable).row();
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
 
+        String filePath = "assets/ui/RJT_LOGO.png"; //1000x1000
+        if (Files.exists(Path.of(filePath))) {
+            Texture texture = new Texture(filePath);
+            Image image = new Image(texture);
+            table.add(image).center().padTop(500).padBottom(600).row();
+        }
+
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
         scrollPane.setSmoothScrolling(true);
         scrollPane.setFlickScroll(false);
@@ -153,7 +169,11 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         SequenceAction autoScroll = Actions.sequence(
                 Actions.delay(3.5f),
-                new ScrollDownAction(scrollPane, 80f)
+                new ScrollDownAction(scrollPane, 80f),
+                Actions.delay(3),
+                Actions.run(() -> {
+                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+                })
         );
 
         scrollPane.addAction(autoScroll);
@@ -223,6 +243,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     private Label developerNameLabel(String name, String url) {
         Label label = new Label(name, managementSkin, "military_subtitle_ribbon");
+        label.setAlignment(Align.center);
         if (url != null) {
             buttonFactory.attachClickCursor(label, GameCursor.SELECT);
             label.addListener(new ClickListener() {
