@@ -2,14 +2,18 @@ package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import org.apache.commons.io.FileUtils;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
@@ -24,11 +28,13 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
     private final List<String> foundingBackers;
     private final List<String> patreonKickstarters;
     private final I18nTranslator i18nTranslator;
+    private final ButtonFactory buttonFactory;
 
     @Inject
-    public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator) throws IOException {
+    public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, ButtonFactory buttonFactory) throws IOException {
         super(skinRepository);
         this.i18nTranslator = i18nTranslator;
+        this.buttonFactory = buttonFactory;
         foundingBackers = FileUtils.readLines(Gdx.files.internal("assets/text/credits/founding_backers.csv").file());
         patreonKickstarters = FileUtils.readLines(Gdx.files.internal("assets/text/credits/patreon_kickstarter.csv").file());
     }
@@ -45,18 +51,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     @Override
     protected Actor buildComponentLayer() {
-        Table developerCredits = new Table();
-        //remember mockup is 1080
-        /*
-        Ross -  108 px title ribbon, 82px secondary for name, Ross happy to use same sized ribbon as each of us
-
-        Others - 76px (152px) title ribbon, 62px secondary for name
-
-        Title_military_ribbon is 130px tall in 4k
-        asset_secondary_banner_title_bg is 116px tall in 4k
-
-         */
-
         Label leadDesignTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.LEAD_DESIGN", 1000);
         Label leadUITitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.LEAD_UI", 1000);
         Label programmingTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.PROGRAMMING", 1000);
@@ -69,62 +63,66 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
 
 
-        Label backersTitle = i18nTitleRibbon("GUI.CREDITS.FOUNDING_BACKERS_TITLE"); //Scaled to fit or wrap
-        Label patreonKickstarterTitle = i18nTitleRibbon("GUI.CREDITS.PATREON_KICKSTARTER_TITLE"); //Scaled to fit or wrap
-        Label andYouTitle = i18nTitleRibbon("GUI.CREDITS.AND_YOU_TITLE"); //Scaled to fit or wrap
+        Label backersTitle = i18nTitleRibbon("GUI.CREDITS.FOUNDING_BACKERS_TITLE");
+        Label patreonKickstarterTitle = i18nTitleRibbon("GUI.CREDITS.PATREON_KICKSTARTER_TITLE");
+        Label andYouTitle = i18nTitleRibbon("GUI.CREDITS.AND_YOU_TITLE");
         Table backersTable = thankYouTable(foundingBackers);
         Table patreonKickstarterTable = thankYouTable(patreonKickstarters);
 
-        //todo:Lead 2D & UI Artist                  Programming
-        //todo: Music and sound effects             Concept Artwork
-        //todo: character artists       Environment artists
-        //todo: music tracks
-        //TODO: special thanks
-
         Table firstRow = new Table();
-        firstRow.add(leadDesignTitle).row();
+        firstRow.defaults().expandX();
+        firstRow.add(leadDesignTitle).padTop(128).spaceBottom(108).row();
         firstRow.add(developerNameLabel("Ross Taylor-Turner", "http://rocketjump.technology/")).row();
 
         Table secondRow = new Table();
-        secondRow.add(leadUITitle);
-        secondRow.add(programmingTitle).row();
+        secondRow.defaults().expandX();
+        secondRow.add(leadUITitle).spaceBottom(108);
+        secondRow.add(programmingTitle).spaceBottom(108).row();
         secondRow.add(developerNameLabel("Ellen Elliott-Brown", "https://twitter.com/ebro__"));
         secondRow.add(developerNameLabel("Michael Rocke", null));
 
         Table thirdRow = new Table();
-        thirdRow.add(musicTitle);
-        thirdRow.add(conceptArtTitle).row();
+        thirdRow.defaults().expandX();
+        thirdRow.add(musicTitle).spaceBottom(108);
+        thirdRow.add(conceptArtTitle).spaceBottom(108).row();
         thirdRow.add(developerNameLabel("Jordan Chin", "http://www.jordanchinmusic.com/"));
         thirdRow.add(developerNameLabel("Anthony Avon", "https://www.artstation.com/artist/anthonyavon"));
 
         Table fourthRow = new Table();
-        fourthRow.add(characterArtTitle);
-        fourthRow.add(environmentArtTitle).row();
+        fourthRow.defaults().expandX();
+        fourthRow.add(characterArtTitle).spaceBottom(108);
+        fourthRow.add(environmentArtTitle).spaceBottom(108).row();
             Table characterArtistsTable = new Table();
-            characterArtistsTable.add(developerNameLabel("Dave Rigley", null));
+            characterArtistsTable.defaults().spaceBottom(90);
+            characterArtistsTable.add(developerNameLabel("Dave Rigley", null)).padRight(80);
             characterArtistsTable.add(developerNameLabel("Katie-Beth Tutt", "https://katietutt.wixsite.com/website")).row();
             characterArtistsTable.add(developerNameLabel("Derek Restivo", "https://www.deviantart.com/derekrestivo")).colspan(2);
         fourthRow.add(characterArtistsTable);
             Table environmentArtistsTable = new Table();
+            environmentArtistsTable.defaults().spaceBottom(90);
             environmentArtistsTable.add(developerNameLabel("Rizal Zulkifli", "http://amade.deviantart.com/")).row();
             environmentArtistsTable.add(developerNameLabel("Katie-Beth Tutt", "https://katietutt.wixsite.com/website")).row();
         fourthRow.add(environmentArtistsTable);
 
         Table fifthRow = new Table();
-        fifthRow.add(additionalMusicTitle).row();
+        fifthRow.defaults().expandX();
+        fifthRow.add(additionalMusicTitle).spaceBottom(108).row();
             Table additionalMusicArtistsTable = new Table();
-            additionalMusicArtistsTable.add(developerNameLabel("Juan I. Goncebat", "https://aerjaan.wordpress.com/"));
+            additionalMusicArtistsTable.defaults().spaceBottom(90);
+            additionalMusicArtistsTable.add(developerNameLabel("Juan I. Goncebat", "https://aerjaan.wordpress.com/")).padRight(80);
             additionalMusicArtistsTable.add(developerNameLabel("Francisco Rivera", "https://www.franciscosound.com/")).row();
-            additionalMusicArtistsTable.add(developerNameLabel("Hannah (rimosound)", "http://rimosound.com/"));
+            additionalMusicArtistsTable.add(developerNameLabel("Hannah (rimosound)", "http://rimosound.com/")).padRight(80);
             additionalMusicArtistsTable.add(developerNameLabel("Bettina Calmon", "http://www.bettinacalmon.com/")).row();
         fifthRow.add(additionalMusicArtistsTable);
 
         Table sixthRow = new Table();
-        sixthRow.add(specialThanksTitle).row();
+        sixthRow.defaults().expandX();
+        sixthRow.add(specialThanksTitle).spaceBottom(108).row();
             Table specialThanksTable = new Table();
-            specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl"));
+            specialThanksTable.defaults().spaceBottom(90);
+            specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl")).padRight(80);
             specialThanksTable.add(developerNameLabel("GoSquared (Flag icon set)", "https://www.gosquared.com/resources/flag-icons/")).row();
-            specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/"));
+            specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/")).padRight(80);
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
             specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).colspan(2).row();
         sixthRow.add(specialThanksTable);
@@ -133,13 +131,12 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         //TODO: hyperlinks to developers
         Table table = new Table();
-        table.add(firstRow).row();
-        table.add(secondRow).row();
-        table.add(thirdRow).row();
-        table.add(fourthRow).row();
-        table.add(fifthRow).row();
-        table.add(sixthRow).row();
-
+        table.add(firstRow).spaceBottom(256).growX().row();
+        table.add(secondRow).spaceBottom(256).growX().row();
+        table.add(thirdRow).spaceBottom(256).growX().row();
+        table.add(fourthRow).spaceBottom(256).growX().row();
+        table.add(fifthRow).spaceBottom(256).growX().row();
+        table.add(sixthRow).spaceBottom(256).growX().row();
 
         table.add(backersTitle).padTop(68f).padBottom(68).row();
         table.add(backersTable).row();
@@ -191,8 +188,17 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         return label;
     }
 
-    private Label developerNameLabel(String name, String link) {
+    private Label developerNameLabel(String name, String url) {
         Label label = new Label(name, managementSkin, "military_subtitle_ribbon");
+        if (url != null) {
+            buttonFactory.attachClickCursor(label, GameCursor.SELECT);
+            label.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Gdx.net.openURI(url);
+                }
+            });
+        }
         return label;
     }
 }
