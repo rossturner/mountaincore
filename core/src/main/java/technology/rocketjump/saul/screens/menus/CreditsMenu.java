@@ -36,11 +36,14 @@ import java.util.List;
 public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     public static final int DEVELOPER_TITLE_MIN_WIDTH = 1100;
+    public static final String PARADOX_ARC_URL = "https://www.paradoxinteractive.com/our-games/paradox-arc";
     private final List<String> foundingBackers;
     private final List<String> patreonKickstarters;
     private final I18nTranslator i18nTranslator;
     private final ButtonFactory buttonFactory;
     private final MessageDispatcher messageDispatcher;
+    private Texture rocketJumpTechnologyTexture;
+    private Texture paradoxArcTexture;
 
     @Inject
     public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, ButtonFactory buttonFactory,
@@ -55,7 +58,9 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     @Override
     public void show() {
-        reset();
+        rocketJumpTechnologyTexture = loadTexture("assets/ui/RJT_LOGO_BLACK.png");
+        paradoxArcTexture = loadTexture("assets/ui/PDX-Arc-BLACK.png");
+        rebuild();
     }
 
     @Override
@@ -74,6 +79,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         Label environmentArtTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.ENVIRONMENT_ART", 1000);
         Label additionalMusicTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.MUSIC_ADDITIONAL", 1000);
         Label specialThanksTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS", 1000);
+        Label publishedByTitle = smallI18nTitleRibbon("GUI.CREDITS.PUBLISHED_BY", 1000);
 
 
 
@@ -131,7 +137,19 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         Table sixthRow = new Table();
         sixthRow.defaults().expandX();
-        sixthRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
+        sixthRow.add(publishedByTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
+        if (paradoxArcTexture != null) {
+            Image paradoxArcImage = new Image(paradoxArcTexture);
+
+            attachUrl(PARADOX_ARC_URL, paradoxArcImage);
+            sixthRow.add(paradoxArcImage).center().width(1000).height(565.1f).padBottom(108).row();
+        } else {
+            sixthRow.add(developerNameLabel("Paradox Arc", PARADOX_ARC_URL)).spaceBottom(108).row();
+        }
+
+        Table seventhRow = new Table();
+        seventhRow.defaults().expandX();
+        seventhRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table specialThanksTable = new Table();
             specialThanksTable.defaults().spaceBottom(90).fillX();
             specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl")).padRight(80);
@@ -139,7 +157,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/")).padRight(80);
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
             specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).fill(false, false).colspan(2).row();
-        sixthRow.add(specialThanksTable);
+        seventhRow.add(specialThanksTable);
 
         Table table = new Table();
         table.add(firstRow).spaceBottom(256).growX().row();
@@ -148,6 +166,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(fourthRow).spaceBottom(256).growX().row();
         table.add(fifthRow).spaceBottom(256).growX().row();
         table.add(sixthRow).spaceBottom(256).growX().row();
+        table.add(seventhRow).spaceBottom(256).growX().row();
 
         table.add(backersTitle).padTop(68f).padBottom(68).row();
         table.add(backersTable).row();
@@ -155,11 +174,8 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(patreonKickstarterTable).row();
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
 
-        String filePath = "assets/ui/RJT_LOGO_BLACK.png"; //1000x1000
-        if (Files.exists(Path.of(filePath))) {
-            Texture texture = new Texture(filePath);
-            Image image = new Image(texture);
-            table.add(image).center().padTop(500).padBottom(600).row();
+        if (rocketJumpTechnologyTexture != null) {
+            table.add(new Image(rocketJumpTechnologyTexture)).center().padTop(550).padBottom(600).row();
         }
 
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
@@ -197,6 +213,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             }
         });
 
+        scrollPane.setForceScroll(false, true);
         return scrollPane;
     }
 
@@ -230,6 +247,26 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
     }
 
 
+    private static Texture loadTexture(String filePath) {
+        if (Files.exists(Path.of(filePath))) {
+            Texture texture = new Texture(Gdx.files.internal(filePath), true);
+            texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+            return texture;
+        }
+        return null;
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
+        if (rocketJumpTechnologyTexture != null) {
+            rocketJumpTechnologyTexture.dispose();
+        }
+        if (paradoxArcTexture != null) {
+            paradoxArcTexture.dispose();
+        }
+    }
+
     @Override
     public void rebuildUI() {
         rebuild();
@@ -245,18 +282,22 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         Label label = new Label(name, managementSkin, "military_subtitle_ribbon");
         label.setAlignment(Align.center);
         if (url != null) {
-            buttonFactory.attachClickCursor(label, GameCursor.SELECT);
-            label.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    Gdx.net.openURI(url);
-                }
-            });
+            attachUrl(url, label);
         }
         return label;
     }
 
-    class ScrollDownAction extends TemporalAction {
+    private void attachUrl(String url, Actor actor) {
+        buttonFactory.attachClickCursor(actor, GameCursor.SELECT);
+        actor.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.net.openURI(url);
+            }
+        });
+    }
+
+    static class ScrollDownAction extends TemporalAction {
         private final ScrollPane scrollPane;
 
         ScrollDownAction(ScrollPane scrollPane, float duration) {

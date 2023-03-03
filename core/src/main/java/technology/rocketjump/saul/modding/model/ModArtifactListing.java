@@ -279,6 +279,8 @@ public class ModArtifactListing {
 						"ui", "RJT_LOGO", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "RJT_LOGO_BLACK", PNG, null,
 						"ui", "RJT_LOGO_BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
+				def("ui", "PDX-Arc-BLACK", PNG, null,
+										"ui", "PDX-Arc-BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "uiSettings", JSON_OBJECT, null,
 						"ui", "uiSettings", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 

@@ -478,6 +478,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers
+GUI.CREDITS.PUBLISHED_BY,,Published By
 GUI.CROP_SELECTION,,Crop:
 GUI.CROP_SELECTION.DESCRIPTION,,"{{plantDescription}} - {{planting}} - {{usage}}"
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted
