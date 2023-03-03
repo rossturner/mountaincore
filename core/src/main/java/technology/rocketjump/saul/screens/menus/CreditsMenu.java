@@ -142,7 +142,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             Image paradoxArcImage = new Image(paradoxArcTexture);
 
             attachUrl(PARADOX_ARC_URL, paradoxArcImage);
-            sixthRow.add(paradoxArcImage).center().width(1000).height(565.1f).padBottom(108).row();
+            sixthRow.add(paradoxArcImage).center().width(1000).height(paradoxArcImage.getHeight() / (paradoxArcImage.getWidth() / 1000)).padBottom(108).row();
         } else {
             sixthRow.add(developerNameLabel("Paradox Arc", PARADOX_ARC_URL)).spaceBottom(108).row();
         }
@@ -160,6 +160,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         seventhRow.add(specialThanksTable);
 
         Table table = new Table();
+        table.padLeft(30).padRight(30);
         table.add(firstRow).spaceBottom(256).growX().row();
         table.add(secondRow).spaceBottom(256).growX().row();
         table.add(thirdRow).spaceBottom(256).growX().row();
