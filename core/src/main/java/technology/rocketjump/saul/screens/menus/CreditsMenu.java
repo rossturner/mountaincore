@@ -131,7 +131,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             additionalMusicArtistsTable.defaults().spaceBottom(90);
             additionalMusicArtistsTable.add(developerNameLabel("Juan I. Goncebat", "https://aerjaan.wordpress.com/")).padRight(80);
             additionalMusicArtistsTable.add(developerNameLabel("Francisco Rivera", "https://www.franciscosound.com/")).row();
-            additionalMusicArtistsTable.add(developerNameLabel("Hannah (rimosound)", "http://rimosound.com/")).padRight(80);
+            additionalMusicArtistsTable.add(developerNameLabel("Hannah (rimosound)", null)).padRight(80); //"http://rimosound.com/" no longer works
             additionalMusicArtistsTable.add(developerNameLabel("Bettina Calmon", "http://www.bettinacalmon.com/")).row();
         fifthRow.add(additionalMusicArtistsTable);
 
