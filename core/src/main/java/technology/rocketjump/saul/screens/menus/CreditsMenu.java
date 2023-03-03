@@ -25,6 +25,7 @@ import java.util.List;
 @Singleton
 public class CreditsMenu extends PaperMenu implements DisplaysText {
 
+    public static final int DEVELOPER_TITLE_MIN_WIDTH = 1100;
     private final List<String> foundingBackers;
     private final List<String> patreonKickstarters;
     private final I18nTranslator i18nTranslator;
@@ -71,27 +72,27 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         Table firstRow = new Table();
         firstRow.defaults().expandX();
-        firstRow.add(leadDesignTitle).padTop(128).spaceBottom(108).row();
+        firstRow.add(leadDesignTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).padTop(128).spaceBottom(108).row();
         firstRow.add(developerNameLabel("Ross Taylor-Turner", "http://rocketjump.technology/")).row();
 
         Table secondRow = new Table();
         secondRow.defaults().expandX();
-        secondRow.add(leadUITitle).spaceBottom(108);
-        secondRow.add(programmingTitle).spaceBottom(108).row();
+        secondRow.add(leadUITitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108);
+        secondRow.add(programmingTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
         secondRow.add(developerNameLabel("Ellen Elliott-Brown", "https://twitter.com/ebro__"));
         secondRow.add(developerNameLabel("Michael Rocke", null));
 
         Table thirdRow = new Table();
         thirdRow.defaults().expandX();
-        thirdRow.add(musicTitle).spaceBottom(108);
-        thirdRow.add(conceptArtTitle).spaceBottom(108).row();
+        thirdRow.add(musicTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108);
+        thirdRow.add(conceptArtTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
         thirdRow.add(developerNameLabel("Jordan Chin", "http://www.jordanchinmusic.com/"));
         thirdRow.add(developerNameLabel("Anthony Avon", "https://www.artstation.com/artist/anthonyavon"));
 
         Table fourthRow = new Table();
         fourthRow.defaults().expandX();
-        fourthRow.add(characterArtTitle).spaceBottom(108);
-        fourthRow.add(environmentArtTitle).spaceBottom(108).row();
+        fourthRow.add(characterArtTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108);
+        fourthRow.add(environmentArtTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table characterArtistsTable = new Table();
             characterArtistsTable.defaults().spaceBottom(90);
             characterArtistsTable.add(developerNameLabel("Dave Rigley", null)).padRight(80);
@@ -106,7 +107,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         Table fifthRow = new Table();
         fifthRow.defaults().expandX();
-        fifthRow.add(additionalMusicTitle).spaceBottom(108).row();
+        fifthRow.add(additionalMusicTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table additionalMusicArtistsTable = new Table();
             additionalMusicArtistsTable.defaults().spaceBottom(90);
             additionalMusicArtistsTable.add(developerNameLabel("Juan I. Goncebat", "https://aerjaan.wordpress.com/")).padRight(80);
@@ -117,7 +118,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         Table sixthRow = new Table();
         sixthRow.defaults().expandX();
-        sixthRow.add(specialThanksTitle).spaceBottom(108).row();
+        sixthRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table specialThanksTable = new Table();
             specialThanksTable.defaults().spaceBottom(90);
             specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl")).padRight(80);
@@ -143,6 +144,8 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(patreonKickstarterTitle).padTop(68f).padBottom(68).row();
         table.add(patreonKickstarterTable).row();
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
+
+        table.debugAll();
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
         return scrollPane;
     }
