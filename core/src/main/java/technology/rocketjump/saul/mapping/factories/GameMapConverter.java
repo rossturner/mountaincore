@@ -281,12 +281,13 @@ public class GameMapConverter {
 	}
 
 	private void addDirtAroundTree(GridPoint2 sourcePosition, TiledMap targetMap, FloorType dirtFloorType, FloorType grassFloorType, Random random) {
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			MapTile tile = targetMap.getTile(sourcePosition.x - 1 + random.nextInt(3), sourcePosition.y - 1 + random.nextInt(3));
 			if (tile != null && tile.getFloor().getFloorType().equals(grassFloorType)) {
 				tile.getFloor().setFloorType(dirtFloorType);
 			}
 		}
+		targetMap.getTile(sourcePosition).getFloor().setFloorType(dirtFloorType);
 	}
 
 	private void setupRiverAccessZones(TiledMap targetMap, List<GridPoint2> riverTiles) {
