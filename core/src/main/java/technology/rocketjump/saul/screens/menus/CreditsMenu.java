@@ -155,7 +155,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(patreonKickstarterTable).row();
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
 
-        String filePath = "assets/ui/RJT_LOGO.png"; //1000x1000
+        String filePath = "assets/ui/RJT_LOGO_BLACK.png"; //1000x1000
         if (Files.exists(Path.of(filePath))) {
             Texture texture = new Texture(filePath);
             Image image = new Image(texture);

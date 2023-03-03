@@ -277,6 +277,8 @@ public class ModArtifactListing {
 						"ui", "minimapSelection", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "RJT_LOGO", PNG, null,
 						"ui", "RJT_LOGO", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
+				def("ui", "RJT_LOGO_BLACK", PNG, null,
+						"ui", "RJT_LOGO_BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "uiSettings", JSON_OBJECT, null,
 						"ui", "uiSettings", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 
