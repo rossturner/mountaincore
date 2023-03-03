@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Rosewood-Size4-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Rosewood",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "birch_04_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Rosewood-Size4-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Rosewood",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "birch_04_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

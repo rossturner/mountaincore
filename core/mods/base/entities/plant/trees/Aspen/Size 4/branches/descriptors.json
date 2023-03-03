@@ -1,25 +1,23 @@
-[{
-  "uniqueName": "Tree-Aspen-Size4-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Aspen",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "birch_04_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 3,
-        "y": 124
+[ {
+  "uniqueName" : "Tree-Aspen-Size4-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Aspen",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "birch_04_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 130.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -1,
-            "y": 36
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 36.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

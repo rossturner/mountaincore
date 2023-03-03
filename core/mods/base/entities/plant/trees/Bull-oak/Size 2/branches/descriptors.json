@@ -1,25 +1,23 @@
-[{
-  "uniqueName": "Tree-Bull-oak-Size2-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Bull-oak",
-  "growthStages": [1],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "birch_02_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": -7,
-        "y": 37
+[ {
+  "uniqueName" : "Tree-Bull-oak-Size2-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Bull-oak",
+  "growthStages" : [ 1 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "birch_02_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "x" : -8.0,
+        "y" : 55.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -2,
-            "y": 28
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : 28.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

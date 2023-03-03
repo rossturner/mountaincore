@@ -9,7 +9,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "offsetPixels" : {
         "x" : 1.0,
-        "y" : 36.0
+        "y" : 50.0
       },
       "childAssets" : [ {
         "type" : "PLANT_LEAVES",

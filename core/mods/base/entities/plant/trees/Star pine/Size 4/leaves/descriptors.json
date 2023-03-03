@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Star-Pine-Size4-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Star pine",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "pine_04_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Star-Pine-Size4-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Star pine",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "pine_04_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

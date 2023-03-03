@@ -8,7 +8,7 @@
       "filename" : "pine_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "offsetPixels" : {
-        "y" : 2.0
+        "y" : 22.0
       },
       "childAssets" : [ {
         "type" : "PLANT_LEAVES",
