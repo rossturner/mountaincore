@@ -120,12 +120,12 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         sixthRow.defaults().expandX();
         sixthRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table specialThanksTable = new Table();
-            specialThanksTable.defaults().spaceBottom(90);
+            specialThanksTable.defaults().spaceBottom(90).fillX();
             specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl")).padRight(80);
             specialThanksTable.add(developerNameLabel("GoSquared (Flag icon set)", "https://www.gosquared.com/resources/flag-icons/")).row();
             specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/")).padRight(80);
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
-            specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).colspan(2).row();
+            specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).fill(false, false).colspan(2).row();
         sixthRow.add(specialThanksTable);
         //embark_ribbon 50pt font
 
@@ -145,7 +145,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(patreonKickstarterTable).row();
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
 
-        table.debugAll();
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
         return scrollPane;
     }
