@@ -3,6 +3,10 @@ package technology.rocketjump.saul.screens.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -127,10 +131,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
             specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).fill(false, false).colspan(2).row();
         sixthRow.add(specialThanksTable);
-        //embark_ribbon 50pt font
 
-
-        //TODO: hyperlinks to developers
         Table table = new Table();
         table.add(firstRow).spaceBottom(256).growX().row();
         table.add(secondRow).spaceBottom(256).growX().row();
@@ -146,6 +147,36 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(andYouTitle).padTop(68f).padBottom(68).row();
 
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
+        scrollPane.setSmoothScrolling(true);
+        scrollPane.setFlickScroll(false);
+
+
+        SequenceAction autoScroll = Actions.sequence(
+                Actions.delay(3.5f),
+                new ScrollDownAction(scrollPane, 80f)
+        );
+
+        scrollPane.addAction(autoScroll);
+
+        scrollPane.addListener(new InputListener(){
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                scrollPane.clearActions();
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                scrollPane.clearActions();
+                return true;
+            }
+
+            @Override
+            public boolean scrolled(InputEvent event, float x, float y, float amountX, float amountY) {
+                scrollPane.clearActions();
+                return super.scrolled(event, x, y, amountX, amountY);
+            }
+        });
+
         return scrollPane;
     }
 
@@ -202,5 +233,19 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             });
         }
         return label;
+    }
+
+    class ScrollDownAction extends TemporalAction {
+        private final ScrollPane scrollPane;
+
+        ScrollDownAction(ScrollPane scrollPane, float duration) {
+            this.scrollPane = scrollPane;
+            setDuration(duration);
+        }
+
+        @Override
+        protected void update(float percent) {
+            scrollPane.setScrollY(scrollPane.getMaxY() * percent);
+        }
     }
 }
