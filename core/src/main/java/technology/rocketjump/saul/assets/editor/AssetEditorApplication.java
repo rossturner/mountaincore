@@ -109,12 +109,18 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
+		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+		//Do nothing handlers
+		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+		messageDispatcher.addListener(this, MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME);
+		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
+
 		entityAssetUpdater = injector.getInstance(EntityAssetUpdater.class);
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
 		ui = injector.getInstance(AssetEditorUI.class);
 		creatureUIFactory = injector.getInstance(CreatureUIFactory.class);
-		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+
 		injector.getInstance(AudioMessageHandler.class); //This handles sound effects in animation scrips
 		injector.getInstance(ParticleEffectUpdater.class);
 		itemHoldingDwarf = creatureUIFactory.createEntityForRendering("Dwarf");
@@ -128,11 +134,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, new Vector2(0,0),
 				13, 90)); //In order for sound effects to play, the audio system needs a camera placement
 
-		MessageDispatcher messageDispatcher = injector.getInstance(MessageDispatcher.class);
-		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
-		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
 	}
 
 	@Override
@@ -351,6 +355,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				return true;
 			}
 			case MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET: {
+				//do nothing
+				return true;
+			}
+			case MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME: {
 				//do nothing
 				return true;
 			}
