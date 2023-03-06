@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Red-emperor-Size1-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Red emperor",
-  "growthStages": [0],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "maple_01_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Red-emperor-Size1-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Red emperor",
+  "growthStages" : [ 0 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "maple_01_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

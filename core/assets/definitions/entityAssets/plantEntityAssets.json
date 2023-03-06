@@ -9,6 +9,8 @@
       "filename" : "crop_wheat_late.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -33,6 +35,8 @@
       "filename" : "crop_wheat_mid.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -57,6 +61,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -81,6 +87,8 @@
       "filename" : "crop_wheat_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -105,6 +113,8 @@
       "filename" : "crop_potato_large_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -119,7 +129,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -136,6 +147,8 @@
       "filename" : "crop_potato_large_flowers.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -160,6 +173,8 @@
       "filename" : "crop_potato_large_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -174,7 +189,8 @@
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -191,6 +207,8 @@
       "filename" : "crop_potato_medium_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -205,7 +223,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -222,6 +241,8 @@
       "filename" : "crop_potato_medium_flowers.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -246,6 +267,8 @@
       "filename" : "crop_potato_medium_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -260,7 +283,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -277,6 +301,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -301,6 +327,8 @@
       "filename" : "crop_potato_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -325,6 +353,8 @@
       "filename" : "crop_potato_small_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -339,7 +369,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -356,6 +387,8 @@
       "filename" : "crop_potato_small_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -380,6 +413,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -404,6 +439,8 @@
       "filename" : "Hemp_Shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -428,6 +465,8 @@
       "filename" : "Hemp_shoots2.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -452,6 +491,8 @@
       "filename" : "Hemp_Med.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -476,6 +517,8 @@
       "filename" : "Hemp_Med2.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -500,6 +543,8 @@
       "filename" : "Hemp_large.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -524,6 +569,8 @@
       "filename" : "Hemp_large2.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -548,6 +595,8 @@
       "filename" : "crop_hops_base.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -562,7 +611,8 @@
           "x" : 0.0,
           "y" : -4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -579,6 +629,8 @@
       "filename" : "crop_hops_final_cones.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -603,6 +655,8 @@
       "filename" : "crop_hops_final_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -617,7 +671,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -634,6 +689,8 @@
       "filename" : "crop_hops_large_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -648,7 +705,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -665,6 +723,8 @@
       "filename" : "crop_hops_med_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -689,6 +749,8 @@
       "filename" : "crop_hops_small_cones.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -713,6 +775,8 @@
       "filename" : "crop_hops_small_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -737,6 +801,8 @@
       "filename" : "crop_maize_large.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -751,7 +817,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -768,6 +835,8 @@
       "filename" : "crop_maize_large_fruit.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -792,6 +861,8 @@
       "filename" : "crop_maize_medium.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -806,7 +877,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -823,6 +895,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -847,6 +921,8 @@
       "filename" : "crop_maize_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -871,6 +947,8 @@
       "filename" : "crop_maize_small.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -895,6 +973,8 @@
       "filename" : "crop_maize_small_fruit.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -919,6 +999,8 @@
       "filename" : "crop_potato_large_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -933,7 +1015,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -950,6 +1033,8 @@
       "filename" : "crop_potato_large_flowers.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -974,6 +1059,8 @@
       "filename" : "crop_potato_large_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -988,7 +1075,8 @@
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1005,6 +1093,8 @@
       "filename" : "crop_potato_medium_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1019,7 +1109,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1036,6 +1127,8 @@
       "filename" : "crop_potato_medium_flowers.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1060,6 +1153,8 @@
       "filename" : "crop_potato_medium_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1074,7 +1169,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1091,6 +1187,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1115,6 +1213,8 @@
       "filename" : "crop_potato_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1139,6 +1239,8 @@
       "filename" : "crop_potato_small_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1153,7 +1255,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1170,6 +1273,8 @@
       "filename" : "crop_potato_small_leaves.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1194,6 +1299,8 @@
       "filename" : "crop_tomato_large_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1208,7 +1315,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1225,6 +1333,8 @@
       "filename" : "crop_tomato_large_fruit.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1249,6 +1359,8 @@
       "filename" : "crop_tomato_medium_branches.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1263,7 +1375,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1280,6 +1393,8 @@
       "filename" : "crop_tomato_medium_fruit.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -1304,6 +1419,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1328,6 +1445,8 @@
       "filename" : "crop_tomato_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1352,6 +1471,8 @@
       "filename" : "crop_tomato_small.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1376,6 +1497,8 @@
       "filename" : "crop_wheat_late.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1400,6 +1523,8 @@
       "filename" : "crop_wheat_mid.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1424,6 +1549,8 @@
       "filename" : "crop_planted_seeds.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1448,6 +1575,8 @@
       "filename" : "crop_wheat_shoots.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1472,6 +1601,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1486,7 +1617,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1503,6 +1635,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1517,7 +1651,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1534,6 +1669,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1558,6 +1695,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1582,6 +1721,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1597,7 +1738,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1614,6 +1756,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1629,7 +1773,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1646,6 +1791,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1661,7 +1808,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1678,6 +1826,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1693,7 +1843,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1710,6 +1861,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1734,6 +1887,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1758,6 +1913,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1772,7 +1929,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1789,6 +1947,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1803,7 +1963,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1820,6 +1981,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1835,7 +1998,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1852,6 +2016,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1867,7 +2033,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1884,6 +2051,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Markings.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1908,6 +2077,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Markings.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1932,6 +2103,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1946,7 +2119,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1963,6 +2137,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1977,7 +2153,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1994,6 +2171,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2009,7 +2188,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2026,6 +2206,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2041,7 +2223,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2058,6 +2241,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2082,6 +2267,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2106,6 +2293,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2120,7 +2309,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2137,6 +2327,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2151,7 +2343,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2170,6 +2363,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2196,6 +2391,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2220,6 +2417,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2235,7 +2434,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2252,6 +2452,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2267,7 +2469,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2284,6 +2487,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2298,7 +2503,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2315,6 +2521,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2329,7 +2537,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2346,6 +2555,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2361,7 +2572,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2378,6 +2590,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2393,7 +2607,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2410,6 +2625,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Markings.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2434,6 +2651,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Markings.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2458,6 +2677,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2472,7 +2693,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2489,6 +2711,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2503,7 +2727,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2520,6 +2745,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2535,7 +2762,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2552,6 +2780,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2567,7 +2797,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2584,6 +2815,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2608,6 +2841,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2632,6 +2867,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2646,7 +2883,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2663,6 +2901,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2677,7 +2917,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2694,6 +2935,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2709,7 +2952,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2726,6 +2970,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2741,7 +2987,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2758,6 +3005,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2782,6 +3031,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Spots.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2806,6 +3057,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2820,7 +3073,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2837,6 +3091,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2851,7 +3107,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2870,6 +3127,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2896,6 +3155,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Stripes.png",
       "coloringLayer" : "FRUIT_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2920,6 +3181,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2935,7 +3198,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2952,6 +3216,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2967,7 +3233,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2984,6 +3251,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -2998,7 +3267,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3015,6 +3285,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3029,7 +3301,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3046,6 +3319,8 @@
       "filename" : "Farmable-Mushroom-Cap01-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3070,6 +3345,8 @@
       "filename" : "Farmable-Mushroom-Cap02-Base.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3094,6 +3371,8 @@
       "filename" : "Farmable-Mushroom-Stem01.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3108,7 +3387,8 @@
           "x" : 1.75,
           "y" : 15.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3125,6 +3405,8 @@
       "filename" : "Farmable-Mushroom-Stem02.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.75,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3139,7 +3421,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3156,6 +3439,8 @@
       "filename" : "Giant Mushroom Sapling Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -3170,7 +3455,8 @@
           "x" : -1.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3187,6 +3473,8 @@
       "filename" : "Giant Mushroom Sapling Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -3211,6 +3499,8 @@
       "filename" : "Giant Mushroom 1 Tile Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -3225,7 +3515,8 @@
           "x" : -2.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3242,6 +3533,8 @@
       "filename" : "Giant Mushroom 1 Tile Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -3266,6 +3559,8 @@
       "filename" : "Giant Mushroom 2 Tiles High Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -3280,7 +3575,8 @@
           "x" : 1.0,
           "y" : 23.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3297,6 +3593,8 @@
       "filename" : "Giant Mushroom 2 Tiles High Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -3321,6 +3619,8 @@
       "filename" : "Giant Mushroom Sapling Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -3335,7 +3635,8 @@
           "x" : -1.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3352,6 +3653,8 @@
       "filename" : "Giant Mushroom Sapling Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -3376,6 +3679,8 @@
       "filename" : "Giant Mushroom 1 Tile Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -3390,7 +3695,8 @@
           "x" : -2.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3407,6 +3713,8 @@
       "filename" : "Giant Mushroom 1 Tile Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -3431,6 +3739,8 @@
       "filename" : "Giant Mushroom 2 Tiles High Stem.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -3445,7 +3755,8 @@
           "x" : 1.0,
           "y" : 23.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3462,6 +3773,8 @@
       "filename" : "Giant Mushroom 2 Tiles High Head.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -3486,6 +3799,8 @@
       "filename" : "shrub_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3500,7 +3815,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3517,6 +3833,8 @@
       "filename" : "shrub_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3531,7 +3849,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3548,6 +3867,8 @@
       "filename" : "shrub_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3562,7 +3883,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3579,6 +3901,8 @@
       "filename" : "shrub_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3593,7 +3917,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3610,6 +3935,8 @@
       "filename" : "shrub_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3624,7 +3951,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3641,6 +3969,8 @@
       "filename" : "shrub_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3655,7 +3985,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3672,6 +4003,8 @@
       "filename" : "shrub_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3686,7 +4019,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3703,6 +4037,8 @@
       "filename" : "shrub_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3717,7 +4053,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3734,6 +4071,8 @@
       "filename" : "shrub_05_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3748,7 +4087,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3765,6 +4105,8 @@
       "filename" : "shrub_05_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3779,7 +4121,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3796,10 +4139,12 @@
       "filename" : "birch_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 21.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3808,9 +4153,10 @@
         "type" : "PLANT_LEAVES",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 14.0,
+          "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3827,6 +4173,8 @@
       "filename" : "birch_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3851,10 +4199,12 @@
       "filename" : "birch_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -7.0,
-        "y" : 37.0,
+        "y" : 53.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3865,7 +4215,8 @@
           "x" : -2.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3882,6 +4233,8 @@
       "filename" : "birch_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3906,10 +4259,12 @@
       "filename" : "birch_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 4.0,
-        "y" : 80.0,
+        "y" : 93.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3920,7 +4275,8 @@
           "x" : 0.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3937,6 +4293,8 @@
       "filename" : "birch_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3961,10 +4319,12 @@
       "filename" : "birch_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : 124.0,
+        "y" : 130.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3975,7 +4335,8 @@
           "x" : -1.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3992,6 +4353,8 @@
       "filename" : "birch_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4016,10 +4379,12 @@
       "filename" : "oak-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 8.0,
+        "y" : 24.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4030,7 +4395,8 @@
           "x" : 2.0,
           "y" : 10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4047,6 +4413,8 @@
       "filename" : "oak-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4071,10 +4439,12 @@
       "filename" : "oak-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -2.0,
-        "y" : 44.0,
+        "x" : 0.0,
+        "y" : 51.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4083,9 +4453,10 @@
         "type" : "PLANT_LEAVES",
         "offsetPixels" : {
           "x" : -0.5,
-          "y" : 22.0,
+          "y" : 23.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4102,6 +4473,8 @@
       "filename" : "oak-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4126,9 +4499,11 @@
       "filename" : "oak-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 1.0,
+        "x" : 4.0,
         "y" : 80.0,
         "unit" : false
       },
@@ -4140,7 +4515,8 @@
           "x" : -2.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4157,6 +4533,8 @@
       "filename" : "oak-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4181,10 +4559,12 @@
       "filename" : "oak-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -60.0,
-        "y" : 131.0,
+        "y" : 144.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4195,7 +4575,8 @@
           "x" : 1.0,
           "y" : 70.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4212,6 +4593,8 @@
       "filename" : "oak-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 8.0,
@@ -4236,10 +4619,12 @@
       "filename" : "beech-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 8.0,
+        "y" : 19.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4250,7 +4635,8 @@
           "x" : -1.5,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4267,6 +4653,8 @@
       "filename" : "beech-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4291,10 +4679,12 @@
       "filename" : "beech-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 40.0,
+        "x" : 1.0,
+        "y" : 48.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4305,7 +4695,8 @@
           "x" : -6.5,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4322,6 +4713,8 @@
       "filename" : "beech-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4346,10 +4739,12 @@
       "filename" : "beech-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 100.0,
+        "x" : 3.0,
+        "y" : 118.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4360,7 +4755,8 @@
           "x" : -2.0,
           "y" : 54.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4377,6 +4773,8 @@
       "filename" : "beech-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4401,10 +4799,12 @@
       "filename" : "beech-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
-        "x" : 6.0,
-        "y" : 104.0,
+        "x" : 1.0,
+        "y" : 108.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4415,7 +4815,8 @@
           "x" : -5.0,
           "y" : 78.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4432,6 +4833,8 @@
       "filename" : "beech-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4456,10 +4859,12 @@
       "filename" : "birch_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 9.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4470,7 +4875,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4487,6 +4893,8 @@
       "filename" : "birch_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4511,10 +4919,12 @@
       "filename" : "birch_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -7.0,
-        "y" : 37.0,
+        "y" : 56.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4525,7 +4935,8 @@
           "x" : -2.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4542,6 +4953,8 @@
       "filename" : "birch_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4566,10 +4979,12 @@
       "filename" : "birch_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 4.0,
-        "y" : 80.0,
+        "y" : 93.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4580,7 +4995,8 @@
           "x" : 0.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4597,6 +5013,8 @@
       "filename" : "birch_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4621,10 +5039,12 @@
       "filename" : "birch_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : 124.0,
+        "y" : 133.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4635,7 +5055,8 @@
           "x" : -1.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4652,6 +5073,8 @@
       "filename" : "birch_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4676,10 +5099,12 @@
       "filename" : "birch_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 13.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4690,7 +5115,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4707,6 +5133,8 @@
       "filename" : "birch_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4731,10 +5159,12 @@
       "filename" : "birch_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -7.0,
-        "y" : 37.0,
+        "x" : -8.0,
+        "y" : 55.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4745,7 +5175,8 @@
           "x" : -2.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4762,6 +5193,8 @@
       "filename" : "birch_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4786,10 +5219,12 @@
       "filename" : "birch_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 4.0,
-        "y" : 80.0,
+        "x" : 3.0,
+        "y" : 94.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4800,7 +5235,8 @@
           "x" : 0.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4817,6 +5253,8 @@
       "filename" : "birch_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4841,10 +5279,12 @@
       "filename" : "birch_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 124.0,
+        "x" : 4.0,
+        "y" : 135.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4855,7 +5295,8 @@
           "x" : -1.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4872,6 +5313,8 @@
       "filename" : "birch_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4896,10 +5339,12 @@
       "filename" : "fir-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -1.0,
-        "y" : -2.0,
+        "x" : 0.0,
+        "y" : 14.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4910,7 +5355,8 @@
           "x" : 2.0,
           "y" : 5.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4927,6 +5373,8 @@
       "filename" : "fir-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4951,10 +5399,12 @@
       "filename" : "fir-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
-        "y" : 36.0,
+        "y" : 50.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4965,7 +5415,8 @@
           "x" : -2.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4982,6 +5433,8 @@
       "filename" : "fir-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5006,10 +5459,12 @@
       "filename" : "fir-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 70.0,
+        "x" : 2.0,
+        "y" : 86.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5020,7 +5475,8 @@
           "x" : -3.5,
           "y" : 26.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5037,6 +5493,8 @@
       "filename" : "fir-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5061,10 +5519,12 @@
       "filename" : "fir-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 140.0,
+        "x" : -4.0,
+        "y" : 149.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5075,7 +5535,8 @@
           "x" : 2.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5092,6 +5553,8 @@
       "filename" : "fir-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5116,10 +5579,12 @@
       "filename" : "beech-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 8.0,
+        "y" : 19.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5130,7 +5595,8 @@
           "x" : -1.5,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5147,6 +5613,8 @@
       "filename" : "beech-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5171,10 +5639,12 @@
       "filename" : "beech-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 40.0,
+        "y" : 49.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5185,7 +5655,8 @@
           "x" : -6.5,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5202,6 +5673,8 @@
       "filename" : "beech-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5226,10 +5699,12 @@
       "filename" : "beech-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 100.0,
+        "x" : 3.0,
+        "y" : 117.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5240,7 +5715,8 @@
           "x" : -2.0,
           "y" : 54.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5257,6 +5733,8 @@
       "filename" : "beech-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5281,10 +5759,12 @@
       "filename" : "beech-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
-        "x" : 6.0,
-        "y" : 104.0,
+        "x" : 0.0,
+        "y" : 110.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5295,7 +5775,8 @@
           "x" : -5.0,
           "y" : 78.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5312,6 +5793,8 @@
       "filename" : "beech-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5336,10 +5819,12 @@
       "filename" : "maple_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 2.0,
+        "x" : -1.0,
+        "y" : 7.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5350,7 +5835,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5367,6 +5853,8 @@
       "filename" : "maple_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5391,10 +5879,12 @@
       "filename" : "maple_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.0,
-        "y" : 37.0,
+        "y" : 53.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5405,7 +5895,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5422,6 +5913,8 @@
       "filename" : "maple_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5446,10 +5939,12 @@
       "filename" : "maple_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 80.0,
+        "x" : -1.0,
+        "y" : 90.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5460,7 +5955,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5477,6 +5973,8 @@
       "filename" : "maple_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5501,10 +5999,12 @@
       "filename" : "maple_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 115.0,
+        "x" : 5.0,
+        "y" : 118.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5515,7 +6015,8 @@
           "x" : 0.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5532,6 +6033,8 @@
       "filename" : "maple_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5556,10 +6059,12 @@
       "filename" : "maple_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 2.0,
+        "x" : -1.0,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5570,7 +6075,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5587,6 +6093,8 @@
       "filename" : "maple_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5611,10 +6119,12 @@
       "filename" : "maple_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.0,
-        "y" : 37.0,
+        "y" : 52.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5625,7 +6135,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5642,6 +6153,8 @@
       "filename" : "maple_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5666,10 +6179,12 @@
       "filename" : "maple_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 80.0,
+        "x" : -1.0,
+        "y" : 92.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5680,7 +6195,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5697,6 +6213,8 @@
       "filename" : "maple_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5721,10 +6239,12 @@
       "filename" : "maple_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 115.0,
+        "x" : 5.0,
+        "y" : 119.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5735,7 +6255,8 @@
           "x" : 0.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5752,6 +6273,8 @@
       "filename" : "maple_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5776,10 +6299,12 @@
       "filename" : "oak-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 8.0,
+        "x" : 1.0,
+        "y" : 24.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5790,7 +6315,8 @@
           "x" : 2.0,
           "y" : 10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5807,6 +6333,8 @@
       "filename" : "oak-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5831,10 +6359,12 @@
       "filename" : "oak-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -2.0,
-        "y" : 44.0,
+        "x" : -1.0,
+        "y" : 51.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5845,7 +6375,8 @@
           "x" : -0.5,
           "y" : 22.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5862,6 +6393,8 @@
       "filename" : "oak-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5886,10 +6419,12 @@
       "filename" : "oak-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 85.0,
+        "x" : 4.0,
+        "y" : 78.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5900,7 +6435,8 @@
           "x" : -2.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5917,6 +6453,8 @@
       "filename" : "oak-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.0,
@@ -5941,10 +6479,12 @@
       "filename" : "oak-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -59.0,
-        "y" : 138.0,
+        "y" : 139.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5955,7 +6495,8 @@
           "x" : 1.0,
           "y" : 70.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5972,6 +6513,8 @@
       "filename" : "oak-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 7.0,
@@ -5987,7 +6530,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6003,10 +6547,12 @@
       "filename" : "beech-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 8.0,
+        "x" : 1.0,
+        "y" : 20.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6017,7 +6563,8 @@
           "x" : -1.5,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6034,6 +6581,8 @@
       "filename" : "beech-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6058,10 +6607,12 @@
       "filename" : "beech-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 40.0,
+        "x" : 1.0,
+        "y" : 44.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6072,7 +6623,8 @@
           "x" : -6.5,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6089,6 +6641,8 @@
       "filename" : "beech-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6113,10 +6667,12 @@
       "filename" : "beech-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 100.0,
+        "x" : 2.0,
+        "y" : 119.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6127,7 +6683,8 @@
           "x" : -2.0,
           "y" : 54.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6144,6 +6701,8 @@
       "filename" : "beech-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6168,10 +6727,12 @@
       "filename" : "beech-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
-        "x" : 6.0,
-        "y" : 104.0,
+        "x" : 1.0,
+        "y" : 114.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6182,7 +6743,8 @@
           "x" : -5.0,
           "y" : 78.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6199,6 +6761,8 @@
       "filename" : "beech-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6223,10 +6787,12 @@
       "filename" : "pine_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6237,7 +6803,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6254,6 +6821,8 @@
       "filename" : "pine_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6278,10 +6847,12 @@
       "filename" : "pine_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -4.0,
-        "y" : 37.0,
+        "x" : -5.0,
+        "y" : 58.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6292,7 +6863,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6309,6 +6881,8 @@
       "filename" : "pine_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6333,10 +6907,12 @@
       "filename" : "pine_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 80.0,
+        "x" : 4.0,
+        "y" : 89.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6347,7 +6923,8 @@
           "x" : -1.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6364,6 +6941,8 @@
       "filename" : "pine_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6388,10 +6967,12 @@
       "filename" : "pine_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 115.0,
+        "y" : 130.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6402,7 +6983,8 @@
           "x" : 1.0,
           "y" : 27.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6419,6 +7001,8 @@
       "filename" : "pine_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6443,10 +7027,12 @@
       "filename" : "maple_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 2.0,
+        "x" : -1.0,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6457,7 +7043,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6474,6 +7061,8 @@
       "filename" : "maple_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6498,10 +7087,12 @@
       "filename" : "maple_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -2.0,
-        "y" : 37.0,
+        "x" : -1.0,
+        "y" : 49.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6512,7 +7103,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6529,6 +7121,8 @@
       "filename" : "maple_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6553,10 +7147,12 @@
       "filename" : "maple_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 80.0,
+        "y" : 90.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6567,7 +7163,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6584,6 +7181,8 @@
       "filename" : "maple_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6608,10 +7207,12 @@
       "filename" : "maple_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 115.0,
+        "x" : 5.0,
+        "y" : 118.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6622,7 +7223,8 @@
           "x" : 0.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6639,6 +7241,8 @@
       "filename" : "maple_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6663,10 +7267,12 @@
       "filename" : "maple_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 7.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6677,7 +7283,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6694,6 +7301,8 @@
       "filename" : "maple_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6718,10 +7327,12 @@
       "filename" : "maple_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -2.0,
-        "y" : 37.0,
+        "x" : -1.0,
+        "y" : 50.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6732,7 +7343,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6749,6 +7361,8 @@
       "filename" : "maple_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6773,10 +7387,12 @@
       "filename" : "maple_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 80.0,
+        "x" : -1.0,
+        "y" : 91.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6787,7 +7403,8 @@
           "x" : -1.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6804,6 +7421,8 @@
       "filename" : "maple_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6828,10 +7447,12 @@
       "filename" : "maple_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 115.0,
+        "x" : 5.0,
+        "y" : 121.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6842,7 +7463,8 @@
           "x" : 0.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6859,6 +7481,8 @@
       "filename" : "maple_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6883,10 +7507,12 @@
       "filename" : "birch_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 15.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6897,7 +7523,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6914,6 +7541,8 @@
       "filename" : "birch_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6938,10 +7567,12 @@
       "filename" : "birch_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -7.0,
-        "y" : 37.0,
+        "y" : 52.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6952,7 +7583,8 @@
           "x" : -2.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6969,6 +7601,8 @@
       "filename" : "birch_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6993,10 +7627,12 @@
       "filename" : "birch_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 4.0,
-        "y" : 80.0,
+        "y" : 92.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7007,7 +7643,8 @@
           "x" : 0.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7024,6 +7661,8 @@
       "filename" : "birch_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7048,10 +7687,12 @@
       "filename" : "birch_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : 124.0,
+        "x" : 5.0,
+        "y" : 130.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7062,7 +7703,8 @@
           "x" : -1.0,
           "y" : 36.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7079,6 +7721,8 @@
       "filename" : "birch_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7103,10 +7747,12 @@
       "filename" : "fir-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -1.0,
-        "y" : -2.0,
+        "x" : 0.0,
+        "y" : 14.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7117,7 +7763,8 @@
           "x" : 2.0,
           "y" : 5.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7134,6 +7781,8 @@
       "filename" : "fir-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7158,10 +7807,12 @@
       "filename" : "fir-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
-        "y" : 36.0,
+        "y" : 47.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7172,7 +7823,8 @@
           "x" : -2.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7189,6 +7841,8 @@
       "filename" : "fir-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7213,10 +7867,12 @@
       "filename" : "fir-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 70.0,
+        "x" : 4.0,
+        "y" : 83.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7227,7 +7883,8 @@
           "x" : -3.5,
           "y" : 26.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7244,6 +7901,8 @@
       "filename" : "fir-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7268,10 +7927,12 @@
       "filename" : "fir-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 140.0,
+        "x" : -3.0,
+        "y" : 143.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7282,7 +7943,8 @@
           "x" : 2.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7299,6 +7961,8 @@
       "filename" : "fir-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7323,10 +7987,12 @@
       "filename" : "pine_01_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7337,7 +8003,8 @@
           "x" : 0.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7354,6 +8021,8 @@
       "filename" : "pine_01_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7378,10 +8047,12 @@
       "filename" : "pine_02_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -4.0,
-        "y" : 37.0,
+        "y" : 57.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7392,7 +8063,8 @@
           "x" : -2.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7409,6 +8081,8 @@
       "filename" : "pine_02_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7433,10 +8107,12 @@
       "filename" : "pine_03_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : 80.0,
+        "y" : 88.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7447,7 +8123,8 @@
           "x" : -1.0,
           "y" : 30.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7464,6 +8141,8 @@
       "filename" : "pine_03_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7488,10 +8167,12 @@
       "filename" : "pine_04_t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 115.0,
+        "y" : 128.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7502,7 +8183,8 @@
           "x" : 1.0,
           "y" : 27.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7519,6 +8201,8 @@
       "filename" : "pine_04_l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7543,10 +8227,12 @@
       "filename" : "beech-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 8.0,
+        "x" : 1.0,
+        "y" : 19.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7557,7 +8243,8 @@
           "x" : -1.5,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7574,6 +8261,8 @@
       "filename" : "beech-0-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7598,10 +8287,12 @@
       "filename" : "beech-1-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 40.0,
+        "x" : 1.0,
+        "y" : 44.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7612,7 +8303,8 @@
           "x" : -6.5,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7629,6 +8321,8 @@
       "filename" : "beech-1-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7653,10 +8347,12 @@
       "filename" : "beech-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 100.0,
+        "x" : 3.0,
+        "y" : 119.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7667,7 +8363,8 @@
           "x" : -2.0,
           "y" : 54.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7684,6 +8381,8 @@
       "filename" : "beech-2-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7708,10 +8407,12 @@
       "filename" : "beech-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
-        "x" : 6.0,
-        "y" : 104.0,
+        "x" : 1.0,
+        "y" : 114.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7722,7 +8423,8 @@
           "x" : -5.0,
           "y" : 78.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7739,6 +8441,8 @@
       "filename" : "beech-3-l.png",
       "coloringLayer" : "LEAF_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,

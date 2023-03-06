@@ -8,8 +8,8 @@
       "filename" : "fir-2-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 70.0
+        "x" : 2.0,
+        "y" : 86.0
       },
       "childAssets" : [ {
         "type" : "PLANT_LEAVES",

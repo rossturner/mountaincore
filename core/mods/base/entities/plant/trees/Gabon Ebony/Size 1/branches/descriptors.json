@@ -1,25 +1,22 @@
-[{
-  "uniqueName": "Gabon-Ebony-Size1-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Gabon Ebony",
-  "growthStages": [0],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "beech-0-t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": 8
+[ {
+  "uniqueName" : "Gabon-Ebony-Size1-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Gabon Ebony",
+  "growthStages" : [ 0 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "beech-0-t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "y" : 19.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -1.5,
-            "y": 24
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 24.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

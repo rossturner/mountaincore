@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Pecan-Size1-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Pecan",
-  "growthStages": [0],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "beech-0-l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Pecan-Size1-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Pecan",
+  "growthStages" : [ 0 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "beech-0-l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

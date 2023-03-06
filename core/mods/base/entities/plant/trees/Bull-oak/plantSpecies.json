@@ -1,67 +1,56 @@
 {
-  "speciesName": "Bull-oak",
-  "plantType": "TREE",
-  "materialName": "Ironwood",
-  "maxGrowthSpeedVariance": 0.2,
-  "defaultColors": {
-    "BRANCHES_COLOR": {
-      "swatch": "bull-oak-branch-base-swatch.png"
+  "speciesName" : "Bull-oak",
+  "plantType" : "TREE",
+  "materialName" : "Ironwood",
+  "maxGrowthSpeedVariance" : 0.2,
+  "defaultColors" : {
+    "BRANCHES_COLOR" : {
+      "swatch" : "bull-oak-branch-base-swatch.png"
     },
-    "LEAF_COLOR": {
-      "swatch": "bull-oak-leaf-base-swatch.png"
+    "LEAF_COLOR" : {
+      "swatch" : "bull-oak-leaf-base-swatch.png"
     }
   },
-  "seasons": {
-    "WINTER": {
-      "growth": false
+  "seasons" : {
+    "WINTER" : {
+      "growth" : false
     }
   },
-  "growthStages": [
-    {
-      "name": "Size 1",
-      "seasonsUntilComplete": 1,
-      "nextGrowthStage": 1,
-      "tileHeight": 1
-    },
-    {
-      "name": "Size 2",
-      "seasonsUntilComplete": 1,
-      "nextGrowthStage": 2,
-      "tileHeight": 2
-    },
-    {
-      "name": "Size 3",
-      "seasonsUntilComplete": 2,
-      "onCompletion": [
-        "DISPERSE_SEEDS"
-      ],
-      "nextGrowthStage": 3,
-      "tileHeight": 3,
-      "harvestType": "LOGGING",
-      "harvestedItems": [
-        {
-          "itemTypeName": "Resource-Logs",
-          "materialName": "Ironwood",
-          "quantity": 2
-        }
-      ]
-    },
-    {
-      "name": "Size 4",
-      "seasonsUntilComplete": 3,
-      "nextGrowthStage": 3,
-      "tileHeight": 4,
-      "onCompletion": [
-        "DISPERSE_SEEDS"
-      ],
-      "harvestType": "LOGGING",
-      "harvestedItems": [
-        {
-          "itemTypeName": "Resource-Logs",
-          "materialName": "Ironwood",
-          "quantity": 3
-        }
-      ]
-    }
-  ]
+  "growthStages" : [ {
+    "name" : "Size 1",
+    "nextGrowthStage" : 1
+  }, {
+    "name" : "Size 2",
+    "nextGrowthStage" : 2,
+    "tileHeight" : 2
+  }, {
+    "name" : "Size 3",
+    "nextGrowthStage" : 3,
+    "seasonsUntilComplete" : 2.0,
+    "tileHeight" : 3,
+    "onCompletion" : [ "DISPERSE_SEEDS" ],
+    "harvestType" : "LOGGING",
+    "harvestedItems" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "materialName" : "Ironwood",
+      "quantity" : 2
+    } ]
+  }, {
+    "name" : "Size 4",
+    "nextGrowthStage" : 3,
+    "seasonsUntilComplete" : 3.0,
+    "tileHeight" : 4,
+    "onCompletion" : [ "DISPERSE_SEEDS" ],
+    "harvestType" : "LOGGING",
+    "harvestedItems" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "materialName" : "Ironwood",
+      "quantity" : 3
+    } ]
+  } ],
+  "allColorObjects" : [ {
+    "swatch" : "bull-oak-branch-base-swatch.png"
+  }, {
+    "swatch" : "bull-oak-leaf-base-swatch.png"
+  } ]
 }

@@ -1,26 +1,24 @@
-[{
-  "uniqueName": "Tree-Sycamore-Size4-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Sycamore",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "beech-3-t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "scale": 0.8,
-      "offsetPixels": {
-        "x": 6,
-        "y": 104
+[ {
+  "uniqueName" : "Tree-Sycamore-Size4-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Sycamore",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "beech-3-t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 114.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -5,
-            "y": 78
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -5.0,
+          "y" : 78.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

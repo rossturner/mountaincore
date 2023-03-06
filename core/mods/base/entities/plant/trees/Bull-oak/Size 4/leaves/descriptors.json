@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Bull-oak-Size4-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Bull-oak",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "birch_04_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Bull-oak-Size4-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Bull-oak",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "birch_04_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

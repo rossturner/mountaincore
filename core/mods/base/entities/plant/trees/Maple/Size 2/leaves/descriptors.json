@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Maple-Size2-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Maple",
-  "growthStages": [1],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "maple_02_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Maple-Size2-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Maple",
+  "growthStages" : [ 1 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "maple_02_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

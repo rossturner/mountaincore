@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Sycamore-Size3-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Sycamore",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "beech-2-l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Sycamore-Size3-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Sycamore",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "beech-2-l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]
