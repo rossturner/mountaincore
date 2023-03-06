@@ -1,7 +1,10 @@
 package technology.rocketjump.saul.ui.widgets;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -66,6 +69,15 @@ public abstract class GameDialog implements Disposable {
 		});
 		exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
 		exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		dialog.addListener(new InputListener() {
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+				if (keycode == Input.Keys.ESCAPE) {
+					close();
+				}
+				return super.keyDown(event, keycode);
+			}
+		});
 
 		layoutTable.defaults().pad(10);
 		layoutTable.add(exitButton).align(Align.topLeft).expandX().padBottom(0).row();

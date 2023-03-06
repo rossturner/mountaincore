@@ -241,6 +241,8 @@ public class ModArtifactListing {
 						"terrain", "wallLayoutQuadrants", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 
 				////////// text //////////
+				def("text/credits", "*.csv", CSV, null,
+						"text/credits", null, CSV, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("text/names/csv", "*.csv", CSV, null,
 						"text/csv", null, CSV, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("text/names", "**/descriptor.json", JSON_OBJECT, NameGenerationDescriptor.class,
@@ -276,6 +278,12 @@ public class ModArtifactListing {
 						"ui", "hints", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("ui", "minimapSelection", PNG, null,
 						"ui", "minimapSelection", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
+				def("ui", "RJT_LOGO", PNG, null,
+						"ui", "RJT_LOGO", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
+				def("ui", "RJT_LOGO_BLACK", PNG, null,
+						"ui", "RJT_LOGO_BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
+				def("ui", "PDX-Arc-BLACK", PNG, null,
+										"ui", "PDX-Arc-BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "uiSettings", JSON_OBJECT, null,
 						"ui", "uiSettings", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 

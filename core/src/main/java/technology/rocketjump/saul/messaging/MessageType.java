@@ -26,6 +26,7 @@ public class MessageType {
 	public static final int SETTLEMENT_SPAWNED = 8;
 	public static final int DEV_MODE_CHANGED = 9;
 	public static final int GET_SETTLEMENT_CONSTANTS = 10;
+	public static final int MENU_ESCAPED = 11;
 
 	// Mouse & Input messages
 	public static final int MOUSE_DOWN = 200;

@@ -91,6 +91,9 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
 
         Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
+                .withAction(() -> {
+                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.CREDITS_MENU);
+                })
                 .build();
 
         Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_47PT)
@@ -114,8 +117,6 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
 
         disableButton(continueButton);
         disableButton(loadGameButton);
-        disableButton(creditsButton);
-
 
         buttonsTable.add(continueButton).padBottom(30f).row();
         buttonsTable.add(loadGameButton).padBottom(30f).row();
@@ -149,6 +150,10 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
         return new Table();
     }
 
+
+    public boolean hasGameStarted() {
+        return this.gameStarted;
+    }
 
     public void gameStarted() {
         this.gameStarted = true;
