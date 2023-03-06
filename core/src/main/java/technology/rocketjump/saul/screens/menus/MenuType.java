@@ -7,7 +7,8 @@ public enum MenuType {
 	EMBARK_MENU(EmbarkMenu.class),
 	LOAD_GAME_MENU(LoadGameMenu.class),
 	OPTIONS_MENU(OptionsMenu.class),
-	TWITCH_OPTIONS_MENU(OptionsMenu.class);
+	TWITCH_OPTIONS_MENU(OptionsMenu.class),
+	CREDITS_MENU(CreditsMenu.class);
 
 	private final Class<? extends Menu> relatedMenuClass;
 

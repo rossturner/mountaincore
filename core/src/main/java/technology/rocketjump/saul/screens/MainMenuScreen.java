@@ -39,6 +39,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
@@ -57,6 +58,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	private final OptionsMenu optionsMenu;
 	private final EmbarkMenu embarkMenu;
 	private final LoadGameMenu loadGameMenu;
+	private final CreditsMenu creditsMenu;
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 
@@ -69,7 +71,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	private final Table containerTable;
 	private final Table versionTable;
 
-	private Menu currentMenu;
+	private Stack<Menu> traversedMenus = new Stack<>();
 
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
@@ -77,10 +79,11 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	@Inject
 	public MainMenuScreen(MessageDispatcher messageDispatcher, ScreenWriter screenWriter, EmbarkMenu embarkMenu,
-	                      LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
-	                      UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
-	                      PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
-	                      TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator, ConstantsRepo constantsRepo) {
+						  LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
+						  UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
+						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
+						  TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator, ConstantsRepo constantsRepo,
+						  CreditsMenu creditsMenu) {
 		super(constantsRepo.getUiConstants());
 		this.messageDispatcher = messageDispatcher;
 		this.screenWriter = screenWriter;
@@ -92,6 +95,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		this.userPreferences = userPreferences;
 		this.twitchDataStore = twitchDataStore;
 		this.i18nTranslator = i18nTranslator;
+		this.creditsMenu = creditsMenu;
 
 		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
@@ -103,16 +107,14 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		versionTable.setFillParent(true);
 		versionTable.left().bottom();
 
-//		stage.addActor(versionTable);
-
+		setCurrentMenu(topLevelMenu);
 		if (crashHandler.isOptInConfirmationRequired()) {
-			currentMenu = privacyOptInMenu;
-		} else {
-			currentMenu = topLevelMenu;
+			setCurrentMenu(privacyOptInMenu);
 		}
-		currentMenu.show();
+		showCurrentMenu();
 
 		messageDispatcher.addListener(this, MessageType.SWITCH_MENU);
+		messageDispatcher.addListener(this, MessageType.MENU_ESCAPED);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
 		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
@@ -124,33 +126,45 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
+			case MessageType.MENU_ESCAPED: {
+				if (getCurrentMenu() == topLevelMenu && topLevelMenu.hasGameStarted()) {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+				} else {
+					goBackMenu();
+					reset();
+				}
+				return true;
+			}
 			case MessageType.SWITCH_MENU: {
 				MenuType targetMenuType = (MenuType) msg.extraInfo;
-				MenuType currentMenuType = MenuType.byInstance(currentMenu);
+				MenuType currentMenuType = MenuType.byInstance(getCurrentMenu());
 				if (!targetMenuType.equals(currentMenuType)) {
-					if (currentMenu != null) {
-						currentMenu.hide();
+					if (getCurrentMenu() != null) {
+						getCurrentMenu().hide();
 					}
 					switch (targetMenuType) {
 						case TOP_LEVEL_MENU:
-							currentMenu = topLevelMenu;
+							setCurrentMenu(topLevelMenu);
 							break;
 						case TWITCH_OPTIONS_MENU:
 							optionsMenu.setCurrentTab(OptionsTabName.TWITCH);
 						case PRIVACY_OPT_IN_MENU:
 						case OPTIONS_MENU:
-							currentMenu = optionsMenu;
+							setCurrentMenu(optionsMenu);
 							break;
 						case EMBARK_MENU:
-							currentMenu = embarkMenu;
+							setCurrentMenu(embarkMenu);
 							break;
 						case LOAD_GAME_MENU:
-							currentMenu = loadGameMenu;
+							setCurrentMenu(loadGameMenu);
+							break;
+						case CREDITS_MENU:
+							setCurrentMenu(creditsMenu);
 							break;
 						default:
 							throw new NotImplementedException("not yet implemented:" + targetMenuType.name());
 					}
-					currentMenu.show();
+					showCurrentMenu();
 					reset();
 				}
 				return true;
@@ -198,11 +212,11 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		stage.clear();
 
 		containerTable.clearChildren();
-		currentMenu.reset();
-		currentMenu.populate(containerTable);
+		getCurrentMenu().reset();
+		getCurrentMenu().populate(containerTable);
 
 		stage.addActor(containerTable);
-		if (currentMenu.showVersionDetails()) {
+		if (getCurrentMenu().showVersionDetails()) {
 			stage.addActor(versionTable);
 		}
 
@@ -227,6 +241,32 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+
+	private Menu getCurrentMenu() {
+		return traversedMenus.peek();
+	}
+
+	private void showCurrentMenu() {
+		getCurrentMenu().show();
+	}
+
+	private void goBackMenu() {
+		getCurrentMenu().hide();
+		if (traversedMenus.size() == 1) {
+			setCurrentMenu(topLevelMenu);
+		} else {
+			traversedMenus.pop();
+		}
+		showCurrentMenu();
+	}
+
+	private void setCurrentMenu(Menu menu) {
+		if (menu == topLevelMenu) {
+			traversedMenus.clear();
+		}
+		traversedMenus.push(menu);
 	}
 
 	private void setupBackgroundRegion() {
@@ -378,6 +418,9 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 				GlobalSettings.DEV_MODE = !GlobalSettings.DEV_MODE;
 				messageDispatcher.dispatchMessage(MessageType.DEV_MODE_CHANGED);
 				return true;
+			}
+			if (keycode == Input.Keys.ESCAPE) {
+				messageDispatcher.dispatchMessage(MessageType.MENU_ESCAPED);
 			}
 			return false;
 		}
