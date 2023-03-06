@@ -49,8 +49,8 @@ public class CustomEffectFactory {
 		TextureAtlas diffuseTextureAtlas = textureAtlasRepository.get(GUI_TEXTURE_ATLAS);
 		diffuseEntitiesAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.DIFFUSE_ENTITIES);
 
-		progressBarOuterSprite = diffuseTextureAtlas.createSprite("yellow_button13");
-		progressBarInnerSprite = diffuseTextureAtlas.createSprite("green_button01");
+		progressBarOuterSprite = diffuseTextureAtlas.createSprite("job_progress_bg");
+		progressBarInnerSprite = diffuseTextureAtlas.createSprite("job_progress_fg");
 
 		defensePoolShieldSprite = diffuseTextureAtlas.createSprite("Shield_Bar_Icon");
 		defensePoolForegroundSprite = diffuseTextureAtlas.createSprite("Shield_Bar_Foreground_Trimmed");

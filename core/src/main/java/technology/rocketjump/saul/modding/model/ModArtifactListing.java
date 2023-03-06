@@ -278,8 +278,6 @@ public class ModArtifactListing {
 						"ui", "hints", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("ui", "minimapSelection", PNG, null,
 						"ui", "minimapSelection", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
-				def("ui", "RJT_LOGO", PNG, null,
-						"ui", "RJT_LOGO", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "RJT_LOGO_BLACK", PNG, null,
 						"ui", "RJT_LOGO_BLACK", PNG, SINGLE_FILE, REPLACES_EXISTING, CopyFilesProcessor.class),
 				def("ui", "PDX-Arc-BLACK", PNG, null,
