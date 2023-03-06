@@ -1,11 +1,11 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
 
@@ -70,8 +70,19 @@ public class ChildAssetWidget extends VisTable {
 		});
 		this.add(specificNameField).left().expandX().fillX().colspan(2).row();
 
-		this.add(WidgetBuilder.label("Inherit Animations:")).left().row();
-		this.add(WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), inheritableAnimationNames, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove));
+		Label inheritAnimationsLabel = WidgetBuilder.label("Inherit Animations (click to show):");
+		this.add(inheritAnimationsLabel).left().row();
+
+		VisTable inheritAnimationsCheckboxes = WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), inheritableAnimationNames, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove);
+		CollapsibleWidget inheritAnimationsCollapsible = new CollapsibleWidget(inheritAnimationsCheckboxes);
+		inheritAnimationsCollapsible.setCollapsed(childDescriptor.getInheritAnimations().isEmpty());
+		inheritAnimationsLabel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				inheritAnimationsCollapsible.setCollapsed(!inheritAnimationsCollapsible.isCollapsed());
+			}
+		});
+		this.add(inheritAnimationsCollapsible);
 		this.row();
 
 
