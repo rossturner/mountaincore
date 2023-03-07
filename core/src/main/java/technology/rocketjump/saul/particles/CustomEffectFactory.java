@@ -66,7 +66,7 @@ public class CustomEffectFactory {
 			Logger.error("Can not find sprites with name " + type.getAnimatedSpriteName());
 			return null;
 		} else {
-			AnimatedSpriteEffect animatedSpriteEffect = new AnimatedSpriteEffect(sprites, type.getOverrideDuration());
+			AnimatedSpriteEffect animatedSpriteEffect = new AnimatedSpriteEffect(sprites, type.getOverrideDuration(), type.getScale());
 			if (type.isUsesTargetMaterialAsTintColor() && optionalMaterialColor.isPresent()) {
 				animatedSpriteEffect.setTint(optionalMaterialColor.get());
 			}

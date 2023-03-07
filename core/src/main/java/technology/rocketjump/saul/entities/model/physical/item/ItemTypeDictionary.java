@@ -11,7 +11,6 @@ import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
-import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
@@ -129,46 +128,7 @@ public class ItemTypeDictionary {
 		allTypesList.add(itemType);
 
 		if (itemType.getWeaponInfo() != null) {
-			if (itemType.getWeaponInfo().getFireWeaponSoundAssetName() != null) {
-				itemType.getWeaponInfo().setFireWeaponSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getFireWeaponSoundAssetName()));
-				if (itemType.getWeaponInfo().getFireWeaponSoundAsset() == null) {
-					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getFireWeaponSoundAssetName(), itemType.getItemTypeName()));
-				}
-			}
-
-			if (itemType.getWeaponInfo().getWeaponHitSoundAssetName() != null) {
-				itemType.getWeaponInfo().setWeaponHitSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponHitSoundAssetName()));
-				if (itemType.getWeaponInfo().getWeaponHitSoundAsset() == null) {
-					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponHitSoundAssetName(), itemType.getItemTypeName()));
-				}
-			}
-
-			if (itemType.getWeaponInfo().getWeaponMissSoundAssetName() != null) {
-				itemType.getWeaponInfo().setWeaponMissSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponMissSoundAssetName()));
-				if (itemType.getWeaponInfo().getWeaponMissSoundAsset() == null) {
-					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponMissSoundAssetName(), itemType.getItemTypeName()));
-				}
-			}
-
-			if (itemType.getWeaponInfo().getAnimatedSpriteEffectName() != null) {
-				itemType.getWeaponInfo().setAnimatedEffectType(particleEffectTypeDictionary.getByName(itemType.getWeaponInfo().getAnimatedSpriteEffectName()));
-				if (itemType.getWeaponInfo().getAnimatedEffectType() == null) {
-					Logger.error(String.format("Could not find particle effect with name %s for item type %s", itemType.getWeaponInfo().getAnimatedSpriteEffectName(), itemType.getItemTypeName()));
-				} else if (itemType.getWeaponInfo().getAnimatedEffectType().getAnimatedSpriteName() == null) {
-					Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
-							itemType.getWeaponInfo().getAnimatedEffectType().getName(), itemType.getItemTypeName()));
-				}
-			}
-
-			if (itemType.getWeaponInfo().getCombatSkillName() != null) {
-				itemType.getWeaponInfo().setCombatSkill(skillDictionary.getByName(itemType.getWeaponInfo().getCombatSkillName()));
-				if (itemType.getWeaponInfo().getCombatSkill() == null) {
-					Logger.error("Could not find combat skill with name %s for item type %s", itemType.getWeaponInfo().getCombatSkillName(), itemType.getItemTypeName());
-				} else if (!itemType.getWeaponInfo().getCombatSkill().getType().equals(SkillType.COMBAT_SKILL)) {
-					Logger.error("Combat skill with name %s for item type %s is not a COMBAT_SKILL-type skill", itemType.getWeaponInfo().getCombatSkillName(), itemType.getItemTypeName());
-				}
-			}
-
+			itemType.getWeaponInfo().initialise(itemType.getItemTypeName(), soundAssetDictionary, particleEffectTypeDictionary, skillDictionary);
 			itemTypesWithWeaponInfo.add(itemType);
 		}
 		if (itemType.getIsAmmoType() != null) {

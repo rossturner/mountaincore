@@ -448,7 +448,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
 						.findAny()
 						.ifPresent(entity -> {
-							ParticleEffectType effectType = particleEffectTypeDictionary.getByName("Weapon slash");
+							ParticleEffectType effectType = particleEffectTypeDictionary.getByName("Claw slash");
 							messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType, Optional.of(entity),
 									Optional.empty(), (p) -> {}));
 						});

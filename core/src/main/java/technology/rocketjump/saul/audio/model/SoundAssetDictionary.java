@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
 
 import java.io.File;
@@ -56,6 +57,14 @@ public class SoundAssetDictionary {
 			}
 		}
 
+		WeaponInfo.UNARMED.setWeaponHitSoundAsset(getByName("SFX_Punch_Impact"));
+		if (WeaponInfo.UNARMED.getWeaponHitSoundAsset() == null) {
+			Logger.error("Could not find sound asset named SFX_Punch_Impact for UNARMED default weapon info");
+		}
+		WeaponInfo.UNARMED.setWeaponMissSoundAsset(getByName("SFX_Melee_Miss"));
+		if (WeaponInfo.UNARMED.getWeaponMissSoundAsset() == null) {
+			Logger.error("Could not find sound asset named SFX_Melee_Miss for UNARMED default weapon info");
+		}
 	}
 
 	private void init(SoundAsset asset) {

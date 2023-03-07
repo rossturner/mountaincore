@@ -72,6 +72,9 @@
       "minDamage" : 1,
       "maxDamage" : 3,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : true
     },
     "blood" : { }
