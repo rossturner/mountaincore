@@ -22,10 +22,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.layout.GridGroup;
 import com.kotcrab.vis.ui.util.InputValidator;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.io.FilenameUtils;
@@ -52,11 +49,17 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.modding.ModParser;
+import technology.rocketjump.saul.modding.model.ModInfo;
 import technology.rocketjump.saul.persistence.FileUtils;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -71,6 +74,7 @@ public class AssetEditorUI implements Telegraph {
 
 	private final VisTable topLevelTable;
 	private final VisTable viewArea;
+	private final MessageDispatcher messageDispatcher;
 	private final ViewEditorPane viewEditor;
 	private final NavigatorContextMenu navigatorContextMenu;
 	private final EntityBrowserContextMenu browserContextMenu;
@@ -86,6 +90,7 @@ public class AssetEditorUI implements Telegraph {
 	private UIFactory currentUiFactory;
 	private final SpriteCropperPipeline spriteCropperPipeline;
 	private final AnimationStudio animationStudio;
+	private final ModParser modParser;
 	//TODO: this class definitely getting big
 
 	@Inject
@@ -93,18 +98,20 @@ public class AssetEditorUI implements Telegraph {
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
 						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, AnimationStudio animationStudio,
 						 SpriteDescriptorsPane spriteDescriptorsPane, EditorStateProvider editorStateProvider,
-						 Map<EntityType, UIFactory> uiFactories, SpriteCropperPipeline spriteCropperPipeline) {
+						 Map<EntityType, UIFactory> uiFactories, SpriteCropperPipeline spriteCropperPipeline, ModParser modParser) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
 		this.entityBrowserPane = entityBrowserPane;
 		this.propertyEditorPane = propertyEditorPane;
+		this.messageDispatcher = messageDispatcher;
 		this.viewEditor = viewEditor;
 		this.spriteDescriptorsPane = spriteDescriptorsPane;
 		this.editorStateProvider = editorStateProvider;
 		this.uiFactories = uiFactories;
 		this.spriteCropperPipeline = spriteCropperPipeline;
 		this.animationStudio = animationStudio;
+		this.modParser = modParser;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -179,6 +186,8 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CROP_SPRITES_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_ICON_SELECTION_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_MOD_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_OPEN_MOD);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -293,6 +302,55 @@ public class AssetEditorUI implements Telegraph {
 				};
 				dialog.add(new VisLabel("Folder"));
 				dialog.add(folderTextBox);
+				dialog.show(stage);
+				return true;
+			}
+			case MessageType.EDITOR_OPEN_MOD: {
+				final FileHandle file = (FileHandle) msg.extraInfo;
+				Path modDir = FileUtils.getDirectory(file.file().toPath());
+				editorStateProvider.getState().changeToMod(modDir.toAbsolutePath().toString());
+				editorStateProvider.stateChanged();
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+			}
+			case MessageType.EDITOR_SHOW_CREATE_MOD_DIALOG: {
+				final Path directory = Paths.get("mods/").toAbsolutePath();
+				VisValidatableTextField modNameTextField = new VisValidatableTextField();
+				modNameTextField.addValidator(StringUtils::isNotBlank);
+				modNameTextField.addListener(new TextBoxConventionListener(original -> original.toLowerCase().replaceAll("\\s", "_")));
+
+				VisTextArea descriptionTextField = new VisTextArea();
+				VisTextField homepageTextField = new VisTextField();
+
+				OkCancelDialog dialog = new OkCancelDialog("New Mod") {
+					@Override
+					public void onOk() {
+						String name = modNameTextField.getText();
+						Path modDir = FileUtils.createDirectory(directory, name);
+						ModInfo modInfo = new ModInfo();
+						modInfo.setName(name);
+						modInfo.setGameVersion(GlobalSettings.VERSION.toString());
+						modInfo.setDescription(descriptionTextField.getText());
+						modInfo.setHomepageUrl(homepageTextField.getText());
+						modInfo.setVersion("1.0.0");
+						try {
+							modParser.write(modDir, modInfo);
+							messageDispatcher.dispatchMessage(MessageType.EDITOR_OPEN_MOD, new FileHandle(modDir.toFile()));
+						} catch (IOException e) {
+							throw new UncheckedIOException(e);
+						}
+					}
+				};
+				dialog.add(new VisLabel("Name"));
+				dialog.add(modNameTextField);
+				dialog.row();
+				dialog.add(new VisLabel(directory.toString())).colspan(2);
+				dialog.row();
+				dialog.add(new VisLabel("Homepage Url"));
+				dialog.add(homepageTextField);
+				dialog.row();
+				dialog.add(new VisLabel("Description"));
+				dialog.add(descriptionTextField);
+				dialog.row();
 				dialog.show(stage);
 				return true;
 			}

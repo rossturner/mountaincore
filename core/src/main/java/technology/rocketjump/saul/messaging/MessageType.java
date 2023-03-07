@@ -325,5 +325,7 @@ public class MessageType {
 	public static final int EDITOR_RELOAD = 99011;
 	public static final int EDITOR_SHOW_CROP_SPRITES_DIALOG = 99012;
 	public static final int EDITOR_SHOW_ICON_SELECTION_DIALOG = 99013;
+	public static final int EDITOR_SHOW_CREATE_MOD_DIALOG = 99014;
+	public static final int EDITOR_OPEN_MOD = 99015;
 
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.util.InputValidator;
@@ -110,10 +111,16 @@ public class SpriteDescriptorsPane extends VisTable {
 
             VisTextButton browseButton = new VisTextButton("Browse");
             VisTextField filenameField = WidgetBuilder.textField(spriteDescriptor.getFilename(), filename -> {
-                spriteDescriptor.setFilename(filename);
                 if (filenameExists.validateInput(filename)) {
-                    FileHandle fileHandle = new FileHandle(currentDescriptorsPath.resolve(filename).toFile());
-                    displaySprite(fileHandle, spriteDescriptor);
+                    Path imageFile = currentDescriptorsPath.resolve(filename);
+                    FileHandle fileHandle = new FileHandle(imageFile.toFile());
+                    try {
+                        displaySprite(fileHandle, spriteDescriptor);
+                        spriteDescriptor.setFilename(filename);
+                    } catch (GdxRuntimeException gdxRuntimeException) {
+                        //TODO: tell user the image file does not work
+                        FileUtils.delete(imageFile);
+                    }
                 }
             }, filenameExists);
 

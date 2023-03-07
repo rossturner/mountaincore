@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.modding;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
@@ -21,6 +22,7 @@ public class ModParser {
 	@Inject
 	public ModParser(ModArtifactListing modArtifactListing) {
 		this.artifactListing = modArtifactListing;
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
 
 	public ParsedMod parseMod(Path modBasePath) throws IOException {
@@ -42,7 +44,13 @@ public class ModParser {
 		return objectMapper.readValue(FileUtils.readFileToString(infoPath.toFile(), "UTF-8"), ModInfo.class);
 	}
 
+	public void write(Path directory, ModInfo modInfo) throws IOException {
+		Path modInfoFile = directory.resolve(MOD_INFO_FILENAME);
+		objectMapper.writeValue(modInfoFile.toFile(), modInfo);
+	}
+
 	public ModArtifactListing getArtifactListing() {
 		return artifactListing;
 	}
+
 }

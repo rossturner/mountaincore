@@ -30,6 +30,13 @@ public class TopLevelMenu extends MenuBar {
 		this.fileChooser = fileChooser;
 
 		Menu fileMenu = new Menu("Mods");
+		MenuItem newMod = new MenuItem("New");
+		newMod.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				createNewMod();
+			}
+		});
 		MenuItem openMod = new MenuItem("Open");
 		openMod.addListener(new ChangeListener() {
 			@Override
@@ -37,6 +44,7 @@ public class TopLevelMenu extends MenuBar {
 				openModDirectory();
 			}
 		});
+		fileMenu.addItem(newMod);
 		fileMenu.addItem(openMod);
 		this.addMenu(fileMenu);
 
@@ -56,15 +64,17 @@ public class TopLevelMenu extends MenuBar {
 		this.addMenu(selectedMod);
 	}
 
+	private void createNewMod() {
+		messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_MOD_DIALOG);
+	}
+
 	private void openModDirectory() {
 		fileChooser.chooseFile(modDirectoryFileChooserConfig(), new NativeFileChooserCallback() {
 			@Override
 			public void onFileChosen(FileHandle file) {
 				//set mod dir and reload
 				if (ModParser.MOD_INFO_FILENAME.equals(file.name())) {
-					editorStateProvider.getState().changeToMod(file.parent().path());
-					editorStateProvider.stateChanged();
-					messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_OPEN_MOD, file);
 				}
 			}
 
