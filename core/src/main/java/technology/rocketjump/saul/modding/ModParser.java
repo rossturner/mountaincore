@@ -14,6 +14,7 @@ import java.util.Optional;
 @Singleton
 public class ModParser {
 
+	public static final String MOD_INFO_FILENAME = "modInfo.json";
 	private final ModArtifactListing artifactListing;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,9 +35,9 @@ public class ModParser {
 	}
 
 	private ModInfo readModInfo(Path modBasePath) throws IOException {
-		Path infoPath = modBasePath.resolve("modInfo.json");
+		Path infoPath = modBasePath.resolve(MOD_INFO_FILENAME);
 		if (!Files.exists(infoPath)) {
-			throw new IOException("Could not find modInfo.json in " + modBasePath.toString());
+			throw new IOException("Could not find modInfo.json in " + modBasePath);
 		}
 		return objectMapper.readValue(FileUtils.readFileToString(infoPath.toFile(), "UTF-8"), ModInfo.class);
 	}
