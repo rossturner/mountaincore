@@ -22,15 +22,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AssetsPackager {
 
+	public static final Path BASE_MOD_DIR = Paths.get("mods/base").toAbsolutePath();
+	public static final Path TRANSLATION_MOD_DIR = Paths.get("mods/Community Translations").toAbsolutePath();
+	public static final List<Path> DEFAULT_MOD_DIRS = Arrays.asList(BASE_MOD_DIR, TRANSLATION_MOD_DIR);
 	private final ModParser modParser;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	private Path tempDir;
 
 	public static void main(String... args) {
-		List<Path> modDirs = Arrays.asList(Paths.get("mods/base"), Paths.get("mods/Community Translations"));
+		final List<Path> modDirs;
+		if (args.length == 0) {
+			modDirs = DEFAULT_MOD_DIRS;
+		} else {
+			modDirs = Stream.concat(
+					DEFAULT_MOD_DIRS.stream(),
+					Arrays.stream(args).map(Paths::get).map(Path::toAbsolutePath)
+			).distinct()
+			.toList();
+		}
 		AssetsPackager assetsPackager = new AssetsPackager(new ModParser(new ModArtifactListing()));
 
 		assetsPackager.packageDirsToAssets(modDirs, Paths.get("assets"));
@@ -53,7 +66,7 @@ public class AssetsPackager {
 		}
 	}
 
-	public void packageDirsToAssets(List<Path> selectedModDirs, Path assetsDir) {
+	private void packageDirsToAssets(List<Path> selectedModDirs, Path assetsDir) {
 		initTempDir(assetsDir);
 		try {
 			ModCollection modCollection = new ModCollection();

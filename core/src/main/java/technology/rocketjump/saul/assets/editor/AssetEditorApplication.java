@@ -367,7 +367,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				return true;
 			}
 			case MessageType.EDITOR_RELOAD: {
-				AssetsPackager.main();
+				AssetsPackager.main(editorStateProvider.getState().getModDir());
 				init();
 				return true;
 			}
