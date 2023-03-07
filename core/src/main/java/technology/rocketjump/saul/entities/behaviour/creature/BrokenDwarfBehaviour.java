@@ -11,13 +11,20 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
+import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.Optional;
+
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
 
-public class BrokenDwarfBehaviour extends CreatureBehaviour {
+public class BrokenDwarfBehaviour extends CreatureBehaviour implements ParticleRequestMessage.ParticleCreationCallback {
+
+	private transient ParticleEffectInstance brokenDwarfEffect;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -35,6 +42,29 @@ public class BrokenDwarfBehaviour extends CreatureBehaviour {
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		throw new NotImplementedException("Not yet implemented " + this.getClass().getSimpleName() + ".clone()");
+	}
+
+	@Override
+	public void update(float deltaTime) {
+		super.update(deltaTime);
+
+		if (brokenDwarfEffect != null && !brokenDwarfEffect.isActive()) {
+			brokenDwarfEffect = null;
+		}
+
+		if (brokenDwarfEffect == null) {
+			messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
+					"Broken dwarf cloud",
+					Optional.of(parentEntity),
+					Optional.empty(),
+					this
+			));
+		}
+	}
+
+	@Override
+	public void particleCreated(ParticleEffectInstance instance) {
+		this.brokenDwarfEffect = instance;
 	}
 
 	@Override

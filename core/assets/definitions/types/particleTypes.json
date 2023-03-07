@@ -1,4 +1,24 @@
 [ {
+  "name" : "Broken dwarf cloud",
+  "animatedSpriteName" : "Broken_Dwarf_VFX",
+  "shaderEffectWidth" : 0.0,
+  "shaderEffectHeight" : 0.0,
+  "scale" : 1.0,
+  "overrideDuration" : 0.8,
+  "isLooping" : true,
+  "usesTargetMaterialAsTintColor" : false,
+  "isAffectedByLighting" : false,
+  "distanceFromParentEntityOrientation" : 0.0,
+  "offsetFromParentEntity" : {
+    "x" : 0.0,
+    "y" : 0.9,
+    "unit" : false
+  },
+  "renderBehindParent" : false,
+  "overrideYDepth" : false,
+  "attachedToParent" : true,
+  "unaffectedByPause" : false
+}, {
   "name" : "Bleeding",
   "particleFile" : "bleeding.p",
   "shaderEffectWidth" : 0.0,
