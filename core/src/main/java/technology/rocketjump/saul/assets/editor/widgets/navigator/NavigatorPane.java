@@ -23,7 +23,7 @@ public class NavigatorPane extends VisTable {
 
 	private final VisTree navigatorTree;
 	private final EditorStateProvider editorStateProvider;
-	private MessageDispatcher messageDispatcher;
+	private final MessageDispatcher messageDispatcher;
 
 	@Inject
 	public NavigatorPane(EditorStateProvider editorStateProvider, MessageDispatcher messageDispatcher) {
@@ -33,7 +33,6 @@ public class NavigatorPane extends VisTable {
 		reloadTree();
 		VisScrollPane navigatorScrollPane = new VisScrollPane(navigatorTree);
 
-//		this.setDebug(true);
 		this.background("window-bg");
 		this.add(new VisLabel("Navigator")).left().row();
 		this.add(navigatorScrollPane).top().left().row();
@@ -49,37 +48,43 @@ public class NavigatorPane extends VisTable {
 				continue;
 			}
 			NavigatorTreeNode treeNode = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
-			treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorStateProvider.getState().getModDirPath()));
+			if (editorStateProvider.getState().hasModSelected()) {
+				treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorStateProvider.getState().getModDirPath()));
 
-			try {
-				populateChildren(treeNode);
-			} catch (IOException e) {
-				Logger.error(e, "Error parsing dir " + treeNode.getValue().path.toAbsolutePath());
+				try {
+					populateChildren(treeNode);
+				} catch (IOException e) {
+					Logger.error(e, "Error parsing dir " + treeNode.getValue().path.toAbsolutePath());
+				}
+
+				navigatorTree.add(treeNode);
 			}
 
-			navigatorTree.add(treeNode);
 		}
 	}
 
 	private void populateChildren(NavigatorTreeNode parentNode) throws IOException {
-		try (Stream<Path> fileStream = Files.list(parentNode.getValue().path)) {
-			fileStream
-					.filter(Files::isDirectory)
-					.forEach(childDir -> {
-						try {
-							NavigatorTreeNode node = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
-							if (hasEntityTypeDescriptor(childDir, parentNode.getValue().entityType)) {
-								node.setValue(forEntityDir(parentNode.getValue().entityType, childDir));
-							} else {
-								node.setValue(forSubDir(parentNode.getValue().entityType, childDir));
-								populateChildren(node);
-							}
+		Path path = parentNode.getValue().path;
+		if (Files.exists(path)) {
+			try (Stream<Path> fileStream = Files.list(path)) {
+				fileStream
+						.filter(Files::isDirectory)
+						.forEach(childDir -> {
+							try {
+								NavigatorTreeNode node = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
+								if (hasEntityTypeDescriptor(childDir, parentNode.getValue().entityType)) {
+									node.setValue(forEntityDir(parentNode.getValue().entityType, childDir));
+								} else {
+									node.setValue(forSubDir(parentNode.getValue().entityType, childDir));
+									populateChildren(node);
+								}
 
-							parentNode.add(node);
-						} catch (IOException | ClassCastException e) {
-							Logger.error(e, "Error parsing dir " + childDir.toAbsolutePath());
-						}
-					});
+								parentNode.add(node);
+							} catch (IOException | ClassCastException e) {
+								Logger.error(e, "Error parsing dir " + childDir.toAbsolutePath());
+							}
+						});
+			}
 		}
 	}
 
