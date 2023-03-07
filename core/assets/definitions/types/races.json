@@ -212,6 +212,9 @@
       "armorNegation" : 1,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     },
     "skin" : {
@@ -357,6 +360,8 @@
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
       "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     },
     "skin" : {
@@ -462,6 +467,9 @@
       "maxDamage" : 4,
       "armorNegation" : 0,
       "twoHanded" : false,
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     },
     "skin" : {
@@ -664,6 +672,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     }
@@ -731,7 +741,9 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash",
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Claw slash",
       "ranged" : false
     }
   },
@@ -800,6 +812,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     },
@@ -855,20 +869,22 @@
       "damageReduction" : {
         "STABBING" : 0,
         "SLASHING" : 0,
-        "CRUSHING" : 10
+        "CRUSHING" : 4
       },
       "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
-      "damageType" : "CRUSHING",
+      "damageType" : "SLASHING",
       "modifiedByStrength" : true,
       "minDamage" : 4,
-      "maxDamage" : 15,
+      "maxDamage" : 12,
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash",
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Claw slash",
       "ranged" : false
     }
   },
@@ -957,6 +973,9 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : true
     },
     "blood" : {

@@ -18,14 +18,16 @@ public class AnimatedSpriteEffect implements ParticleEffect {
 
 	private final Array<Sprite> sprites;
 	private final float duration;
+	private final float scale;
 	private float elapsed = 0;
 	private final Vector2 worldPosition = new Vector2();
 	private float rotation = 0;
 	private Color tint = Color.WHITE;
 
-	public AnimatedSpriteEffect(Array<Sprite> sprites, float duration) {
+	public AnimatedSpriteEffect(Array<Sprite> sprites, float duration, float scale) {
 		this.sprites = sprites;
 		this.duration = duration;
+		this.scale = scale;
 	}
 
 	@Override
@@ -51,8 +53,8 @@ public class AnimatedSpriteEffect implements ParticleEffect {
 
 			Affine2 transformation = new Affine2();
 
-			float spriteWorldWidth = sprite.getWidth() / PIXELS_PER_TILE;
-			float spriteWorldHeight = sprite.getHeight() / PIXELS_PER_TILE;
+			float spriteWorldWidth = (sprite.getWidth() / PIXELS_PER_TILE) * scale;
+			float spriteWorldHeight = (sprite.getHeight() / PIXELS_PER_TILE) * scale;
 
 			transformation.translate(worldPosition);
 			transformation.rotate(rotation);

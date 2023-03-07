@@ -2,9 +2,14 @@ package technology.rocketjump.saul.entities.model.physical.combat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import static technology.rocketjump.saul.jobs.SkillDictionary.UNARMED_COMBAT_SKILL;
@@ -45,6 +50,52 @@ public class WeaponInfo {
 		UNARMED.setModifiedByStrength(true);
 		UNARMED.setMinDamage(0);
 		UNARMED.setMaxDamage(4);
+	}
+	
+	@JsonIgnore
+	public void initialise(String parentName, SoundAssetDictionary soundAssetDictionary, 
+						   ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary) {
+		if (this.getFireWeaponSoundAssetName() != null) {
+			this.setFireWeaponSoundAsset(soundAssetDictionary.getByName(this.getFireWeaponSoundAssetName()));
+			if (this.getFireWeaponSoundAsset() == null) {
+				Logger.error(String.format("Could not find sound asset with name %s for %s", this.getFireWeaponSoundAssetName(), parentName));
+			}
+		}
+
+		if (this.getWeaponHitSoundAssetName() != null) {
+			this.setWeaponHitSoundAsset(soundAssetDictionary.getByName(this.getWeaponHitSoundAssetName()));
+			if (this.getWeaponHitSoundAsset() == null) {
+				Logger.error(String.format("Could not find sound asset with name %s for item type %s", this.getWeaponHitSoundAssetName(), parentName));
+			}
+		}
+
+		if (this.getWeaponMissSoundAssetName() != null) {
+			this.setWeaponMissSoundAsset(soundAssetDictionary.getByName(this.getWeaponMissSoundAssetName()));
+			if (this.getWeaponMissSoundAsset() == null) {
+				Logger.error(String.format("Could not find sound asset with name %s for item type %s", this.getWeaponMissSoundAssetName(), parentName));
+			}
+		}
+
+		if (this.getAnimatedSpriteEffectName() != null) {
+			this.setAnimatedEffectType(particleEffectTypeDictionary.getByName(this.getAnimatedSpriteEffectName()));
+			if (this.getAnimatedEffectType() == null) {
+				Logger.error(String.format("Could not find particle effect with name %s for item type %s", this.getAnimatedSpriteEffectName(), parentName));
+			} else if (this.getAnimatedEffectType().getAnimatedSpriteName() == null) {
+				Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
+						this.getAnimatedEffectType().getName(), parentName));
+			}
+		}
+
+		if (this.getCombatSkillName() != null) {
+			Skill combatSkill = skillDictionary.getByName(this.getCombatSkillName());
+			if (combatSkill == null) {
+				Logger.error("Could not find combat skill with name %s for item type %s", this.getCombatSkillName(), parentName);
+			} else if (!combatSkill.getType().equals(SkillType.COMBAT_SKILL)) {
+				Logger.error("Combat skill with name %s for item type %s is not a COMBAT_SKILL-type skill", this.getCombatSkillName(), parentName);
+			} else {
+				this.setCombatSkill(combatSkill);
+			}
+		}
 	}
 
 	public boolean isRanged() {

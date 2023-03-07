@@ -71,7 +71,10 @@
       "damageType" : "CRUSHING",
       "modifiedByStrength" : true,
       "minDamage" : 1,
-      "maxDamage" : 4
+      "maxDamage" : 4,
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash"
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",

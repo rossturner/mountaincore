@@ -26,7 +26,7 @@
   },
   "genders" : {
     "FEMALE" : {
-      "weighting" : 1
+      "weighting" : 1.0
     }
   },
   "features" : {
@@ -45,6 +45,8 @@
       "minDamage" : 1,
       "maxDamage" : 2,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Punch_Impact",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
       "animatedSpriteEffectName" : "Weapon slash"
     }
   }

@@ -40,6 +40,27 @@
   "attachedToParent" : true,
   "unaffectedByPause" : false
 }, {
+  "name" : "Claw slash",
+  "animatedSpriteName" : "claw",
+  "shaderEffectWidth" : 0.0,
+  "shaderEffectHeight" : 0.0,
+  "scale" : 0.6,
+  "overrideDuration" : 0.3,
+  "usingParentOrientation" : "RIGHT",
+  "isLooping" : false,
+  "usesTargetMaterialAsTintColor" : true,
+  "isAffectedByLighting" : false,
+  "distanceFromParentEntityOrientation" : 0.7,
+  "offsetFromParentEntity" : {
+    "x" : 0.0,
+    "y" : 0.2,
+    "unit" : false
+  },
+  "renderBehindParent" : false,
+  "overrideYDepth" : false,
+  "attachedToParent" : true,
+  "unaffectedByPause" : false
+}, {
   "name" : "Progress bar",
   "customImplementation" : "ProgressBarEffect",
   "shaderEffectWidth" : 0.0,

@@ -151,7 +151,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			// is a melee attack
 			boolean attackHits = !isBlinded(attackMessage.attackerEntity);
 			if (attackHits) {
-				applyAttackDamage(attackMessage);
+				attackHits = applyAttackDamage(attackMessage);
 			}
 			triggerHitOrMissSound(attackMessage, attackHits);
 		}
@@ -176,7 +176,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	private void handleProjectileImpact(CombatAttackMessage attackMessage) {
 		boolean attackHits = !isBlinded(attackMessage.attackerEntity);
 		if (attackHits) {
-			applyAttackDamage(attackMessage);
+			attackHits = applyAttackDamage(attackMessage);
 		}
 		triggerHitOrMissSound(attackMessage, attackHits);
 	}
@@ -201,7 +201,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		return statusComponent.contains(Blinded.class) || statusComponent.contains(TemporaryBlinded.class);
 	}
 
-	private void applyAttackDamage(CombatAttackMessage attackMessage) {
+	private boolean applyAttackDamage(CombatAttackMessage attackMessage) {
 		int damageAmount = attackMessage.weaponAttack.getMinDamage() + gameContext.getRandom().nextInt(
 				attackMessage.weaponAttack.getMaxDamage() - attackMessage.weaponAttack.getMinDamage()
 		);
@@ -230,7 +230,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			handleKnockback(attackMessage);
 
 			if (damageAmount <= 0) {
-				return;
+				return false;
 			}
 
 			if (canUseDefensePool(attackMessage)) {
@@ -291,6 +291,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		} else {
 			Logger.warn("TODO: Damage application to non-creature entities");
 		}
+		return true;
 	}
 
 	private int calculateFurnitureDamage(Entity defenderEntity, int damageAmount) {

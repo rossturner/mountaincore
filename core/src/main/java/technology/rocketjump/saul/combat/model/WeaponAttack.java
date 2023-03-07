@@ -75,6 +75,7 @@ public class WeaponAttack implements ChildPersistable {
 	public void setWeaponQuality(ItemQuality weaponQuality) {
 		this.weaponQuality = weaponQuality;
 	}
+
 	public SoundAsset getWeaponHitSoundAsset() {
 		return weaponHitSoundAsset;
 	}

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import java.io.File;
@@ -27,6 +29,13 @@ public class ParticleEffectTypeDictionary {
 
 		for (ParticleEffectType particleEffectType : particleEffectTypes) {
 			byName.put(particleEffectType.getName(), particleEffectType);
+		}
+
+		ParticleEffectType clawSlash = byName.get("Claw slash");
+		if (clawSlash == null) {
+			Logger.error("Could not find particle effect with name `Claw slash` for UNARMED default weapon info");
+		} else {
+			WeaponInfo.UNARMED.setAnimatedEffectType(clawSlash);
 		}
 
 	}

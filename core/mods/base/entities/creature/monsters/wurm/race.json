@@ -37,17 +37,19 @@
       "damageReduction" : {
         "STABBING" : 0,
         "SLASHING" : 0,
-        "CRUSHING" : 10
+        "CRUSHING" : 4
       }
     },
     "unarmedWeapon" : {
       "range" : 1,
-      "damageType" : "CRUSHING",
+      "damageType" : "SLASHING",
       "modifiedByStrength" : true,
       "minDamage" : 4,
-      "maxDamage" : 15,
+      "maxDamage" : 12,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Claw slash"
     }
   }
 }
