@@ -83,13 +83,13 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			camera.zoom = 0.5f;
 			camera.position.x = camera.viewportWidth / 2;
 			camera.position.y = camera.viewportHeight / 2;
-			init();
+			init(true);
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
 		}
 	}
 
-	private void init() {
+	private void init(boolean firstLoad) {
 		if (ui != null) {
 			FocusManager.resetFocus(ui.getStage()); //Memory saving trick, otherwise the old stage could've kept reference to old ItemEntityAssetDictionary
 		}
@@ -137,6 +137,11 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
+
+		if (firstLoad) {
+			//need to rerun assetPacker
+			messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+		}
 	}
 
 	@Override
@@ -368,7 +373,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 			case MessageType.EDITOR_RELOAD: {
 				AssetsPackager.main(editorStateProvider.getState().getModDir());
-				init();
+				init(false);
 				return true;
 			}
 		}

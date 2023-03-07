@@ -40,7 +40,7 @@ public class AssetsPackager {
 		} else {
 			modDirs = Stream.concat(
 					DEFAULT_MOD_DIRS.stream(),
-					Arrays.stream(args).map(Paths::get).map(Path::toAbsolutePath)
+					Arrays.stream(args).filter(Objects::nonNull).map(Paths::get).map(Path::toAbsolutePath)
 			).distinct()
 			.toList();
 		}
