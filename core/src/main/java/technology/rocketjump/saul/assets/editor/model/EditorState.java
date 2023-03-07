@@ -29,8 +29,20 @@ public class EditorState {
 		this.autosave = autosave;
 	}
 
+	public boolean hasModSelected() {
+		return getModDir() != null;
+	}
+
 	public String getModDir() {
 		return modDir;
+	}
+
+	public void changeToMod(String path) {
+		setModDir(path);
+		expandedNavigatorNodes.clear();
+		entitySelection = null;
+		assetSelection = null;
+		currentEntity = null;
 	}
 
 	@JSONField(serialize = false)
@@ -90,4 +102,5 @@ public class EditorState {
 	public void setSpritePadding(int spritePadding) {
 		this.spritePadding = spritePadding;
 	}
+
 }
