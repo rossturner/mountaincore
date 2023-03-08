@@ -68,7 +68,7 @@ public class LocalModRepository {
 		for (String activeModName : activeModsString.split(MOD_NAME_SEPARATOR)) {
 			ParsedMod activeMod = modsByName.get(activeModName);
 			if (activeMod != null) {
-				if (modCompatibilityChecker.checkCompatibility(activeMod).equals(INCOMPATIBLE)) {
+				if (modCompatibilityChecker.checkCompatibility(activeMod).compatibility().equals(INCOMPATIBLE)) {
 					Logger.warn(activeMod.getInfo().toString() + " is not compatible with this game version ("+GlobalSettings.VERSION +")");
 					incompatibleMods.add(activeMod);
 				} else {
