@@ -32,7 +32,7 @@ public class Selectable implements Comparable<Selectable> {
 	public Selectable(Entity entity, float distanceFromCursor) {
 		this.type = SelectableType.ENTITY;
 		this.entity = entity;
-		this.distanceFromCursor = (int)(distanceFromCursor * 1000f);
+		this.distanceFromCursor = (int)(distanceFromCursor * 100f);
 	}
 
 	public Selectable(Construction construction) {

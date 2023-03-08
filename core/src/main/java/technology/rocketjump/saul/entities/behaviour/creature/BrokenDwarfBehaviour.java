@@ -37,6 +37,10 @@ public class BrokenDwarfBehaviour extends CreatureBehaviour implements ParticleR
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		super.destroy(parentEntity, messageDispatcher, gameContext);
+
+		if (brokenDwarfEffect != null) {
+			brokenDwarfEffect.getWrappedInstance().allowCompletion();
+		}
 	}
 
 	@Override

@@ -8,7 +8,7 @@
     ],
     "minPitch": 0.90,
     "maxPitch": 1.0,
-    "volumeModifier": 0.2,
+    "volumeModifier": 0.15,
     "looping": false
   }
 ]

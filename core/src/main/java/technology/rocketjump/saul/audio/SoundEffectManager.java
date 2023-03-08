@@ -27,7 +27,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 public class SoundEffectManager implements AssetDisposable {
 
 	public static final String DEFAULT_SOUND_VOLUME_AS_STRING = "0.6";
-	public static final float GLOBAL_VOLUME_MULTIPLIER = 0.5f;
+	public static final float GLOBAL_VOLUME_MULTIPLIER = 0.4f;
 	private final float VIEWPORT_OVERFLOW_DISTANCE = 2f;
 	private final int MAX_PARALLEL_SOUNDS = 5;
 

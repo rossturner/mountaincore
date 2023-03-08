@@ -212,7 +212,7 @@
   "filenames" : [ "impactPlank_medium_003.wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
-  "volumeModifier" : 1.0,
+  "volumeModifier" : 0.8,
   "looping" : false
 }, {
   "name" : "PaletteConstruct",
@@ -220,7 +220,7 @@
   "filenames" : [ "SFX_UI_Object_Palette_Construct.wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
-  "volumeModifier" : 1.0,
+  "volumeModifier" : 0.3,
   "looping" : false
 }, {
   "name" : "CoinsAllSizes",
@@ -236,7 +236,7 @@
   "filenames" : [ "Woodcutter Sawing (A-FO).wav", "Woodcutter Sawing (B-FO).wav", "Woodcutter Sawing (C-FO).wav" ],
   "minPitch" : 0.9,
   "maxPitch" : 1.0,
-  "volumeModifier" : 0.2,
+  "volumeModifier" : 0.15,
   "looping" : false
 }, {
   "name" : "Fishing_Cast",
