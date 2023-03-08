@@ -30,5 +30,5 @@
   "gemHarvestedItemType" : "Resource-Gems-Unrefined",
   "stoneHarvestedItemType" : "Resource-Stone-Unrefined",
   "corpseDecayColor" : "#8b9d89",
-  "maxNeighbouringShrubs" : 2
+  "maxNeighbouringShrubs" : 4
 }

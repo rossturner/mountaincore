@@ -1,7 +1,7 @@
 {
   "backgroundColor": "#666666FF",
 
-  "maxNeighbouringShrubs": 2,
+  "maxNeighbouringShrubs": 4,
   "attachedLightSourceTogglePoint": 0.75,
   "corpseDecayHours": 480.0,
   "corpseDecayColor": "#8b9d89",

@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Nuytsia-Size2-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Nuytsia",
-  "growthStages": [1],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "maple_02_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Nuytsia-Size2-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Nuytsia",
+  "growthStages" : [ 1 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "maple_02_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

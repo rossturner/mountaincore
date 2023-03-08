@@ -53,6 +53,8 @@
       "minDamage" : 2,
       "maxDamage" : 6,
       "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
       "animatedSpriteEffectName" : "Weapon slash"
     },
     "bones" : {
@@ -60,6 +62,6 @@
     }
   },
   "tags" : {
-    "TRANSFORM_TO_ITEMS_ON_DEATH" : [ "Resource-Bone-Medium", "2"]
+    "TRANSFORM_TO_ITEMS_ON_DEATH" : [ "Resource-Bone-Medium", "2" ]
   }
 }

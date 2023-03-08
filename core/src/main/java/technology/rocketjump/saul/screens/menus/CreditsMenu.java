@@ -156,7 +156,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             specialThanksTable.add(developerNameLabel("GoSquared (Flag icon set)", "https://www.gosquared.com/resources/flag-icons/")).row();
             specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/")).padRight(80);
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
-            specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://github.com/azagaya/laigter")).fill(false, false).colspan(2).row();
+            specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://azagaya.itch.io/laigter")).fill(false, false).colspan(2).row();
         seventhRow.add(specialThanksTable);
 
         Table table = new Table();
@@ -181,8 +181,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         ScrollPane scrollPane = new EnhancedScrollPane(table, skin);
         scrollPane.setSmoothScrolling(true);
-        scrollPane.setFlickScroll(false);
-
 
         SequenceAction autoScroll = Actions.sequence(
                 Actions.delay(3.5f),
@@ -215,6 +213,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         });
 
         scrollPane.setForceScroll(false, true);
+        scrollPane.setScrollingDisabled(true, false);
         return scrollPane;
     }
 

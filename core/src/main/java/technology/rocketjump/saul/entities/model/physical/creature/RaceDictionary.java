@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
@@ -12,6 +13,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStru
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 
@@ -32,18 +34,23 @@ public class RaceDictionary {
 	private final BodyStructureDictionary bodyStructureDictionary;
 	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
 	private final ScheduleDictionary scheduleDictionary;
+	private final SkillDictionary skillDictionary;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private final Map<String, Race> byName = new HashMap<>();
 
 	@Inject
 	public RaceDictionary(GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary, BodyStructureDictionary bodyStructureDictionary,
 						  CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
+						  SkillDictionary skillDictionary, SoundAssetDictionary soundAssetDictionary,
 						  ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.bodyStructureDictionary = bodyStructureDictionary;
 		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
 		this.scheduleDictionary = scheduleDictionary;
+		this.skillDictionary = skillDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -98,16 +105,7 @@ public class RaceDictionary {
 
 		WeaponInfo unarmedWeapon = race.getFeatures().getUnarmedWeapon();
 		if (unarmedWeapon != null) {
-			if (unarmedWeapon.getAnimatedSpriteEffectName() != null) {
-				unarmedWeapon.setAnimatedEffectType(particleEffectTypeDictionary.getByName(unarmedWeapon.getAnimatedSpriteEffectName()));
-				if (unarmedWeapon.getAnimatedEffectType() == null) {
-					Logger.error(String.format("Could not find particle effect with name %s for %s %s", unarmedWeapon.getAnimatedSpriteEffectName(),
-							Race.class.getSimpleName(), race.getName()));
-				} else if (unarmedWeapon.getAnimatedEffectType().getAnimatedSpriteName() == null) {
-					Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
-							unarmedWeapon.getAnimatedEffectType().getName(), race.getName()));
-				}
-			}
+			unarmedWeapon.initialise(race.getName(), soundAssetDictionary, particleEffectTypeDictionary, skillDictionary);
 		}
 
 		if (race.getFeatures().getMeat() != null) {

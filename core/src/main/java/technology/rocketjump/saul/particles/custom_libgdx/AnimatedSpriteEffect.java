@@ -18,29 +18,41 @@ public class AnimatedSpriteEffect implements ParticleEffect {
 
 	private final Array<Sprite> sprites;
 	private final float duration;
+	private final float scale;
+	private final boolean isLooping;
 	private float elapsed = 0;
 	private final Vector2 worldPosition = new Vector2();
 	private float rotation = 0;
 	private Color tint = Color.WHITE;
+	private boolean forceCompletion;
 
-	public AnimatedSpriteEffect(Array<Sprite> sprites, float duration) {
+	public AnimatedSpriteEffect(Array<Sprite> sprites, float duration, float scale, boolean isLooping) {
 		this.sprites = sprites;
 		this.duration = duration;
+		this.scale = scale;
+		this.isLooping = isLooping;
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		elapsed += deltaTime;
+		if (elapsed > duration) {
+			if (isLooping) {
+				elapsed = elapsed % duration;
+			} else {
+				forceCompletion = true;
+			}
+		}
 	}
 
 	@Override
 	public boolean isComplete() {
-		return elapsed >= duration;
+		return forceCompletion;
 	}
 
 	@Override
 	public void allowCompletion() {
-		elapsed = duration;
+		forceCompletion = true;
 	}
 
 	@Override
@@ -51,8 +63,8 @@ public class AnimatedSpriteEffect implements ParticleEffect {
 
 			Affine2 transformation = new Affine2();
 
-			float spriteWorldWidth = sprite.getWidth() / PIXELS_PER_TILE;
-			float spriteWorldHeight = sprite.getHeight() / PIXELS_PER_TILE;
+			float spriteWorldWidth = (sprite.getWidth() / PIXELS_PER_TILE) * scale;
+			float spriteWorldHeight = (sprite.getHeight() / PIXELS_PER_TILE) * scale;
 
 			transformation.translate(worldPosition);
 			transformation.rotate(rotation);

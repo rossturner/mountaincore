@@ -1,25 +1,22 @@
-[{
-  "uniqueName": "Tree-Birch-Size3-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Birch",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "birch_03_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 4,
-        "y": 80
+[ {
+  "uniqueName" : "Tree-Birch-Size3-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Birch",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "birch_03_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 93.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": 0,
-            "y": 30
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "y" : 30.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

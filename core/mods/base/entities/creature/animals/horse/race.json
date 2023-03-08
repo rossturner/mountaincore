@@ -53,7 +53,9 @@
       "minDamage" : 2,
       "maxDamage" : 7,
       "combatSkillName" : "UNARMED_COMBAT",
-      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing"
+      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash"
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",

@@ -1,25 +1,22 @@
-[{
-  "uniqueName": "Tree-Red-cedar-Size3-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Red cedar",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "maple_03_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": 80
+[ {
+  "uniqueName" : "Tree-Red-cedar-Size3-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Red cedar",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "maple_03_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "y" : 90.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -1,
-            "y": 16
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 16.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

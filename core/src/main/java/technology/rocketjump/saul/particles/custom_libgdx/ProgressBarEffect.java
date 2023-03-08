@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.custom_libgdx.CustomShaderSpriteBatch;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 
 public class ProgressBarEffect implements ParticleEffect {
 
@@ -18,14 +19,7 @@ public class ProgressBarEffect implements ParticleEffect {
 
 	private static final float WORLD_WIDTH = 0.8f;
 	private static final float WORLD_HEIGHT = 0.2f;
-
-	private static final float outerSpritePixelWidth = 190f;
-	private static final float outerSpritePixelHeight = 49f;
-	private static final float innnerSpritePixelWidth = 178f;
-	private static final float innnerSpritePixelHeight = 33f;
-	private static final float innerSpritePixelOffsetX = 6f;
-	private static final float innerSpritePixelTopOffsetY = 6f;
-	private static final float innerSpritePixelBottomOffsetY = 10f;
+	private static final Color SLIGHTLY_TRANSPARENT_WHITE = HexColors.get("#FFFFFFDD");
 
 	public ProgressBarEffect(Sprite progressBarInnerSprite, Sprite progressBarOuterSprite) {
 		this.progressBarInnerSprite = progressBarInnerSprite;
@@ -53,17 +47,17 @@ public class ProgressBarEffect implements ParticleEffect {
 
 	@Override
 	public void draw(SpriteBatch basicSpriteBatch, CustomShaderSpriteBatch customShaderSpriteBatch, RenderMode renderMode) {
-		float outerSpriteWorldX = worldPosition.x - (WORLD_WIDTH/2f);
-		float outerSpriteWorldY = worldPosition.y - (WORLD_HEIGHT/2f);
+		Color originalColor = basicSpriteBatch.getColor();
+		basicSpriteBatch.setColor(SLIGHTLY_TRANSPARENT_WHITE);
 
-		float innerSpriteWorldX = outerSpriteWorldX + ((innerSpritePixelOffsetX/outerSpritePixelWidth) * WORLD_WIDTH);
-		float innerSpriteWorldY = outerSpriteWorldY + ((innerSpritePixelBottomOffsetY /outerSpritePixelHeight) * WORLD_HEIGHT);
+		float spriteWorldX = worldPosition.x - (WORLD_WIDTH/2f);
+		float spriteWorldY = worldPosition.y - (WORLD_HEIGHT/2f);
+		float progressWidth = progress * WORLD_WIDTH;
 
-		float innerSpriteMaxWorldWidth = WORLD_WIDTH - ((2 * innerSpritePixelOffsetX / outerSpritePixelWidth) * WORLD_WIDTH);
-		float innerSpriteMaxWorldHeight = WORLD_HEIGHT - (((innerSpritePixelTopOffsetY + innerSpritePixelBottomOffsetY) / outerSpritePixelHeight) * WORLD_HEIGHT);
+		basicSpriteBatch.draw(progressBarOuterSprite, spriteWorldX + progressWidth, spriteWorldY, WORLD_WIDTH - progressWidth, WORLD_HEIGHT);
+		basicSpriteBatch.draw(progressBarInnerSprite, spriteWorldX, spriteWorldY, progressWidth, WORLD_HEIGHT);
 
-		basicSpriteBatch.draw(progressBarOuterSprite, outerSpriteWorldX, outerSpriteWorldY, WORLD_WIDTH, WORLD_HEIGHT);
-		basicSpriteBatch.draw(progressBarInnerSprite, innerSpriteWorldX, innerSpriteWorldY, progress * innerSpriteMaxWorldWidth, innerSpriteMaxWorldHeight);
+		basicSpriteBatch.setColor(originalColor);
 	}
 
 	@Override

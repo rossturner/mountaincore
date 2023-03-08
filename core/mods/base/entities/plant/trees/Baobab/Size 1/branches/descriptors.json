@@ -8,7 +8,7 @@
       "filename" : "oak-0-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "offsetPixels" : {
-        "y" : 8.0
+        "y" : 24.0
       },
       "childAssets" : [ {
         "type" : "PLANT_LEAVES",

@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Broken dwarf cloud",
+    "animatedSpriteName": "Broken_Dwarf_VFX",
+    "overrideDuration": 0.8,
+    "scale": 1,
+    "isLooping": true,
+    "isAffectedByLighting": false,
+    "offsetFromParentEntity": {
+      "x": 0,
+      "y": 0.9
+    },
+    "attachedToParent": true
+  }
+]

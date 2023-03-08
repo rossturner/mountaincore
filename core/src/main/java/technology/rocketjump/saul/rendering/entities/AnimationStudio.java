@@ -106,7 +106,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 			Affine2 newAffine = new Affine2();
 			newAffine.idt();
-			newAffine.translate(locationComponent.getWorldOrParentPosition());
+			newAffine.translate(locationComponent.getWorldPosition());
 
 			//feels bit sketchy but this assumes one node tree, mapping to the sprite descriptor
 			modelInstance.transform.set(newAffine); //set the general location of whole model instance

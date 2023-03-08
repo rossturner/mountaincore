@@ -50,7 +50,9 @@
       "minDamage" : 1,
       "maxDamage" : 3,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Claw slash"
     }
   }
 }

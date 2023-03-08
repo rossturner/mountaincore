@@ -1,25 +1,23 @@
-[{
-  "uniqueName": "Star-Pine-Size3-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Star pine",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "pine_03_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 3,
-        "y": 80
+[ {
+  "uniqueName" : "Star-Pine-Size3-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Star pine",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "pine_03_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 88.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -1,
-            "y": 30
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 30.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

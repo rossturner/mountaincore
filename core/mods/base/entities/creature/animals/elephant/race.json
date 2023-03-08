@@ -51,7 +51,10 @@
       "minDamage" : 3,
       "maxDamage" : 8,
       "armorNegation" : 1,
-      "combatSkillName" : "UNARMED_COMBAT"
+      "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Stab_Splat",
+      "weaponMissSoundAssetName" : "SFX_Melee_Miss",
+      "animatedSpriteEffectName" : "Weapon slash"
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
