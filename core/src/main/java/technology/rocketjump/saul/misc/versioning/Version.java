@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.misc.versioning;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
@@ -64,6 +65,7 @@ public class Version {
 				revision;
 	}
 
+	@JsonValue
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		if (!qualifier.equals(Qualifier.Unspecified)) {

@@ -37,7 +37,7 @@ public class FileUtils {
         Path directoryToCreate = Paths.get(parent.toString(), folder);
         if (!Files.exists(directoryToCreate)) {
             try {
-                Files.createDirectory(directoryToCreate);
+                Files.createDirectories(directoryToCreate);
             } catch (IOException e) {
                 String message = "Failed to create directory " + folder + " due to " + e.getMessage();
                 Logger.error(e, message);

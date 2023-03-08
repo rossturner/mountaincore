@@ -1,11 +1,10 @@
 package technology.rocketjump.saul.assets.editor;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -44,6 +43,7 @@ import technology.rocketjump.saul.messaging.types.CameraMovedMessage;
 import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.particles.ParticleEffectUpdater;
 import technology.rocketjump.saul.rendering.RenderMode;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
@@ -83,13 +83,13 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			camera.zoom = 0.5f;
 			camera.position.x = camera.viewportWidth / 2;
 			camera.position.y = camera.viewportHeight / 2;
-			init();
+			init(true);
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
 		}
 	}
 
-	private void init() {
+	private void init(boolean firstLoad) {
 		if (ui != null) {
 			FocusManager.resetFocus(ui.getStage()); //Memory saving trick, otherwise the old stage could've kept reference to old ItemEntityAssetDictionary
 		}
@@ -109,12 +109,18 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
+		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+		//Do nothing handlers
+		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+		messageDispatcher.addListener(this, MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME);
+		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
+
 		entityAssetUpdater = injector.getInstance(EntityAssetUpdater.class);
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
 		ui = injector.getInstance(AssetEditorUI.class);
 		creatureUIFactory = injector.getInstance(CreatureUIFactory.class);
-		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+
 		injector.getInstance(AudioMessageHandler.class); //This handles sound effects in animation scrips
 		injector.getInstance(ParticleEffectUpdater.class);
 		itemHoldingDwarf = creatureUIFactory.createEntityForRendering("Dwarf");
@@ -122,17 +128,31 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
 		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
+		inputMultiplexer.addProcessor(new InputAdapter() {
+			@Override
+			public boolean keyUp(int keycode) {
+				if (keycode == Input.Keys.D && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+					GlobalSettings.DEV_MODE = !GlobalSettings.DEV_MODE;
+					messageDispatcher.dispatchMessage(MessageType.DEV_MODE_CHANGED);
+					return true;
+				}
+				return super.keyUp(keycode);
+			}
+		});
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
 				camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, new Vector2(0,0),
 				13, 90)); //In order for sound effects to play, the audio system needs a camera placement
 
-		MessageDispatcher messageDispatcher = injector.getInstance(MessageDispatcher.class);
-		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
-		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
+
+		if (firstLoad && editorStateProvider.getState().hasModSelected()) {
+			//need to rerun assetPacker
+			messageDispatcher.dispatchMessage(MessageType.EDITOR_OPEN_MOD, new FileHandle(editorStateProvider.getState().getModDirPath().toFile()));
+		}
 	}
 
 	@Override
@@ -354,13 +374,17 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				//do nothing
 				return true;
 			}
+			case MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME: {
+				//do nothing
+				return true;
+			}
 			case MessageType.ENTITY_ASSET_UPDATE_REQUIRED: {
 				entityAssetUpdater.updateEntityAssets((Entity) msg.extraInfo);
 				return true;
 			}
 			case MessageType.EDITOR_RELOAD: {
-				AssetsPackager.main();
-				init();
+				AssetsPackager.main(editorStateProvider.getState().getModDir());
+				init(false);
 				return true;
 			}
 		}

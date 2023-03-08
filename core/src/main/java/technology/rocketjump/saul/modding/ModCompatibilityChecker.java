@@ -8,6 +8,9 @@ import technology.rocketjump.saul.modding.model.ModArtifactDefinition;
 import technology.rocketjump.saul.modding.model.ModArtifactListing;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Singleton
 public class ModCompatibilityChecker {
 
@@ -20,24 +23,26 @@ public class ModCompatibilityChecker {
 		this.modArtifactListing = modArtifactListing;
 	}
 
-	public Compatibility checkCompatibility(ParsedMod mod) {
+	public CompatibilityResult checkCompatibility(ParsedMod mod) {
+		final Compatibility compatibility;
+		List<ModArtifact> incompatibleArtifacts = new ArrayList<>();
 		Version modGameVersion = mod.getInfo().getGameVersion();
-		if (modGameVersion == null) {
-			return Compatibility.UNKNOWN;
-		}
 
-		boolean allArtifactsCompatible = true;
-		for (ModArtifactDefinition artifactDefinition : modArtifactListing.getAll()) {
-			ModArtifact modArtifact = mod.get(artifactDefinition);
-			if (modArtifact != null) {
-				allArtifactsCompatible = artifactCompatibilityChecker.checkCompatibility(modArtifact, modGameVersion);
-				if (!allArtifactsCompatible) {
-					break;
+		if (modGameVersion == null) {
+			compatibility = Compatibility.UNKNOWN;
+		} else {
+			for (ModArtifactDefinition artifactDefinition : modArtifactListing.getAll()) {
+				ModArtifact modArtifact = mod.get(artifactDefinition);
+				if (modArtifact != null) {
+					if (!artifactCompatibilityChecker.checkCompatibility(modArtifact, modGameVersion)) {
+						incompatibleArtifacts.add(modArtifact);
+					}
 				}
 			}
+			compatibility = incompatibleArtifacts.isEmpty() ? Compatibility.COMPATIBLE : Compatibility.INCOMPATIBLE;
 		}
 
-		return allArtifactsCompatible ? Compatibility.COMPATIBLE : Compatibility.INCOMPATIBLE;
+		return new CompatibilityResult(compatibility, incompatibleArtifacts);
 	}
 
 	public enum Compatibility {

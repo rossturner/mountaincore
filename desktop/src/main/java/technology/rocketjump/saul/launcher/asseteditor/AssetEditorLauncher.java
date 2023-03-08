@@ -9,16 +9,13 @@ import com.google.inject.Guice;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.desktop.DesktopFileChooser;
 import org.lwjgl.opengl.Display;
-import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.assets.editor.AssetEditorApplication;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.persistence.FileUtils;
 
-import java.io.IOException;
-
 public class AssetEditorLauncher {
 
-	public static void main(String[] arg) throws IOException {
+	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Asset Editor";
 
@@ -29,9 +26,6 @@ public class AssetEditorLauncher {
 		config.addIcon("assets/icon/editor-tool-icon-128x128.png", Files.FileType.Internal);
 		config.addIcon("assets/icon/editor-tool-icon-32x32.png", Files.FileType.Internal);
 		config.addIcon("assets/icon/editor-tool-icon-16x16.png", Files.FileType.Internal);
-
-		// On launch repackage assets into relevant folders
-		AssetsPackager.main();
 
 		AbstractModule launcherModule = new AbstractModule() {
 			@Override

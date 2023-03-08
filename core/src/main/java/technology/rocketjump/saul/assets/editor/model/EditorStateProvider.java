@@ -39,7 +39,6 @@ public class EditorStateProvider {
 			}
 		} else {
 			this.stateInstance = new EditorState();
-			this.stateInstance.setModDir("mods/base");
 		}
 	}
 
