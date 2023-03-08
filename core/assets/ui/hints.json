@@ -1,115 +1,153 @@
 [ {
   "hintId" : "open_priority_menu",
   "i18nKeys" : [ "HINT.OPEN_PRIORITY_MENU.1", "HINT.OPEN_PRIORITY_MENU.2" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "GUI_SWITCH_VIEW",
     "relatedTypeName" : "PRIORITY_MENU",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "open_roofing_menu",
   "i18nKeys" : [ "HINT.BUILD_ROOFING.1", "HINT.BUILD_ROOFING.2", "HINT.BUILD_ROOFING.3" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "GUI_SWITCH_VIEW",
     "relatedTypeName" : "BUILD_ROOFING",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "open_pipes_menu",
   "i18nKeys" : [ "HINT.BUILD_PIPES.1", "HINT.BUILD_PIPES.2", "HINT.BUILD_PIPES.3" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "GUI_SWITCH_VIEW",
     "relatedTypeName" : "BUILD_PIPING",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "open_mechanisms_menu",
   "i18nKeys" : [ "HINT.BUILD_POWER.1", "HINT.BUILD_POWER.2", "HINT.BUILD_POWER.3" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "GUI_SWITCH_VIEW",
     "relatedTypeName" : "BUILD_MECHANISMS",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "open_weapon_selection",
   "i18nKeys" : [ "HINT.WEAPON_SELECTION.1", "HINT.WEAPON_SELECTION.2", "HINT.WEAPON_SELECTION.3" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "GUI_SWITCH_VIEW",
     "relatedTypeName" : "CHANGE_WEAPON_SELECTION",
     "quantity" : 0
+  } ]
+}, {
+  "hintId" : "tutorial_start",
+  "i18nKeys" : [ "TUTORIAL.START.INTRO_1", "TUTORIAL.START.INTRO_2" ],
+  "onShow" : [ {
+    "type" : "HIDE_ALL_GUI_AREAS"
   } ],
-  "dismissable" : true
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.BEGIN_TUTORIAL",
+    "relatedHintId" : "tutorial_camera"
+  } ],
+  "triggers" : [ {
+    "triggerType" : "ON_START_WITH_TUTORIAL",
+    "quantity" : 0
+  } ]
+}, {
+  "hintId" : "tutorial_camera",
+  "i18nKeys" : [ ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "CAMERA_MOVED",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.START.CAMERA_CONTROLS_1",
+    "displayAsCheckbox" : true
+  }, {
+    "type" : "CAMERA_ZOOMED",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.START.CAMERA_CONTROLS_2",
+    "displayAsCheckbox" : true
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_time"
+  } ],
+  "triggers" : [ ]
 }, {
   "hintId" : "no_axes_left",
   "i18nKeys" : [ "HINT.TOOL_DEPLETED.AXE1", "HINT.TOOL_DEPLETED.AXE2" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "ITEM_AMOUNT",
     "relatedTypeName" : "Tool-Axe",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "no_saw_left",
   "i18nKeys" : [ "HINT.TOOL_DEPLETED.SAW1", "HINT.TOOL_DEPLETED.SAW2" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "ITEM_AMOUNT",
     "relatedTypeName" : "Tool-Saw",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "no_plane_left",
   "i18nKeys" : [ "HINT.TOOL_DEPLETED.PLANE1", "HINT.TOOL_DEPLETED.PLANE2" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "ITEM_AMOUNT",
     "relatedTypeName" : "Tool-Plane",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "no_chisel_left",
   "i18nKeys" : [ "HINT.TOOL_DEPLETED.CHISEL1", "HINT.TOOL_DEPLETED.CHISEL2" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "ITEM_AMOUNT",
     "relatedTypeName" : "Tool-Chisel",
     "quantity" : 0
-  } ],
-  "dismissable" : true
+  } ]
 }, {
   "hintId" : "pre-spawn",
   "i18nKeys" : [ "HINT.WELCOME.INTRO", "HINT.WELCOME.PRE_SPAWN" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ ],
   "triggers" : [ {
     "triggerType" : "ON_GAME_START",
     "quantity" : 0
-  } ],
-  "dismissable" : false
+  } ]
 }, {
   "hintId" : "ask-tutorial",
   "i18nKeys" : [ "HINT.WELCOME.INTRO", "HINT.WELCOME.NEXT_STEPS" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -125,201 +163,207 @@
   "triggers" : [ {
     "triggerType" : "ON_SETTLEMENT_SPAWNED",
     "quantity" : 0
-  } ],
-  "dismissable" : false
-}, {
-  "hintId" : "tutorial_camera",
-  "i18nKeys" : [ "TUTORIAL.CAMERA.A", "TUTORIAL.CAMERA.B", "TUTORIAL.CAMERA.C", "TUTORIAL.CAMERA.D" ],
-  "progressDescriptors" : [ ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
-    "relatedHintId" : "tutorial_time"
-  } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  } ]
 }, {
   "hintId" : "tutorial_time",
   "i18nKeys" : [ "TUTORIAL.TIME.A", "TUTORIAL.TIME.B", "TUTORIAL.TIME.C", "TUTORIAL.TIME.D" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
     "relatedHintId" : "tutorial_saving"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_saving",
   "i18nKeys" : [ "TUTORIAL.SAVING.A" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
     "relatedHintId" : "tutorial_1"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_1",
   "i18nKeys" : [ "TUTORIAL.1.A", "TUTORIAL.1.B", "TUTORIAL.1.C", "TUTORIAL.1.D" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "ROOM_TILES",
     "targetTypeName" : "FARM_PLOT",
-    "quantityRequired" : 70
+    "quantityRequired" : 70,
+    "displayAsCheckbox" : false
   }, {
     "type" : "ROOMS",
     "targetTypeName" : "FARM_PLOT",
-    "quantityRequired" : 4
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_2"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_2",
   "i18nKeys" : [ "TUTORIAL.2.A", "TUTORIAL.2.B", "TUTORIAL.2.C", "TUTORIAL.2.D" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "STOCKPILE_TILES",
     "targetTypeName" : "SEEDS",
-    "quantityRequired" : 10
+    "quantityRequired" : 10,
+    "displayAsCheckbox" : false
   }, {
     "type" : "STOCKPILE_TILES",
     "targetTypeName" : "TOOLS",
-    "quantityRequired" : 32
+    "quantityRequired" : 32,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_3"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_3",
   "i18nKeys" : [ "TUTORIAL.3.A", "TUTORIAL.3.B" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "FARM_PLOT_SELECTIONS",
-    "quantityRequired" : 4
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_4"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_4",
   "i18nKeys" : [ "TUTORIAL.4.A", "TUTORIAL.4.B", "TUTORIAL.4.C" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "PROFESSIONS_ASSIGNED",
     "targetTypeName" : "FARMER",
-    "quantityRequired" : 3
+    "quantityRequired" : 3,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_5"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_5",
   "i18nKeys" : [ "TUTORIAL.5.A", "TUTORIAL.5.B", "TUTORIAL.5.C" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "WATER_BARREL",
-    "quantityRequired" : 1
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "KITCHEN_WORKTOP",
-    "quantityRequired" : 1
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "CHEFS_CAULDRON",
-    "quantityRequired" : 1
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
   }, {
     "type" : "STOCKPILE_TILES",
     "targetTypeName" : "FOOD",
-    "quantityRequired" : 10
+    "quantityRequired" : 10,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_6"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_6",
   "i18nKeys" : [ "TUTORIAL.6.A", "TUTORIAL.6.B" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
     "relatedHintId" : "tutorial_7"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_7",
   "i18nKeys" : [ "TUTORIAL.7.A", "TUTORIAL.7.B" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "ROOM_TILES",
     "targetTypeName" : "SAWMILL",
-    "quantityRequired" : 6
+    "quantityRequired" : 6,
+    "displayAsCheckbox" : false
   }, {
     "type" : "ROOM_TILES",
     "targetTypeName" : "MASONRY_WORKSHOP",
-    "quantityRequired" : 6
+    "quantityRequired" : 6,
+    "displayAsCheckbox" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "WOODCUTTERS_BENCH",
-    "quantityRequired" : 1
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "Stonemason_Bench",
-    "quantityRequired" : 1
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_8"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_8",
   "i18nKeys" : [ "TUTORIAL.8.A", "TUTORIAL.8.B", "TUTORIAL.8.C" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Logs",
-    "quantityRequired" : 2
+    "quantityRequired" : 2,
+    "displayAsCheckbox" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Stone-Unrefined",
-    "quantityRequired" : 2
+    "quantityRequired" : 2,
+    "displayAsCheckbox" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Planks",
-    "quantityRequired" : 40
+    "quantityRequired" : 40,
+    "displayAsCheckbox" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Stone-Block",
-    "quantityRequired" : 40
+    "quantityRequired" : 40,
+    "displayAsCheckbox" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "relatedHintId" : "tutorial_final"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 }, {
   "hintId" : "tutorial_final",
   "i18nKeys" : [ "TUTORIAL.FINAL.A" ],
+  "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
     "type" : "DISABLE_TUTORIAL",
     "buttonTextI18nKey" : "HINT.BUTTON.DISMISS"
   } ],
-  "triggers" : [ ],
-  "dismissable" : false
+  "triggers" : [ ]
 } ]

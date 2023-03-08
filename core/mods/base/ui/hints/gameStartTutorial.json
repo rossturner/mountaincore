@@ -1,0 +1,49 @@
+[
+  {
+    "hintId": "tutorial_start",
+    "i18nKeys": [
+      "TUTORIAL.START.INTRO_1",
+      "TUTORIAL.START.INTRO_2"
+    ],
+    "onShow": [
+      {
+        "type": "HIDE_ALL_GUI_AREAS"
+      }
+    ],
+    "actions": [
+      {
+        "type": "SHOW_OTHER_HINT",
+        "relatedHintId": "tutorial_camera",
+        "buttonTextI18nKey": "HINT.BUTTON.BEGIN_TUTORIAL"
+      }
+    ],
+    "triggers": [
+      {
+        "triggerType": "ON_START_WITH_TUTORIAL"
+      }
+    ]
+  },
+  {
+    "hintId": "tutorial_camera",
+    "i18nKeys": [],
+    "progressDescriptors": [
+      {
+        "type": "CAMERA_MOVED",
+        "i18nKey": "TUTORIAL.START.CAMERA_CONTROLS_1",
+        "displayAsCheckbox": true
+      },
+      {
+        "type": "CAMERA_ZOOMED",
+        "i18nKey": "TUTORIAL.START.CAMERA_CONTROLS_2",
+        "displayAsCheckbox": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "SHOW_OTHER_HINT",
+        "relatedHintId": "tutorial_time",
+        "buttonTextI18nKey": "HINT.BUTTON.NEXT"
+      }
+    ]
+  }
+]

@@ -13,10 +13,14 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.GuiArea;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.hints.HintDictionary;
 import technology.rocketjump.saul.ui.hints.HintProgressEvaluator;
-import technology.rocketjump.saul.ui.hints.model.*;
+import technology.rocketjump.saul.ui.hints.model.Hint;
+import technology.rocketjump.saul.ui.hints.model.HintAction;
+import technology.rocketjump.saul.ui.hints.model.HintProgress;
+import technology.rocketjump.saul.ui.hints.model.HintProgressDescriptor;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -120,6 +124,10 @@ public class HintGuiView implements GuiView, GameContextAware {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+					// On dismiss of initial tutorial, ensure all GUI areas are visible again
+					for (GuiArea guiArea : GuiArea.values()) {
+						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
+					}
 				}
 			});
 			wrapperTable.add(exitButton).pad(10).left().top();
@@ -136,23 +144,12 @@ public class HintGuiView implements GuiView, GameContextAware {
 				hintTable.add(label).left().width(1900).row();
 			}
 
+			boolean allowedToProgress = true;
 			if (!displayedHint.getProgressDescriptors().isEmpty()) {
-				Label label = new Label(i18nTranslator.getTranslatedString("HINT.PROGRESS.HEADER").toString(), defaultLabelStyle);
-				hintTable.add(label).left().row();
-				try {
-					buildProgressDescriptors(displayedHint, hintTable);
-				} catch (HintProgressComplete hintProgressComplete) {
-					if (displayedHint.getActions().size() == 1) {
-						messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, displayedHint.getActions().get(0));
-					} else {
-						Logger.error("Only expecting one action for hint with progress indicators", displayedHint);
-					}
-					doUpdate();
-					break;
-				}
+				allowedToProgress = buildProgressDescriptors(displayedHint, hintTable);
 			}
 
-			buildActions(displayedHint, hintTable);
+			buildActions(displayedHint, hintTable, allowedToProgress);
 
 			wrapperTable.add(hintTable).padTop(40);
 			layoutTable.add(wrapperTable).pad(40).row();
@@ -160,6 +157,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 	}
 
 	public void add(Hint hint) {
+		hintProgressEvaluator.clearContextRelatedState();
 		displayedHints.add(hint);
 		gameContext.getSettlementState().getCurrentHints().add(hint.getHintId());
 		doUpdate();
@@ -220,7 +218,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 		dismissAllExceptOnStart();
 	}
 
-	private void buildProgressDescriptors(Hint hint, Table hintTable) throws HintProgressComplete {
+	private boolean buildProgressDescriptors(Hint hint, Table hintTable) {
 		boolean allProgressComplete = true;
 		for (HintProgressDescriptor progressDescriptor : hint.getProgressDescriptors()) {
 			Table progressTable = new Table(uiSkin);
@@ -231,48 +229,48 @@ public class HintGuiView implements GuiView, GameContextAware {
 				allProgressComplete = false;
 			}
 
-			ProgressBar bar = new ProgressBar(0, progress.total, 1, false, uiSkin);
-			bar.setValue(progress.current);
-			bar.setDisabled(true);
-			progressTable.add(bar).padRight(25);
+			if (progressDescriptor.isDisplayAsCheckbox()) {
+				CheckBox.CheckBoxStyle checkBoxStyle = uiSkin.get("tutorial", CheckBox.CheckBoxStyle.class);
+				CheckBox checkBox = new CheckBox(" " + i18nTranslator.getTranslatedString(progressDescriptor.getI18nKey()).toString(), checkBoxStyle);
+				checkBox.setChecked(progress.isComplete());
+				checkBox.setDisabled(true);
+				progressTable.add(checkBox).padRight(25);
+			} else {
+				ProgressBar bar = new ProgressBar(0, progress.total, 1, false, uiSkin);
+				bar.setValue(progress.current);
+				bar.setDisabled(true);
+				progressTable.add(bar).padRight(25);
 
-			Map<String, I18nString> replacements = new HashMap<>();
-			replacements.put("currentQuantity", new I18nText(String.valueOf(progress.current)));
-			replacements.put("requiredQuantity", new I18nText(String.valueOf(progress.total)));
-			replacements.put("targetDescription", progress.targetDescription);
-			I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
-
-			progressTable.add(new Label(text.toString(), defaultLabelStyle));
-
+				Map<String, I18nString> replacements = new HashMap<>();
+				replacements.put("currentQuantity", new I18nText(String.valueOf(progress.current)));
+				replacements.put("requiredQuantity", new I18nText(String.valueOf(progress.total)));
+				replacements.put("targetDescription", progress.targetDescription);
+				I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
+				progressTable.add(new Label(text.toString(), defaultLabelStyle));
+			}
 			hintTable.add(progressTable).left().row();
+
 		}
 
-		if (allProgressComplete) {
-			throw new HintProgressComplete();
-		}
+		return allProgressComplete;
 	}
 
-	private void buildActions(Hint displayedHint, Table hintTable) {
-		if (!displayedHint.getProgressDescriptors().isEmpty()) {
-			// Don't show any actions when progress is displayed
-			return;
-		}
+	private void buildActions(Hint displayedHint, Table hintTable, boolean allowedToProgress) {
 		Table actionsTable = new Table(uiSkin);
 
 		for (HintAction action : displayedHint.getActions()) {
-			Button button = buildButton(action.getButtonTextI18nKey(), () -> {
+			Button button = buildButton(action.getButtonTextI18nKey(), allowedToProgress, () -> {
 				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, action);
 			});
 			actionsTable.add(button).right().padLeft(15);
 		}
 
-
-		if (displayedHint.isDismissable()) {
-			Button button = buildButton("HINT.BUTTON.DISMISS", () -> {
-				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
-			});
-			actionsTable.add(button).right().padLeft(15);
-		}
+//		if (displayedHint.isDismissable()) {
+//			Button button = buildButton("HINT.BUTTON.DISMISS", () -> {
+//				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+//			});
+//			actionsTable.add(button).right().padLeft(15);
+//		}
 
 		if (actionsTable.hasChildren()) {
 			hintTable.add(actionsTable).right().row();
@@ -280,20 +278,22 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 	}
 
-	private Button buildButton(String i18nKey, Runnable onClick) {
-		Button button = new Button(uiSkin.getDrawable("btn_01"));
+	private Button buildButton(String i18nKey, boolean allowedToProgress, Runnable onClick) {
+		Button button = new Button(uiSkin);
+		button.setDisabled(!allowedToProgress);
 		Label label = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), defaultLabelStyle);
 		button.add(label).padBottom(12).center();
 		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		button.addListener(new ClickListener() {
-
 			boolean triggeredOnce = false;
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (!triggeredOnce) {
-					triggeredOnce = true;
-					onClick.run();
+				if (allowedToProgress) {
+					if (!triggeredOnce) {
+						triggeredOnce = true;
+						onClick.run();
+					}
 				}
 			}
 		});

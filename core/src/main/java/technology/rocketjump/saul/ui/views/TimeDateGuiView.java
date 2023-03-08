@@ -18,6 +18,7 @@ import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.GameViewMode;
+import technology.rocketjump.saul.ui.GuiArea;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -29,7 +30,9 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
@@ -46,6 +49,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	private GameContext gameContext;
 
 	private final TimeDateWidget timeDateWidget;
+	private Set<GuiArea> hiddenGuiAreas = new HashSet<>();
 
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -77,13 +81,19 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		messageDispatcher.addListener(this, MessageType.GUI_VIEW_MODE_CHANGED);
 	}
 
-	private void reset(GameContext gameContext) {
+	public void reset(GameContext gameContext) {
 		layoutTable.clearChildren();
 		if (gameContext == null || !gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
-			layoutTable.add(managementScreenButtonTable).right().top();
-			layoutTable.add(timeDateWidget).top().right().padTop(6).row();
-			layoutTable.add(new Container<>()); // pad out this cell
-			layoutTable.add(viewModeButtons).padLeft(40).center().row();
+			if (!hiddenGuiAreas.contains(GuiArea.MANAGEMENT_BUTTONS)) {
+				layoutTable.add(managementScreenButtonTable).right().top();
+			}
+			if (!hiddenGuiAreas.contains(GuiArea.TIME_AND_DATE)) {
+				layoutTable.add(timeDateWidget).top().right().padTop(6).row();
+				layoutTable.add(new Container<>()); // pad out this cell
+			}
+			if (!hiddenGuiAreas.contains(GuiArea.VIEW_MODES)) {
+				layoutTable.add(viewModeButtons).padLeft(40).center().row();
+			}
 		}
 	}
 
@@ -175,6 +185,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		}
 	}
 
+	public void setHiddenGuiAreas(Set<GuiArea> hiddenGuiAreas) {
+		this.hiddenGuiAreas = hiddenGuiAreas;
+	}
+
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
@@ -183,6 +197,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 
 	@Override
 	public void clearContextRelatedState() {
-
+		this.hiddenGuiAreas.clear();
 	}
+
 }

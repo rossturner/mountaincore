@@ -42,23 +42,6 @@
     "dismissable": false
   },
   {
-    "hintId": "tutorial_camera",
-    "i18nKeys": [
-      "TUTORIAL.CAMERA.A",
-      "TUTORIAL.CAMERA.B",
-      "TUTORIAL.CAMERA.C",
-      "TUTORIAL.CAMERA.D"
-    ],
-    "actions": [
-      {
-        "type": "SHOW_OTHER_HINT",
-        "relatedHintId": "tutorial_time",
-        "buttonTextI18nKey": "HINT.BUTTON.NEXT"
-      }
-    ],
-    "dismissable": false
-  },
-  {
     "hintId": "tutorial_time",
     "i18nKeys": [
       "TUTORIAL.TIME.A",

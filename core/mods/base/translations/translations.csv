@@ -619,9 +619,8 @@ GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,,Weather Effects
 GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,"Show weather effects like snow on furniture"
 GUI.OPTIONS.KEY_BINDINGS,,Key Bindings
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports
-GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Always Ask For Tutorial
+GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Start Game With Tutorial
 GUI.OPTIONS.RESET,,Reset
 GUI.OPTIONS.TAB.AUDIO,,Audio
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay
@@ -762,10 +761,9 @@ HINT.BUTTON.DISABLE_ALL,,Disable all hints
 HINT.BUTTON.DISMISS,,Dismiss
 HINT.BUTTON.HINTS_ONLY,,Hints only
 HINT.BUTTON.NEXT,,Next
-HINT.BUTTON.TUTORIAL,,Tutorial
+HINT.BUTTON.BEGIN_TUTORIAL,,Begin Tutorial
 HINT.OPEN_PRIORITY_MENU.1,,"You can use this menu to change the priority of jobs and tasks, so that higher priority jobs will be assigned before lower priority jobs."
 HINT.OPEN_PRIORITY_MENU.2,,"While the Priority menu is open, the priority icons are shown in the game world where there is a job or task to be performed, or where a room or item of furniture may create jobs in the future."
-HINT.PROGRESS.HEADER,,Progress:
 HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.
 HINT.TOOL_DEPLETED.AXE2,,"More axes can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}}."
 HINT.TOOL_DEPLETED.CHISEL1,,Your settlement no longer has a {{TOOL.CHISEL}} available. This is required to construct stone furniture.
@@ -1554,6 +1552,13 @@ TREASURE.GEM.PLURAL,,Gems
 TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
+
+TUTORIAL.START.INTRO_1,,"Welcome to GAME_NAME! This is an Early Access release with gameplay and features still in development."
+TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
+
+TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
+TUTORIAL.START.CAMERA_CONTROLS_2,,"Press Q & E or scroll the mouse wheel to zoom"
+
 
 TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with."
 TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest."

@@ -215,6 +215,7 @@ com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
 		up: btn_01
+		disabled: btn_01_disabled
 	}
 	game-speed-paused: {
 		up: btn_pause_off
@@ -319,6 +320,12 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		checkboxOff: btn_tinycheck_blank
 		font: default-font-16
 		fontColor: primary_font_colour_red
+	}
+	tutorial: {
+		checkboxOn: btn_tinycheck_tickbox
+		checkboxOff: btn_tinycheck_blank
+		font: default-font-19
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {

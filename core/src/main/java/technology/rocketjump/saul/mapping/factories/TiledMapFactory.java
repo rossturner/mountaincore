@@ -186,8 +186,6 @@ public class TiledMapFactory {
 		embarkResourcesFactory.spawnEmbarkResources(embarkPoint, embarkResources, gameContext);
 
 		creaturePopulator.initialiseMap(gameContext);
-
-		messageDispatcher.dispatchMessage(MessageType.SETTLEMENT_SPAWNED);
 	}
 
 	private QuantifiedItemTypeWithMaterial describeStackOf(ItemType itemType, GameMaterial material) {

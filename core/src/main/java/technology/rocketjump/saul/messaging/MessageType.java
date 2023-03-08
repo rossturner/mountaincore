@@ -33,9 +33,9 @@ public class MessageType {
 	public static final int MOUSE_UP = 201;
 	public static final int MOUSE_MOVED = 202;
 	public static final int CAMERA_MOVED = 203;
-	public static final int GAME_PAUSED = 204;
-	public static final int MOVE_CAMERA_TO = 205;
-	public static final int TRIGGER_SCREEN_SHAKE = 206;
+	public static final int GAME_PAUSED = 205;
+	public static final int MOVE_CAMERA_TO = 206;
+	public static final int TRIGGER_SCREEN_SHAKE = 207;
 
 	// GUI Messages
 	public static final int GUI_VIEW_MODE_CHANGED = 246;
@@ -74,6 +74,8 @@ public class MessageType {
 	public static final int GUI_REMOVE_ALL_TOOLTIPS = 289;
 	public static final int DIALOG_SHOWN = 290;
 	public static final int DIALOG_HIDDEN = 291;
+	public static final int GUI_HIDE_AREA = 292;
+	public static final int GUI_SHOW_AREA = 293;
 
 	// i18n Messages
 	public static final int FONTS_CHANGED = 300;
@@ -311,6 +313,10 @@ public class MessageType {
 	// Trading messages
 	public static final int TRIGGER_TRADE_CARAVAN = 2200;
 
+	// Messages for tracking progress of tutorials (maybe extend to achievements?)
+	public static final int TUTORIAL_TRACKING_CAMERA_PANNED = 2300;
+	public static final int TUTORIAL_TRACKING_CAMERA_ZOOMED = 2301;
+
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;
 	public static final int EDITOR_BROWSER_TREE_RIGHT_CLICK = 99002;
@@ -325,5 +331,7 @@ public class MessageType {
 	public static final int EDITOR_RELOAD = 99011;
 	public static final int EDITOR_SHOW_CROP_SPRITES_DIALOG = 99012;
 	public static final int EDITOR_SHOW_ICON_SELECTION_DIALOG = 99013;
+
+
 
 }
