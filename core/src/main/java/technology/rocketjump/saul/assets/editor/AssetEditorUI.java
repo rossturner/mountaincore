@@ -27,6 +27,7 @@ import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.*;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
@@ -51,6 +52,7 @@ import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.modding.ModParser;
 import technology.rocketjump.saul.modding.model.ModInfo;
+import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
@@ -210,7 +212,7 @@ public class AssetEditorUI implements Telegraph {
 		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
 		topLevelTable.add(leftPane).top().left().expand().fillY();
-		topLevelTable.add(viewArea).top().minWidth(Gdx.graphics.getWidth() / 3);
+		topLevelTable.add(viewArea).top().minWidth(Gdx.graphics.getWidth() / 3.0f);
 		topLevelTable.add(propertyEditorPane).top().right().expand().fillY();
 		topLevelTable.row();
 		topLevelTable.add(viewEditor).colspan(3).center().fillX();
@@ -308,9 +310,35 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_OPEN_MOD: {
 				final FileHandle file = (FileHandle) msg.extraInfo;
 				Path modDir = FileUtils.getDirectory(file.file().toPath());
-				editorStateProvider.getState().changeToMod(modDir.toAbsolutePath().toString());
-				editorStateProvider.stateChanged();
-				messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+
+				try {
+					ParsedMod parsedMod = modParser.parseMod(modDir);
+					if (parsedMod.getInfo().isBaseMod() && !GlobalSettings.DEV_MODE) {
+						VisDialog baseModDialog = new VisDialog("Error") {
+							@Override
+							protected void result(Object object) {
+								super.result(object);
+								editorStateProvider.getState().changeToMod(null);
+								editorStateProvider.stateChanged();
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+							}
+						};
+						baseModDialog.text("Editing the base mod is disabled");
+						baseModDialog.button("Ok");
+						baseModDialog.show(stage);
+					} else {
+						editorStateProvider.getState().changeToMod(modDir.toAbsolutePath().toString());
+						editorStateProvider.stateChanged();
+						messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+					}
+				} catch (IOException e) {
+					Logger.error("unable to parse log", e);
+					VisDialog errorDialog = new VisDialog("Error");
+					errorDialog.text("Unable to open mod: " + e.getMessage());
+					errorDialog.button("Ok");
+					errorDialog.show(stage);
+				}
+				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_MOD_DIALOG: {
 				final Path directory = Paths.get("mods/").toAbsolutePath();

@@ -1,11 +1,10 @@
 package technology.rocketjump.saul.assets.editor;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -44,6 +43,7 @@ import technology.rocketjump.saul.messaging.types.CameraMovedMessage;
 import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.particles.ParticleEffectUpdater;
 import technology.rocketjump.saul.rendering.RenderMode;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
@@ -128,6 +128,17 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
 		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
+		inputMultiplexer.addProcessor(new InputAdapter() {
+			@Override
+			public boolean keyUp(int keycode) {
+				if (keycode == Input.Keys.D && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+					GlobalSettings.DEV_MODE = !GlobalSettings.DEV_MODE;
+					messageDispatcher.dispatchMessage(MessageType.DEV_MODE_CHANGED);
+					return true;
+				}
+				return super.keyUp(keycode);
+			}
+		});
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
@@ -138,9 +149,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
 
-		if (firstLoad) {
+		if (firstLoad && editorStateProvider.getState().hasModSelected()) {
 			//need to rerun assetPacker
-			messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD);
+			messageDispatcher.dispatchMessage(MessageType.EDITOR_OPEN_MOD, new FileHandle(editorStateProvider.getState().getModDirPath().toFile()));
 		}
 	}
 

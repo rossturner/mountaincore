@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.assets.editor.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -16,12 +18,14 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.modding.ModParser;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
-public class TopLevelMenu extends MenuBar {
+public class TopLevelMenu extends MenuBar implements Telegraph {
 
 	private final EditorStateProvider editorStateProvider;
 	private final MessageDispatcher messageDispatcher;
 	private final NativeFileChooser fileChooser;
+	private final Menu devModMenu;
 
 	@Inject
 	public TopLevelMenu(EditorStateProvider editorStateProvider, MessageDispatcher messageDispatcher, NativeFileChooser fileChooser) {
@@ -58,10 +62,23 @@ public class TopLevelMenu extends MenuBar {
 		preferences.addItem(new AutoSaveCheckbox());
 		this.addMenu(preferences);
 
+		devModMenu = new Menu("Dev Mode");
+		updateDevMenu();
+
 		Menu selectedMod = new Menu(editorStateProvider.getState().getModDir());
 		selectedMod.setTouchable(Touchable.disabled);
 		selectedMod.openButton.setTouchable(Touchable.disabled);
 		this.addMenu(selectedMod);
+
+		messageDispatcher.addListener(this, MessageType.DEV_MODE_CHANGED);
+	}
+
+	private void updateDevMenu() {
+		if (GlobalSettings.DEV_MODE) {
+			this.insertMenu(2, devModMenu);
+		} else {
+			this.removeMenu(devModMenu);
+		}
 	}
 
 	private void createNewMod() {
@@ -98,6 +115,15 @@ public class TopLevelMenu extends MenuBar {
 		config.mimeFilter = "application/json";
 		config.nameFilter = (dir, name) -> ModParser.MOD_INFO_FILENAME.equals(name);
 		return config;
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		if (msg.message == MessageType.DEV_MODE_CHANGED) {
+			updateDevMenu();
+			return true;
+		}
+		return false;
 	}
 
 	class AutoSaveCheckbox extends MenuItem {
