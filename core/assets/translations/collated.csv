@@ -907,6 +907,7 @@ MENU.MODS,Mods,,Mods,Mods,Mods,Mods,Mods,,,Моды,Modlar,Mods,,Mods,,,,Mods,MO
 MENU.NEW_GAME,New Game,,Neues Spiel beginnen,Nouvelle partie,Nuova partita,Comenzar partida nueva,Iniciar novo jogo,Começar outro jogo,,Начать новую игру,Yeni Oyun Başlat,Start nyt spil,,Starta ett nytt spel,,,,ニューゲーム,开始新游戏,
 MENU.OPTIONS,Options,,Optionen,Options,Opzioni,Opciones,Opções,Opções,,Настройки,Ayarlar,Valgmuligheder,,Inställningar,,,,オプション,设置,
 MENU.QUIT,Quit,,Beenden,Quitter,Esci,Salir,Sair,Sair,,Выйти,Çıkış,Stop,,Avsluta,,,,終了,退出,
+MENU.SAVE_AND_QUIT,Save & Quit,,,,,,,,,,,,,,,,,,,
 MENU.TOGGLE_FULLSCREEN,Toggle fullscreen,,Vollbildschirm einstellen,Plein écran,Attiva/Disattiva schermo intero,Pantalla completa (sí/no),Alternar ecrã inteiro,Alternar tela cheia,,Во весь экран,Tam ekran yap,Slå fuldskærm til,,Växla helskärm,,,,フルスクリーンを切り替える,切换全屏,
 
 METAL.BRONZE.ADJECTIVE,Bronze,,Bronze,En bronze,di bronzo,de bronce,De bronze,de bronze,,Бронзовый,Bronz,Bronze,,Brons-,,,,青銅の,青铜,
