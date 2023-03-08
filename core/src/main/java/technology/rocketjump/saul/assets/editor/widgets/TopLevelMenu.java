@@ -75,6 +75,8 @@ public class TopLevelMenu extends MenuBar {
 				//set mod dir and reload
 				if (ModParser.MOD_INFO_FILENAME.equals(file.name())) {
 					messageDispatcher.dispatchMessage(MessageType.EDITOR_OPEN_MOD, file);
+				} else {
+					openModDirectory();
 				}
 			}
 
