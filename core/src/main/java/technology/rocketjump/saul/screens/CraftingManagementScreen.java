@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
@@ -22,6 +21,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -73,11 +73,11 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 
 	@Inject
 	public CraftingManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
-	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
-	                                EntityRenderer entityRenderer, CraftingRecipeDictionary craftingRecipeDictionary,
-	                                LabelFactory labelFactory, ButtonFactory buttonFactory, RoomEditorItemMap roomEditorItemMap,
-	                                GameInteractionStateContainer gameInteractionStateContainer, ConstantsRepo constantsRepo) {
-		super(constantsRepo.getUiConstants());
+									I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
+									EntityRenderer entityRenderer, CraftingRecipeDictionary craftingRecipeDictionary,
+									LabelFactory labelFactory, ButtonFactory buttonFactory, RoomEditorItemMap roomEditorItemMap,
+									GameInteractionStateContainer gameInteractionStateContainer, UserPreferences userPreferences) {
+		super(userPreferences, messageDispatcher);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;

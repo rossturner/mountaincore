@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.rendering;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -8,10 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.constants.ConstantsRepo;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.ViewportUtils;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -23,24 +25,33 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 public class ScreenWriter implements DisplaysText {
 
 	private static final float LINE_HEIGHT = 60f;
-	private final Viewport viewport;
+	private final ExtendViewport viewport;
 	private final Vector2 viewportDimensions;
 	private Label label;
 	private Label dragSizeLabel;
 	private final Skin skin;
-	private Stage stage;
-	private Array<String> lines = new Array<>();
+	private final Stage stage;
+	private final Array<String> lines = new Array<>();
 	public Vector2 offsetPosition = new Vector2();
 	private boolean dragging;
 
 
 	@Inject
-	public ScreenWriter(GuiSkinRepository guiSkinRepository, ConstantsRepo constantsRepo) {
-		this.viewportDimensions = constantsRepo.getUiConstants().calculateViewportDimensions();
+	public ScreenWriter(GuiSkinRepository guiSkinRepository, UserPreferences userPreferences, MessageDispatcher messageDispatcher) {
+        this.viewportDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
 		viewport = new ExtendViewport(viewportDimensions.x,viewportDimensions.y);
 		stage = new Stage(viewport);
 		skin = guiSkinRepository.getMainGameSkin();
-
+		messageDispatcher.addListener(msg -> {
+			if (MessageType.GUI_SCALE_CHANGED == msg.message) {
+				Vector2 updatedDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+				viewport.setMinWorldWidth(updatedDimensions.x);
+				viewport.setMinWorldHeight(updatedDimensions.y);
+				onResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				return true;
+			}
+			return false;
+		}, MessageType.GUI_SCALE_CHANGED);
 		rebuildUI();
 	}
 

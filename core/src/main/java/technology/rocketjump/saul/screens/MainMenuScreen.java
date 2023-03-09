@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.logging.CrashHandler;
@@ -82,9 +81,9 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 						  LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
 						  UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
 						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
-						  TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator, ConstantsRepo constantsRepo,
+						  TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator,
 						  CreditsMenu creditsMenu) {
-		super(constantsRepo.getUiConstants());
+		super(userPreferences, messageDispatcher);
 		this.messageDispatcher = messageDispatcher;
 		this.screenWriter = screenWriter;
 		this.embarkMenu = embarkMenu;

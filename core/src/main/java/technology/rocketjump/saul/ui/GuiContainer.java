@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
@@ -12,11 +13,11 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.InfoWindow;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.eventlistener.TooltipTable;
@@ -43,11 +44,13 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private final Table minimapContainerTable;
 	private final MessageDispatcher messageDispatcher;
 	private final GameInteractionStateContainer interactionStateContainer;
+	private final UserPreferences userPreferences;
 	private final TimeDateGuiView timeDateGuiView;
 	private final HintGuiView hintGuiView;
 	private final DebugGuiView debugGuiView;
 	private final NotificationGuiView notificationGuiView;
 	private final MinimapGuiView minimapGuiView;
+	private final ExtendViewport viewport;
 	private Stage primaryStage;
 	private StageAreaOnlyInputHandler primaryStageInputHandler;
 
@@ -58,11 +61,11 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	@Inject
 	public GuiContainer(MessageDispatcher messageDispatcher, GameInteractionStateContainer interactionStateContainer,
-	                    GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
-	                    InfoWindow infoWindow, HintGuiView hintGuiView,
-	                    DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
-	                    GameDialogMessageHandler gameDialogMessageHandler,
-	                    MinimapGuiView minimapGuiView, ConstantsRepo constantsRepo) {
+						GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
+						InfoWindow infoWindow, HintGuiView hintGuiView,
+						DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
+						GameDialogMessageHandler gameDialogMessageHandler,
+						MinimapGuiView minimapGuiView, UserPreferences userPreferences) {
 		this.infoWindow = infoWindow;
 		this.hintGuiView = hintGuiView;
 		this.debugGuiView = debugGuiView;
@@ -70,9 +73,10 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.timeDateGuiView = timeDateGuiView;
 		this.minimapGuiView = minimapGuiView;
 		this.interactionStateContainer = interactionStateContainer;
+		this.userPreferences = userPreferences;
 
-		Vector2 viewportDimensions = constantsRepo.getUiConstants().calculateViewportDimensions();
-		ExtendViewport viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
+		Vector2 viewportDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+		viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
 
 		primaryStage = new Stage(viewport);
 		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer, gameDialogMessageHandler);
@@ -91,6 +95,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW);
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU);
 		messageDispatcher.addListener(this, MessageType.GUI_REMOVE_ALL_TOOLTIPS);
+		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
@@ -161,6 +166,13 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				if (parentViewName != null) {
 					switchView(parentViewName);
 				}
+				return true;
+			}
+			case MessageType.GUI_SCALE_CHANGED: {
+				Vector2 updatedDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+				viewport.setMinWorldWidth(updatedDimensions.x);
+				viewport.setMinWorldHeight(updatedDimensions.y);
+				onResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 				return true;
 			}
 			case MessageType.GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU: {
