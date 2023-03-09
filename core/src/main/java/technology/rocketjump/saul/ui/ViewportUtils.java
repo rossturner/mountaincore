@@ -8,6 +8,8 @@ public class ViewportUtils {
     public static final float MIN_VIEWPORT_SCALE = 0.9f;
     public static final float MAX_VIEWPORT_SCALE = 1.15f;
     private final static Vector2 VIEWPORT_DIMENSIONS = new Vector2(3840, 2160);
+    public static final float DEFAULT_FONT_SCALE = 2.0f;
+    public static final float MAX_DEFAULT_FONT_SCALE = 2.6f;
 
     public static Vector2 scaledViewportDimensions(UserPreferences userPreferences) {
         return VIEWPORT_DIMENSIONS.cpy().scl(getViewportScale(userPreferences));
@@ -26,7 +28,7 @@ public class ViewportUtils {
         } else {
             percentAlongViewportDomain = diffFromMidpoint / (maxV - midpoint);
         }
-        return 2.0f + (percentAlongViewportDomain * (2.6f - 2.0f));
+        return DEFAULT_FONT_SCALE + (percentAlongViewportDomain * (MAX_DEFAULT_FONT_SCALE - DEFAULT_FONT_SCALE));
     }
 
     private static Float getViewportScale(UserPreferences userPreferences) {
