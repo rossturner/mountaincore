@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -28,6 +27,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -81,10 +81,10 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 	@Inject
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
-	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
-	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                LabelFactory labelFactory, ButtonFactory buttonFactory, ConstantsRepo constantsRepo) {
-		super(constantsRepo.getUiConstants());
+									I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
+									EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
+									LabelFactory labelFactory, ButtonFactory buttonFactory, UserPreferences userPreferences) {
+		super(userPreferences, messageDispatcher);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;

@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.rendering;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -10,8 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.ViewportUtils;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -24,16 +26,19 @@ public class InfoWindow implements Telegraph, DisplaysText {
 	private final Table alignmentTable;
 	private final I18nTranslator i18nTranslator;
 	private final MainGameSkin uiSkin;
+	private final UserPreferences userPreferences;
+	private final ExtendViewport viewport;
 
 	private boolean isDisplayed = false;
 
 	@Inject
-	public InfoWindow(GuiSkinRepository guiSkinRepository, ConstantsRepo constantsRepo,
-	                  MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
+	public InfoWindow(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
+					  I18nTranslator i18nTranslator, UserPreferences userPreferences) {
 		this.i18nTranslator = i18nTranslator;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
-		Vector2 viewportDimensions = constantsRepo.getUiConstants().calculateViewportDimensions();
-		ExtendViewport viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
+		this.userPreferences = userPreferences;
+		Vector2 viewportDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+		viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
 		stage = new Stage(viewport);
 
 
@@ -47,6 +52,7 @@ public class InfoWindow implements Telegraph, DisplaysText {
 
 		messageDispatcher.addListener(this, MessageType.SHOW_AUTOSAVE_PROMPT);
 		messageDispatcher.addListener(this, MessageType.HIDE_AUTOSAVE_PROMPT);
+		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 	}
 
 	public void render() {
@@ -68,6 +74,13 @@ public class InfoWindow implements Telegraph, DisplaysText {
 			}
 			case MessageType.HIDE_AUTOSAVE_PROMPT: {
 				this.isDisplayed = false;
+				return true;
+			}
+			case MessageType.GUI_SCALE_CHANGED: {
+				Vector2 updatedDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+				viewport.setMinWorldWidth(updatedDimensions.x);
+				viewport.setMinWorldHeight(updatedDimensions.y);
+				onResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 				return true;
 			}
 			default:

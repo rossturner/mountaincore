@@ -13,6 +13,8 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.constants.UiConstants;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.ViewportUtils;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 
@@ -25,21 +27,23 @@ public class OnDemandFontRepository implements Disposable {
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
 	private final MessageDispatcher messageDispatcher;
+	private final UserPreferences userPreferences;
 	// These are the current names of the font files as defined by the language or global defaults
 	private String defaultFontName;
 	private String headerFontName;
 
-	private Map<Integer, BitmapFont> guaranteedFonts = new HashMap<>();
-	private Map<Integer, BitmapFont> defaultFonts = new HashMap<>();
-	private Map<Integer, BitmapFont> headerFonts = new HashMap<>();
+	private final Map<Integer, BitmapFont> guaranteedFonts = new HashMap<>();
+	private final Map<Integer, BitmapFont> defaultFonts = new HashMap<>();
+	private final Map<Integer, BitmapFont> headerFonts = new HashMap<>();
 
 	public static final String UNICODE_BOLD_FONT_FILENAME = "NotoSansCJKjp-Bold.otf";
 
 	@Inject
-	public OnDemandFontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo, MessageDispatcher messageDispatcher) {
+	public OnDemandFontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo, MessageDispatcher messageDispatcher, UserPreferences userPreferences) {
 		this.i18nRepo = i18nRepo;
 		this.uiConstants = constantsRepo.getUiConstants();
 		this.messageDispatcher = messageDispatcher;
+		this.userPreferences = userPreferences;
 		FreeTypeFontGenerator.setMaxTextureSize(8192);
 
 		this.headerFontName = uiConstants.getHeaderFont();
@@ -67,11 +71,11 @@ public class OnDemandFontRepository implements Disposable {
 	}
 
 	public BitmapFont getDefaultFont(int pointSize) {
-		return defaultFonts.computeIfAbsent(pointSize, a -> generateFont(defaultFontName, pointSize, uiConstants.getDefaultFontScale()));
+		return defaultFonts.computeIfAbsent(pointSize, a -> generateFont(defaultFontName, pointSize, ViewportUtils.defaultFontScaleForViewportScale(userPreferences)));
 	}
 
 	public BitmapFont getHeaderFont(int pointSize) {
-		return headerFonts.computeIfAbsent(pointSize, a -> generateFont(headerFontName, pointSize, uiConstants.getHeaderFontScale()));
+		return headerFonts.computeIfAbsent(pointSize, a -> generateFont(headerFontName, pointSize, 2.0f));
 	}
 
 	private BitmapFont generateFont(String fontName, int pointSize, float scale) {

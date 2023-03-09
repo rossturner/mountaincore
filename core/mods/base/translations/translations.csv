@@ -708,7 +708,7 @@ GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level
 GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
 GUI.SOUND_EFFECT_VOLUME,,Sound Effects
-GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
+GUI.UI_SCALE,Used to make the game interface larger or smaller,UI Scale
 GUI.VIEW_MODE.DEFAULT,,Default view
 GUI.VIEW_MODE.JOB_PRIORITY,,Priority view
 GUI.VIEW_MODE.ROOFING_INFO,,Roof view

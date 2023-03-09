@@ -42,6 +42,7 @@ public class DisplaysTextRegister implements Telegraph {
 		this.decoratedStringFactory = decoratedStringFactory;
 
 		messageDispatcher.addListener(this, MessageType.LANGUAGE_CHANGED);
+		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 	}
 
 	public void registerClasses(Set<Class<? extends DisplaysText>> updatableClasses, Injector injector) {
@@ -55,6 +56,13 @@ public class DisplaysTextRegister implements Telegraph {
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
+			case MessageType.GUI_SCALE_CHANGED: {
+				onDemandFontRepository.dispose();
+				messageDispatcher.dispatchMessage(MessageType.FONTS_CHANGED);
+				for (DisplaysText displaysTextInstance : registered.values()) {
+					displaysTextInstance.rebuildUI();
+				}
+			}
 			case MessageType.LANGUAGE_CHANGED: {
 				// Add any PRE-LANGUAGE CHANGED stuff here
 				i18nTranslator.preLanguageUpdated();
