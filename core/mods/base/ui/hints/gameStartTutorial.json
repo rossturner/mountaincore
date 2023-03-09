@@ -41,6 +41,68 @@
     "actions": [
       {
         "type": "SHOW_OTHER_HINT",
+        "relatedHintId": "tutorial_minimap",
+        "buttonTextI18nKey": "HINT.BUTTON.NEXT"
+      }
+    ]
+  },
+  {
+    "hintId": "tutorial_minimap",
+    "onShow": [
+      {
+        "type": "SHOW_GUI_AREA",
+        "value": "MINIMAP"
+      }
+    ],
+    "i18nKeys": [
+      "TUTORIAL.MINIMAP.DESCRIPTION"
+    ],
+    "progressDescriptors": [
+      {
+        "type": "MINIMAP_CLICKED",
+        "i18nKey": "TUTORIAL.MINIMAP.PROGRESS",
+        "displayAsCheckbox": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "SHOW_OTHER_HINT",
+        "relatedHintId": "tutorial_time_date",
+        "buttonTextI18nKey": "HINT.BUTTON.NEXT"
+      }
+    ]
+  },
+  {
+    "hintId": "tutorial_time_date",
+    "onShow": [
+      {
+        "type": "SHOW_GUI_AREA",
+        "value": "TIME_AND_DATE"
+      }
+    ],
+    "i18nKeys": [
+      "TUTORIAL.TIME_AND_DATE.DESCRIPTION"
+    ],
+    "progressDescriptors": [
+      {
+        "type": "GAME_PAUSED",
+        "i18nKey": "TUTORIAL.TIME_AND_DATE.PAUSE_STEP",
+        "displayAsCheckbox": true
+      },
+      {
+        "type": "FAST_SPEED_SELECTED",
+        "i18nKey": "TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP",
+        "displayAsCheckbox": true
+      },
+      {
+        "type": "NORMAL_SPEED_SELECTED",
+        "i18nKey": "TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP",
+        "displayAsCheckbox": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "SHOW_OTHER_HINT",
         "relatedHintId": "tutorial_time",
         "buttonTextI18nKey": "HINT.BUTTON.NEXT"
       }

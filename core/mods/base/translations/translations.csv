@@ -1559,6 +1559,16 @@ TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this
 TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
 TUTORIAL.START.CAMERA_CONTROLS_2,,"Press Q & E or scroll the mouse wheel to zoom"
 
+TUTORIAL.MINIMAP.DESCRIPTION,,"This is the Minimap."
+TUTORIAL.MINIMAP.PROGRESS,,"Click on the Minimap to jump to a location"
+
+TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here."
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,"Press space to pause the game"
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds"
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,"Click the icon or press 1 for normal speed"
+
+
+
 
 TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with."
 TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest."

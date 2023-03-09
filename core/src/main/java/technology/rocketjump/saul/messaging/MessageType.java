@@ -316,6 +316,7 @@ public class MessageType {
 	// Messages for tracking progress of tutorials (maybe extend to achievements?)
 	public static final int TUTORIAL_TRACKING_CAMERA_PANNED = 2300;
 	public static final int TUTORIAL_TRACKING_CAMERA_ZOOMED = 2301;
+	public static final int TUTORIAL_TRACKING_MINIMAP_CLICKED = 2302;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

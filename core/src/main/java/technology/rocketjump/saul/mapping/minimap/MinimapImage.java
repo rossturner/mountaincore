@@ -37,6 +37,7 @@ public class MinimapImage extends Container<Actor> {
 						(x / getWidth()) * mapWidth,
 						(y / getHeight()) * mapHeight
 				));
+				messageDispatcher.dispatchMessage(MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED);
 				return super.touchDown(event, x, y, pointer, button);
 			}
 

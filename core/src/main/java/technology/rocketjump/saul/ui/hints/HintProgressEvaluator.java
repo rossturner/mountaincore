@@ -13,6 +13,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
@@ -74,6 +75,41 @@ public class HintProgressEvaluator implements GameContextAware, Telegraph {
 
 		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_CAMERA_PANNED);
 		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED);
+		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED);
+		messageDispatcher.addListener(this, MessageType.SET_GAME_SPEED);
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.TUTORIAL_TRACKING_CAMERA_PANNED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_MOVED);
+			}
+			case MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_ZOOMED);
+			}
+			case MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.MINIMAP_CLICKED);
+			}
+			case MessageType.SET_GAME_SPEED -> {
+				GameSpeed speed = (GameSpeed) msg.extraInfo;
+				switch (speed) {
+					case PAUSED -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.GAME_PAUSED);
+					}
+					case NORMAL -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.NORMAL_SPEED_SELECTED);
+					}
+					default -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.FAST_SPEED_SELECTED);
+					}
+				}
+			}
+			default -> {
+				Logger.error("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg.toString());
+			}
+		}
+		return true;
 	}
 
 	public HintProgress evaluate(HintProgressDescriptor descriptor) {
@@ -180,22 +216,6 @@ public class HintProgressEvaluator implements GameContextAware, Telegraph {
 			quantity = total;
 		}
 		return new HintProgress(quantity, total, targetDescription);
-	}
-
-	@Override
-	public boolean handleMessage(Telegram msg) {
-		switch (msg.message) {
-			case MessageType.TUTORIAL_TRACKING_CAMERA_PANNED -> {
-				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_MOVED);
-			}
-			case MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED -> {
-				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_ZOOMED);
-			}
-			default -> {
-				Logger.error("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg.toString());
-			}
-		}
-		return true;
 	}
 
 	@Override
