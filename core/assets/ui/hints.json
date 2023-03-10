@@ -135,7 +135,333 @@
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
     "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
-    "relatedHintId" : "tutorial_time"
+    "relatedHintId" : "tutorial_view_modes"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_view_modes",
+  "i18nKeys" : [ "TUTORIAL.VIEW_MODES.DESCRIPTION" ],
+  "onShow" : [ {
+    "type" : "SHOW_GUI_AREA",
+    "value" : "VIEW_MODES"
+  } ],
+  "progressDescriptors" : [ {
+    "type" : "OTHER_VIEW_MODE",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.VIEW_MODES.OTHER_STEP",
+    "displayAsCheckbox" : true
+  }, {
+    "type" : "DEFAULT_VIEW_MODE",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.VIEW_MODES.DEFAULT_STEP",
+    "displayAsCheckbox" : true
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_management_views"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_management_views",
+  "i18nKeys" : [ "TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION" ],
+  "onShow" : [ {
+    "type" : "SHOW_GUI_AREA",
+    "value" : "SETTLER_MANAGEMENT_BUTTON"
+  }, {
+    "type" : "SHOW_GUI_AREA",
+    "value" : "RESOURCE_MANAGEMENT_BUTTON"
+  } ],
+  "progressDescriptors" : [ {
+    "type" : "SETTLER_MANAGEMENT",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT",
+    "displayAsCheckbox" : true
+  }, {
+    "type" : "RESOURCE_MANAGEMENT",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT",
+    "displayAsCheckbox" : true
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_saving"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_saving",
+  "i18nKeys" : [ "TUTORIAL.SAVING.A", "TUTORIAL.SAVING.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "GAME_SAVED",
+    "quantityRequired" : 0,
+    "i18nKey" : "TUTORIAL.SAVING.C",
+    "displayAsCheckbox" : true
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_main_view"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_main_view",
+  "i18nKeys" : [ "TUTORIAL.MAIN_VIEW.A", "TUTORIAL.MAIN_VIEW.B", "TUTORIAL.MAIN_VIEW.C" ],
+  "onShow" : [ {
+    "type" : "SHOW_GUI_AREA",
+    "value" : "MAIN_GUI_VIEW"
+  } ],
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_needs"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_needs",
+  "i18nKeys" : [ "TUTORIAL.NEEDS.A", "TUTORIAL.NEEDS.B", "TUTORIAL.NEEDS.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
+    "relatedHintId" : "tutorial_farming"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_farming",
+  "i18nKeys" : [ "TUTORIAL.FARMING.A", "TUTORIAL.FARMING.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ROOM_TILES",
+    "targetTypeName" : "FARM_PLOT",
+    "quantityRequired" : 70,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "ROOMS",
+    "targetTypeName" : "FARM_PLOT",
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_farming_2"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_farming_2",
+  "i18nKeys" : [ "TUTORIAL.FARMING_2.A", "TUTORIAL.FARMING_2.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "FARM_PLOT_SELECTIONS",
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_professions"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_professions",
+  "i18nKeys" : [ "TUTORIAL.PROFESSIONS.A", "TUTORIAL.PROFESSIONS.B", "TUTORIAL.PROFESSIONS.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "PROFESSIONS_ASSIGNED",
+    "targetTypeName" : "FARMER",
+    "quantityRequired" : 3,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_stockpiles"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_stockpiles",
+  "i18nKeys" : [ "TUTORIAL.STOCKPILES.A", "TUTORIAL.STOCKPILES.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "STOCKPILE_TILES",
+    "targetTypeName" : "TOOLS",
+    "quantityRequired" : 32,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_kitchen"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_kitchen",
+  "i18nKeys" : [ "TUTORIAL.KITCHEN.A", "TUTORIAL.KITCHEN.B", "TUTORIAL.KITCHEN.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ROOM_TILES",
+    "targetTypeName" : "KITCHEN",
+    "quantityRequired" : 12,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "WATER_BARREL",
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "KITCHEN_WORKTOP",
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "CHEFS_CAULDRON",
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_feasting_hall"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_feasting_hall",
+  "i18nKeys" : [ "TUTORIAL.FEASTING_HALL.A", "TUTORIAL.FEASTING_HALL.B", "TUTORIAL.FEASTING_HALL.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ROOM_TILES",
+    "targetTypeName" : "FEASTING_HALL",
+    "quantityRequired" : 12,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_food_complete"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_food_complete",
+  "i18nKeys" : [ "TUTORIAL.FOOD_COMPLETE.A", "TUTORIAL.FOOD_COMPLETE.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_resources"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_resources",
+  "i18nKeys" : [ "TUTORIAL.RESOURCES.A", "TUTORIAL.RESOURCES.B", "TUTORIAL.RESOURCES.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ITEM_EXISTS",
+    "targetTypeName" : "Resource-Logs",
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "ITEM_EXISTS",
+    "targetTypeName" : "Resource-Stone-Unrefined",
+    "quantityRequired" : 4,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_workshops"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_workshops",
+  "i18nKeys" : [ "TUTORIAL.WORKSHOPS.A", "TUTORIAL.WORKSHOPS.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ROOM_TILES",
+    "targetTypeName" : "SAWMILL",
+    "quantityRequired" : 15,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "ROOM_TILES",
+    "targetTypeName" : "MASONRY_WORKSHOP",
+    "quantityRequired" : 15,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "WOODCUTTERS_BENCH",
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "Stonemason_Bench",
+    "quantityRequired" : 1,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_crafting"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_crafting",
+  "i18nKeys" : [ "TUTORIAL.CRAFTING.A", "TUTORIAL.CRAFTING.B", "TUTORIAL.CRAFTING.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "IMPORT_PALLET",
+    "quantityRequired" : 2,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "FURNITURE_CONSTRUCTED",
+    "targetTypeName" : "EXPORT_PALLET",
+    "quantityRequired" : 2,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "STOCKPILE_TILES",
+    "targetTypeName" : "PRODUCTS",
+    "quantityRequired" : 20,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_crafting_selection"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_crafting_selection",
+  "i18nKeys" : [ "TUTORIAL.CRAFTING_SELECTION.A", "TUTORIAL.CRAFTING_SELECTION.B", "TUTORIAL.CRAFTING_SELECTION.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_resource_collection"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_resource_collection",
+  "i18nKeys" : [ "TUTORIAL.RESOURCE_COLLECTION.A", "TUTORIAL.RESOURCE_COLLECTION.B" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ {
+    "type" : "ITEM_EXISTS",
+    "targetTypeName" : "Resource-Planks",
+    "quantityRequired" : 45,
+    "displayAsCheckbox" : false
+  }, {
+    "type" : "ITEM_EXISTS",
+    "targetTypeName" : "Resource-Stone-Block",
+    "quantityRequired" : 45,
+    "displayAsCheckbox" : false
+  } ],
+  "actions" : [ {
+    "type" : "SHOW_OTHER_HINT",
+    "relatedHintId" : "tutorial_completed"
+  } ],
+  "triggers" : [ ]
+}, {
+  "hintId" : "tutorial_completed",
+  "i18nKeys" : [ "TUTORIAL.COMPLETED.A", "TUTORIAL.COMPLETED.B", "TUTORIAL.COMPLETED.C" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ ],
+  "actions" : [ {
+    "type" : "DISABLE_TUTORIAL",
+    "buttonTextI18nKey" : "HINT.BUTTON.DISMISS"
   } ],
   "triggers" : [ ]
 }, {
@@ -193,188 +519,6 @@
     "quantity" : 0
   } ]
 }, {
-  "hintId" : "ask-tutorial",
-  "i18nKeys" : [ "HINT.WELCOME.INTRO", "HINT.WELCOME.NEXT_STEPS" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "buttonTextI18nKey" : "HINT.BUTTON.TUTORIAL",
-    "relatedHintId" : "tutorial_camera"
-  }, {
-    "type" : "DISABLE_TUTORIAL",
-    "buttonTextI18nKey" : "HINT.BUTTON.HINTS_ONLY"
-  }, {
-    "type" : "DISABLE_ALL_HINTS",
-    "buttonTextI18nKey" : "HINT.BUTTON.DISABLE_ALL"
-  } ],
-  "triggers" : [ {
-    "triggerType" : "ON_SETTLEMENT_SPAWNED",
-    "quantity" : 0
-  } ]
-}, {
-  "hintId" : "tutorial_time",
-  "i18nKeys" : [ "TUTORIAL.TIME.A", "TUTORIAL.TIME.B", "TUTORIAL.TIME.C", "TUTORIAL.TIME.D" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
-    "relatedHintId" : "tutorial_saving"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_saving",
-  "i18nKeys" : [ "TUTORIAL.SAVING.A" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
-    "relatedHintId" : "tutorial_1"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_1",
-  "i18nKeys" : [ "TUTORIAL.1.A", "TUTORIAL.1.B", "TUTORIAL.1.C", "TUTORIAL.1.D" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "ROOM_TILES",
-    "targetTypeName" : "FARM_PLOT",
-    "quantityRequired" : 70,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "ROOMS",
-    "targetTypeName" : "FARM_PLOT",
-    "quantityRequired" : 4,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_2"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_2",
-  "i18nKeys" : [ "TUTORIAL.2.A", "TUTORIAL.2.B", "TUTORIAL.2.C", "TUTORIAL.2.D" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "STOCKPILE_TILES",
-    "targetTypeName" : "SEEDS",
-    "quantityRequired" : 10,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "STOCKPILE_TILES",
-    "targetTypeName" : "TOOLS",
-    "quantityRequired" : 32,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_3"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_3",
-  "i18nKeys" : [ "TUTORIAL.3.A", "TUTORIAL.3.B" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "FARM_PLOT_SELECTIONS",
-    "quantityRequired" : 4,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_4"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_4",
-  "i18nKeys" : [ "TUTORIAL.4.A", "TUTORIAL.4.B", "TUTORIAL.4.C" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "PROFESSIONS_ASSIGNED",
-    "targetTypeName" : "FARMER",
-    "quantityRequired" : 3,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_5"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_5",
-  "i18nKeys" : [ "TUTORIAL.5.A", "TUTORIAL.5.B", "TUTORIAL.5.C" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "WATER_BARREL",
-    "quantityRequired" : 1,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "KITCHEN_WORKTOP",
-    "quantityRequired" : 1,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "CHEFS_CAULDRON",
-    "quantityRequired" : 1,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "STOCKPILE_TILES",
-    "targetTypeName" : "FOOD",
-    "quantityRequired" : 10,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_6"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_6",
-  "i18nKeys" : [ "TUTORIAL.6.A", "TUTORIAL.6.B" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "buttonTextI18nKey" : "HINT.BUTTON.NEXT",
-    "relatedHintId" : "tutorial_7"
-  } ],
-  "triggers" : [ ]
-}, {
-  "hintId" : "tutorial_7",
-  "i18nKeys" : [ "TUTORIAL.7.A", "TUTORIAL.7.B" ],
-  "onShow" : [ ],
-  "progressDescriptors" : [ {
-    "type" : "ROOM_TILES",
-    "targetTypeName" : "SAWMILL",
-    "quantityRequired" : 6,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "ROOM_TILES",
-    "targetTypeName" : "MASONRY_WORKSHOP",
-    "quantityRequired" : 6,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "WOODCUTTERS_BENCH",
-    "quantityRequired" : 1,
-    "displayAsCheckbox" : false
-  }, {
-    "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "Stonemason_Bench",
-    "quantityRequired" : 1,
-    "displayAsCheckbox" : false
-  } ],
-  "actions" : [ {
-    "type" : "SHOW_OTHER_HINT",
-    "relatedHintId" : "tutorial_8"
-  } ],
-  "triggers" : [ ]
-}, {
   "hintId" : "tutorial_8",
   "i18nKeys" : [ "TUTORIAL.8.A", "TUTORIAL.8.B", "TUTORIAL.8.C" ],
   "onShow" : [ ],
@@ -391,12 +535,12 @@
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Planks",
-    "quantityRequired" : 40,
+    "quantityRequired" : 50,
     "displayAsCheckbox" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Stone-Block",
-    "quantityRequired" : 40,
+    "quantityRequired" : 50,
     "displayAsCheckbox" : false
   } ],
   "actions" : [ {

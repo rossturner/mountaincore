@@ -27,9 +27,11 @@ import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
+import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.hints.model.HintProgress;
 import technology.rocketjump.saul.ui.hints.model.HintProgressDescriptor;
 import technology.rocketjump.saul.ui.i18n.I18nString;
@@ -77,6 +79,9 @@ public class HintProgressEvaluator implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED);
 		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED);
 		messageDispatcher.addListener(this, MessageType.SET_GAME_SPEED);
+		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW_MODE);
+		messageDispatcher.addListener(this, MessageType.SWITCH_SCREEN);
+		messageDispatcher.addListener(this, MessageType.REQUEST_SAVE);
 	}
 
 	@Override
@@ -104,6 +109,25 @@ public class HintProgressEvaluator implements GameContextAware, Telegraph {
 						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.FAST_SPEED_SELECTED);
 					}
 				}
+			}
+			case MessageType.GUI_SWITCH_VIEW_MODE -> {
+				GameViewMode viewMode = (GameViewMode) msg.extraInfo;
+				if (viewMode.equals(GameViewMode.DEFAULT)) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.DEFAULT_VIEW_MODE);
+				} else {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.OTHER_VIEW_MODE);
+				}
+			}
+			case MessageType.SWITCH_SCREEN -> {
+				String screenName = (String) msg.extraInfo;
+				if (screenName.equals(ManagementScreenName.RESOURCES.name())) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.RESOURCE_MANAGEMENT);
+				} else if (screenName.equals(ManagementScreenName.SETTLERS.name())) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.SETTLER_MANAGEMENT);
+				}
+			}
+			case MessageType.REQUEST_SAVE -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.GAME_SAVED);
 			}
 			default -> {
 				Logger.error("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg.toString());

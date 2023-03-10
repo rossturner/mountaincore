@@ -293,6 +293,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 			switchView(GuiViewName.DEFAULT_MENU);
 		}
 		this.gameContext = gameContext;
+		rebuildUI();
 	}
 
 	@Override

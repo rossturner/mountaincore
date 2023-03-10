@@ -259,7 +259,11 @@ public class HintGuiView implements GuiView, GameContextAware {
 		Table actionsTable = new Table(uiSkin);
 
 		for (HintAction action : displayedHint.getActions()) {
-			Button button = buildButton(action.getButtonTextI18nKey(), allowedToProgress, () -> {
+			String i18nKey = action.getButtonTextI18nKey();
+			if (i18nKey == null) {
+				i18nKey = "HINT.BUTTON.NEXT";
+			}
+			Button button = buildButton(i18nKey, allowedToProgress, () -> {
 				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, action);
 			});
 			actionsTable.add(button).right().padLeft(15);

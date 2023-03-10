@@ -34,6 +34,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
+import static technology.rocketjump.saul.screens.ManagementScreenName.SETTLERS;
+
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
 
@@ -82,33 +85,50 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	}
 
 	public void reset(GameContext gameContext) {
+		rebuildUI();
+
 		layoutTable.clearChildren();
 		if (gameContext == null || !gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
-			if (!hiddenGuiAreas.contains(GuiArea.MANAGEMENT_BUTTONS)) {
+			if (anyManagementButtonsShown()) {
 				layoutTable.add(managementScreenButtonTable).right().top();
 			}
 			if (!hiddenGuiAreas.contains(GuiArea.TIME_AND_DATE)) {
 				layoutTable.add(timeDateWidget).top().right().padTop(6).row();
-				layoutTable.add(new Container<>()); // pad out this cell
 			}
 			if (!hiddenGuiAreas.contains(GuiArea.VIEW_MODES)) {
+				if (anyManagementButtonsShown()) {
+					layoutTable.add(new Container<>()); // pad out this cell
+				}
 				layoutTable.add(viewModeButtons).padLeft(40).center().row();
 			}
 		}
+	}
+
+	boolean anyManagementButtonsShown() {
+		return (!hiddenGuiAreas.contains(GuiArea.RESOURCE_MANAGEMENT_BUTTON)) ||
+				(!hiddenGuiAreas.contains(GuiArea.MILITARY_MANAGEMENT_BUTTON)) ||
+				(!hiddenGuiAreas.contains(GuiArea.SETTLER_MANAGEMENT_BUTTON));
 	}
 
 	@Override
 	public void rebuildUI() {
 		managementScreenButtonTable.clearChildren();
 
-		Button militaryButton = buttonFactory.buildDrawableButton("btn_top_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW, () -> {
-			Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
-			optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
-					() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
-		});
-		managementScreenButtonTable.add(militaryButton).size(157f,170f);
+		if (!hiddenGuiAreas.contains(GuiArea.MILITARY_MANAGEMENT_BUTTON)) {
+			Button militaryButton = buttonFactory.buildDrawableButton("btn_top_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW, () -> {
+				Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
+				optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
+						() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
+			});
+			managementScreenButtonTable.add(militaryButton).size(157f, 170f);
+		}
 
 		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
+			if (managementScreen.equals(SETTLERS) && hiddenGuiAreas.contains(GuiArea.SETTLER_MANAGEMENT_BUTTON)) {
+				continue;
+			} else if (managementScreen.equals(RESOURCES) && hiddenGuiAreas.contains(GuiArea.RESOURCE_MANAGEMENT_BUTTON)) {
+				continue;
+			}
 			Button screenButton = buttonFactory.buildDrawableButton(managementScreen.buttonStyleName, managementScreen.titleI18nKey, TooltipLocationHint.BELOW, () -> {
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
 			});

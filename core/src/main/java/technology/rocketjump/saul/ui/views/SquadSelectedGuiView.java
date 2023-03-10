@@ -928,13 +928,15 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 	 */
 	@Override
 	public void update() {
-		int sizeBeforeUpdate = updatables.size();
-		for (Updatable<?> updatable : updatables) {
-			updatable.update();
-		}
-		int sizeAfterUpdate = updatables.size();
-		if (sizeAfterUpdate > sizeBeforeUpdate) {
-			Logger.error("Leak in {} as more updatbles {} since {}", getClass().getSimpleName(), sizeAfterUpdate, sizeBeforeUpdate);
+		if (updatables != null) {
+			int sizeBeforeUpdate = updatables.size();
+			for (Updatable<?> updatable : updatables) {
+				updatable.update();
+			}
+			int sizeAfterUpdate = updatables.size();
+			if (sizeAfterUpdate > sizeBeforeUpdate) {
+				Logger.error("Leak in {} as more updatbles {} since {}", getClass().getSimpleName(), sizeAfterUpdate, sizeBeforeUpdate);
+			}
 		}
 	}
 
