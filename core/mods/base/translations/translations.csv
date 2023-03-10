@@ -707,7 +707,7 @@ GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level
 GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
 GUI.SOUND_EFFECT_VOLUME,,Sound Effects
-GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
+GUI.UI_SCALE,Used to make the game interface larger or smaller,UI Scale
 GUI.VIEW_MODE.DEFAULT,,Default view
 GUI.VIEW_MODE.JOB_PRIORITY,,Priority view
 GUI.VIEW_MODE.ROOFING_INFO,,Roof view
@@ -952,6 +952,7 @@ MODS.APPLY,,Apply
 MODS.COMPATIBILITY.COMPATIBLE,,Yes
 MODS.COMPATIBILITY.INCOMPATIBLE,,No
 MODS.COMPATIBILITY.UNKNOWN,,Unknown
+MODS.INCOMPATIBLE_VERSION_DESCRIPTION,,The mod's game version ({{modGameVersion}}) is incompatible with the current game version ({{gameVersion}})
 MODS.MISSING_HOMEPAGE_URL,,The author(s) of this mod have not included a website to visit
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:"

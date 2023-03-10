@@ -17,9 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.modding.CompatibilityResult;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.model.ParsedMod;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
@@ -28,6 +30,7 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
@@ -44,6 +47,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
+	public static final int MAX_FILES_TO_LIST = 5;
 	private final MenuSkin menuSkin;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
@@ -159,7 +163,8 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			ParsedMod mod = modsInOrder.get(index);
 			final boolean isBaseMod = mod.getInfo().isBaseMod();
 
-			ModCompatibilityChecker.Compatibility compatibility = modCompatibilityChecker.checkCompatibility(mod);
+			CompatibilityResult compatibilityResult = modCompatibilityChecker.checkCompatibility(mod);
+			ModCompatibilityChecker.Compatibility compatibility = compatibilityResult.compatibility();
 
 			Label draggableMod = new Label(mod.getInfo().getName(), menuSkin, "draggable_mod");
 			draggableMod.setAlignment(Align.center);
@@ -208,12 +213,8 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 
 			if (isBaseMod) {
-//				disable(draggableMod);
 				disable(enabledCheckbox);
-//			} else if (!enabledCheckbox.isChecked()) {
-//				disable(draggableMod);
 			} else if (compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
-//				disable(draggableMod);
 				disable(enabledCheckbox);
 			}
 
@@ -240,6 +241,17 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			Label descriptionLabel = new Label(mod.getInfo().getDescription(), mainGameSkin);
 			descriptionLabel.setWrap(true);
 			tooltipTable.add(descriptionLabel).width(700).center().row();
+
+			if (compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
+				I18nText modIncompatabilityText = i18nTranslator.getTranslatedWordWithReplacements("MODS.INCOMPATIBLE_VERSION_DESCRIPTION", Map.of(
+						"modGameVersion", new I18nWord(mod.getInfo().getGameVersion().toString()),
+						"gameVersion", new I18nWord(GlobalSettings.VERSION.toString())
+				));
+
+				Label modIncompatibilityLabel = new Label(modIncompatabilityText.toString(), mainGameSkin);
+				modIncompatibilityLabel.setWrap(true);
+				tooltipTable.add(modIncompatibilityLabel).padTop(10).width(700).center().row();
+			}
 
 			tooltipFactory.complexTooltip(draggableModContainer, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 

@@ -4,13 +4,10 @@ package technology.rocketjump.saul.assets.editor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -19,14 +16,12 @@ public class SpriteCropperPipeline {
 
     private final SpriteCropper spriteCropper;
     private final NormalMapGenerator normalMapGenerator;
-    private final AssetsPackager assetsPackager;
     private final MessageDispatcher messageDispatcher;
 
     @Inject
-    public SpriteCropperPipeline(SpriteCropper spriteCropper, NormalMapGenerator normalMapGenerator, AssetsPackager assetsPackager, MessageDispatcher messageDispatcher) {
+    public SpriteCropperPipeline(SpriteCropper spriteCropper, NormalMapGenerator normalMapGenerator, MessageDispatcher messageDispatcher) {
         this.spriteCropper = spriteCropper;
         this.normalMapGenerator = normalMapGenerator;
-        this.assetsPackager = assetsPackager;
         this.messageDispatcher = messageDispatcher;
     }
 
@@ -48,8 +43,6 @@ public class SpriteCropperPipeline {
         normalImages.forEach(FileUtils::delete);
         diffuseImages.forEach(normalMapGenerator::generate);
 
-        List<Path> modDirs = Arrays.asList(Paths.get("mods/base"), Paths.get("mods/Community Translations")); //TODO: not sure about hardcoding this
-        assetsPackager.packageDirsToAssets(modDirs, Paths.get("assets"));
         messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD, null);
     }
 

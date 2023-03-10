@@ -1,11 +1,14 @@
 package technology.rocketjump.saul.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import technology.rocketjump.saul.constants.UiConstants;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.ViewportUtils;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 
 
@@ -14,13 +17,23 @@ import technology.rocketjump.saul.ui.widgets.GameDialog;
  */
 public abstract class AbstractGameScreen implements GameScreen {
 	protected final OrthographicCamera camera = new OrthographicCamera();
-	protected final Viewport viewport;
+	protected final ExtendViewport viewport;
 	protected final Stage stage;
 
-	protected AbstractGameScreen(UiConstants uiConstants) {
-		Vector2 viewportDimensions = uiConstants.calculateViewportDimensions();
+	protected AbstractGameScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher) {
+		Vector2 viewportDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
 		this.viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
 		this.stage = new Stage(viewport);
+		messageDispatcher.addListener(msg -> {
+			if (MessageType.GUI_SCALE_CHANGED == msg.message) {
+				Vector2 updatedDimensions = ViewportUtils.scaledViewportDimensions(userPreferences);
+				viewport.setMinWorldWidth(updatedDimensions.x);
+				viewport.setMinWorldHeight(updatedDimensions.y);
+				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				return true;
+			}
+			return false;
+		}, MessageType.GUI_SCALE_CHANGED);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.modding;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
@@ -14,12 +15,14 @@ import java.util.Optional;
 @Singleton
 public class ModParser {
 
+	public static final String MOD_INFO_FILENAME = "modInfo.json";
 	private final ModArtifactListing artifactListing;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Inject
 	public ModParser(ModArtifactListing modArtifactListing) {
 		this.artifactListing = modArtifactListing;
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
 
 	public ParsedMod parseMod(Path modBasePath) throws IOException {
@@ -34,14 +37,20 @@ public class ModParser {
 	}
 
 	private ModInfo readModInfo(Path modBasePath) throws IOException {
-		Path infoPath = modBasePath.resolve("modInfo.json");
+		Path infoPath = modBasePath.resolve(MOD_INFO_FILENAME);
 		if (!Files.exists(infoPath)) {
-			throw new IOException("Could not find modInfo.json in " + modBasePath.toString());
+			throw new IOException("Could not find modInfo.json in " + modBasePath);
 		}
 		return objectMapper.readValue(FileUtils.readFileToString(infoPath.toFile(), "UTF-8"), ModInfo.class);
+	}
+
+	public void write(Path directory, ModInfo modInfo) throws IOException {
+		Path modInfoFile = directory.resolve(MOD_INFO_FILENAME);
+		objectMapper.writeValue(modInfoFile.toFile(), modInfo);
 	}
 
 	public ModArtifactListing getArtifactListing() {
 		return artifactListing;
 	}
+
 }

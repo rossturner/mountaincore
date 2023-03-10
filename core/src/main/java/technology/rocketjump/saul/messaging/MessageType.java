@@ -51,6 +51,7 @@ public class MessageType {
 	public static final int GUI_ROOM_TYPE_SELECTED = 256;
 	public static final int GUI_FURNITURE_TYPE_SELECTED = 257;
 	public static final int SET_GAME_SPEED = 258;
+	public static final int GUI_SCALE_CHANGED = 259;
 	public static final int GUI_CHANGE_MUSIC_VOLUME = 261;
 	public static final int GUI_CHANGE_SOUND_EFFECT_VOLUME = 262;
 	public static final int GUI_CHANGE_AMBIENT_EFFECT_VOLUME = 263;
@@ -332,6 +333,8 @@ public class MessageType {
 	public static final int EDITOR_RELOAD = 99011;
 	public static final int EDITOR_SHOW_CROP_SPRITES_DIALOG = 99012;
 	public static final int EDITOR_SHOW_ICON_SELECTION_DIALOG = 99013;
+	public static final int EDITOR_SHOW_CREATE_MOD_DIALOG = 99014;
+	public static final int EDITOR_OPEN_MOD = 99015;
 
 
 

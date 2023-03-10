@@ -23,7 +23,6 @@ import com.google.inject.Inject;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.*;
@@ -45,6 +44,7 @@ import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
@@ -147,8 +147,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 								   WidgetFactory widgetFactory, SkillDictionary skillDictionary, SettlerTracker settlerTracker,
 								   EntityRenderer entityRenderer, TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
 								   SettlementFurnitureTracker settlementFurnitureTracker, SettlementItemTracker settlementItemTracker,
-								   SoundAssetDictionary soundAssetDictionary, ConstantsRepo constantsRepo) {
-		super(constantsRepo.getUiConstants());
+								   SoundAssetDictionary soundAssetDictionary, UserPreferences userPreferences) {
+		super(userPreferences, messageDispatcher);
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
