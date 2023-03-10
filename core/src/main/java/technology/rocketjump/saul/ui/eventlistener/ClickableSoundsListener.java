@@ -62,6 +62,7 @@ public class ClickableSoundsListener extends ClickListener {
     @Override
     public void clicked(InputEvent event, float x, float y) {
         super.clicked(event, x, y);
-        messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset));
+        messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset, activeSoundEffect ->
+                ClickableSoundsListener.activeSoundEffect = activeSoundEffect));
     }
 }
