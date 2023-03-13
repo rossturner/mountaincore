@@ -24,6 +24,7 @@ public class LocalModRepository {
 
 	private static final String MOD_NAME_SEPARATOR = "/";
 	private static final List<String> DEFAULT_ACTIVE_MODS = Arrays.asList("base", "Community Translations");
+	public static final Path ASSETS_DIR = Paths.get("assets");
 	private final ModParser modParser;
 	private final ModCompatibilityChecker modCompatibilityChecker;
 	private final UserPreferences userPreferences;
@@ -95,7 +96,7 @@ public class LocalModRepository {
 	}
 
 	public void packageActiveMods() {
-		assetsPackager.packageModsToAssets(activeMods, Paths.get("assets"));
+		assetsPackager.packageModsToAssets(activeMods, ASSETS_DIR);
 	}
 
 	public Collection<ParsedMod> getAll() {
