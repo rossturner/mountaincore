@@ -38,6 +38,8 @@ public class HintTrigger {
 
 	public enum HintTriggerType {
 
+		ON_START_WITH_TUTORIAL,
+
 		ON_GAME_START,
 		ON_SETTLEMENT_SPAWNED,
 		ITEM_AMOUNT,

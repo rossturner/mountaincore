@@ -619,9 +619,8 @@ GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,,Weather Effects
 GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,"Show weather effects like snow on furniture"
 GUI.OPTIONS.KEY_BINDINGS,,Key Bindings
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports
-GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Always Ask For Tutorial
+GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Start Game With Tutorial
 GUI.OPTIONS.RESET,,Reset
 GUI.OPTIONS.TAB.AUDIO,,Audio
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay
@@ -762,10 +761,9 @@ HINT.BUTTON.DISABLE_ALL,,Disable all hints
 HINT.BUTTON.DISMISS,,Dismiss
 HINT.BUTTON.HINTS_ONLY,,Hints only
 HINT.BUTTON.NEXT,,Next
-HINT.BUTTON.TUTORIAL,,Tutorial
+HINT.BUTTON.BEGIN_TUTORIAL,,Begin Tutorial
 HINT.OPEN_PRIORITY_MENU.1,,"You can use this menu to change the priority of jobs and tasks, so that higher priority jobs will be assigned before lower priority jobs."
 HINT.OPEN_PRIORITY_MENU.2,,"While the Priority menu is open, the priority icons are shown in the game world where there is a job or task to be performed, or where a room or item of furniture may create jobs in the future."
-HINT.PROGRESS.HEADER,,Progress:
 HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.
 HINT.TOOL_DEPLETED.AXE2,,"More axes can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}}."
 HINT.TOOL_DEPLETED.CHISEL1,,Your settlement no longer has a {{TOOL.CHISEL}} available. This is required to construct stone furniture.
@@ -898,6 +896,7 @@ MENU.NEW_GAME,,New Game
 MENU.OPTIONS,,Options
 MENU.CREDITS,,Credits
 MENU.QUIT,,Quit
+MENU.SAVE_AND_QUIT,,Save & Quit
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen
 
 METAL.BRONZE.ADJECTIVE,,Bronze
@@ -1555,43 +1554,96 @@ TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beau
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 
-TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with."
-TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest."
-TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click “{{GUI.ROOMS_LABEL}}” > “{{ROOMS.FARM}}”, and designate / drag out several farm plots on a grassy area."
-TUTORIAL.1.D,,Use right-click to cancel and go back in menus.
-TUTORIAL.2.A,,"With nothing else to do, your settlers will start preparing these {{ROOMS.FARM.PLURAL}} by tilling the earth to be ready for seeds to be sown. This doesn’t require any special tools or knowledge so everyone should get involved."
-TUTORIAL.2.B,,"This prepares the plot to be sown, but you need to select which crop to grow on each farm plot before a farmer will come and plant the relevant seeds. Your settlers have brought with them a selection of different seeds. You can click “Resources” in the upper-right to get a breakdown of all the items in your settlement."
-TUTORIAL.2.C,,"For the seeds to actually be available to your farmers, they need to be in a stockpile compared to being held in a dwarf’s inventory like they are currently. Click {{GUI.ZONES_LABEL}} > {{ROOMS.STOCKPILES}} > {{STOCKPILE.GROUP.SEEDS}} (you can right-click to go back up to a previous menu) and designate an area to be used for seeds to be stored."
-TUTORIAL.2.D,,Your settlers have also brought a bunch of tools with them what will need moving around. From {{ROOMS.STOCKPILES}} also choose {{STOCKPILE.GROUP.TOOLS}} and designate another area to be used to store tools.
-TUTORIAL.3.A,,"After some time your settlers should put items they are not using into stockpiles, like the seeds that are to be sown."
-TUTORIAL.3.B,,"Left-click on each of the {{ROOMS.FARM.PLURAL}} and select a crop to be planted there. Don’t select {{VEGETABLE.BARLEY}} or {{VEGETABLE.HOPS}} for now, as these crops are used in the production of beer, not food."
-TUTORIAL.4.A,,Your {{PROFESSION.FARMER.PLURAL}} will now get to work sowing the seeds you have selected to these {{ROOMS.FARM.PLURAL}}. Sowing seeds does not require any special tools but you might want to assign more settlers as {{PROFESSION.FARMER.PLURAL}}. Left-click on a settler who is wandering around aimlessly.
-TUTORIAL.4.B,,"Clicking on a settler lets you see their name, professions, inventory, needs and happiness. Click on the blank square button next to their other professions to set a 3rd and final profession as a {{PROFESSION.FARMER.NOUN}}."
-TUTORIAL.4.C,,"Note that some jobs require the settler to have a specific tool in their inventory, and if none are available in the settlement they won’t work on the jobs that require it. For example, you can assign more settlers as a {{PROFESSION.WOODCUTTER}}, but they can’t chop down trees without an available {{TOOL.AXE.NOUN}}."
-TUTORIAL.5.A,,"Your crops will now grow and eventually be harvested by your {{PROFESSION.FARMER.PLURAL}} in the {{SEASON.AUTUMN}}. Some crops can be planted again later in the year and survive through the {{SEASON.WINTER}}, but some do not. To get the most out of your crops, it is best to produce soup from the vegetables harvested, or bread from grain."
-TUTORIAL.5.B,,"Let’s get a {{ROOMS.KITCHEN}} set up to produce soup once your crops are ready. Go to the top level menu then {{GUI.ZONES_LABEL}} > {{ROOMS.KITCHEN}} and drag out a {{ROOMS.KITCHEN}} area. For now you can build this outside, but you will eventually want to move the majority of your work areas inside for protection from the elements."
-TUTORIAL.5.C,,"Unlike farm plots, kitchens (and most other rooms) need furniture to function. Click “Furniture” when you have placed a kitchen zone and you’ll be presented with the furniture that can be added. To produce soup, you need to build a {{FURNITURE.WATER_BARREL}}, {{FURNITURE.KITCHEN_WORKTOP}} and {{FURNITURE.CAULDRON}} in the same kitchen zone. Also, designate a {{STOCKPILE.GROUP.FOOD}} {{ROOMS.STOCKPILE}} to store any harvested crops."
-TUTORIAL.6.A,,"When your crops have been harvested, cooks will bring vegetables to the {{FURNITURE.KITCHEN_WORKTOP}} before adding them to the {{FURNITURE.CAULDRON}} with water and producing soup! Making soup and baking bread means your food supplies will go much further - a single vegetable will feed a dwarf for a single meal, but 3 vegetables cooked into soup will provide 12 meals!"
-TUTORIAL.6.B,,"Eventually this kitchen will produce a cauldron full of steaming hot soup, but the cooks don’t like other dwarves getting in the way in their kitchen, so instead you need to have the soup brought to a feasting hall for the whole settlement to enjoy. Designate a feasting hall by clicking on {{GUI.ZONES_LABEL}} > {{ROOMS.FEASTING_HALL}}, then add a {{FURNITURE.CAULDRON}} to it. Note that a feasting hall cauldron won’t be placed until a cauldron containing thick, delicious soup is available."
-TUTORIAL.7.A,,Over time you will want to expand your food production but this will keep our small settlement nourished for the upcoming winter - your settlers have brought rations to sustain them while the first crops grow.
-TUTORIAL.7.B,,"Most items and furniture are produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} or {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}}. It’s important to maintain a large supply of these. {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} are produced in a {{ROOMS.SAWMILL}}, and {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}} are crafted by a {{PROFESSION.STONEMASON}} in a {{ROOMS.MASONRY_WORKSHOP}}. Place one of each of these zones, and build a {{FURNITURE.WOODCUTTERS_BENCH}} and {{FURNITURE.STONEMASON_WORKBENCH}} in them."
-TUTORIAL.8.A,,"Now you are ready to produce {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} and {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}}, but they require other resources to craft them - {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} and {{RESOURCE.STONE.UNREFINED.PLURAL}}. Fortunately these can usually be harvested from the game world quite easily."
-TUTORIAL.8.B,,Select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} and click-and-drag over trees to let your woodcutters know to cut them down. Similarly you can select select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.MINE}} and click-and-drag an area of the mountain to designate to be mined. Select enough of both to build your stockpiles back up to 40 of each.
-TUTORIAL.8.C,,"Be careful with mining! A mined-out area of 7 by 7 tiles without a {{FURNITURE.PILLAR}} built within that area will collapse! "
-TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan the camera around. Moving the cursor to the edge of the screen also pans the camera, but this can be disabled in the options menu."
-TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.
-TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap."
-TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.
-TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in the {{ROOMS.FUEL_REFINERY}}. Good luck!"
+TUTORIAL.DISMISS_DIALOG.TITLE,,End Tutorial?
+TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?
+TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial
+
+TUTORIAL.SHOW_LABEL,,Show Tutorial
+TUTORIAL.START.INTRO_1,,"Welcome to GAME_NAME! This is an Early Access release with gameplay and features still in development."
+TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
+
+TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
+TUTORIAL.START.CAMERA_CONTROLS_2,,"Press Q & E or scroll the mouse wheel to zoom"
+
+TUTORIAL.MINIMAP.DESCRIPTION,,"This is the Minimap."
+TUTORIAL.MINIMAP.PROGRESS,,"Click on the Minimap to jump to a location"
+
+TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here."
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,"Press space to pause the game"
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds"
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,"Click the icon or press 1 for normal speed"
+
+TUTORIAL.VIEW_MODES.DESCRIPTION,,"Below the time and date are buttons to show different views overlaid onto the game world."
+TUTORIAL.VIEW_MODES.OTHER_STEP,,"Click one of the view mode buttons"
+TUTORIAL.VIEW_MODES.DEFAULT_STEP,,"Click the left-most button to return to the default view mode"
+
+TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION,,"The icons to the left of the time and date are various management and overview screens."
+TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT,,"View the Settlers management screen"
+TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT,,"View the Resources management screen"
+
+TUTORIAL.SAVING.A,,"Progress is saved automatically at midnight or when you exit the game."
+TUTORIAL.SAVING.B,,"You can also press F5 to Quicksave."
+TUTORIAL.SAVING.C,,"Press F5 to Quicksave now"
+
+TUTORIAL.MAIN_VIEW.A,,"The controls in the lower-left corner of the screen are the main way of interacting with the game."
+TUTORIAL.MAIN_VIEW.B,,"You can assign orders, queue rooms and furniture to be created, and also adjust the priority of tasks."
+TUTORIAL.MAIN_VIEW.C,,"You can right-click to go back to a previous menu or clear the current selection."
+
+TUTORIAL.NEEDS.A,,"Settlers need Food, Drink and Sleep."
+TUTORIAL.NEEDS.B,,"For now they can drink from the river and sleep on the ground."
+TUTORIAL.NEEDS.C,,"However to eat they must grow crops."
+
+TUTORIAL.FARMING.A,,"Click on Rooms and select Farm Plot. They are listed alphabetically."
+TUTORIAL.FARMING.B,,"Drag out 4 separate Farm Plots in a grassy area."
+
+TUTORIAL.FARMING_2.A,,"Click on each Farm Plot and select a Crop to be planted."
+TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used for Textiles and Brewing."
+
+TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do."
+TUTORIAL.PROFESSIONS.B,,"You can click on a Settler to view or change their professions. This can also be done from the Settlers Management screen."
+TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Villagers as they're responsible for moving items around."
+
+TUTORIAL.STOCKPILES.A,,"It is a good idea to place Stockpiles for your Settlers to place and share items."
+TUTORIAL.STOCKPILES.B,,"Click on Rooms and select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."
+
+TUTORIAL.KITCHEN.A,,"Crops are harvested in Autumn and should be stored in a Food Stockpile."
+TUTORIAL.KITCHEN.B,,"To get the most from your crops it is best to produce soup from vegetables or bake bread from grain."
+TUTORIAL.KITCHEN.C,,"Click on Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function."
+
+TUTORIAL.FEASTING_HALL.A,,"Settlers eat in the Feasting Hall."
+TUTORIAL.FEASTING_HALL.B,,"The Cauldron furniture for the Feasting Hall is only completed when a Cauldron containing soup is available."
+TUTORIAL.FEASTING_HALL.C,,"Click on Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later."
+
+TUTORIAL.FOOD_COMPLETE.A,,"This simple setup will ensure your Settlers have food once the crops are harvested later in the year."
+TUTORIAL.FOOD_COMPLETE.B,,"You can also fish from the river or hunt animals once you have set up a military to provide more food."
+
+TUTORIAL.RESOURCES.A,,"Many items are crafted out of Wooden Planks and Stone Blocks. It's important to maintain a steady supply of these."
+TUTORIAL.RESOURCES.B,,"Select Orders > Mine. Drag a selection over the mountain area to order your Miners to start mining."
+TUTORIAL.RESOURCES.C,,"Also select Orders > Chop. Drag a selection over a forested area to order your Woodcutters to start chopping trees."
+
+TUTORIAL.WORKSHOPS.A,,"Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason."
+TUTORIAL.WORKSHOPS.B,,"Click on Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed."
+
+TUTORIAL.CRAFTING.A,,"Rooms with furniture that produce items are controlled using Import and Export Pallets."
+TUTORIAL.CRAFTING.B,,"Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop."
+TUTORIAL.CRAFTING.C,,"Also, place a Products Stockpile which will hold the items that are produced."
+
+TUTORIAL.CRAFTING_SELECTION.A,,"Click on each Import and Export Pallet and select the item to be imported or exported from the room."
+TUTORIAL.CRAFTING_SELECTION.B,,"In the Sawmill, import Logs and export Planks."
+TUTORIAL.CRAFTING_SELECTION.C,,"In the Masonry Workshop, import Rough stone boulders and export Blocks."
+
+TUTORIAL.RESOURCE_COLLECTION.A,,"With all of this in place, your workshops will start producing Wooden Planks and Stone Blocks."
+TUTORIAL.RESOURCE_COLLECTION.B,,"Continue until you have a reasonable supply of Planks and Blocks."
+
+TUTORIAL.COMPLETED.A,,"This covers the basics of playing."
+TUTORIAL.COMPLETED.B,,"You should aim to set up a functioning {{ROOMS.SMITHY}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore, to produce metal items."
+TUTORIAL.COMPLETED.C,,"Also, you should move your settlement underground or at least build a roof overhead to protect your Settlers and iron items from the weather."
+TUTORIAL.COMPLETED.D,,"Good luck!"
+
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned
 TUTORIAL.PROGRESS_DESCRIPTION.TEXT,Used to show a progress indicator in the form: 2 of 10 stone blocks,{{currentQuantity}} of {{requiredQuantity}} {{targetDescription}}
 TUTORIAL.PROGRESS_DESCRIPTION.TILES,Used to show a progress indicator for a certain number of tiles e.g. 2 of 10 farm plot tiles,{{roomName}} tiles
-TUTORIAL.SAVING.A,,"Your progress is saved automatically at midnight, and also whenever you exit the game. You can also quicksave by pressing the F5 key."
-TUTORIAL.TIME.A,,"The upper-right section of the screen shows the current date and time, and has controls for the game speed."
-TUTORIAL.TIME.B,,You can press the spacebar to pause or unpause the game.
-TUTORIAL.TIME.C,,"The 1 key sets the game to run at normal speed, while the 2, 3 and 4 keys make the game run at an increasingly faster pace. The game will automatically jump to speed 4 while all your settlers are asleep."
-TUTORIAL.TIME.D,,You can also click the speed icons to change the speed or pause the game.
 
 VEGETABLE.BARLEY,,Barley
 VEGETABLE.BARLEY.PLURAL,,Barley

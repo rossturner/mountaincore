@@ -114,6 +114,8 @@ public class ScreenManager implements Telegraph, GameContextAware {
 		gameContextRegister.setNewContext(gameContext);
 		if (isChooseSpawnLocation) {
 			gameContext.getAreaMap().setEmbarkPoint(null);
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.SETTLEMENT_SPAWNED);
 		}
 
 		mainGameScreen.show();
@@ -249,6 +251,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				gameContext.getSettlementState().setGameState(GameState.NORMAL);
 				messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.DEFAULT_MENU);
+				messageDispatcher.dispatchMessage(MessageType.SETTLEMENT_SPAWNED);
 				return true;
 			}
 			default:

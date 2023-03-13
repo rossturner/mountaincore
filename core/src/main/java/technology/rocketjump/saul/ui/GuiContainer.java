@@ -27,7 +27,9 @@ import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Singleton
 public class GuiContainer implements Telegraph, GameContextAware {
@@ -58,6 +60,8 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private GuiViewName currentViewName;
 	private GuiView currentView;
 	private float timeSinceLastUpdate = 0;
+	private Set<GuiArea> hiddenGuiAreas = new HashSet<>();
+	private GameContext gameContext;
 
 	@Inject
 	public GuiContainer(MessageDispatcher messageDispatcher, GameInteractionStateContainer interactionStateContainer,
@@ -96,6 +100,8 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU);
 		messageDispatcher.addListener(this, MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
+		messageDispatcher.addListener(this, MessageType.GUI_HIDE_AREA);
+		messageDispatcher.addListener(this, MessageType.GUI_SHOW_AREA);
 
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
@@ -125,7 +131,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 		lowerRightContainerTable = new Table();
 		lowerRightContainerTable.right().bottom();
-		lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		lowerRightContainerTable.setFillParent(true);
 
 		primaryStage.addActor(lowerRightContainerTable);
@@ -138,6 +143,18 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		hintGuiView.populate(hintContainerTable);
 		debugGuiView.populate(debugContainerTable);
 		debugGuiView.update();
+	}
+
+	public void rebuildUI() {
+		timeDateGuiView.setHiddenGuiAreas(hiddenGuiAreas);
+		timeDateGuiView.reset(gameContext);
+
+		lowerRightContainerTable.clearChildren();
+		if (!hiddenGuiAreas.contains(GuiArea.MINIMAP)) {
+			lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
+		}
+
+		switchView(currentViewName);
 	}
 
 	@Override
@@ -190,6 +207,22 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				removeAllTooltips();
 				return true;
 			}
+			case MessageType.GUI_HIDE_AREA: {
+				GuiArea toHide = (GuiArea) msg.extraInfo;
+				if (!hiddenGuiAreas.contains(toHide)) {
+					hiddenGuiAreas.add(toHide);
+					rebuildUI();
+				}
+				return true;
+			}
+			case MessageType.GUI_SHOW_AREA: {
+				GuiArea toShow = (GuiArea) msg.extraInfo;
+				if (hiddenGuiAreas.contains(toShow)) {
+					hiddenGuiAreas.remove(toShow);
+					rebuildUI();
+				}
+				return true;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
@@ -237,8 +270,10 @@ public class GuiContainer implements Telegraph, GameContextAware {
 			}
 			removeAllTooltips();
 			containerTable.clear();
-			newView.onShow();
-			newView.populate(containerTable);
+			if (!hiddenGuiAreas.contains(GuiArea.MAIN_GUI_VIEW)) {
+				newView.onShow();
+				newView.populate(containerTable);
+			}
 		}
 		currentView = newView;
 		if (GlobalSettings.DEV_MODE) {
@@ -269,10 +304,12 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		} else {
 			switchView(GuiViewName.DEFAULT_MENU);
 		}
+		this.gameContext = gameContext;
+		rebuildUI();
 	}
 
 	@Override
 	public void clearContextRelatedState() {
-
+		hiddenGuiAreas.clear();
 	}
 }

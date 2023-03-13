@@ -53,7 +53,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
                     } else {
                         messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD, (PersistenceCallback) wasSuccessful -> {
                             if (wasSuccessful) {
-                                gameStarted = true;
+                                gameStarted();
                             }
                         });
                     }
@@ -96,7 +96,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
                 })
                 .build();
 
-        Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_47PT)
+        Container<TextButton> quitButton = menuButtonFactory.createButton(gameStarted ? "MENU.SAVE_AND_QUIT" : "MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
@@ -157,6 +157,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
 
     public void gameStarted() {
         this.gameStarted = true;
+        rebuildUI();
     }
 
     @Override

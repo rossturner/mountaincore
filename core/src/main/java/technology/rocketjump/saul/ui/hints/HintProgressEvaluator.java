@@ -1,5 +1,8 @@
 package technology.rocketjump.saul.ui.hints;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
@@ -10,10 +13,12 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.Room;
@@ -22,9 +27,11 @@ import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
+import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.hints.model.HintProgress;
 import technology.rocketjump.saul.ui.hints.model.HintProgressDescriptor;
 import technology.rocketjump.saul.ui.i18n.I18nString;
@@ -32,12 +39,10 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
-public class HintProgressEvaluator implements GameContextAware {
+public class HintProgressEvaluator implements GameContextAware, Telegraph {
 
 	private final I18nTranslator i18nTranslator;
 	private final RoomTypeDictionary roomTypeDictionary;
@@ -51,13 +56,14 @@ public class HintProgressEvaluator implements GameContextAware {
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 
 	private GameContext gameContext;
+	private Set<HintProgressDescriptor.ProgressDescriptorTargetType> completedTargets = new HashSet<>();
 
 	@Inject
 	public HintProgressEvaluator(I18nTranslator i18nTranslator, RoomTypeDictionary roomTypeDictionary, RoomStore roomStore,
 								 SkillDictionary skillDictionary, SettlerTracker settlerTracker,
 								 FurnitureTypeDictionary furnitureTypeDictionary, SettlementFurnitureTracker settlementFurnitureTracker,
 								 ItemTypeDictionary itemTypeDictionary, SettlementItemTracker settlementItemTracker,
-								 StockpileGroupDictionary stockpileGroupDictionary) {
+								 StockpileGroupDictionary stockpileGroupDictionary, MessageDispatcher messageDispatcher) {
 		this.i18nTranslator = i18nTranslator;
 		this.roomTypeDictionary = roomTypeDictionary;
 		this.roomStore = roomStore;
@@ -68,15 +74,75 @@ public class HintProgressEvaluator implements GameContextAware {
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.settlementItemTracker = settlementItemTracker;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
+
+		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_CAMERA_PANNED);
+		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED);
+		messageDispatcher.addListener(this, MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED);
+		messageDispatcher.addListener(this, MessageType.SET_GAME_SPEED);
+		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW_MODE);
+		messageDispatcher.addListener(this, MessageType.SWITCH_SCREEN);
+		messageDispatcher.addListener(this, MessageType.REQUEST_SAVE);
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.TUTORIAL_TRACKING_CAMERA_PANNED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_MOVED);
+			}
+			case MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.CAMERA_ZOOMED);
+			}
+			case MessageType.TUTORIAL_TRACKING_MINIMAP_CLICKED -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.MINIMAP_CLICKED);
+			}
+			case MessageType.SET_GAME_SPEED -> {
+				GameSpeed speed = (GameSpeed) msg.extraInfo;
+				switch (speed) {
+					case PAUSED -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.GAME_PAUSED);
+					}
+					case NORMAL -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.NORMAL_SPEED_SELECTED);
+					}
+					default -> {
+						completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.FAST_SPEED_SELECTED);
+					}
+				}
+			}
+			case MessageType.GUI_SWITCH_VIEW_MODE -> {
+				GameViewMode viewMode = (GameViewMode) msg.extraInfo;
+				if (viewMode.equals(GameViewMode.DEFAULT)) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.DEFAULT_VIEW_MODE);
+				} else {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.OTHER_VIEW_MODE);
+				}
+			}
+			case MessageType.SWITCH_SCREEN -> {
+				String screenName = (String) msg.extraInfo;
+				if (screenName.equals(ManagementScreenName.RESOURCES.name())) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.RESOURCE_MANAGEMENT);
+				} else if (screenName.equals(ManagementScreenName.SETTLERS.name())) {
+					completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.SETTLER_MANAGEMENT);
+				}
+			}
+			case MessageType.REQUEST_SAVE -> {
+				completedTargets.add(HintProgressDescriptor.ProgressDescriptorTargetType.GAME_SAVED);
+			}
+			default -> {
+				Logger.error("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg.toString());
+			}
+		}
+		return true;
 	}
 
 	public HintProgress evaluate(HintProgressDescriptor descriptor) {
 		I18nText targetDescription = I18nText.BLANK;
 		int quantity = 0;
-		int total = descriptor.getQuantityRequired();
+		int total = Math.max(descriptor.getQuantityRequired(), 1);
 
 		switch (descriptor.getType()) {
-			case ROOMS: {
+			case ROOMS -> {
 				RoomType targetType = roomTypeDictionary.getByName(descriptor.getTargetTypeName());
 				if (targetType == null) {
 					Logger.error("Could not find room by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -84,9 +150,8 @@ public class HintProgressEvaluator implements GameContextAware {
 					quantity = roomStore.getByType(targetType).size();
 					targetDescription = i18nTranslator.getTranslatedString(targetType.getI18nKey(), I18nWordClass.PLURAL);
 				}
-				break;
 			}
-			case ROOM_TILES: {
+			case ROOM_TILES -> {
 				RoomType targetType = roomTypeDictionary.getByName(descriptor.getTargetTypeName());
 				if (targetType == null) {
 					Logger.error("Could not find room by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -99,9 +164,8 @@ public class HintProgressEvaluator implements GameContextAware {
 					replacements.put("roomName", i18nTranslator.getTranslatedString(targetType.getI18nKey(), I18nWordClass.NOUN));
 					targetDescription = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TILES", replacements);
 				}
-				break;
 			}
-			case STOCKPILE_TILES: {
+			case STOCKPILE_TILES -> {
 				StockpileGroup targetType = stockpileGroupDictionary.getByName(descriptor.getTargetTypeName());
 				if (targetType == null) {
 					Logger.error("Could not find stockpile group by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -117,9 +181,8 @@ public class HintProgressEvaluator implements GameContextAware {
 					replacements.put("roomName", i18nTranslator.getTranslatedString(targetType.getI18nKey(), I18nWordClass.NOUN));
 					targetDescription = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TILES", replacements);
 				}
-				break;
 			}
-			case FARM_PLOT_SELECTIONS: {
+			case FARM_PLOT_SELECTIONS -> {
 				List<Room> farmPlots = roomStore.getByComponent(FarmPlotComponent.class);
 				quantity = (int) farmPlots.stream()
 						.map(plot -> plot.getComponent(FarmPlotComponent.class))
@@ -128,7 +191,7 @@ public class HintProgressEvaluator implements GameContextAware {
 				targetDescription = i18nTranslator.getTranslatedString("TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS");
 				break;
 			}
-			case PROFESSIONS_ASSIGNED: {
+			case PROFESSIONS_ASSIGNED -> {
 				Skill requiredType = skillDictionary.getByName(descriptor.getTargetTypeName());
 				if (requiredType == null) {
 					Logger.error("Could not find profession by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -146,9 +209,8 @@ public class HintProgressEvaluator implements GameContextAware {
 					replacements.put("professionPlural", i18nTranslator.getTranslatedString(requiredType.getI18nKey(), I18nWordClass.PLURAL));
 					targetDescription = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED", replacements);
 				}
-				break;
 			}
-			case FURNITURE_CONSTRUCTED: {
+			case FURNITURE_CONSTRUCTED -> {
 				FurnitureType requiredType = furnitureTypeDictionary.getByName(descriptor.getTargetTypeName());
 				if (requiredType == null) {
 					Logger.error("Could not find furniture by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -156,9 +218,8 @@ public class HintProgressEvaluator implements GameContextAware {
 					quantity = settlementFurnitureTracker.findByFurnitureType(requiredType, false).size();
 					targetDescription = i18nTranslator.getTranslatedString(requiredType.getI18nKey(), I18nWordClass.PLURAL);
 				}
-				break;
 			}
-			case ITEM_EXISTS: {
+			case ITEM_EXISTS -> {
 				ItemType requiredType = itemTypeDictionary.getByName(descriptor.getTargetTypeName());
 				if (requiredType == null) {
 					Logger.error("Could not find item by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
@@ -169,12 +230,11 @@ public class HintProgressEvaluator implements GameContextAware {
 					}
 					targetDescription = i18nTranslator.getTranslatedString(requiredType.getI18nKey(), I18nWordClass.PLURAL);
 				}
-				break;
 			}
-			default:
-				Logger.error("Not yet implemented: " + descriptor.getType() + " in " + this.getClass().getSimpleName());
+			default -> {
+				quantity = completedTargets.contains(descriptor.getType()) ? 1 : 0;
+			}
 		}
-
 
 		if (quantity > total) {
 			quantity = total;
@@ -189,6 +249,6 @@ public class HintProgressEvaluator implements GameContextAware {
 
 	@Override
 	public void clearContextRelatedState() {
-
+		completedTargets.clear();
 	}
 }

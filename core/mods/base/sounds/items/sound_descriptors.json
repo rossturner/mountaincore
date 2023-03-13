@@ -24,7 +24,7 @@
     ],
     "minPitch": 0.8,
     "maxPitch": 1.2,
-    "volumeModifier": 1
+    "volumeModifier": 0.8
   },
   {
     "name": "PaletteConstruct",
@@ -33,7 +33,7 @@
     ],
     "minPitch": 0.8,
     "maxPitch": 1.2,
-    "volumeModifier": 1
+    "volumeModifier": 0.3
   },
   {
     "name": "CoinsAllSizes",

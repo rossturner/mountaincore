@@ -1,8 +1,6 @@
 package technology.rocketjump.saul.screens.menus.options;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -24,10 +22,8 @@ import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ALLOW_HINTS;
-
 @Singleton
-public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
+public class GameplayOptionsTab implements OptionsTab, DisplaysText {
 
 	private final Skin skin;
 	private final SoundAsset clickSoundAsset;
@@ -42,7 +38,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private CheckBox edgeScrollingCheckbox;
 	private CheckBox zoomToCursorCheckbox;
 	private CheckBox treeTransparencyCheckbox;
-	private CheckBox enableHintsCheckbox;
 
 	@Inject
 	public GameplayOptionsTab(UserPreferences userPreferences, MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -65,24 +60,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		menuTable.add(edgeScrollingCheckbox).spaceBottom(50f).row();
 		menuTable.add(zoomToCursorCheckbox).spaceBottom(50f).row();
 		menuTable.add(treeTransparencyCheckbox).spaceBottom(50f).row();
-		menuTable.add(enableHintsCheckbox).spaceBottom(50f).row();
-	}
-
-	@Override
-	public boolean handleMessage(Telegram msg) {
-		switch (msg.message) {
-			case MessageType.PREFERENCE_CHANGED: {
-				UserPreferences.PreferenceKey changedKey = (UserPreferences.PreferenceKey) msg.extraInfo;
-				if (changedKey.equals(UserPreferences.PreferenceKey.ALLOW_HINTS)) {
-					enableHintsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ALLOW_HINTS, "true")));
-					return true;
-				} else {
-					return false;
-				}
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
-		}
 	}
 
 	@Override
@@ -163,17 +140,5 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		enableHintsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.MISC.HINTS_ENABLED", skin, 428f);
-		enableHintsCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
-		enableHintsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ALLOW_HINTS, "true")));
-		enableHintsCheckbox.addListener((event) -> {
-			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-				userPreferences.setPreference(ALLOW_HINTS, String.valueOf(enableHintsCheckbox.isChecked()));
-			}
-			return true;
-		});
-
-		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 	}
 }

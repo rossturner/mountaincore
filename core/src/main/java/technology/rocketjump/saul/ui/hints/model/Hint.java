@@ -20,6 +20,11 @@ public class Hint {
 	private List<String> i18nKeys = new ArrayList<>();
 
 	/*
+	A list of things to do when this hint is shown
+	 */
+	private List<HintOnShowEvent> onShow = new ArrayList<>();
+
+	/*
 	A list of things to show the progress of i.e. 2 of 4 wooden planks (in storage)
 	Which when all are activated, automatically activates the first action of this Hint
 	 */
@@ -28,8 +33,6 @@ public class Hint {
 	private List<HintAction> actions = new ArrayList<>(); // Actions could be something like which buttons show on a hint e.g. "Next", "Don't show any hints"
 
 	private List<HintTrigger> triggers = new ArrayList<>();
-
-	private boolean dismissable = true; // Some more tutorial-like hints can't be dismissed
 
 	public String getHintId() {
 		return hintId;
@@ -71,12 +74,12 @@ public class Hint {
 		this.triggers = triggers;
 	}
 
-	public boolean isDismissable() {
-		return dismissable;
+	public List<HintOnShowEvent> getOnShow() {
+		return onShow;
 	}
 
-	public void setDismissable(boolean dismissable) {
-		this.dismissable = dismissable;
+	public void setOnShow(List<HintOnShowEvent> onShow) {
+		this.onShow = onShow;
 	}
 
 	@Override

@@ -209,6 +209,12 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 			messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
 					camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, getCursorWorldPosition(),
 					minTilesForZoom, maxTilesForZoom));
+
+			if (camera.zoom != targetZoom || xyzVelocity.z != 0) {
+				messageDispatcher.dispatchMessage(MessageType.TUTORIAL_TRACKING_CAMERA_ZOOMED);
+			} else if (xyzVelocity.x != 0 || xyzVelocity.y != 0) {
+				messageDispatcher.dispatchMessage(MessageType.TUTORIAL_TRACKING_CAMERA_PANNED);
+			}
 		}
 	}
 

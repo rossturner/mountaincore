@@ -194,7 +194,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					.findFirst().orElse(null);
 
 			if (!outputMatches(craftingAssignment.getTargetRecipe().getOutput(), targetExportFurniture) ||
-					!inventoryMatches(craftingAssignment.getTargetRecipe().getInput())) {
+					!inventoryMatches(craftingAssignment.getTargetRecipe())) {
 				cancelAssignment();
 				return;
 			}
@@ -226,18 +226,36 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		selectCraftingAssignment();
 	}
 
-	private boolean inventoryMatches(List<QuantifiedItemTypeWithMaterial> inputRequirements) {
+	private boolean inventoryMatches(CraftingRecipe craftingRecipe) {
 		InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-		for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+		return inventoryComponent.getInventoryEntries().stream().allMatch(inventoryEntry -> {
 			if (inventoryEntry.entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
-				boolean matchesToARequirement = inputRequirements.stream().anyMatch(inputRequirement -> inputRequirement.getItemType().equals(itemAttributes.getItemType()) &&
-						(inputRequirement.getMaterial() == null || inputRequirement.getMaterial().equals(itemAttributes.getPrimaryMaterial())));
-				if (!matchesToARequirement) {
-					return false;
-				}
+				return isInputRequirement(itemAttributes, craftingRecipe) || isOutputItem(itemAttributes, craftingRecipe);
+			}
+			return false;
+		});
+	}
+
+	private boolean isInputRequirement(ItemEntityAttributes itemAttributes, CraftingRecipe craftingRecipe) {
+		return craftingRecipe.getInput().stream().anyMatch(r -> {
+			if (r.getMaterial() != null) {
+				return itemAttributes.getItemType().equals(r.getItemType()) && itemAttributes.getPrimaryMaterial().equals(r.getMaterial());
+			} else {
+				return itemAttributes.getItemType().equals(r.getItemType());
+			}
+		});
+	}
+
+	private boolean isOutputItem(ItemEntityAttributes itemAttributes, CraftingRecipe craftingRecipe) {
+		QuantifiedItemTypeWithMaterial output = craftingRecipe.getOutput();
+		if (output != null) {
+			if (output.getMaterial() != null) {
+				return itemAttributes.getItemType().equals(output.getItemType()) && itemAttributes.getPrimaryMaterial().equals(output.getMaterial());
+			} else {
+				return itemAttributes.getItemType().equals(output.getItemType());
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private boolean outputMatches(QuantifiedItemTypeWithMaterial outputItem, ProductionExportFurnitureBehaviour outputFurniture) {

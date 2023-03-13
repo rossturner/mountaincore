@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -18,13 +19,14 @@ import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
+import technology.rocketjump.saul.ui.GuiArea;
 import technology.rocketjump.saul.ui.hints.model.Hint;
 import technology.rocketjump.saul.ui.hints.model.HintAction;
+import technology.rocketjump.saul.ui.hints.model.HintOnShowEvent;
 import technology.rocketjump.saul.ui.hints.model.HintTrigger;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 import technology.rocketjump.saul.ui.views.HintGuiView;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ALLOW_HINTS;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ENABLE_TUTORIAL;
 import static technology.rocketjump.saul.screens.ScreenManager.chooseSpawnLocation;
 import static technology.rocketjump.saul.ui.hints.model.HintTrigger.HintTriggerType.*;
@@ -119,7 +121,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 			}
 			case MessageType.SETTLEMENT_SPAWNED: {
 				if ((Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL, "true")))) {
-					for (Hint hint : hintDictionary.getByTriggerType(ON_SETTLEMENT_SPAWNED)) {
+					for (Hint hint : hintDictionary.getByTriggerType(ON_START_WITH_TUTORIAL)) {
 						if (canBeShown(hint)) {
 							show(hint);
 						}
@@ -167,7 +169,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 						Hint otherHint = hintDictionary.getById(action.getRelatedHintId());
 						if (otherHint != null) {
 							if (canBeShown(otherHint)) {
-								hintGuiView.add(otherHint);
+								show(otherHint);
 							}
 						} else {
 							Logger.error("Could not find hint with ID " + action.getRelatedHintId());
@@ -176,10 +178,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 					case DISABLE_TUTORIAL:
 						userPreferences.setPreference(ENABLE_TUTORIAL, "false");
 						messageDispatcher.dispatchMessage(MessageType.PREFERENCE_CHANGED, ENABLE_TUTORIAL);
-						break;
-					case DISABLE_ALL_HINTS:
-						userPreferences.setPreference(ALLOW_HINTS, "false");
-						messageDispatcher.dispatchMessage(MessageType.PREFERENCE_CHANGED, ALLOW_HINTS);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, GuiArea.MILITARY_MANAGEMENT_BUTTON);
 						break;
 					case DISMISS:
 						// Do nothing, but don't hit default handler
@@ -201,10 +200,6 @@ public class HintMessageHandler implements Telegraph, Updatable {
 			return false;
 		}
 
-		if (!Boolean.parseBoolean(userPreferences.getPreference(ALLOW_HINTS, "true"))) {
-			return false;
-		}
-
 		if (gameContext != null && gameContext.getSettlementState().getPreviousHints().containsKey(hint.getHintId())) {
 			return false;
 		}
@@ -214,6 +209,26 @@ public class HintMessageHandler implements Telegraph, Updatable {
 
 	private void show(Hint hint) {
 		hintGuiView.add(hint);
+		if (hint.getOnShow() != null) {
+			for (HintOnShowEvent hintOnShowEvent : hint.getOnShow()) {
+				switch (hintOnShowEvent.getType()) {
+					case HIDE_ALL_GUI_AREAS -> {
+						for (GuiArea guiArea : GuiArea.values()) {
+							messageDispatcher.dispatchMessage(MessageType.GUI_HIDE_AREA, guiArea);
+						}
+					}
+					case SHOW_GUI_AREA -> {
+						GuiArea guiArea = EnumUtils.getEnum(GuiArea.class, hintOnShowEvent.getValue());
+						if (guiArea == null) {
+							Logger.error("Could not find " + GuiArea.class.getSimpleName() + " with name " + hintOnShowEvent.getValue());
+						} else {
+							messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
+						}
+					}
+					default -> Logger.error("Not yet implemented: " + hintOnShowEvent.getType());
+				}
+			}
+		}
 	}
 
 	@Override

@@ -408,8 +408,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	 */
 	@Override
 	public void update() {
-		for (Updatable<?> updatable : updatables) {
-			updatable.update();
+		if (updatables != null) {
+			for (Updatable<?> updatable : updatables) {
+				updatable.update();
+			}
 		}
 	}
 

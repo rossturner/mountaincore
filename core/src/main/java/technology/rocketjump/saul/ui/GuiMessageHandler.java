@@ -402,7 +402,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		for (MapTile nearbyTile : gameContext.getAreaMap().getNearestTiles(worldClickPosition)) {
 			if (nearbyTile.getExploration().equals(EXPLORED)) {
 				for (Entity entity : nearbyTile.getEntities()) {
-					float distanceToEntity = Math.abs(entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent().getRadius() * entity.getLocationComponent().getRadius()));
+					float distanceToEntity = entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition);
 					if (distanceToEntity < ENTITY_SELECTION_RADIUS) {
 						selectables.add(new Selectable(entity, distanceToEntity));
 					}
@@ -415,7 +415,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 			if (clickedTile.getExploration().equals(EXPLORED)) {
 				// Adding all entities in clicked tile to cover multi-tile entities like furniture
 				for (Entity entity : clickedTile.getEntities()) {
-					float distanceToEntity = Math.abs(entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent().getRadius() * entity.getLocationComponent().getRadius()));
+					float distanceToEntity = entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition);
 					Selectable selectableEntity = new Selectable(entity, distanceToEntity);
 					if (!selectables.contains(selectableEntity)) {
 						selectables.add(selectableEntity);

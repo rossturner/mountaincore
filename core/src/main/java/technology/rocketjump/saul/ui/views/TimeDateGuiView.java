@@ -18,6 +18,7 @@ import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.GameViewMode;
+import technology.rocketjump.saul.ui.GuiArea;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -29,7 +30,12 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+
+import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
+import static technology.rocketjump.saul.screens.ManagementScreenName.SETTLERS;
 
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
@@ -46,6 +52,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	private GameContext gameContext;
 
 	private final TimeDateWidget timeDateWidget;
+	private Set<GuiArea> hiddenGuiAreas = new HashSet<>();
 
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -77,28 +84,51 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		messageDispatcher.addListener(this, MessageType.GUI_VIEW_MODE_CHANGED);
 	}
 
-	private void reset(GameContext gameContext) {
+	public void reset(GameContext gameContext) {
+		rebuildUI();
+
 		layoutTable.clearChildren();
 		if (gameContext == null || !gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
-			layoutTable.add(managementScreenButtonTable).right().top();
-			layoutTable.add(timeDateWidget).top().right().padTop(6).row();
-			layoutTable.add(new Container<>()); // pad out this cell
-			layoutTable.add(viewModeButtons).padLeft(40).center().row();
+			if (anyManagementButtonsShown()) {
+				layoutTable.add(managementScreenButtonTable).right().top();
+			}
+			if (!hiddenGuiAreas.contains(GuiArea.TIME_AND_DATE)) {
+				layoutTable.add(timeDateWidget).top().right().padTop(6).row();
+			}
+			if (!hiddenGuiAreas.contains(GuiArea.VIEW_MODES)) {
+				if (anyManagementButtonsShown()) {
+					layoutTable.add(new Container<>()); // pad out this cell
+				}
+				layoutTable.add(viewModeButtons).padLeft(40).center().row();
+			}
 		}
+	}
+
+	boolean anyManagementButtonsShown() {
+		return (!hiddenGuiAreas.contains(GuiArea.RESOURCE_MANAGEMENT_BUTTON)) ||
+				(!hiddenGuiAreas.contains(GuiArea.MILITARY_MANAGEMENT_BUTTON)) ||
+				(!hiddenGuiAreas.contains(GuiArea.SETTLER_MANAGEMENT_BUTTON));
 	}
 
 	@Override
 	public void rebuildUI() {
 		managementScreenButtonTable.clearChildren();
 
-		Button militaryButton = buttonFactory.buildDrawableButton("btn_top_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW, () -> {
-			Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
-			optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
-					() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
-		});
-		managementScreenButtonTable.add(militaryButton).size(157f,170f);
+		if (!hiddenGuiAreas.contains(GuiArea.MILITARY_MANAGEMENT_BUTTON)) {
+			Button militaryButton = buttonFactory.buildDrawableButton("btn_top_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW, () -> {
+				Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
+				optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
+						() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
+			});
+			managementScreenButtonTable.add(militaryButton).size(157f, 170f);
+		}
 
 		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
+			if (managementScreen.equals(SETTLERS) && hiddenGuiAreas.contains(GuiArea.SETTLER_MANAGEMENT_BUTTON)) {
+				continue;
+			} else if (managementScreen.equals(RESOURCES) && hiddenGuiAreas.contains(GuiArea.RESOURCE_MANAGEMENT_BUTTON)) {
+				continue;
+			}
 			Button screenButton = buttonFactory.buildDrawableButton(managementScreen.buttonStyleName, managementScreen.titleI18nKey, TooltipLocationHint.BELOW, () -> {
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
 			});
@@ -175,6 +205,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		}
 	}
 
+	public void setHiddenGuiAreas(Set<GuiArea> hiddenGuiAreas) {
+		this.hiddenGuiAreas = hiddenGuiAreas;
+	}
+
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
@@ -183,6 +217,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 
 	@Override
 	public void clearContextRelatedState() {
-
+		this.hiddenGuiAreas.clear();
 	}
+
 }
