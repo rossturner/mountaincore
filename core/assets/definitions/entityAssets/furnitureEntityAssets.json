@@ -2806,7 +2806,7 @@
   "uniqueName" : "Butchery_Worktop-Blood-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_1",
   "furnitureTypeName" : "BUTCHERY_WORKTOP",
-  "furnitureLayoutName" : "2x1 with workspaces, no rotation",
+  "furnitureLayoutName" : "2x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
@@ -2829,10 +2829,36 @@
     }
   }
 }, {
+  "uniqueName" : "Butchery_Worktop-Blood-Wood-1x2",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "BUTCHERY_WORKTOP",
+  "furnitureLayoutName" : "1x2 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Butchery_Worktop-Blood-Wood-1x2_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 12.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Butchery_Worktop-Meat-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_2",
   "furnitureTypeName" : "BUTCHERY_WORKTOP",
-  "furnitureLayoutName" : "2x1 with workspaces, no rotation",
+  "furnitureLayoutName" : "2x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
@@ -2855,10 +2881,95 @@
     }
   }
 }, {
+  "uniqueName" : "Butchery_Worktop-Meat-Wood-1x2",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "BUTCHERY_WORKTOP",
+  "furnitureLayoutName" : "1x2 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Butchery_Worktop-Meat-Wood-1x2_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 60.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "butchery-table-1x2-wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BUTCHERY_WORKTOP",
+  "furnitureLayoutName" : "1x2 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Butchery-Table-1x2-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 32.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -21.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 32.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "butchery-table-2x1-wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "BUTCHERY_WORKTOP",
-  "furnitureLayoutName" : "2x1 with workspaces, no rotation",
+  "furnitureLayoutName" : "2x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
@@ -2871,7 +2982,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 41.0,
-        "y" : -5.0,
+        "y" : 5.0,
         "unit" : false
       },
       "flipX" : false,

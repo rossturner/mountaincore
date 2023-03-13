@@ -258,7 +258,7 @@
   "name" : "BUTCHERY_WORKTOP",
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x1 with workspaces, no rotation",
+  "defaultLayoutName" : "2x1 with workspaces",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
