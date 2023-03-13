@@ -79,6 +79,11 @@ public class ModArtifactListing {
 				def("entities/animation", "*.json", JSON_ARRAY, TemplateAnimationScript.class,
 						"definitions/animation", "animations", JSON_ARRAY, SINGLE_FILE, ADDITIVE, UntypedJsonProcessor.class),
 
+
+				/////////// Code //////////
+				def("code/build/libs", "*.jar", JAR, null,
+						"code/", null, JAR, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+
 				////////// definitions //////////
 
 				def("definitions/bodyStructures", "*.json", JSON_OBJECT, BodyStructure.class,
