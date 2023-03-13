@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
+import com.google.common.base.CaseFormat;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
@@ -12,6 +14,8 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.goap.actions.ActionDictionary;
 import technology.rocketjump.saul.entities.ai.goap.actions.ActionTransitions;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
+import technology.rocketjump.saul.misc.ReflectionsService;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,10 +28,21 @@ public class GoalDictionary {
 
 	private final List<Goal> allGoals = new LinkedList<>();
 	private final Map<String, Goal> byName = new HashMap<>();
+	private final ObjectMapper objectMapper;
 
 	@Inject
-	public GoalDictionary(ActionDictionary actionDictionary) throws IOException {
+	public GoalDictionary(ActionDictionary actionDictionary, ReflectionsService reflectionsService) throws IOException {
 		this.actionDictionary = actionDictionary;
+		objectMapper = new ObjectMapper();
+		for (Class<? extends GoalSelectionCondition> condition : reflectionsService.getSubTypesOf(GoalSelectionCondition.class)) {
+			String name = condition.getSimpleName();
+			if (name.startsWith("GoalSelectionBy")) {
+				name = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, name.replace("GoalSelectionBy", ""));
+			}
+
+			objectMapper.registerSubtypes(new NamedType(condition, name));
+		}
+
 		File goalsFile = new File("assets/ai/goals.json");
 		JSONArray goalArray = JSON.parseArray(FileUtils.readFileToString(goalsFile));
 
@@ -58,7 +73,6 @@ public class GoalDictionary {
 		return byName.get(name);
 	}
 
-	private ObjectMapper objectMapper = new ObjectMapper();
 
 	private Goal parseGoal(JSONObject goalJson) throws IOException {
 		Boolean interruptedByCombat = goalJson.getBoolean("interruptedByCombat");
