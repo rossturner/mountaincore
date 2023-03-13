@@ -82,7 +82,7 @@ public class ModArtifactListing {
 
 				/////////// Code //////////
 				def("code/build/libs", "*.jar", JAR, null,
-						"code/", null, JAR, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+						"code", null, JAR, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 
 				////////// definitions //////////
 
