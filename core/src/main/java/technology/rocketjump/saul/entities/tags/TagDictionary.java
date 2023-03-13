@@ -3,8 +3,7 @@ package technology.rocketjump.saul.entities.tags;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
+import technology.rocketjump.saul.misc.ReflectionsService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +15,8 @@ public class TagDictionary {
 	private Map<String, Class<? extends Tag>> byTagName = new HashMap<>();
 
 	@Inject
-	public TagDictionary() throws ReflectiveOperationException {
-		Reflections reflections = new Reflections("technology.rocketjump.saul", new SubTypesScanner());
-		Set<Class<? extends Tag>> tagClasses = reflections.getSubTypesOf(Tag.class);
+	public TagDictionary(ReflectionsService reflectionsService) throws ReflectiveOperationException {
+		Set<Class<? extends Tag>> tagClasses = reflectionsService.getSubTypesOf(Tag.class);
 		for (Class<? extends Tag> tagClass : tagClasses) {
 			Tag instance = tagClass.getDeclaredConstructor().newInstance();
 			byTagName.put(instance.getTagName(), tagClass);
