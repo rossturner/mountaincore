@@ -48,7 +48,7 @@ asset_catalogue_bg
   index: -1
 asset_bg_for_amount
   rotate: false
-  xy: 1542, 1543
+  xy: 214, 1145
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -174,7 +174,7 @@ asset_season_winter_icon
   index: -1
 asset_selection_bg_cropped
   rotate: false
-  xy: 214, 1088
+  xy: 1546, 1494
   size: 39, 39
   split: 18, 17, 18, 17
   orig: 39, 39
@@ -196,35 +196,35 @@ asset_weather_cloudy_grey_icon
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 1620, 1757
+  xy: 1442, 1537
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 1442, 1537
+  xy: 1492, 1537
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 1492, 1537
+  xy: 1450, 1487
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 1450, 1487
+  xy: 1450, 1437
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 1450, 1437
+  xy: 1542, 1537
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
@@ -294,7 +294,7 @@ btn_arrow_small_left_disabled
   index: -1
 btn_arrow_small_right_disabled
   rotate: false
-  xy: 1500, 1436
+  xy: 214, 1044
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
@@ -533,6 +533,13 @@ btn_info_hover_state
 btn_map_resize
   rotate: false
   xy: 3076, 3397
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+btn_minimise_tutorial
+  rotate: false
+  xy: 1687, 1829
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
@@ -812,7 +819,7 @@ btn_speed_1_off
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 214, 1131
+  xy: 1500, 1479
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
@@ -938,14 +945,14 @@ btn_tinycheck_blank
   index: -1
 btn_tinycheck_subtract
   rotate: false
-  xy: 1500, 1500
+  xy: 1500, 1442
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 btn_tinycheck_tickbox
   rotate: false
-  xy: 214, 1051
+  xy: 214, 1108
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
@@ -1099,7 +1106,7 @@ icon_begin
   index: -1
 icon_edit
   rotate: false
-  xy: 1564, 1738
+  xy: 1745, 1823
   size: 52, 60
   orig: 52, 60
   offset: 0, 0

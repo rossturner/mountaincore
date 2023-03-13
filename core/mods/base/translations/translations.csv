@@ -1554,6 +1554,11 @@ TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beau
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 
+TUTORIAL.DISMISS_DIALOG.TITLE,,End Tutorial?
+TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?
+TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial
+
+TUTORIAL.SHOW_LABEL,,Show Tutorial
 TUTORIAL.START.INTRO_1,,"Welcome to GAME_NAME! This is an Early Access release with gameplay and features still in development."
 TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
 
@@ -1633,6 +1638,7 @@ TUTORIAL.RESOURCE_COLLECTION.B,,"Continue until you have a reasonable supply of 
 TUTORIAL.COMPLETED.A,,"This covers the basics of playing."
 TUTORIAL.COMPLETED.B,,"You should aim to set up a functioning {{ROOMS.SMITHY}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore, to produce metal items."
 TUTORIAL.COMPLETED.C,,"Also, you should move your settlement underground or at least build a roof overhead to protect your Settlers and iron items from the weather."
+TUTORIAL.COMPLETED.D,,"Good luck!"
 
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned

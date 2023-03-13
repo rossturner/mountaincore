@@ -522,7 +522,8 @@
     "i18nKeys": [
       "TUTORIAL.COMPLETED.A",
       "TUTORIAL.COMPLETED.B",
-      "TUTORIAL.COMPLETED.C"
+      "TUTORIAL.COMPLETED.C",
+      "TUTORIAL.COMPLETED.D"
     ],
     "actions": [
       {

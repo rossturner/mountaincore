@@ -26,6 +26,8 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
+import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
+import technology.rocketjump.saul.ui.widgets.ModalDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,8 +48,10 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private final HintProgressEvaluator hintProgressEvaluator;
 	private final ButtonFactory buttonFactory;
 	private final Skin uiSkin;
+	private final GameDialogDictionary gameDialogDictionary;
 	private Table layoutTable;
 	private GameContext gameContext;
+	private boolean hintsMinimised;
 
 	private List<Hint> displayedHints = new ArrayList<>();
 	private List<HintProgress> currentProgress = new ArrayList<>();
@@ -64,13 +68,14 @@ public class HintGuiView implements GuiView, GameContextAware {
 	public HintGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 					   I18nTranslator i18nTranslator,
 					   HintDictionary hintDictionary,
-					   HintProgressEvaluator hintProgressEvaluator, ButtonFactory buttonFactory) {
+					   HintProgressEvaluator hintProgressEvaluator, ButtonFactory buttonFactory, GameDialogDictionary gameDialogDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.hintDictionary = hintDictionary;
 		this.hintProgressEvaluator = hintProgressEvaluator;
 		this.buttonFactory = buttonFactory;
+		this.gameDialogDictionary = gameDialogDictionary;
 
 		layoutTable = new Table(uiSkin);
 		defaultLabelStyle = uiSkin.get("white_text_default-font-19", Label.LabelStyle.class);
@@ -112,47 +117,73 @@ public class HintGuiView implements GuiView, GameContextAware {
 		currentProgress.clear();
 
 		layoutTable.clearChildren();
-		for (Hint displayedHint : displayedHints) {
-			Table wrapperTable = new Table();
-			wrapperTable.setBackground(uiSkin.get("asset_notifications_bg_patch", TenPatchDrawable.class));
-			wrapperTable.setTouchable(Touchable.enabled);
-
-
-			Button exitButton = new Button(uiSkin.getDrawable("btn_exit"));
-			buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
-			exitButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
-					// On dismiss of initial tutorial, ensure all GUI areas are visible again
-					for (GuiArea guiArea : GuiArea.values()) {
-						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
-					}
-				}
+		if (hintsMinimised) {
+			Button button = buildButton("TUTORIAL.SHOW_LABEL", true, () -> {
+				HintGuiView.this.hintsMinimised = false;
+				HintGuiView.this.doUpdate();
 			});
-			wrapperTable.add(exitButton).pad(10).left().top();
+			layoutTable.add(button).pad(40).row();
+		} else {
 
-			Table hintTable = new Table();
-			hintTable.defaults().padRight(60).padTop(20).padBottom(20);
-			hintTable.padBottom(20);
+			for (Hint displayedHint : displayedHints) {
+				Table tableWithBackground = new Table();
+				tableWithBackground.setBackground(uiSkin.get("asset_notifications_bg_patch", TenPatchDrawable.class));
+				tableWithBackground.setTouchable(Touchable.enabled);
 
-			for (String i18nKey : displayedHint.getI18nKeys()) {
-				I18nText text = i18nTranslator.getTranslatedString(i18nKey);
-				Label label = new Label(text.toString(), defaultLabelStyle);
-				label.setWrap(true);
+				Table upperLeftButtonsTable = new Table();
 
-				hintTable.add(label).left().width(1900).row();
+				Button exitButton = new Button(uiSkin.getDrawable("btn_exit"));
+				buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
+				exitButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
+							messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+							// On dismiss of initial tutorial, ensure all GUI areas are visible again
+							for (GuiArea guiArea : GuiArea.values()) {
+								messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
+							}
+						});
+						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+					}
+				});
+				upperLeftButtonsTable.add(exitButton);
+
+				Button minimiseButton = new Button(uiSkin.getDrawable("btn_minimise_tutorial"));
+				buttonFactory.attachClickCursor(minimiseButton, GameCursor.SELECT);
+				minimiseButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						HintGuiView.this.hintsMinimised = true;
+						HintGuiView.this.doUpdate();
+					}
+				});
+				upperLeftButtonsTable.add(minimiseButton).padLeft(20);
+
+				tableWithBackground.add(upperLeftButtonsTable).pad(10).left().top();
+				tableWithBackground.add(new Container<>()).row();
+
+				Table hintTable = new Table();
+				hintTable.defaults().padRight(40).padLeft(40).padTop(20).padBottom(20);
+
+				for (String i18nKey : displayedHint.getI18nKeys()) {
+					I18nText text = i18nTranslator.getTranslatedString(i18nKey);
+					Label label = new Label(text.toString(), defaultLabelStyle);
+					label.setWrap(true);
+
+					hintTable.add(label).left().width(1900).row();
+				}
+
+				boolean allowedToProgress = true;
+				if (!displayedHint.getProgressDescriptors().isEmpty()) {
+					allowedToProgress = buildProgressDescriptors(displayedHint, hintTable);
+				}
+
+				buildActions(displayedHint, hintTable, allowedToProgress);
+
+				tableWithBackground.add(hintTable).colspan(2);
+				layoutTable.add(tableWithBackground).pad(40).row();
 			}
-
-			boolean allowedToProgress = true;
-			if (!displayedHint.getProgressDescriptors().isEmpty()) {
-				allowedToProgress = buildProgressDescriptors(displayedHint, hintTable);
-			}
-
-			buildActions(displayedHint, hintTable, allowedToProgress);
-
-			wrapperTable.add(hintTable).padTop(40);
-			layoutTable.add(wrapperTable).pad(40).row();
 		}
 	}
 
@@ -160,6 +191,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 		hintProgressEvaluator.clearContextRelatedState();
 		displayedHints.add(hint);
 		gameContext.getSettlementState().getCurrentHints().add(hint.getHintId());
+		hintsMinimised = false;
 		doUpdate();
 	}
 
@@ -215,6 +247,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 	@Override
 	public void clearContextRelatedState() {
+		hintsMinimised = false;
 		dismissAllExceptOnStart();
 	}
 

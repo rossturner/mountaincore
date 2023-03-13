@@ -91,6 +91,16 @@ public class GameDialogDictionary implements DisplaysText, GameContextAware {
 		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher, soundAssetDictionary);
 	}
 
+	public ModalDialog confirmDismissTutorial(Runnable onConfirmDismissal) {
+		I18nText title = translator.getTranslatedString("TUTORIAL.DISMISS_DIALOG.TITLE");
+		I18nText descriptionText = translator.getTranslatedString("TUTORIAL.DISMISS_DIALOG.DESCRIPTION");
+		I18nText showButton = translator.getTranslatedString("TUTORIAL.SHOW_LABEL");
+
+		ModalDialog modalDialog = new ModalDialog(title, descriptionText, showButton, uiSkin, messageDispatcher, soundAssetDictionary);
+		modalDialog.withButton(translator.getTranslatedString("TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT"), onConfirmDismissal);
+		return modalDialog;
+	}
+
 	public NotificationDialog create(Notification notification) {
 		I18nText title = translator.getTranslatedString(notification.getType().getI18nTitleKey());
 

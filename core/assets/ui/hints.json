@@ -456,7 +456,7 @@
   "triggers" : [ ]
 }, {
   "hintId" : "tutorial_completed",
-  "i18nKeys" : [ "TUTORIAL.COMPLETED.A", "TUTORIAL.COMPLETED.B", "TUTORIAL.COMPLETED.C" ],
+  "i18nKeys" : [ "TUTORIAL.COMPLETED.A", "TUTORIAL.COMPLETED.B", "TUTORIAL.COMPLETED.C", "TUTORIAL.COMPLETED.D" ],
   "onShow" : [ ],
   "progressDescriptors" : [ ],
   "actions" : [ {
