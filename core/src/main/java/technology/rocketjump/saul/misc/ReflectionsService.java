@@ -1,7 +1,11 @@
 package technology.rocketjump.saul.misc;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.gamecontext.GameContextRegister;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.persistence.FileUtils;
 
@@ -18,7 +22,13 @@ import java.util.regex.Pattern;
 public class ReflectionsService {
     private final URLClassLoader modClassLoader;
     private final Reflections reflections;
-    public ReflectionsService() {
+    private final Injector injector;
+    private final GameContextRegister gameContextRegister;
+
+    @Inject
+    public ReflectionsService(Injector injector, GameContextRegister gameContextRegister) {
+        this.injector = injector;
+        this.gameContextRegister = gameContextRegister;
         Path assetsCodeDir = LocalModRepository.ASSETS_DIR.resolve("code");
         List<Path> jarFiles = FileUtils.findFilesByFilename(assetsCodeDir, Pattern.compile(".*\\.jar"));
         URL[] urls = jarFiles.stream()
@@ -37,5 +47,16 @@ public class ReflectionsService {
 
     public <T> Set<Class<? extends T>> getSubTypesOf(final Class<T> type) {
         return reflections.getSubTypesOf(type);
+    }
+
+    public <T> T getInjectedInstance(Class<T> type) {
+        T instance = injector.getInstance(type);
+        if (GameContextAware.class.isAssignableFrom(type) ) {
+            Class<? extends GameContextAware> gcaType = (Class<? extends GameContextAware>) type;
+            if (!gameContextRegister.isRegistered(gcaType)) {
+                gameContextRegister.register((GameContextAware) instance);
+            }
+        }
+        return instance;
     }
 }
