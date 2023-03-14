@@ -2,9 +2,8 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.misc.ReflectionsService;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -15,12 +14,11 @@ import java.util.Set;
 @Singleton
 public class CreatureBehaviourDictionary {
 
-	private Map<String, Class<? extends BehaviourComponent>> byName = new HashMap<>();
+	private final Map<String, Class<? extends BehaviourComponent>> byName = new HashMap<>();
 
 	@Inject
-	public CreatureBehaviourDictionary() {
-		Reflections reflections = new Reflections(this.getClass().getPackage().getName(), new SubTypesScanner());
-		Set<Class<? extends BehaviourComponent>> behaviourClasses = reflections.getSubTypesOf(BehaviourComponent.class);
+	public CreatureBehaviourDictionary(ReflectionsService reflectionsService) {
+		Set<Class<? extends BehaviourComponent>> behaviourClasses = reflectionsService.getSubTypesOf(BehaviourComponent.class);
 		for (Class<? extends BehaviourComponent> behaviourClass : behaviourClasses) {
 			if (!Modifier.isAbstract(behaviourClass.getModifiers())) {
 				byName.put(toBehaviourName(behaviourClass), behaviourClass);

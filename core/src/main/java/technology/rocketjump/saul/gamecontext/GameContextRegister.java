@@ -16,7 +16,7 @@ import java.util.Set;
 @Singleton
 public class GameContextRegister {
 
-	private Map<String, GameContextAware> registered = new HashMap<>();
+	private final Map<String, GameContextAware> registered = new HashMap<>();
 	private final BackgroundTaskManager backgroundTaskManager;
 
 	private GameContext currentContext;
@@ -57,7 +57,7 @@ public class GameContextRegister {
 		}
 	}
 
-	private boolean isRegistered(Class<? extends GameContextAware> classType) {
+	public boolean isRegistered(Class<? extends GameContextAware> classType) {
 		return registered.containsKey(classType.getName());
 	}
 

@@ -9,6 +9,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
+  "onCompletionDo" : "CompleteMining",
   "workOnJobAnimation" : "work_on_job_mining",
   "accessedFromAdjacentTile" : true
 }, {
@@ -22,6 +23,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
+  "onCompletionDo" : "CompleteConstruction",
   "workOnJobAnimation" : "work_on_job_digging",
   "accessedFromAdjacentTile" : true
 }, {
@@ -35,6 +37,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "LUMBERJACK",
   "requiredItemTypeName" : "Tool-Axe",
+  "onCompletionDo" : "CompleteLogging",
   "onCompletionSoundAssetName" : "TreeFall",
   "workOnJobAnimation" : "work_on_job_logging",
   "accessedFromAdjacentTile" : true
@@ -311,6 +314,7 @@
   "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CARPENTER",
   "requiredItemTypeName" : "Tool-Saw",
+  "onCompletionDo" : "CompleteConstruction",
   "workOnJobAnimation" : "work_on_job_construct_wooden_furniture",
   "accessedFromAdjacentTile" : true
 }, {
@@ -324,6 +328,7 @@
   "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "STONEMASON",
   "requiredItemTypeName" : "Tool-Chisel",
+  "onCompletionDo" : "CompleteConstruction",
   "workOnJobParticleEffectNames" : [ "Chipping stone" ],
   "workOnJobAnimation" : "work_on_job_generic_wiggle",
   "accessedFromAdjacentTile" : true
@@ -337,6 +342,7 @@
   "maximumTimeToCompleteJob" : 9.25,
   "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
+  "onCompletionDo" : "CompleteConstruction",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "DECONSTRUCT",

@@ -42,6 +42,7 @@ public class JobType {
 	@JsonIgnore
 	private SoundAsset activeSoundAsset;
 
+	private String onCompletionDo;
 	private String onCompletionSoundAssetName;
 	@JsonIgnore
 	private SoundAsset onCompletionSoundAsset;
@@ -250,4 +251,11 @@ public class JobType {
 		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
 
+	public String getOnCompletionDo() {
+		return onCompletionDo;
+	}
+
+	public void setOnCompletionDo(String onCompletionDo) {
+		this.onCompletionDo = onCompletionDo;
+	}
 }
