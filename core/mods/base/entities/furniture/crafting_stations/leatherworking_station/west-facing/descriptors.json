@@ -24,8 +24,6 @@
         "type" : "FURNITURE_ABOVE_LAYER_5"
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_6"
-      }, {
-        "type" : "FURNITURE_ABOVE_LAYER_7"
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",

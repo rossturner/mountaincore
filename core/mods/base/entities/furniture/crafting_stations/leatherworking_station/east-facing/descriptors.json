@@ -1,4 +1,32 @@
 [ {
+  "uniqueName" : "Leatherworking_Station-carpentry-east-facing-Furniture_Above_Layer_6-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_6",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_6-Wood_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -188.0,
+        "y" : 95.0
+      }
+    }
+  },
+  "overrideRenderLayer" : -50
+}, {
+  "uniqueName" : "Leatherworking_Station-hitched-east-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Hitched-East-Furniture_Above_Layer_2-Wood_Down.png"
+    }
+  }
+}, {
   "uniqueName" : "Leatherworking_Station-leatherworking-east-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Leatherworking_Station",
@@ -6,8 +34,12 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
+      "filename" : "Leatherworking_Station-Leatherworking-East-Base_Layer-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_3",
+      "offsetPixels" : {
+        "x" : -28.0,
+        "y" : -84.0
+      },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1"
       }, {
@@ -19,19 +51,100 @@
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_5"
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_6"
-      }, {
-        "type" : "FURNITURE_ABOVE_LAYER_7"
+        "type" : "FURNITURE_ABOVE_LAYER_6",
+        "overrideRenderLayer" : -50
       } ],
       "attachmentPoints" : [ {
-        "type" : "ATTACHMENT_DECO_1"
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -28.0,
+          "y" : 100.0
+        }
       }, {
-        "type" : "ATTACHMENT_DECO_2"
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 28.0,
+          "y" : -64.0
+        }
       }, {
-        "type" : "ATTACHMENT_WORKSPACE_1"
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 28.0,
+          "y" : 40.0
+        }
       }, {
-        "type" : "ATTACHMENT_WORKSPACE_2"
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 29.0,
+          "y" : -16.0
+        }
       } ]
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-east-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -40.0,
+        "y" : 35.0
+      },
+      "flipX" : true,
+      "flipY" : true
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-east-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "offsetPixels" : {
+        "x" : 38.0,
+        "y" : 100.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-east-Furniture_Above_Layer_4-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_4-Wood_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 40.0,
+        "y" : 101.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-east-Furniture_Above_Layer_5-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_5",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_5-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_3",
+      "offsetPixels" : {
+        "x" : -125.0,
+        "y" : 71.0
+      }
     }
   }
 } ]
