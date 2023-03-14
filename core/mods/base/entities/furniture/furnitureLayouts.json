@@ -775,22 +775,6 @@
   },
 
   {
-    "uniqueName": "2x3L no rotation",
-    "rotatesToName": null,
-    "extraTiles": [
-      { "x": -1, "y": 0 },
-      { "x": 1, "y": 0 },
-      { "x": 1, "y": 1 }
-    ],
-    "workspaces": [
-      {
-        "location": { "x": 0, "y": 0 },
-        "accessedFrom": { "x": 0, "y": 1 }
-      }
-    ]
-  },
-
-  {
     "uniqueName": "2x3L",
     "rotatesToName": "2x3L1R",
     "extraTiles": [
@@ -1089,53 +1073,6 @@
       {
         "location": { "x": 1, "y": 0 },
         "accessedFrom": { "x": 1, "y": -1 }
-      }
-    ]
-  },
-
-  {
-    "uniqueName": "stonemason-bench-layout",
-    "rotatesToName": null,
-    "extraTiles": [
-      { "x": 0, "y": -1 },
-      { "x": 0, "y": -2 },
-
-      { "x": -1, "y": 0 },
-      { "x": -1, "y": -2 },
-
-      { "x": -2, "y": 0 },
-      { "x": -2, "y": -2 },
-
-      { "x": -3, "y": 0 },
-      { "x": -3, "y": -2 }
-
-    ],
-    "workspaces": [
-      {
-        "location": { "x": -1, "y": 0 },
-        "accessedFrom": { "x": -1, "y": -1 }
-      },
-      {
-        "location": { "x": -2, "y": 0 },
-        "accessedFrom": { "x": -2, "y": -1 }
-      }
-    ]
-  },
-  {
-    "uniqueName": "leatherwork-bench-layout",
-    "rotatesToName": null,
-    "extraTiles": [
-      { "x": 0, "y": -1 },
-      { "x":-1, "y": -1 },
-      { "x":-2, "y": -1 },
-      { "x":-3, "y": -1 },
-      { "x":0, "y": 1 },
-      { "x":-1, "y": 1 }
-    ],
-    "workspaces": [
-      {
-        "location": { "x":-2, "y": -1 },
-        "accessedFrom": { "x": -2, "y": 0 }
       }
     ]
   }

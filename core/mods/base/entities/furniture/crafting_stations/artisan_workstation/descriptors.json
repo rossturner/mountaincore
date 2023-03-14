@@ -1,19 +1,164 @@
 [ {
-  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Base_Layer-Wood",
+  "uniqueName" : "Artisan_Workstation-2x3L-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "ARTISAN_WORKSTATION",
-  "furnitureLayoutName" : "2x3L no rotation",
+  "furnitureLayoutName" : "2x3L",
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Artisan_Workstation-2x3l no rotation-Base_Layer-Wood_Down.png",
+      "filename" : "Artisan_Workstation-2x3l-Base_Layer-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 35.0,
+        "y" : 74.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -35.0,
+          "y" : 7.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -35.0,
+          "y" : 85.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 38.0,
+          "y" : -53.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L1R-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L1R",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l1r-Base_Layer-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 68.0,
+        "y" : 43.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -5.0,
+          "y" : 36.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 59.0,
+          "y" : 36.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -16.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L1R-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L1R",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l1r-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L2R-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L2R",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l2r-Base_Layer-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : -33.0,
+        "y" : 67.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 36.0,
+          "y" : 17.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 36.0,
+          "y" : -39.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -30.0,
+          "y" : 86.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L2R-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L2R",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l2r-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L3R-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L3R",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l3r-Base_Layer-Wood_Down.png",
       "offsetPixels" : {
         "y" : 36.0
       },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1"
-      }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -23,39 +168,28 @@
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -57.0,
-          "y" : -19.0
+          "x" : -63.0,
+          "y" : -16.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 62.0,
-          "y" : 38.0
+          "x" : 67.0,
+          "y" : 39.0
         }
       } ]
     }
   }
 }, {
-  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Furniture_Above_Layer_1-Wood",
+  "uniqueName" : "Artisan_Workstation-2x3L3R-Furniture_Above_Layer_1-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_1",
   "furnitureTypeName" : "ARTISAN_WORKSTATION",
-  "furnitureLayoutName" : "2x3L no rotation",
+  "furnitureLayoutName" : "2x3L3R",
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_1-Wood_Down.png",
+      "filename" : "Artisan_Workstation-2x3l3r-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR"
-    }
-  }
-}, {
-  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Furniture_Above_Layer_2-Wood",
-  "type" : "FURNITURE_ABOVE_LAYER_2",
-  "furnitureTypeName" : "ARTISAN_WORKSTATION",
-  "furnitureLayoutName" : "2x3L no rotation",
-  "validMaterialTypes" : [ "WOOD" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_2-Wood_Down.png"
     }
   }
 } ]
