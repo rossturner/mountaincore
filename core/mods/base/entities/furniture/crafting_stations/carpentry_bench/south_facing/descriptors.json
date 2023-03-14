@@ -9,43 +9,64 @@
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : 4.0,
-        "y" : 83.0
+        "x" : -3.0,
+        "y" : 12.0
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1"
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : 71.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : 71.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_3"
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : 71.0
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : 71.0
+        },
         "overrideRenderLayer" : 200
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_5"
+        "type" : "FURNITURE_ABOVE_LAYER_5",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : 71.0
+        }
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "y" : -64.0
+          "x" : 7.0,
+          "y" : 7.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : -64.0,
-          "y" : -64.0
+          "x" : -57.0,
+          "y" : 7.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -64.0,
-          "y" : 60.0
+          "x" : -57.0,
+          "y" : 131.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 62.0,
-          "y" : 60.0
+          "x" : 69.0,
+          "y" : 131.0
         }
       } ]
     }
@@ -61,7 +82,8 @@
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Upper_section-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "y" : 46.0
+        "x" : -5.0,
+        "y" : 52.0
       }
     }
   }
@@ -74,7 +96,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_2-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_1"
+      "coloringLayer" : "MISC_COLOR_1",
+      "offsetPixels" : {
+        "x" : 61.0,
+        "y" : -80.0
+      }
     }
   }
 }, {
@@ -86,7 +112,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_3-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_2"
+      "coloringLayer" : "MISC_COLOR_2",
+      "offsetPixels" : {
+        "x" : 61.0,
+        "y" : -97.5
+      }
     }
   }
 }, {
@@ -98,7 +128,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_4-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -62.5
+      }
     }
   },
   "overrideRenderLayer" : 200
@@ -113,7 +147,8 @@
       "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_5-Wood_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "offsetPixels" : {
-        "y" : -32.0
+        "x" : -3.0,
+        "y" : 63.5
       }
     }
   }
