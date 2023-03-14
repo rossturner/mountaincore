@@ -1,0 +1,31 @@
+[ {
+  "uniqueName" : "Stonemason_Bench-stonemason-west-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-west",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-west-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : -28.0,
+        "y" : -39.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_3"
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2"
+      }, {
+        "type" : "ATTACHMENT_DECO_1"
+      }, {
+        "type" : "ATTACHMENT_DECO_2"
+      } ]
+    }
+  }
+} ]
