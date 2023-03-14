@@ -23,7 +23,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Hitched-East-Furniture_Above_Layer_2-Wood_Down.png"
+      "filename" : "Leatherworking_Station-Hitched-East-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 26.0,
+        "y" : 22.0
+      }
     }
   }
 }, {
@@ -37,46 +41,70 @@
       "filename" : "Leatherworking_Station-Leatherworking-East-Base_Layer-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_3",
       "offsetPixels" : {
-        "x" : -28.0,
-        "y" : -84.0
+        "x" : -29.5,
+        "y" : -81.5
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1"
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : -103.5
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -2.5
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_3"
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -2.5
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_4"
+        "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -2.5
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_5"
+        "type" : "FURNITURE_ABOVE_LAYER_5",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -2.5
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 80.5,
+          "y" : -2.5
+        },
         "overrideRenderLayer" : -50
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -28.0,
-          "y" : 100.0
+          "x" : -26.5,
+          "y" : 97.5
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 28.0,
-          "y" : -64.0
+          "x" : 29.5,
+          "y" : -66.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 28.0,
-          "y" : 40.0
+          "x" : 29.5,
+          "y" : 37.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : 29.0,
-          "y" : -16.0
+          "x" : 30.5,
+          "y" : -18.5
         }
       } ]
     }
@@ -92,8 +120,8 @@
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : -40.0,
-        "y" : 35.0
+        "x" : 26.0,
+        "y" : 85.5
       },
       "flipX" : true,
       "flipY" : true
@@ -142,8 +170,8 @@
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_5-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_3",
       "offsetPixels" : {
-        "x" : -125.0,
-        "y" : 71.0
+        "x" : -118.5,
+        "y" : 70.0
       }
     }
   }

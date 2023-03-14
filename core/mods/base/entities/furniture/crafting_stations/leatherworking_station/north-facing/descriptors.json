@@ -10,48 +10,76 @@
       "coloringLayer" : "MISC_COLOR_3",
       "offsetPixels" : {
         "x" : 21.0,
-        "y" : -36.0
+        "y" : -35.0
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1"
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_3"
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        },
         "overrideRenderLayer" : 50
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_5"
+        "type" : "FURNITURE_ABOVE_LAYER_5",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_6"
+        "type" : "FURNITURE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_7",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        },
         "overrideRenderLayer" : -200
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
           "x" : -84.0,
-          "y" : -17.0
+          "y" : -18.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 89.0,
-          "y" : 51.0
+          "y" : 50.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -20.0,
-          "y" : 54.0
+          "y" : 53.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 45.0,
-          "y" : 55.0
+          "y" : 54.0
         }
       } ]
     }
@@ -81,7 +109,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Leatherworking-North-Furniture_Above_Layer_2-Wood_Down.png"
+      "filename" : "Leatherworking_Station-Leatherworking-North-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 46.5
+      }
     }
   }
 }, {
