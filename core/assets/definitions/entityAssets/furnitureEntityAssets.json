@@ -8177,6 +8177,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Stonemason_Bench-Stonemason-North-Furniture_Above_Layer_3-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
