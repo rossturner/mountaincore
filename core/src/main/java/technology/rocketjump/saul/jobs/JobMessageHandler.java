@@ -67,10 +67,10 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.misc.ReflectionsService;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.Bridge;
-import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 
@@ -113,11 +113,12 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private final List<Race> fishRacesAvailable;
 	private GameContext gameContext;
 	private final SoundAsset poofSoundAsset;
-	private ParticleEffectType deconstructParticleEffect;
+	private final ParticleEffectType deconstructParticleEffect;
 	private final ItemType largeBone;
 	private final ItemType mediumBone;
 	private final ItemType smallBone;
 
+	private final Map<String, technology.rocketjump.saul.jobs.completion.OnJobCompletion> onJobCompletionFor;
 	@Inject
 	public JobMessageHandler(MessageDispatcher messageDispatcher, JobStore jobStore,
 							 ItemEntityFactory itemEntityFactory, ItemEntityAttributesFactory itemEntityAttributesFactory,
@@ -127,7 +128,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							 ItemTypeDictionary itemTypeDictionary, JobTypeDictionary jobTypeDictionary,
 							 DesignationDictionary designationDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary,
 							 GameInteractionStateContainer gameInteractionStateContainer, RaceDictionary raceDictionary,
-							 ConstantsRepo constantsRepo, SoundAssetDictionary soundAssetDictionary) {
+							 ConstantsRepo constantsRepo, SoundAssetDictionary soundAssetDictionary, ReflectionsService reflectionsService) {
 		this.messageDispatcher = messageDispatcher;
 		this.jobStore = jobStore;
 		this.itemEntityFactory = itemEntityFactory;
@@ -151,6 +152,15 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		this.deconstructParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
 		this.poofSoundAsset = soundAssetDictionary.getByName("Poof");
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
+
+		onJobCompletionFor = reflectionsService.getSubTypesOf(technology.rocketjump.saul.jobs.completion.OnJobCompletion.class)
+				.stream()
+				.collect(
+						Collectors.toMap(
+								Class::getSimpleName,
+								reflectionsService::getInjectedInstance));
+
+
 		constantsRepo.initialise(raceDictionary);
 		this.fishRacesAvailable = constantsRepo.getSettlementConstants().getFishRacesAvailable();
 
@@ -277,10 +287,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		if (!NULL_PROFESSION.equals(completedJob.getRequiredProfession())) {
 			jobCompletedMessage.getCompletedBy().experienceGained(completedJob.getType().getExperienceAwardedOnCompletion(), completedJob.getRequiredProfession());
 		}
-		float skillLevelOfCompletion = 0f;
-		if (jobCompletedMessage.getCompletedBy() != null) {
-			skillLevelOfCompletion = jobCompletedMessage.getCompletedBy().getSkillLevel(completedJob.getRequiredProfession());
-		}
 
 
 		// Make neighbouring jobs of same type assignable // Should this apply to all job types? Probably?
@@ -317,642 +323,507 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			}
 		}
 
-		// TODO Could the below be scripted rather than hard-coded?
-		switch (completedJob.getType().getName()) {
-			case "MINING": {
+		String name = completedJob.getType().getOnCompletionDo();
+		if (name == null) {
+			name = completedJob.getType().getName();
+		}
+		if (onJobCompletionFor.containsKey(name)) {
+			onJobCompletionFor.get(name).onCompletion(jobCompletedMessage);
+		} else {
+			switch (completedJob.getType().getName()) {
+				case "TILLING": {
+					messageDispatcher.dispatchMessage(MessageType.REPLACE_FLOOR,
+							new ReplaceFloorMessage(completedJob.getJobLocation(), completedJob.getReplacementFloorType(), completedJob.getReplacementFloorMaterial()));
+					break;
+				}
+				case "PLANTING": {
+					ItemType seedItemType = completedJob.getRequiredItemType();
+					GameMaterial seedMaterial = completedJob.getRequiredItemMaterial();
 
-				MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-				if (targetTile != null && targetTile.hasWall()) {
-					Wall wall = targetTile.getWall();
-
-					if (wall.hasOre()) {
-						GameMaterial oreMaterial = wall.getOreMaterial();
-						if (gameContext.getRandom().nextInt(100) < skillLevelOfCompletion + 10) {
-							entityStore.createResourceItem(oreMaterial, completedJob.getJobLocation(), 1, wall.getMaterial());
-						}
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					if (completedByEntity == null) {
+						Logger.error("Entity that completed job is null");
 					} else {
-						if (gameContext.getRandom().nextInt(100) < skillLevelOfCompletion) {
-							entityStore.createResourceItem(wall.getMaterial(), completedJob.getJobLocation(), 1);
-						}
-					}
-
-					messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, completedJob.getJobLocation());
-
-				}
-				break;
-			}
-			case "LOGGING": {
-
-				MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-				Entity targetTree = null;
-				if (targetTile != null && targetTile.hasTree()) {
-					for (Entity entity : targetTile.getEntities()) {
-						if (entity.getType().equals(EntityType.PLANT)) {
-							targetTree = entity;
-							break;
-						}
-					}
-				}
-
-				if (targetTree != null) {
-					Vector2 worldPositionOfChoppingEntity = jobCompletedMessage.getCompletedByEntity().getLocationComponent().getWorldPosition();
-
-					boolean fallToWest = true;
-					if (worldPositionOfChoppingEntity.x < targetTree.getLocationComponent().getWorldPosition().x) {
-						fallToWest = false;
-					}
-
-					FallingTreeBehaviour fallingTreeBehaviour = new FallingTreeBehaviour(fallToWest);
-					entityStore.changeBehaviour(targetTree, fallingTreeBehaviour, messageDispatcher);
-				}
-				break;
-			}
-			case "TILLING": {
-				messageDispatcher.dispatchMessage(MessageType.REPLACE_FLOOR,
-						new ReplaceFloorMessage(completedJob.getJobLocation(), completedJob.getReplacementFloorType(), completedJob.getReplacementFloorMaterial()));
-				break;
-			}
-			case "PLANTING": {
-				ItemType seedItemType = completedJob.getRequiredItemType();
-				GameMaterial seedMaterial = completedJob.getRequiredItemMaterial();
-
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				if (completedByEntity == null) {
-					Logger.error("Entity that completed job is null");
-				} else {
-					InventoryComponent assignedEntityInventory = completedByEntity.getComponent(InventoryComponent.class);
-					if (assignedEntityInventory != null) {
-						InventoryComponent.InventoryEntry inventoryItem = assignedEntityInventory.findByItemTypeAndMaterial(seedItemType, seedMaterial, gameContext.getGameClock());
-						if (inventoryItem == null || !inventoryItem.entity.getType().equals(ITEM)) {
-							Logger.error("Could not find relevant inventory item");
-						} else {
-							ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.entity.getPhysicalEntityComponent().getAttributes();
-							attributes.setQuantity(attributes.getQuantity() - 1); // FIXME handle planting quantities other than 1?
-							if (attributes.getQuantity() <= 0) {
-								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, inventoryItem.entity);
+						InventoryComponent assignedEntityInventory = completedByEntity.getComponent(InventoryComponent.class);
+						if (assignedEntityInventory != null) {
+							InventoryComponent.InventoryEntry inventoryItem = assignedEntityInventory.findByItemTypeAndMaterial(seedItemType, seedMaterial, gameContext.getGameClock());
+							if (inventoryItem == null || !inventoryItem.entity.getType().equals(ITEM)) {
+								Logger.error("Could not find relevant inventory item");
+							} else {
+								ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.entity.getPhysicalEntityComponent().getAttributes();
+								attributes.setQuantity(attributes.getQuantity() - 1); // FIXME handle planting quantities other than 1?
+								if (attributes.getQuantity() <= 0) {
+									messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, inventoryItem.entity);
+								}
 							}
 						}
 					}
-				}
 
-				PlantSpecies plantSpecies = plantSpeciesDictionary.getBySeedMaterial(seedMaterial);
-				if (plantSpecies == null) {
-					Logger.error("Could not find plant species to grow from seed material: " + seedMaterial.getMaterialName());
-				} else {
-					PlantEntityAttributes attributes = plantEntityAttributesFactory.createBySpecies(plantSpecies, gameContext.getRandom());
-					attributes.setGrowthStageProgress(0f);
-					Entity plant = plantEntityFactory.create(attributes, completedJob.getJobLocation(), gameContext);
-					// Fix to centre of tile
-					plant.getLocationComponent().getWorldPosition().set(completedJob.getJobLocation().x + 0.5f, completedJob.getJobLocation().y + 0.5f);
-
-					messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, plant);
-				}
-				break;
-			}
-			case "REMOVE_PESTS_FROM_CROP": {
-				Entity targetEntity = entityStore.getById(completedJob.getTargetId());
-				if (targetEntity != null && targetEntity.getType().equals(PLANT)) {
-					PlantEntityAttributes attributes = (PlantEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes();
-					attributes.clearAfflitctedByPests();
-				}
-				break;
-			}
-			case "HARVESTING":
-			case "HARVEST_FROM_FURNITURE": {
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				if (completedByEntity != null && completedByEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-					Entity targetEntity;
-					if (completedJob.getTargetId() != null) {
-						targetEntity = entityStore.getById(completedJob.getTargetId());
+					PlantSpecies plantSpecies = plantSpeciesDictionary.getBySeedMaterial(seedMaterial);
+					if (plantSpecies == null) {
+						Logger.error("Could not find plant species to grow from seed material: " + seedMaterial.getMaterialName());
 					} else {
-						targetEntity = gameContext.getAreaMap().getTile(completedJob.getJobLocation()).getPlant();
+						PlantEntityAttributes attributes = plantEntityAttributesFactory.createBySpecies(plantSpecies, gameContext.getRandom());
+						attributes.setGrowthStageProgress(0f);
+						Entity plant = plantEntityFactory.create(attributes, completedJob.getJobLocation(), gameContext);
+						// Fix to centre of tile
+						plant.getLocationComponent().getWorldPosition().set(completedJob.getJobLocation().x + 0.5f, completedJob.getJobLocation().y + 0.5f);
+
+						messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, plant);
 					}
+					break;
+				}
+				case "REMOVE_PESTS_FROM_CROP": {
+					Entity targetEntity = entityStore.getById(completedJob.getTargetId());
 					if (targetEntity != null && targetEntity.getType().equals(PLANT)) {
 						PlantEntityAttributes attributes = (PlantEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes();
+						attributes.clearAfflitctedByPests();
+					}
+					break;
+				}
+				case "HARVESTING":
+				case "HARVEST_FROM_FURNITURE": {
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					if (completedByEntity != null && completedByEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
+						Entity targetEntity;
+						if (completedJob.getTargetId() != null) {
+							targetEntity = entityStore.getById(completedJob.getTargetId());
+						} else {
+							targetEntity = gameContext.getAreaMap().getTile(completedJob.getJobLocation()).getPlant();
+						}
+						if (targetEntity != null && targetEntity.getType().equals(PLANT)) {
+							PlantEntityAttributes attributes = (PlantEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes();
 
-						PlantSpeciesGrowthStage currentGrowthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
-						if (currentGrowthStage.getHarvestType() != null) {
-							if (!attributes.isBurned()) {
-								for (PlantSpeciesItem harvestedItem : currentGrowthStage.getHarvestedItems()) {
+							PlantSpeciesGrowthStage currentGrowthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
+							if (currentGrowthStage.getHarvestType() != null) {
+								if (!attributes.isBurned()) {
+									for (PlantSpeciesItem harvestedItem : currentGrowthStage.getHarvestedItems()) {
+										if (gameContext.getRandom().nextFloat() < harvestedItem.getChance()) {
+											harvest(harvestedItem, completedByEntity);
+										}
+									}
+								}
+
+								if (currentGrowthStage.getHarvestSwitchesToGrowthStage() == null) {
+									messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(leafExplosionParticleEffectType,
+											Optional.empty(), Optional.of(new JobTarget(targetEntity)), (p) -> {
+									}));
+									messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);
+								} else {
+									attributes.setGrowthStageCursor(currentGrowthStage.getHarvestSwitchesToGrowthStage());
+									attributes.setGrowthStageProgress(0f);
+									messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetEntity);
+								}
+							} else {
+								Logger.error("Attempting to harvest a plant without a current growth stage harvest type (might have taken too long to get to the job?)");
+							}
+						} else if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
+							HarvestableEntityComponent harvestableEntityComponent = targetEntity.getComponent(HarvestableEntityComponent.class);
+							if (harvestableEntityComponent != null) {
+								for (PlantSpeciesItem harvestedItem : harvestableEntityComponent.getAll()) {
 									if (gameContext.getRandom().nextFloat() < harvestedItem.getChance()) {
 										harvest(harvestedItem, completedByEntity);
 									}
 								}
-							}
-
-							if (currentGrowthStage.getHarvestSwitchesToGrowthStage() == null) {
-								messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(leafExplosionParticleEffectType,
-										Optional.empty(), Optional.of(new JobTarget(targetEntity)), (p) -> {}));
-								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);
-							} else {
-								attributes.setGrowthStageCursor(currentGrowthStage.getHarvestSwitchesToGrowthStage());
-								attributes.setGrowthStageProgress(0f);
-								messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetEntity);
-							}
-						} else {
-							Logger.error("Attempting to harvest a plant without a current growth stage harvest type (might have taken too long to get to the job?)");
-						}
-					} else if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
-						HarvestableEntityComponent harvestableEntityComponent = targetEntity.getComponent(HarvestableEntityComponent.class);
-						if (harvestableEntityComponent != null) {
-							for (PlantSpeciesItem harvestedItem : harvestableEntityComponent.getAll()) {
-								if (gameContext.getRandom().nextFloat() < harvestedItem.getChance()) {
-									harvest(harvestedItem, completedByEntity);
+								harvestableEntityComponent.clear();
+								DecorationInventoryComponent decorationInventoryComponent = targetEntity.getComponent(DecorationInventoryComponent.class);
+								if (decorationInventoryComponent != null) {
+									decorationInventoryComponent.clear();
 								}
-							}
-							harvestableEntityComponent.clear();
-							DecorationInventoryComponent decorationInventoryComponent = targetEntity.getComponent(DecorationInventoryComponent.class);
-							if (decorationInventoryComponent != null) {
-								decorationInventoryComponent.clear();
+							} else {
+								Logger.error("Harvesting from entity without " + HarvestableEntityComponent.class.getSimpleName());
 							}
 						} else {
-							Logger.error("Harvesting from entity without " + HarvestableEntityComponent.class.getSimpleName());
+							Logger.error("Target of " + completedJob.getType().getName() + " job is not valid");
 						}
 					} else {
-						Logger.error("Target of " + completedJob.getType().getName() + " job is not valid");
+						Logger.error("Entity that completed job is null or not a creature");
 					}
-				} else {
-					Logger.error("Entity that completed job is null or not a creature");
+					break;
 				}
-				break;
-			}
-			case "MOVE_LIQUID_IN_ITEM":
-			case "TRANSFER_LIQUID":
-			{
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				HaulingComponent haulingComponent = completedByEntity.getComponent(HaulingComponent.class);
-				if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
-					Entity hauledItem = haulingComponent.getHauledEntity();
-					LiquidContainerComponent sourceLiquidContainer = hauledItem.getComponent(LiquidContainerComponent.class);
-					if (sourceLiquidContainer != null) {
-						Entity targetEntity = entityStore.getById(completedJob.getTargetId());
-						if (targetEntity != null) {
-							LiquidContainerComponent targetLiquidContainer = targetEntity.getComponent(LiquidContainerComponent.class);
-							if (targetLiquidContainer != null) {
-								if (targetLiquidContainer.getTargetLiquidMaterial().equals(sourceLiquidContainer.getTargetLiquidMaterial())) {
-									float availableSpace = targetLiquidContainer.getMaxLiquidCapacity() - targetLiquidContainer.getLiquidQuantity();
-									float quantityToTransfer = Math.min(availableSpace, sourceLiquidContainer.getLiquidQuantity());
+				case "MOVE_LIQUID_IN_ITEM":
+				case "TRANSFER_LIQUID": {
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					HaulingComponent haulingComponent = completedByEntity.getComponent(HaulingComponent.class);
+					if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
+						Entity hauledItem = haulingComponent.getHauledEntity();
+						LiquidContainerComponent sourceLiquidContainer = hauledItem.getComponent(LiquidContainerComponent.class);
+						if (sourceLiquidContainer != null) {
+							Entity targetEntity = entityStore.getById(completedJob.getTargetId());
+							if (targetEntity != null) {
+								LiquidContainerComponent targetLiquidContainer = targetEntity.getComponent(LiquidContainerComponent.class);
+								if (targetLiquidContainer != null) {
+									if (targetLiquidContainer.getTargetLiquidMaterial().equals(sourceLiquidContainer.getTargetLiquidMaterial())) {
+										float availableSpace = targetLiquidContainer.getMaxLiquidCapacity() - targetLiquidContainer.getLiquidQuantity();
+										float quantityToTransfer = Math.min(availableSpace, sourceLiquidContainer.getLiquidQuantity());
 
-									sourceLiquidContainer.setLiquidQuantity(sourceLiquidContainer.getLiquidQuantity() - quantityToTransfer);
-									targetLiquidContainer.setLiquidQuantity(targetLiquidContainer.getLiquidQuantity() + quantityToTransfer);
-									messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(targetEntity, targetLiquidContainer.getTargetLiquidMaterial()));
+										sourceLiquidContainer.setLiquidQuantity(sourceLiquidContainer.getLiquidQuantity() - quantityToTransfer);
+										targetLiquidContainer.setLiquidQuantity(targetLiquidContainer.getLiquidQuantity() + quantityToTransfer);
+										messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(targetEntity, targetLiquidContainer.getTargetLiquidMaterial()));
 
-									if (targetEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
-										targetLiquidContainer.assignCraftingAllocation(quantityToTransfer);
+										if (targetEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
+											targetLiquidContainer.assignCraftingAllocation(quantityToTransfer);
+										}
+
+									} else {
+										Logger.error("Attempting to combine different liquid materials");
 									}
-
 								} else {
-									Logger.error("Attempting to combine different liquid materials");
+									Logger.error("Could not find target liquid container when completing " + completedJob.getType().getName());
 								}
 							} else {
-								Logger.error("Could not find target liquid container when completing " + completedJob.getType().getName());
+								Logger.error("Could not find target entity when completing " + completedJob.getType().getName());
 							}
 						} else {
-							Logger.error("Could not find target entity when completing " + completedJob.getType().getName());
+							Logger.error("Source liquid container not found on hauled item");
 						}
 					} else {
-						Logger.error("Source liquid container not found on hauled item");
+						Logger.error("Could not find hauled item when completing " + completedJob.getType().getName() + " job");
 					}
-				} else {
-					Logger.error("Could not find hauled item when completing " + completedJob.getType().getName() + " job");
+
+					break;
 				}
+				case "COOKING": {
+					Entity targetFurnitureEntity = entityStore.getById(completedJob.getTargetId());
+					if (targetFurnitureEntity != null) {
+						CookingRecipe recipe = completedJob.getCookingRecipe();
+						GameMaterial outputMaterial = null;
+						InventoryComponent inventoryComponent = targetFurnitureEntity.getOrCreateComponent(InventoryComponent.class);
 
-				break;
-			}
-			case "COOKING":  {
-				Entity targetFurnitureEntity = entityStore.getById(completedJob.getTargetId());
-				if (targetFurnitureEntity != null) {
-					CookingRecipe recipe = completedJob.getCookingRecipe();
-					GameMaterial outputMaterial = null;
-					InventoryComponent inventoryComponent = targetFurnitureEntity.getOrCreateComponent(InventoryComponent.class);
+						switch (recipe.getOutputProcess()) {
+							case COMBINE_ITEM_MATERIALS: {
+								List<GameMaterial> inputMaterials = new ArrayList<>();
+								for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
+									if (entry.entity.getType().equals(ITEM)) {
+										ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
+										inputMaterials.add(attributes.getMaterial(attributes.getItemType().getPrimaryMaterialType()));
+									}
+								}
 
-					switch (recipe.getOutputProcess()) {
-						case COMBINE_ITEM_MATERIALS: {
-							List<GameMaterial> inputMaterials = new ArrayList<>();
-							for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
-								if (entry.entity.getType().equals(ITEM)) {
-									ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
-									inputMaterials.add(attributes.getMaterial(attributes.getItemType().getPrimaryMaterialType()));
+								outputMaterial = dynamicMaterialFactory.generate(inputMaterials, recipe.getOutputMaterialType(), false, true,
+										recipe.getOutputDescriptionI18nKey());
+
+								break;
+							}
+							case PICK_MOST_COMMON_ITEM_MATERIAL: {
+								int mostCommonCounter = 0;
+								for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
+									if (entry.entity.getType().equals(ITEM)) {
+										ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
+										if (attributes.getQuantity() > mostCommonCounter) {
+											outputMaterial = attributes.getMaterial(attributes.getItemType().getPrimaryMaterialType());
+											mostCommonCounter = attributes.getQuantity();
+										}
+									}
+								}
+								break;
+							}
+							case SPECIFIED_MATERIAL: {
+								outputMaterial = recipe.getOutputMaterial();
+								break;
+							}
+							default:
+								Logger.error("Not yet implemented, completion of " + completedJob + " with cooking out process " + recipe.getOutputProcess());
+						}
+
+						switch (recipe.getOutputMaterialType()) {
+							case LIQUID: {
+								LiquidContainerComponent liquidContainerComponent = targetFurnitureEntity.getComponent(LiquidContainerComponent.class);
+								if (liquidContainerComponent != null) {
+									liquidContainerComponent.setTargetLiquidMaterial(outputMaterial);
+									liquidContainerComponent.setLiquidQuantity(recipe.getOutputQuantity());
+
+									inventoryComponent.destroyAllEntities(messageDispatcher);
+								} else {
+									Logger.error("Could not find " + LiquidContainerComponent.class.getSimpleName() + " when completing " + completedJob);
+								}
+								break;
+							}
+							case FOODSTUFF: {
+								inventoryComponent.destroyAllEntities(messageDispatcher);
+
+								ItemEntityAttributes attributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
+								attributes.setItemType(recipe.getOutputItemType());
+								attributes.setQuantity(recipe.getOutputQuantity());
+								attributes.setMaterial(outputMaterial);
+								Entity outputItem = itemEntityFactory.create(attributes, null, true, gameContext, Faction.SETTLEMENT);
+
+								inventoryComponent.add(outputItem, targetFurnitureEntity, messageDispatcher, gameContext.getGameClock());
+
+								// Unallocate to allow hauling away
+								outputItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+								// KitchenManager will organise movement of food to serving tables
+
+								break;
+							}
+							default:
+								Logger.error("Not yet implemented, recipe output material type " + recipe.getOutputMaterialType());
+						}
+
+
+						messageDispatcher.dispatchMessage(MessageType.COOKING_COMPLETE, new CookingCompleteMessage(targetFurnitureEntity, completedJob.getCookingRecipe()));
+					} else {
+						Logger.error("Can not find furniture entity for " + completedJob);
+					}
+					break;
+				}
+				case "CLEAR_GROUND": {
+					MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
+					Entity targetEntity = null;
+					if (targetTile != null) {
+						for (Entity entity : targetTile.getEntities()) {
+							if (entity.getType().equals(EntityType.PLANT)) {
+								targetEntity = entity;
+								break;
+							} else if (entity.getType().equals(ITEM)) {
+								ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+								if (attributes.getItemType().getStockpileGroup() == null) {
+									targetEntity = entity;
+									break;
 								}
 							}
-
-							outputMaterial = dynamicMaterialFactory.generate(inputMaterials, recipe.getOutputMaterialType(), false, true,
-									recipe.getOutputDescriptionI18nKey());
-
-							break;
 						}
-						case PICK_MOST_COMMON_ITEM_MATERIAL: {
-							int mostCommonCounter = 0;
-							for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
-								if (entry.entity.getType().equals(ITEM)) {
-									ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
-									if (attributes.getQuantity() > mostCommonCounter) {
-										outputMaterial = attributes.getMaterial(attributes.getItemType().getPrimaryMaterialType());
-										mostCommonCounter = attributes.getQuantity();
+					}
+
+					if (targetEntity != null) {
+						if (targetEntity.getType().equals(PLANT)) {
+							PlantEntityAttributes attributes = (PlantEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes();
+							PlantSpeciesGrowthStage currentGrowthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
+							if (currentGrowthStage.getHarvestType() != null) {
+								if (!attributes.isBurned()) {
+									for (PlantSpeciesItem harvestedItem : currentGrowthStage.getHarvestedItems()) {
+										if (gameContext.getRandom().nextFloat() < harvestedItem.getChance()) {
+											harvest(harvestedItem, jobCompletedMessage.getCompletedByEntity());
+										}
 									}
 								}
 							}
-							break;
 						}
-						case SPECIFIED_MATERIAL: {
-							outputMaterial = recipe.getOutputMaterial();
-							break;
-						}
-						default:
-							Logger.error("Not yet implemented, completion of " + completedJob + " with cooking out process " + recipe.getOutputProcess());
+
+						messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(leafExplosionParticleEffectType,
+								Optional.empty(), Optional.of(new JobTarget(targetEntity)), (p) -> {
+						}));
+						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);
 					}
-
-					switch (recipe.getOutputMaterialType()) {
-						case LIQUID: {
-							LiquidContainerComponent liquidContainerComponent = targetFurnitureEntity.getComponent(LiquidContainerComponent.class);
-							if (liquidContainerComponent != null) {
-								liquidContainerComponent.setTargetLiquidMaterial(outputMaterial);
-								liquidContainerComponent.setLiquidQuantity(recipe.getOutputQuantity());
-
-								inventoryComponent.destroyAllEntities(messageDispatcher);
-							} else {
-								Logger.error("Could not find " + LiquidContainerComponent.class.getSimpleName() + " when completing " + completedJob);
-							}
-							break;
-						}
-						case FOODSTUFF: {
-							inventoryComponent.destroyAllEntities(messageDispatcher);
-
-							ItemEntityAttributes attributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-							attributes.setItemType(recipe.getOutputItemType());
-							attributes.setQuantity(recipe.getOutputQuantity());
-							attributes.setMaterial(outputMaterial);
-							Entity outputItem = itemEntityFactory.create(attributes, null, true, gameContext, Faction.SETTLEMENT);
-
-							inventoryComponent.add(outputItem, targetFurnitureEntity, messageDispatcher, gameContext.getGameClock());
-
-							// Unallocate to allow hauling away
-							outputItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
-							// KitchenManager will organise movement of food to serving tables
-
-							break;
-						}
-						default:
-							Logger.error("Not yet implemented, recipe output material type " + recipe.getOutputMaterialType());
-					}
-
-
-					messageDispatcher.dispatchMessage(MessageType.COOKING_COMPLETE, new CookingCompleteMessage(targetFurnitureEntity, completedJob.getCookingRecipe()));
-				} else {
-					Logger.error("Can not find furniture entity for " + completedJob);
+					break;
 				}
-				break;
-			}
-			case "CLEAR_GROUND":
-			{
-				MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-				Entity targetEntity = null;
-				if (targetTile != null) {
-					for (Entity entity : targetTile.getEntities()) {
-						if (entity.getType().equals(EntityType.PLANT)) {
-							targetEntity = entity;
-							break;
-						} else if (entity.getType().equals(ITEM)) {
-							ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-							if (attributes.getItemType().getStockpileGroup() == null) {
+
+				case "SHOVELLING":
+				case "LIGHT_CHARCOAL_CLAMP":
+				case "PRODUCE_ITEM":
+				case "PRODUCE_LIQUID":
+				case "CRAFT_ITEM":
+				case "FORGE_ITEM":
+					// Hoping targetEntity is a furniture such as crafting station
+					notifyTargetEntityJobCompleted(completedJob, jobCompletedMessage.getCompletedByEntity());
+					break;
+				case "DECONSTRUCT":
+					MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
+					// Might be wall, doorway or furniture entity
+					if (targetTile.hasWall()) {
+						Wall wall = targetTile.getWall(); // Need to grab wall before it is destroyed
+						messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, completedJob.getJobLocation());
+						if (wall.getWallType().isConstructed()) {
+							ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.resourceFromWall(wall);
+							if (itemAttributes != null) {
+								itemEntityFactory.create(itemAttributes, targetTile.getTilePosition(), true, gameContext, Faction.SETTLEMENT);
+							}
+						}
+					} else if (targetTile.hasDoorway()) {
+						Doorway doorway = targetTile.getDoorway();
+						messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_DOOR, doorway);
+					} else if (targetTile.getFloor().hasBridge()) {
+						Bridge bridge = targetTile.getFloor().getBridge();
+						messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_BRIDGE, bridge);
+					} else if (targetTile.getEntities().stream().anyMatch(e -> e.getType().equals(FURNITURE))) {
+						Entity targetEntity = null;
+						for (Entity entity : targetTile.getEntities()) {
+							if (entity.getType().equals(EntityType.FURNITURE)) {
 								targetEntity = entity;
 								break;
 							}
 						}
-					}
-				}
 
-				if (targetEntity != null) {
-					if (targetEntity.getType().equals(PLANT)) {
-						PlantEntityAttributes attributes = (PlantEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes();
-						PlantSpeciesGrowthStage currentGrowthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
-						if (currentGrowthStage.getHarvestType() != null) {
-							if (!attributes.isBurned()) {
-								for (PlantSpeciesItem harvestedItem : currentGrowthStage.getHarvestedItems()) {
-									if (gameContext.getRandom().nextFloat() < harvestedItem.getChance()) {
-										harvest(harvestedItem, jobCompletedMessage.getCompletedByEntity());
-									}
-								}
-							}
-						}
-					}
-
-					messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(leafExplosionParticleEffectType,
-							Optional.empty(), Optional.of(new JobTarget(targetEntity)), (p) -> {}));
-					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);
-				}
-				break;
-			}
-			case "DIGGING":
-			case "CONSTRUCT_STONE_FURNITURE":
-			case "CONSTRUCT_WOODEN_FURNITURE":
-			case "CONSTRUCT":
-				MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-				Construction construction = targetTile.getConstruction();
-				messageDispatcher.dispatchMessage(MessageType.CONSTRUCTION_COMPLETED, construction);
-				break;
-			case "SHOVELLING":
-			case "LIGHT_CHARCOAL_CLAMP":
-			case "PRODUCE_ITEM":
-			case "PRODUCE_LIQUID":
-			case "CRAFT_ITEM":
-			case "FORGE_ITEM":
-				// Hoping targetEntity is a furniture such as crafting station
-				notifyTargetEntityJobCompleted(completedJob, jobCompletedMessage.getCompletedByEntity());
-				break;
-			case "DECONSTRUCT":
-				targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-				// Might be wall, doorway or furniture entity
-				if (targetTile.hasWall()) {
-					Wall wall = targetTile.getWall(); // Need to grab wall before it is destroyed
-					messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, completedJob.getJobLocation());
-					if (wall.getWallType().isConstructed()) {
-						ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.resourceFromWall(wall);
-						if (itemAttributes != null) {
-							itemEntityFactory.create(itemAttributes, targetTile.getTilePosition(), true, gameContext, Faction.SETTLEMENT);
-						}
-					}
-				} else if (targetTile.hasDoorway()) {
-					Doorway doorway = targetTile.getDoorway();
-					messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_DOOR, doorway);
-				} else if (targetTile.getFloor().hasBridge()) {
-					Bridge bridge = targetTile.getFloor().getBridge();
-					messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_BRIDGE, bridge);
-				} else if (targetTile.getEntities().stream().anyMatch(e -> e.getType().equals(FURNITURE))) {
-					Entity targetEntity = null;
-					for (Entity entity : targetTile.getEntities()) {
-						if (entity.getType().equals(EntityType.FURNITURE)) {
-							targetEntity = entity;
-							break;
-						}
-					}
-
-					if (targetEntity == null) {
-						Logger.error("Could not find furniture entity to deconstruct in " + targetTile);
-					} else {
-						deconstructFurniture(targetEntity, targetTile, messageDispatcher, gameContext, itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
-					}
-				} else if (targetTile.hasFloor() && targetTile.getFloor().getFloorType().isConstructed()) {
-					messageDispatcher.dispatchMessage(MessageType.UNDO_REPLACE_FLOOR, targetTile.getTilePosition());
-				} else if (targetTile.hasChannel()) {
-					messageDispatcher.dispatchMessage(MessageType.REMOVE_CHANNEL, targetTile.getTilePosition());
-				} else {
-					Logger.error("Could not find entity to deconstruct in tile " + jobCompletedMessage.getJob().getJobLocation());
-				}
-				break;
-			case "MUSHROOM_INNOCULATION": {
-				Entity targetEntity = entityStore.getById(completedJob.getTargetId());
-				if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
-					BehaviourComponent behaviourComponent = targetEntity.getBehaviourComponent();
-					if (behaviourComponent instanceof InnoculationLogBehaviour) {
-						InnoculationLogBehaviour innoculationLogBehaviour = (InnoculationLogBehaviour) behaviourComponent;
-
-						InventoryComponent inventoryComponent = targetEntity.getComponent(InventoryComponent.class);
-						Entity relatedInventoryItem = null;
-						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
-							ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
-							if (itemEntityAttributes.getItemType().equals(innoculationLogBehaviour.getRelatedItemType())) {
-								relatedInventoryItem = inventoryEntry.entity;
-
-								GameMaterial spawnMaterial = itemEntityAttributes.getMaterial(GameMaterialType.SEED);
-								((FurnitureEntityAttributes)targetEntity.getPhysicalEntityComponent().getAttributes()).setMaterial(spawnMaterial);
-								innoculationLogBehaviour.setState(INNOCULATING);
-								break;
-							}
-						}
-
-						if (relatedInventoryItem != null) {
-							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, relatedInventoryItem);
+						if (targetEntity == null) {
+							Logger.error("Could not find furniture entity to deconstruct in " + targetTile);
 						} else {
-							Logger.error("Could not find correct item in " + InnoculationLogBehaviour.class + " inventory");
+							deconstructFurniture(targetEntity, targetTile, messageDispatcher, gameContext, itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
 						}
+					} else if (targetTile.hasFloor() && targetTile.getFloor().getFloorType().isConstructed()) {
+						messageDispatcher.dispatchMessage(MessageType.UNDO_REPLACE_FLOOR, targetTile.getTilePosition());
+					} else if (targetTile.hasChannel()) {
+						messageDispatcher.dispatchMessage(MessageType.REMOVE_CHANNEL, targetTile.getTilePosition());
 					} else {
-						Logger.error("Target of " + completedJob.getType().getName() + " does not have " + InnoculationLogBehaviour.class.getSimpleName());
+						Logger.error("Could not find entity to deconstruct in tile " + jobCompletedMessage.getJob().getJobLocation());
 					}
-				} else {
-					Logger.error("Could not find furniture entity to innoculate ");
-				}
+					break;
+				case "MUSHROOM_INNOCULATION": {
+					Entity targetEntity = entityStore.getById(completedJob.getTargetId());
+					if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
+						BehaviourComponent behaviourComponent = targetEntity.getBehaviourComponent();
+						if (behaviourComponent instanceof InnoculationLogBehaviour) {
+							InnoculationLogBehaviour innoculationLogBehaviour = (InnoculationLogBehaviour) behaviourComponent;
 
-				break;
-			}
-			case "FILL_GRAVE": {
-				Entity targetEntity = entityStore.getById(completedJob.getTargetId());
-				if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
-					DeceasedContainerTag deceasedContainerTag = targetEntity.getTag(DeceasedContainerTag.class);
-					if (!deceasedContainerTag.getArgs().isEmpty()) {
-						FurnitureType transformationType = furnitureTypeDictionary.getByName(deceasedContainerTag.getArgs().get(0));
-						if (transformationType != null) {
-							messageDispatcher.dispatchMessage(MessageType.TRANSFORM_FURNITURE_TYPE,
-									new TransformFurnitureMessage(targetEntity, transformationType));
-						} else {
-							Logger.error("Could not find furniture type to transform to " + deceasedContainerTag.getArgs().get(0) + " for " + deceasedContainerTag.getClass().getSimpleName());
-						}
-					} else {
-						Logger.error("Filling grave that does not have a furniture type to transform to");
-					}
-				} else {
-					Logger.error("Could not find furniture entity for " + completedJob.getType().getName() + " job completion");
-				}
-				break;
-			}
-			case "DIG_CHANNEL": {
-				targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
+							InventoryComponent inventoryComponent = targetEntity.getComponent(InventoryComponent.class);
+							Entity relatedInventoryItem = null;
+							for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+								ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
+								if (itemEntityAttributes.getItemType().equals(innoculationLogBehaviour.getRelatedItemType())) {
+									relatedInventoryItem = inventoryEntry.entity;
 
-				if (targetTile != null) {
-					// deconstruct any furniture
-					for (Entity entity : targetTile.getEntities()) {
-						if (entity.getType().equals(FURNITURE)) {
-							deconstructFurniture(entity, targetTile, messageDispatcher, gameContext,
-									itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
-						}
-					}
-					// then shift any items or plants
-					for (Entity entity : targetTile.getEntities()) {
-						if (entity.getType().equals(PLANT)) {
-							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
-						} else if (entity.getType().equals(ITEM)) {
-							boolean entityMoved = false;
-							for (MapTile neighbourTile : gameContext.getAreaMap().getNeighbours(targetTile.getTilePosition()).values()) {
-								if (neighbourTile.isNavigable(null)) {
-									GridPoint2 originalPosition = toGridPoint(entity.getLocationComponent().getWorldPosition());
-									entity.getLocationComponent().setWorldPosition(neighbourTile.getWorldPositionOfCenter(), false);
-
-									for (Job job : new ArrayList<>(jobStore.getJobsAtLocation(originalPosition))) {
-										if (job.getType().equals(haulingJobType)) {
-											messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, job);
-										}
-									}
-
-									entityMoved = true;
+									GameMaterial spawnMaterial = itemEntityAttributes.getMaterial(GameMaterialType.SEED);
+									((FurnitureEntityAttributes) targetEntity.getPhysicalEntityComponent().getAttributes()).setMaterial(spawnMaterial);
+									innoculationLogBehaviour.setState(INNOCULATING);
 									break;
 								}
 							}
-							if (!entityMoved) {
-								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
-							}
-						}
-					}
 
-					messageDispatcher.dispatchMessage(MessageType.ADD_CHANNEL, targetTile.getTilePosition());
-				}
-				break;
-			}
-			case "HAULING":
-			case "COLLECT_ITEM":
-			case "REMOVE_LIQUID":
-				// Nothing special to be done
-				break;
-			case "DUMP_LIQUID_FROM_CONTAINER": {
-				Entity targetEntity = entityStore.getById(completedJob.getHaulingAllocation().getHauledEntityId());
-				if (targetEntity != null && targetEntity.getType().equals(ITEM)) {
-
-					LiquidContainerComponent liquidContainerComponent = targetEntity.getComponent(LiquidContainerComponent.class);
-					if (liquidContainerComponent != null) {
-						messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(jobCompletedMessage.getCompletedByEntity(),
-								liquidContainerComponent.getTargetLiquidMaterial()));
-
-						liquidContainerComponent.setLiquidQuantity(0);
-						liquidContainerComponent.setTargetLiquidMaterial(null);
-					}
-				} else {
-					Logger.error("Could not find item entity for " + completedJob.getType().getName() + " job completion");
-				}
-				break;
-			}
-			case "EXTINGUISH_FLAMES": {
-				GridPoint2 jobLocation = completedJob.getJobLocation();
-				MapTile jobTargetTile = gameContext.getAreaMap().getTile(jobLocation);
-				Optional<Entity> entityOnFire = jobTargetTile.getEntities().stream().filter(Entity::isOnFire).findAny();
-				Optional<Entity> extinguishableEntity = jobTargetTile.getEntities().stream().filter(e -> e.getType().equals(ONGOING_EFFECT) &&
-								((OngoingEffectAttributes)e.getPhysicalEntityComponent().getAttributes()).getType().isCanBeExtinguished()).findAny();
-
-
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				HaulingComponent haulingComponent = completedByEntity.getComponent(HaulingComponent.class);
-
-				Entity hauledEntity = haulingComponent.getHauledEntity();
-				if (hauledEntity != null && hauledEntity.getType().equals(ITEM)) {
-
-					LiquidContainerComponent liquidContainerComponent = hauledEntity.getComponent(LiquidContainerComponent.class);
-					if (liquidContainerComponent != null) {
-
-						if (entityOnFire.isPresent()) {
-							StatusComponent statusComponent = entityOnFire.get().getComponent(StatusComponent.class);
-							statusComponent.remove(OnFireStatus.class);
-						}
-						if (extinguishableEntity.isPresent()) {
-							BehaviourComponent behaviourComponent = extinguishableEntity.get().getBehaviourComponent();
-							if (behaviourComponent instanceof FireEffectBehaviour) {
-								((FireEffectBehaviour)behaviourComponent).setToFade();
+							if (relatedInventoryItem != null) {
+								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, relatedInventoryItem);
 							} else {
-								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, extinguishableEntity.get());
+								Logger.error("Could not find correct item in " + InnoculationLogBehaviour.class + " inventory");
+							}
+						} else {
+							Logger.error("Target of " + completedJob.getType().getName() + " does not have " + InnoculationLogBehaviour.class.getSimpleName());
+						}
+					} else {
+						Logger.error("Could not find furniture entity to innoculate ");
+					}
+
+					break;
+				}
+				case "FILL_GRAVE": {
+					Entity targetEntity = entityStore.getById(completedJob.getTargetId());
+					if (targetEntity != null && targetEntity.getType().equals(FURNITURE)) {
+						DeceasedContainerTag deceasedContainerTag = targetEntity.getTag(DeceasedContainerTag.class);
+						if (!deceasedContainerTag.getArgs().isEmpty()) {
+							FurnitureType transformationType = furnitureTypeDictionary.getByName(deceasedContainerTag.getArgs().get(0));
+							if (transformationType != null) {
+								messageDispatcher.dispatchMessage(MessageType.TRANSFORM_FURNITURE_TYPE,
+										new TransformFurnitureMessage(targetEntity, transformationType));
+							} else {
+								Logger.error("Could not find furniture type to transform to " + deceasedContainerTag.getArgs().get(0) + " for " + deceasedContainerTag.getClass().getSimpleName());
+							}
+						} else {
+							Logger.error("Filling grave that does not have a furniture type to transform to");
+						}
+					} else {
+						Logger.error("Could not find furniture entity for " + completedJob.getType().getName() + " job completion");
+					}
+					break;
+				}
+				case "DIG_CHANNEL": {
+					targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
+
+					if (targetTile != null) {
+						// deconstruct any furniture
+						for (Entity entity : targetTile.getEntities()) {
+							if (entity.getType().equals(FURNITURE)) {
+								deconstructFurniture(entity, targetTile, messageDispatcher, gameContext,
+										itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
+							}
+						}
+						// then shift any items or plants
+						for (Entity entity : targetTile.getEntities()) {
+							if (entity.getType().equals(PLANT)) {
+								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
+							} else if (entity.getType().equals(ITEM)) {
+								boolean entityMoved = false;
+								for (MapTile neighbourTile : gameContext.getAreaMap().getNeighbours(targetTile.getTilePosition()).values()) {
+									if (neighbourTile.isNavigable(null)) {
+										GridPoint2 originalPosition = toGridPoint(entity.getLocationComponent().getWorldPosition());
+										entity.getLocationComponent().setWorldPosition(neighbourTile.getWorldPositionOfCenter(), false);
+
+										for (Job job : new ArrayList<>(jobStore.getJobsAtLocation(originalPosition))) {
+											if (job.getType().equals(haulingJobType)) {
+												messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, job);
+											}
+										}
+
+										entityMoved = true;
+										break;
+									}
+								}
+								if (!entityMoved) {
+									messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
+								}
 							}
 						}
 
-						messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(
-								entityOnFire.orElse(extinguishableEntity.orElse(null)),
-								liquidContainerComponent.getTargetLiquidMaterial()));
-
-						liquidContainerComponent.setLiquidQuantity(0);
-						liquidContainerComponent.setTargetLiquidMaterial(null);
+						messageDispatcher.dispatchMessage(MessageType.ADD_CHANNEL, targetTile.getTilePosition());
 					}
-				} else {
-					Logger.error("Could not find item entity for " + completedJob.getType().getName() + " job completion");
+					break;
 				}
+				case "HAULING":
+				case "COLLECT_ITEM":
+				case "REMOVE_LIQUID":
+					// Nothing special to be done
+					break;
+				case "DUMP_LIQUID_FROM_CONTAINER": {
+					Entity targetEntity = entityStore.getById(completedJob.getHaulingAllocation().getHauledEntityId());
+					if (targetEntity != null && targetEntity.getType().equals(ITEM)) {
 
-				// if so, remove liquid, remove fire in target tile (wall or floor) or entity in target tile on fire
+						LiquidContainerComponent liquidContainerComponent = targetEntity.getComponent(LiquidContainerComponent.class);
+						if (liquidContainerComponent != null) {
+							messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(jobCompletedMessage.getCompletedByEntity(),
+									liquidContainerComponent.getTargetLiquidMaterial()));
+
+							liquidContainerComponent.setLiquidQuantity(0);
+							liquidContainerComponent.setTargetLiquidMaterial(null);
+						}
+					} else {
+						Logger.error("Could not find item entity for " + completedJob.getType().getName() + " job completion");
+					}
+					break;
+				}
+				case "EXTINGUISH_FLAMES": {
+					GridPoint2 jobLocation = completedJob.getJobLocation();
+					MapTile jobTargetTile = gameContext.getAreaMap().getTile(jobLocation);
+					Optional<Entity> entityOnFire = jobTargetTile.getEntities().stream().filter(Entity::isOnFire).findAny();
+					Optional<Entity> extinguishableEntity = jobTargetTile.getEntities().stream().filter(e -> e.getType().equals(ONGOING_EFFECT) &&
+							((OngoingEffectAttributes) e.getPhysicalEntityComponent().getAttributes()).getType().isCanBeExtinguished()).findAny();
+
+
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					HaulingComponent haulingComponent = completedByEntity.getComponent(HaulingComponent.class);
+
+					Entity hauledEntity = haulingComponent.getHauledEntity();
+					if (hauledEntity != null && hauledEntity.getType().equals(ITEM)) {
+
+						LiquidContainerComponent liquidContainerComponent = hauledEntity.getComponent(LiquidContainerComponent.class);
+						if (liquidContainerComponent != null) {
+
+							if (entityOnFire.isPresent()) {
+								StatusComponent statusComponent = entityOnFire.get().getComponent(StatusComponent.class);
+								statusComponent.remove(OnFireStatus.class);
+							}
+							if (extinguishableEntity.isPresent()) {
+								BehaviourComponent behaviourComponent = extinguishableEntity.get().getBehaviourComponent();
+								if (behaviourComponent instanceof FireEffectBehaviour) {
+									((FireEffectBehaviour) behaviourComponent).setToFade();
+								} else {
+									messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, extinguishableEntity.get());
+								}
+							}
+
+							messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(
+									entityOnFire.orElse(extinguishableEntity.orElse(null)),
+									liquidContainerComponent.getTargetLiquidMaterial()));
+
+							liquidContainerComponent.setLiquidQuantity(0);
+							liquidContainerComponent.setTargetLiquidMaterial(null);
+						}
+					} else {
+						Logger.error("Could not find item entity for " + completedJob.getType().getName() + " job completion");
+					}
+
+					// if so, remove liquid, remove fire in target tile (wall or floor) or entity in target tile on fire
 					// play hissing quenching sound
 					// trigger water splash particle effect on target
 
-				break;
-			}
-			case "CONSTRUCT_FLOORING": {
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
-				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearMainHandItem();
-					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
-						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
-						GameMaterial material = attributes.getPrimaryMaterial();
-						attributes.setQuantity(attributes.getQuantity() - 1);
-						if (attributes.getQuantity() == 0) {
-							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
-						} else {
-							// put back as equipped for AI to clear
-							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
-						}
-
-						messageDispatcher.dispatchMessage(MessageType.FLOORING_CONSTRUCTED, new FloorConstructionMessage(
-								jobCompletedMessage.getJob().getJobLocation(), attributes.getItemType(), material
-						));
-
-					}
+					break;
 				}
-				break;
-			}
-			case "CONSTRUCT_ROOFING": {
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
-				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearMainHandItem();
-					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
-						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
-						GameMaterial material = attributes.getPrimaryMaterial();
-						attributes.setQuantity(attributes.getQuantity() - 1);
-						if (attributes.getQuantity() == 0) {
-							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
-						} else {
-							// put back as equipped for AI to clear
-							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
-						}
-
-						messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTED, new RoofConstructionMessage(
-							jobCompletedMessage.getJob().getJobLocation(), material
-						));
-
-					}
-				}
-				break;
-			}
-			case "DECONSTRUCT_ROOFING": {
-				messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTED, new RoofConstructionMessage(
-						jobCompletedMessage.getJob().getJobLocation(), NULL_MATERIAL
-				));
-				break;
-			}
-			case "CONSTRUCT_PIPING": {
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
-				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearMainHandItem();
-					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
-						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
-						GameMaterial material = attributes.getPrimaryMaterial();
-						attributes.setQuantity(attributes.getQuantity() - 1);
-						if (attributes.getQuantity() == 0) {
-							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
-						} else {
-							// put back as equipped for AI to clear
-							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
-						}
-
-						messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTED, new PipeConstructionMessage(
-								jobCompletedMessage.getJob().getJobLocation(), material
-						));
-
-					}
-				}
-				break;
-			}
-			case "DECONSTRUCT_PIPING": {
-				messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTED, new PipeConstructionMessage(
-						jobCompletedMessage.getJob().getJobLocation(), NULL_MATERIAL
-				));
-				break;
-			}
-			case "CONSTRUCT_MECHANISM": {
-				UnderTile underTile = tile.getUnderTile();
-				if (underTile != null && underTile.getQueuedMechanismType() != null) {
+				case "CONSTRUCT_FLOORING": {
 					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 					EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 					if (equippedItemComponent != null) {
@@ -968,105 +839,192 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 								equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 							}
 
-							messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTED, new MechanismConstructionMessage(
-									jobCompletedMessage.getJob().getJobLocation(), underTile.getQueuedMechanismType(), material
+							messageDispatcher.dispatchMessage(MessageType.FLOORING_CONSTRUCTED, new FloorConstructionMessage(
+									jobCompletedMessage.getJob().getJobLocation(), attributes.getItemType(), material
 							));
 
 						}
 					}
+					break;
 				}
-				break;
-			}
-			case "DECONSTRUCT_MECHANISM": {
-				UnderTile underTile = tile.getUnderTile();
-				if (underTile != null && underTile.getPowerMechanismEntity() != null) {
-					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, underTile.getPowerMechanismEntity());
-					underTile.setPowerMechanismEntity(null);
-					underTile.getPowerGrid().removeTile(tile, gameContext);
-				}
-				break;
-			}
-			case "FISHING": {
-				Race fishType = fishRacesAvailable.get(gameContext.getRandom().nextInt(fishRacesAvailable.size()));
-				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-
-				CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
-				Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
-				fishEntity.getLocationComponent().setRotation(0);
-
-				HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
-				haulingComponent.setHauledEntity(fishEntity, messageDispatcher, completedByEntity);
-
-				messageDispatcher.dispatchMessage(MessageType.FISH_HARVESTED_FROM_RIVER);
-				break;
-			}
-			case "BUTCHER_CREATURE": {
-				Entity furnitureEntity = entityStore.getById(completedJob.getTargetId());
-				if (furnitureEntity != null) {
-					InventoryComponent inventoryComponent = furnitureEntity.getComponent(InventoryComponent.class);
-					Optional<InventoryComponent.InventoryEntry> creatureInventoryEntity = inventoryComponent.getInventoryEntries().stream()
-							.filter(e -> e.entity.getType().equals(CREATURE))
-							.findAny();
-
-					if (creatureInventoryEntity.isPresent()) {
-						CreatureEntityAttributes attributes = (CreatureEntityAttributes) creatureInventoryEntity.get().entity.getPhysicalEntityComponent().getAttributes();
-
-						MeatFeature meatFeature = attributes.getRace().getFeatures().getMeat();
-						if (meatFeature != null) {
-							ItemEntityAttributes meatItemAttributes = itemEntityAttributesFactory.createItemAttributes(meatFeature.getItemType(), meatFeature.getQuantity(), meatFeature.getMaterial());
-							Entity meatItem = itemEntityFactory.create(meatItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
-							inventoryComponent.add(meatItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
-							meatItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
-						}
-
-						SkinFeature skinFeature = attributes.getRace().getFeatures().getSkin();
-						if (skinFeature != null && skinFeature.getItemType() != null) {
-							ItemEntityAttributes skinItemAttributes = itemEntityAttributesFactory.createItemAttributes(skinFeature.getItemType(), skinFeature.getQuantity(), skinFeature.getMaterial());
-							skinItemAttributes.setColor(ColoringLayer.SKIN_COLOR, attributes.getColor(ColoringLayer.SKIN_COLOR));
-							Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
-							inventoryComponent.add(skinItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
-							skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
-						}
-
-						BonesFeature bonesFeature = attributes.getRace().getFeatures().getBones();
-						if (bonesFeature != null) {
-							Body body = attributes.getBody();
-							int[] numberOfBonesPerPart = new int[BoneType.values().length];
-
-							for (BodyPart bodyPart : body.getAllWorkingBodyParts()) {
-								for (BoneType boneType : bodyPart.getPartDefinition().getBones()) {
-									numberOfBonesPerPart[boneType.ordinal()]++;
-								}
+				case "CONSTRUCT_ROOFING": {
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
+					if (equippedItemComponent != null) {
+						Entity equippedItem = equippedItemComponent.clearMainHandItem();
+						if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
+							ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
+							GameMaterial material = attributes.getPrimaryMaterial();
+							attributes.setQuantity(attributes.getQuantity() - 1);
+							if (attributes.getQuantity() == 0) {
+								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
+							} else {
+								// put back as equipped for AI to clear
+								equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 							}
 
-							for (BoneType boneType : BoneType.values()) {
-								int quantity = numberOfBonesPerPart[boneType.ordinal()];
-								ItemType boneItemType;
-								switch (boneType) {
-									case LARGE -> boneItemType = largeBone;
-									case MEDIUM -> boneItemType = mediumBone;
-									case SMALL -> boneItemType = smallBone;
-									default -> boneItemType = null;
-								}
-
-								if (boneItemType != null && quantity > 0) {
-									ItemEntityAttributes boneItemAttributes = itemEntityAttributesFactory.createItemAttributes(boneItemType, quantity, bonesFeature.getMaterial());
-									Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
-									inventoryComponent.add(boneItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
-									boneItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
-								}
-							}
+							messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTED, new RoofConstructionMessage(
+									jobCompletedMessage.getJob().getJobLocation(), material
+							));
 
 						}
-
-						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, creatureInventoryEntity.get().entity);
 					}
+					break;
 				}
-				break;
-			}
-			default: {
-				Logger.error("Not yet implemented job completion: " + completedJob.getType());
+				case "DECONSTRUCT_ROOFING": {
+					messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTED, new RoofConstructionMessage(
+							jobCompletedMessage.getJob().getJobLocation(), NULL_MATERIAL
+					));
+					break;
+				}
+				case "CONSTRUCT_PIPING": {
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
+					if (equippedItemComponent != null) {
+						Entity equippedItem = equippedItemComponent.clearMainHandItem();
+						if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
+							ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
+							GameMaterial material = attributes.getPrimaryMaterial();
+							attributes.setQuantity(attributes.getQuantity() - 1);
+							if (attributes.getQuantity() == 0) {
+								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
+							} else {
+								// put back as equipped for AI to clear
+								equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
+							}
+
+							messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTED, new PipeConstructionMessage(
+									jobCompletedMessage.getJob().getJobLocation(), material
+							));
+
+						}
+					}
+					break;
+				}
+				case "DECONSTRUCT_PIPING": {
+					messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTED, new PipeConstructionMessage(
+							jobCompletedMessage.getJob().getJobLocation(), NULL_MATERIAL
+					));
+					break;
+				}
+				case "CONSTRUCT_MECHANISM": {
+					UnderTile underTile = tile.getUnderTile();
+					if (underTile != null && underTile.getQueuedMechanismType() != null) {
+						Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+						EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
+						if (equippedItemComponent != null) {
+							Entity equippedItem = equippedItemComponent.clearMainHandItem();
+							if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
+								ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
+								GameMaterial material = attributes.getPrimaryMaterial();
+								attributes.setQuantity(attributes.getQuantity() - 1);
+								if (attributes.getQuantity() == 0) {
+									messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
+								} else {
+									// put back as equipped for AI to clear
+									equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
+								}
+
+								messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTED, new MechanismConstructionMessage(
+										jobCompletedMessage.getJob().getJobLocation(), underTile.getQueuedMechanismType(), material
+								));
+
+							}
+						}
+					}
+					break;
+				}
+				case "DECONSTRUCT_MECHANISM": {
+					UnderTile underTile = tile.getUnderTile();
+					if (underTile != null && underTile.getPowerMechanismEntity() != null) {
+						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, underTile.getPowerMechanismEntity());
+						underTile.setPowerMechanismEntity(null);
+						underTile.getPowerGrid().removeTile(tile, gameContext);
+					}
+					break;
+				}
+				case "FISHING": {
+					Race fishType = fishRacesAvailable.get(gameContext.getRandom().nextInt(fishRacesAvailable.size()));
+					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+
+					CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
+					Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
+					messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
+					fishEntity.getLocationComponent().setRotation(0);
+
+					HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
+					haulingComponent.setHauledEntity(fishEntity, messageDispatcher, completedByEntity);
+
+					messageDispatcher.dispatchMessage(MessageType.FISH_HARVESTED_FROM_RIVER);
+					break;
+				}
+				case "BUTCHER_CREATURE": {
+					Entity furnitureEntity = entityStore.getById(completedJob.getTargetId());
+					if (furnitureEntity != null) {
+						InventoryComponent inventoryComponent = furnitureEntity.getComponent(InventoryComponent.class);
+						Optional<InventoryComponent.InventoryEntry> creatureInventoryEntity = inventoryComponent.getInventoryEntries().stream()
+								.filter(e -> e.entity.getType().equals(CREATURE))
+								.findAny();
+
+						if (creatureInventoryEntity.isPresent()) {
+							CreatureEntityAttributes attributes = (CreatureEntityAttributes) creatureInventoryEntity.get().entity.getPhysicalEntityComponent().getAttributes();
+
+							MeatFeature meatFeature = attributes.getRace().getFeatures().getMeat();
+							if (meatFeature != null) {
+								ItemEntityAttributes meatItemAttributes = itemEntityAttributesFactory.createItemAttributes(meatFeature.getItemType(), meatFeature.getQuantity(), meatFeature.getMaterial());
+								Entity meatItem = itemEntityFactory.create(meatItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
+								inventoryComponent.add(meatItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+								meatItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+							}
+
+							SkinFeature skinFeature = attributes.getRace().getFeatures().getSkin();
+							if (skinFeature != null && skinFeature.getItemType() != null) {
+								ItemEntityAttributes skinItemAttributes = itemEntityAttributesFactory.createItemAttributes(skinFeature.getItemType(), skinFeature.getQuantity(), skinFeature.getMaterial());
+								skinItemAttributes.setColor(ColoringLayer.SKIN_COLOR, attributes.getColor(ColoringLayer.SKIN_COLOR));
+								Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
+								inventoryComponent.add(skinItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+								skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+							}
+
+							BonesFeature bonesFeature = attributes.getRace().getFeatures().getBones();
+							if (bonesFeature != null) {
+								Body body = attributes.getBody();
+								int[] numberOfBonesPerPart = new int[BoneType.values().length];
+
+								for (BodyPart bodyPart : body.getAllWorkingBodyParts()) {
+									for (BoneType boneType : bodyPart.getPartDefinition().getBones()) {
+										numberOfBonesPerPart[boneType.ordinal()]++;
+									}
+								}
+
+								for (BoneType boneType : BoneType.values()) {
+									int quantity = numberOfBonesPerPart[boneType.ordinal()];
+									ItemType boneItemType;
+									switch (boneType) {
+										case LARGE -> boneItemType = largeBone;
+										case MEDIUM -> boneItemType = mediumBone;
+										case SMALL -> boneItemType = smallBone;
+										default -> boneItemType = null;
+									}
+
+									if (boneItemType != null && quantity > 0) {
+										ItemEntityAttributes boneItemAttributes = itemEntityAttributesFactory.createItemAttributes(boneItemType, quantity, bonesFeature.getMaterial());
+										Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
+										inventoryComponent.add(boneItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+										boneItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+									}
+								}
+
+							}
+
+							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, creatureInventoryEntity.get().entity);
+						}
+					}
+					break;
+				}
+				default: {
+					Logger.error("Not yet implemented job completion: " + completedJob.getType());
+				}
 			}
 		}
 
