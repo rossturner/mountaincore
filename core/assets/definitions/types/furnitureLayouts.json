@@ -1,4 +1,124 @@
 [ {
+  "uniqueName" : "carpentry-north-facing",
+  "rotatesToName" : "carpentry-east-facing",
+  "extraTiles" : [ {
+    "x" : -1,
+    "y" : 0
+  }, {
+    "x" : 1,
+    "y" : 0
+  }, {
+    "x" : -1,
+    "y" : -2
+  }, {
+    "x" : 0,
+    "y" : -2
+  }, {
+    "x" : 1,
+    "y" : -2
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 0,
+      "y" : -1
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
+  "uniqueName" : "carpentry-east-facing",
+  "rotatesToName" : "carpentry-south-facing",
+  "extraTiles" : [ {
+    "x" : 0,
+    "y" : 1
+  }, {
+    "x" : 0,
+    "y" : -1
+  }, {
+    "x" : -2,
+    "y" : 1
+  }, {
+    "x" : -2,
+    "y" : 0
+  }, {
+    "x" : -2,
+    "y" : -1
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : -1,
+      "y" : 0
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
+  "uniqueName" : "carpentry-south-facing",
+  "rotatesToName" : "carpentry-west-facing",
+  "extraTiles" : [ {
+    "x" : -1,
+    "y" : 0
+  }, {
+    "x" : 1,
+    "y" : 0
+  }, {
+    "x" : -1,
+    "y" : 2
+  }, {
+    "x" : 0,
+    "y" : 2
+  }, {
+    "x" : 1,
+    "y" : 2
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 0,
+      "y" : 1
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
+  "uniqueName" : "carpentry-west-facing",
+  "rotatesToName" : "carpentry-north-facing",
+  "extraTiles" : [ {
+    "x" : 0,
+    "y" : 1
+  }, {
+    "x" : 0,
+    "y" : -1
+  }, {
+    "x" : 2,
+    "y" : 1
+  }, {
+    "x" : 2,
+    "y" : 0
+  }, {
+    "x" : 2,
+    "y" : -1
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 1,
+      "y" : 0
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
   "uniqueName" : "1x1",
   "extraTiles" : [ ],
   "workspaces" : [ ],
@@ -1766,50 +1886,6 @@
     },
     "accessedFrom" : {
       "x" : 1,
-      "y" : -1
-    }
-  } ],
-  "specialTiles" : [ ]
-}, {
-  "uniqueName" : "carpentry-bench-layout",
-  "extraTiles" : [ {
-    "x" : -1,
-    "y" : 0
-  }, {
-    "x" : -2,
-    "y" : 0
-  }, {
-    "x" : 1,
-    "y" : 0
-  }, {
-    "x" : 2,
-    "y" : 0
-  }, {
-    "x" : 0,
-    "y" : 1
-  }, {
-    "x" : 1,
-    "y" : 1
-  }, {
-    "x" : 2,
-    "y" : 1
-  }, {
-    "x" : 0,
-    "y" : -2
-  }, {
-    "x" : -1,
-    "y" : -2
-  }, {
-    "x" : 1,
-    "y" : -2
-  } ],
-  "workspaces" : [ {
-    "location" : {
-      "x" : 0,
-      "y" : 0
-    },
-    "accessedFrom" : {
-      "x" : 0,
       "y" : -1
     }
   } ],

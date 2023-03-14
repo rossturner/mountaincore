@@ -1,0 +1,86 @@
+[ {
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-west-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 59.0,
+        "y" : 12.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "overrideRenderLayer" : 200
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -60.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -60.0,
+          "y" : 55.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 81.0,
+          "y" : -53.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 81.0,
+          "y" : 71.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-west-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "STONE_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-west-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_2-Wood_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-west-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  },
+  "overrideRenderLayer" : 200
+} ]

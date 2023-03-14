@@ -2,17 +2,17 @@
   "name" : "Carpentry_Bench",
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
   "blocksMovement" : true,
-  "defaultLayoutName" : "carpentry-bench-layout",
+  "defaultLayoutName" : "carpentry-north-facing",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Logs",
-      "quantity" : 2
+      "quantity" : 4
     }, {
       "itemTypeName" : "Resource-Planks",
       "quantity" : 3
     }, {
       "itemTypeName" : "Resource-Stone-Block",
-      "quantity" : 1
+      "quantity" : 2
     }, {
       "itemTypeName" : "Tool-Plane",
       "quantity" : 1

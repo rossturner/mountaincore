@@ -3025,23 +3025,23 @@
     }
   }
 }, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Base_Layer-Wood",
+  "uniqueName" : "Carpentry_Bench-carpentry-east-facing-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
+  "furnitureLayoutName" : "carpentry-east-facing",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Base_Layer-Wood_Down.png",
+      "filename" : "Carpentry_Bench-Carpentry-East-Facing-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -0.5,
-        "y" : -128.5,
+        "x" : -58.0,
+        "y" : 9.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3049,41 +3049,255 @@
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : -14.5,
-          "y" : 96.5,
+          "x" : 0.0,
+          "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : -14.5,
-          "y" : 96.5,
+          "x" : 0.0,
+          "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : -14.5,
-          "y" : 96.5,
+          "x" : 0.0,
+          "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
-        "type" : "FURNITURE_BELOW_LAYER_1",
+        "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
-          "x" : -29.5,
-          "y" : 96.5,
+          "x" : 0.0,
+          "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 62.0,
+          "y" : 4.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 62.0,
+          "y" : -55.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -70.0,
-          "y" : 16.0,
+          "x" : -80.0,
+          "y" : 68.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -80.0,
+          "y" : -52.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-east-facing-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-east-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-East-Facing-Furniture_Above_Layer_1-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-east-facing-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-east-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-East-Facing-Furniture_Above_Layer_2-Wood_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-east-facing-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-east-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-East-Facing-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_1",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-east-facing-Furniture_Above_Layer_4-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-east-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-East-Facing-Furniture_Above_Layer_4-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-north-facing-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-north-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-North-Facing-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -44.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 58.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 64.0,
+          "y" : 58.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -80.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
@@ -3091,15 +3305,410 @@
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
-          "y" : 16.0,
+          "y" : -80.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-north-facing-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-north-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-North-Facing-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-north-facing-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-north-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-North-Facing-Furniture_Above_Layer_2-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-north-facing-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-north-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-North-Facing-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_1",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-north-facing-Furniture_Above_Layer_4-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-north-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-North-Facing-Furniture_Above_Layer_4-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 83.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 200,
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_5",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 120.0,
+          "x" : 0.0,
+          "y" : -64.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -64.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : 60.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 62.0,
+          "y" : 60.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Upper_section-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 46.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_2-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_1",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Furniture_Above_Layer_4-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_4-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 200
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-south-facing-Furniture_Above_Layer_5-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_5",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-south-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-South-Facing-Furniture_Above_Layer_5-Wood_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -32.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-west-facing",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 59.0,
+        "y" : 12.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 200,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -60.0,
+          "y" : -8.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
@@ -3107,7 +3716,23 @@
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -60.0,
-          "y" : 120.0,
+          "y" : 55.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 81.0,
+          "y" : -53.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 81.0,
+          "y" : 71.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
@@ -3116,23 +3741,23 @@
     }
   }
 }, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_1-Wood",
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_1-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_1",
   "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
+  "furnitureLayoutName" : "carpentry-west-facing",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 13.5,
-        "y" : -84.0,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3143,23 +3768,22 @@
     }
   }
 }, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_2-Wood",
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_2-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_2",
   "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
+  "furnitureLayoutName" : "carpentry-west-facing",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Carpentry_Bench-1x1-Furniture_Above_Layer_2-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_1",
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 11.0,
-        "y" : -106.0,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3170,117 +3794,23 @@
     }
   }
 }, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_3-Wood",
+  "uniqueName" : "Carpentry_Bench-carpentry-west-facing-Furniture_Above_Layer_3-Wood",
   "type" : "FURNITURE_ABOVE_LAYER_3",
   "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
+  "furnitureLayoutName" : "carpentry-west-facing",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_2",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 11.5,
-        "y" : -91.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_1-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_1",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_1-Wood_Down.png",
+      "filename" : "Carpentry_Bench-Carpentry-West-Facing-Furniture_Above_Layer_3-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -100.5,
-        "y" : 12.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "FURNITURE_BELOW_LAYER_2",
-        "offsetPixels" : {
-          "x" : 119.5,
-          "y" : -12.0,
-          "unit" : false
-        },
-        "inheritAnimations" : [ ]
-      }, {
-        "type" : "FURNITURE_BELOW_LAYER_3",
-        "offsetPixels" : {
-          "x" : 109.5,
-          "y" : -12.0,
-          "unit" : false
-        },
-        "inheritAnimations" : [ ]
-      }, {
-        "type" : "FURNITURE_BELOW_LAYER_4",
-        "offsetPixels" : {
-          "x" : 139.5,
-          "y" : -12.0,
-          "unit" : false
-        },
-        "inheritAnimations" : [ ]
-      }, {
-        "type" : "FURNITURE_BELOW_LAYER_5",
-        "offsetPixels" : {
-          "x" : 109.5,
-          "y" : -12.0,
-          "unit" : false
-        },
-        "inheritAnimations" : [ ]
-      }, {
-        "type" : "FURNITURE_BELOW_LAYER_6",
-        "offsetPixels" : {
-          "x" : 139.5,
-          "y" : -12.0,
-          "unit" : false
-        },
-        "inheritAnimations" : [ ]
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_2-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_2",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_2-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -119.0,
-        "y" : 51.5,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3289,114 +3819,8 @@
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_3-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_3",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_3-Wood_Down.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -42.5,
-        "y" : 50.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_4-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_4",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_4-Wood_Down.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 78.5,
-        "y" : 91.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_5-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_5",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_5-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -3.0,
-        "y" : 19.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_6-Wood",
-  "type" : "FURNITURE_BELOW_LAYER_6",
-  "furnitureTypeName" : "Carpentry_Bench",
-  "furnitureLayoutName" : "carpentry-bench-layout",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_6-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 78.0,
-        "y" : 77.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
+  },
+  "overrideRenderLayer" : 200
 }, {
   "uniqueName" : "Charcoal-Clamp-Completed",
   "type" : "BASE_LAYER",

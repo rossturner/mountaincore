@@ -9,9 +9,11 @@ import com.google.inject.Guice;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.desktop.DesktopFileChooser;
 import org.lwjgl.opengl.Display;
+import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.assets.editor.AssetEditorApplication;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.persistence.FileUtils;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
 public class AssetEditorLauncher {
 
@@ -26,6 +28,10 @@ public class AssetEditorLauncher {
 		config.addIcon("assets/icon/editor-tool-icon-128x128.png", Files.FileType.Internal);
 		config.addIcon("assets/icon/editor-tool-icon-32x32.png", Files.FileType.Internal);
 		config.addIcon("assets/icon/editor-tool-icon-16x16.png", Files.FileType.Internal);
+
+		if (GlobalSettings.DEV_MODE) {
+			AssetsPackager.main();
+		}
 
 		AbstractModule launcherModule = new AbstractModule() {
 			@Override
