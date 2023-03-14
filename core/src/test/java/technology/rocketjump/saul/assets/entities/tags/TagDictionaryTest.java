@@ -12,7 +12,7 @@ public class TagDictionaryTest {
 
 	@Test
 	public void can_create_new_instances_of_tags() throws ReflectiveOperationException {
-		TagDictionary tagDictionary = new TagDictionary(new ReflectionsService());
+		TagDictionary tagDictionary = new TagDictionary(new ReflectionsService(null, null));
 
 		Tag tagInstance = tagDictionary.newInstanceByName("STOCKPILE");
 
