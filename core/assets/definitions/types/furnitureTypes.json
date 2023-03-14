@@ -565,7 +565,7 @@
   "name" : "Leatherworking_Station",
   "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
   "blocksMovement" : true,
-  "defaultLayoutName" : "leatherwork-bench-layout",
+  "defaultLayoutName" : "leatherworking-south",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {

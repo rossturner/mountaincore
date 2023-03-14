@@ -1,0 +1,146 @@
+[ {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_3",
+      "offsetPixels" : {
+        "x" : 70.0,
+        "y" : 13.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_4"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_5"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_6"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_7"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : -65.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -68.0,
+          "y" : 100.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -68.0,
+          "y" : -11.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -68.0,
+          "y" : 45.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -2.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_2-Wood_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "offsetPixels" : {
+        "y" : 1.0,
+        "unit" : true
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_4-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_4-Wood_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 1.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_5-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_6",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_5-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_3",
+      "offsetPixels" : {
+        "x" : -9.0,
+        "y" : 13.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Leatherworking_Station-leatherworking-west-Furniture_Above_Layer_5b-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_5",
+  "furnitureTypeName" : "Leatherworking_Station",
+  "furnitureLayoutName" : "leatherworking-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_6-Wood_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -15.0
+      }
+    }
+  }
+} ]

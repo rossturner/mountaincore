@@ -662,7 +662,7 @@
   } ],
   "output" : {
     "itemTypeName" : "Product-Waterskin",
-    "quantity" : 3
+    "quantity" : 1
   },
   "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "SKIN" ],

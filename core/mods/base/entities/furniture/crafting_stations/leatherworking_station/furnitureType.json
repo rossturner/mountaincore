@@ -2,7 +2,7 @@
   "name" : "Leatherworking_Station",
   "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
   "blocksMovement" : true,
-  "defaultLayoutName" : "leatherwork-bench-layout",
+  "defaultLayoutName" : "leatherworking-south",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",
@@ -24,9 +24,7 @@
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "CRAFT_ITEM", "HAULING" ],
     "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Kitchen-Knife" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1",
-      "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2",
-      "Resource-Planks", "WOOD_COLOR", "MISC_COLOR_3"],
-    "EXTRA_MATERIAL_TYPES": ["WOOD"]
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1", "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2", "Resource-Planks", "WOOD_COLOR", "MISC_COLOR_3" ],
+    "EXTRA_MATERIAL_TYPES" : [ "WOOD" ]
   }
 }
