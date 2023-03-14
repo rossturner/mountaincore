@@ -56,7 +56,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Stonemason_Bench-Stonemason-South-Furniture_Above_Layer_1-Stone_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "overrideRenderLayer" : 200
+      } ]
     }
   }
 }, {
@@ -87,4 +91,21 @@
       "coloringLayer" : "WOOD_COLOR"
     }
   }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-south-Furniture_Below_Layer_1-Stone",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-south",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-South-Furniture_Below_Layer_1-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : -195.0,
+        "y" : -3.0
+      }
+    }
+  },
+  "overrideRenderLayer" : 200
 } ]

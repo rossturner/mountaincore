@@ -7830,15 +7830,15 @@
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Stonemason_Bench-Stonemason-east-Base_Layer-Stone_Down.png",
+      "filename" : "Stonemason_Bench-Stonemason-East-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -28.0,
-        "y" : -39.0,
+        "x" : -61.0,
+        "y" : 71.0,
         "unit" : false
       },
       "flipX" : false,
@@ -7850,9 +7850,10 @@
           "y" : 0.0,
           "unit" : false
         },
+        "overrideRenderLayer" : 50,
         "inheritAnimations" : [ ]
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -7861,38 +7862,167 @@
         "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 62.0,
+          "y" : -1.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 62.0,
+          "y" : 59.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -2.0,
+          "y" : 78.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : -71.0,
           "y" : 0.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-east-Furniture_Above_Layer_1-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-east",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-East-Furniture_Above_Layer_1-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -159.0,
+        "y" : -1.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100,
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 150,
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 50
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-east-Furniture_Above_Layer_2-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-east",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-East-Furniture_Above_Layer_2-Stone_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 168.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 100
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-east-Furniture_Above_Layer_3-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-east",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-East-Furniture_Above_Layer_3-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 168.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 150
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-east-Furniture_Above_Layer_4-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-east",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-East-Furniture_Above_Layer_4-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }
@@ -8169,7 +8299,16 @@
       },
       "flipX" : false,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 200,
+        "inheritAnimations" : [ ]
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
@@ -8230,6 +8369,34 @@
     }
   }
 }, {
+  "uniqueName" : "Stonemason_Bench-stonemason-south-Furniture_Below_Layer_1-Stone",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-south",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-South-Furniture_Below_Layer_1-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -195.0,
+        "y" : -3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 200
+}, {
   "uniqueName" : "Stonemason_Bench-stonemason-west-Base_Layer-Stone",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Stonemason_Bench",
@@ -8238,15 +8405,15 @@
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Stonemason_Bench-Stonemason-west-Base_Layer-Stone_Down.png",
+      "filename" : "Stonemason_Bench-Stonemason-West-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -28.0,
-        "y" : -39.0,
+        "x" : 72.0,
+        "y" : 122.0,
         "unit" : false
       },
       "flipX" : false,
@@ -8260,43 +8427,44 @@
         },
         "inheritAnimations" : [ ]
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
         },
+        "overrideRenderLayer" : 200,
         "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -74.0,
+          "y" : -56.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -74.0,
+          "y" : 4.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -7.0,
+          "y" : -107.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 56.0,
+          "y" : -40.0,
           "unit" : false
         },
         "inheritAnimations" : [ ]
@@ -8304,6 +8472,131 @@
       "parentEntityAssets" : [ ]
     }
   }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-west-Furniture_Above_Layer_1-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-west",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-West-Furniture_Above_Layer_1-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -18.0,
+        "y" : 97.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-west-Furniture_Above_Layer_2-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-west",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-West-Furniture_Above_Layer_2-Stone_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-west-Furniture_Above_Layer_3-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-west",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-West-Furniture_Above_Layer_3-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-west-Furniture_Above_Layer_4-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-west",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-West-Furniture_Above_Layer_4-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 200
 }, {
   "uniqueName" : "Tanning_Frame-1x1 with lower workspaces-Base_Layer-Wood",
   "type" : "BASE_LAYER",
