@@ -131,6 +131,8 @@ public class I18NTranslatorTest {
 	private ParticleEffectTypeDictionary mockParticleEffectTypeDictionary;
 	@Mock
 	private GameMaterialDictionary mockMaterialDictionary;
+	@Mock
+	private GameClock mockClock;
 
 	@Before
 	public void setup() throws IOException {
@@ -153,6 +155,8 @@ public class I18NTranslatorTest {
 
 
 		when(mockGameContext.getRandom()).thenReturn(new RandomXS128(FIXED_SEED));
+		when(mockGameContext.getAreaMap()).thenReturn(mockMap);
+		when(mockGameContext.getGameClock()).thenReturn(mockClock);
 	}
 
 	@Test
@@ -165,7 +169,7 @@ public class I18NTranslatorTest {
 
 		I18nText description = translator.getDescription(entity);
 
-		assertThat(description.toString()).isEqualTo("Holmes Twoguild, journeyman blacksmith");
+		assertThat(description.toString()).isEqualTo("Holmes Threesmith, journeyman blacksmith");
 	}
 
 	@Test
@@ -454,7 +458,7 @@ public class I18NTranslatorTest {
 
 		I18nText result = translator.getDateTimeString(gameClock);
 
-		assertThat(result.toString()).isEqualTo("08:00, day 1, spring, year 1");
+		assertThat(result.toString()).isEqualTo("08:00, Day 1, Year 1");
 	}
 
 	@Test

@@ -32,15 +32,17 @@ public class MoveGroupHomeToTradeDepotAction extends Action {
 	public boolean isApplicable(GameContext gameContext) {
 		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
-			if (creatureGroup.getHomeLocation() == null) {
-				return true;
-			}
-			RoomTile roomTile = gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation()).getRoomTile();
-			if (roomTile == null) {
-				return true;
-			}
-			if (roomTile.getRoom().getComponent(TradeDepotBehaviour.class) == null) {
-				return true;
+			if (creatureGroup != null) {
+				if (creatureGroup.getHomeLocation() == null) {
+					return true;
+				}
+				RoomTile roomTile = gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation()).getRoomTile();
+				if (roomTile == null) {
+					return true;
+				}
+				if (roomTile.getRoom().getComponent(TradeDepotBehaviour.class) == null) {
+					return true;
+				}
 			}
 		}
 		return false;

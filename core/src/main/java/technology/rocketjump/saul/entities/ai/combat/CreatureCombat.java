@@ -24,7 +24,7 @@ public class CreatureCombat {
 	private DefenseInfo racialDefense = DefenseInfo.NONE;
 	private DefenseInfo equippedShield = DefenseInfo.NONE;
 	private ItemQuality equippedShieldQuality = ItemQuality.STANDARD;
-	private DefenseInfo equippedArmour;
+	private DefenseInfo equippedArmour = DefenseInfo.NONE;
 	private ItemQuality equippedArmourQuality = ItemQuality.STANDARD;
 
 
@@ -43,11 +43,6 @@ public class CreatureCombat {
 		equippedWeapon = attributes.getRace().getFeatures().getUnarmedWeapon();
 		if (equippedWeapon == null) {
 			equippedWeapon = WeaponInfo.UNARMED;
-		}
-
-		equippedArmour = attributes.getRace().getFeatures().getDefense();
-		if (equippedArmour == null) {
-			equippedArmour = DefenseInfo.NONE;
 		}
 
 		EquippedItemComponent equippedItemComponent = parentEntity.getComponent(EquippedItemComponent.class);

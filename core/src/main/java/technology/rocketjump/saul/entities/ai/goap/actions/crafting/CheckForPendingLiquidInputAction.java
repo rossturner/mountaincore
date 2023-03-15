@@ -20,7 +20,7 @@ public class CheckForPendingLiquidInputAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		if (parent.getAssignedJob().getCraftingRecipe() != null) {
+		if (parent.getAssignedJob() != null && parent.getAssignedJob().getCraftingRecipe() != null) {
 			Entity craftingStation = gameContext.getEntities().get(parent.getAssignedJob().getTargetId());
 			if (craftingStation != null && craftingStation.getBehaviourComponent() instanceof CraftingStationBehaviour craftingStationBehaviour) {
 				if (craftingStationBehaviour.getCurrentCraftingAssignment() != null) {
