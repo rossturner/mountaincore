@@ -429,7 +429,7 @@
     ],
     "output": {
       "itemTypeName": "Product-Waterskin",
-      "quantity": 3
+      "quantity": 1
     },
     "itemTypeRequiredName": "Tool-Kitchen-Knife",
     "materialTypesToCopyOver": ["SKIN"],

@@ -84,7 +84,7 @@
   "name" : "ARTISAN_WORKSTATION",
   "i18nKey" : "FURNITURE.ARTISAN_WORKSTATION",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x3L no rotation",
+  "defaultLayoutName" : "2x3L3R",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -258,7 +258,7 @@
   "name" : "BUTCHERY_WORKTOP",
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x1 with workspaces, no rotation",
+  "defaultLayoutName" : "2x1 with workspaces",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -280,12 +280,12 @@
   "name" : "Carpentry_Bench",
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
   "blocksMovement" : true,
-  "defaultLayoutName" : "carpentry-bench-layout",
+  "defaultLayoutName" : "carpentry-north-facing",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Logs",
-      "quantity" : 2,
+      "quantity" : 4,
       "liquid" : false
     }, {
       "itemTypeName" : "Resource-Planks",
@@ -293,7 +293,7 @@
       "liquid" : false
     }, {
       "itemTypeName" : "Resource-Stone-Block",
-      "quantity" : 1,
+      "quantity" : 2,
       "liquid" : false
     }, {
       "itemTypeName" : "Tool-Plane",
@@ -565,7 +565,7 @@
   "name" : "Leatherworking_Station",
   "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
   "blocksMovement" : true,
-  "defaultLayoutName" : "leatherwork-bench-layout",
+  "defaultLayoutName" : "leatherworking-south",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -712,7 +712,7 @@
   "name" : "Stonemason_Bench",
   "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
   "blocksMovement" : true,
-  "defaultLayoutName" : "stonemason-bench-layout",
+  "defaultLayoutName" : "stonemason-north",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -735,7 +735,8 @@
   },
   "tags" : {
     "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ],
-    "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ]
+    "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ],
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
