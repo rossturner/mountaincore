@@ -733,10 +733,7 @@ HAPPINESS_MODIFIER.POISONED,,Poisoned
 HAPPINESS_MODIFIER.SAW_DEAD_BODY,,Saw a dead body
 HAPPINESS_MODIFIER.SLEEPING_IN_RAIN,,Slept in the rain
 HAPPINESS_MODIFIER.SLEEPING_IN_SNOW,,Slept in the snow
-HAPPINESS_MODIFIER.SLEPT_IN_ENCLOSED_BEDROOM,,Slept in an enclosed bedroom
-HAPPINESS_MODIFIER.SLEPT_IN_LARGE_PRIVATE_BEDROOM,,"Slept in a spacious, private bedroom"
-HAPPINESS_MODIFIER.SLEPT_IN_SHARED_BEDROOM,,Shared a bedroom with others
-HAPPINESS_MODIFIER.SLEPT_IN_SMALL_BEDROOM,,Slept in a cramped bedroom
+HAPPINESS_MODIFIER.SLEPT_IN_BED,,Slept in a comfortable bed
 HAPPINESS_MODIFIER.SLEPT_ON_GROUND,,Slept on rough ground
 HAPPINESS_MODIFIER.SLEPT_OUTSIDE,,Slept under the stars
 HAPPINESS_MODIFIER.TITLE,,Happiness:
@@ -1324,21 +1321,21 @@ RESOURCE.WHEAT.SACK.NOUN,,Wheat (sack)
 RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack)
 
 ROOMS.ARMOURY,,Armoury
-ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here
+ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here.
 ROOMS.ARTISAN_WORKSHOP,,Artisan workshop
-ROOMS.ARTISAN_WORKSHOP.TOOLTIP,,Craft intricate items using bone or gems
+ROOMS.ARTISAN_WORKSHOP.TOOLTIP,,Intricate items are crafted here.
 ROOMS.BAKERY,,Bakery
 ROOMS.BAKERY.TOOLTIP,,Where bread dough is created and then baked into bread.
 ROOMS.BARRACKS,,Barracks
-ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train
+ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train.
 ROOMS.BEDROOM,,Bedroom
-ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep. They prefer to have individual bedrooms that are at least 9 tiles in size, and preferably at least 13 tiles in size."
+ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep."
 ROOMS.BREWERY,,Brewery
-ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy! Other alcoholic beverages will be implemented in the future.
+ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy!
 ROOMS.BRIDGE,,Bridge
 ROOMS.BRIDGE.TOOLTIP,,Placed across the river to allow access to the other side.
 ROOMS.CARPENTRY_WORKSHOP,,Carpentry workshop
-ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items.
+ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items
 ROOMS.COMPONENT.STOCKPILE.DESCRIPTION,,{{allocated}} of {{total}} spaces currently in use
 ROOMS.FARM,,Farm plot
 ROOMS.FARM.PLURAL,,Farm plots
@@ -1346,12 +1343,13 @@ ROOMS.FARM.TOOLTIP,,Grows crops using {{INGREDIENT.SEEDS.PLURAL}}. Must be place
 ROOMS.FEASTING_HALL,,Feasting hall
 ROOMS.FEASTING_HALL.TOOLTIP,,"A place for settlers to gather to eat, drink and be merry!"
 ROOMS.FUEL_REFINERY,,Fuel refinery
+ROOMS.FUEL_REFINERY.TOOLTIP,,Produces fuel from {{RESOURCE.LOGS.PLURAL}} or {{ORE.BITUMINOUS_COAL.NOUN}}.
 ROOMS.GRAVEYARD,,Graveyard
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.
 ROOMS.KITCHEN,,Kitchen
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.
 ROOMS.LEATHER_WORKSHOP,,Leatherworks
-ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide.
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.
 ROOMS.SMELTERY,,Smeltery
@@ -1371,6 +1369,7 @@ ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
 ROOMS.TRADING_DEPOT,,Trading depot
+ROOMS.TRADING_DEPOT.TOOLTIP,,Buy and sell items with visiting merchants.
 
 ROPE.HEMP-ROPE,,Hemp
 ROPE.AGED_ROPE,,Aged

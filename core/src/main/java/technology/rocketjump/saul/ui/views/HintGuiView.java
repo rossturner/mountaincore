@@ -137,14 +137,18 @@ public class HintGuiView implements GuiView, GameContextAware {
 				exitButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
+						if (displayedHint.getHintId().contains("tutorial")) {
+							ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
+								messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+								// On dismiss of initial tutorial, ensure all GUI areas are visible again
+								for (GuiArea guiArea : GuiArea.values()) {
+									messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
+								}
+							});
+							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+						} else {
 							messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
-							// On dismiss of initial tutorial, ensure all GUI areas are visible again
-							for (GuiArea guiArea : GuiArea.values()) {
-								messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
-							}
-						});
-						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+						}
 					}
 				});
 				upperLeftButtonsTable.add(exitButton);
