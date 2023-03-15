@@ -86,14 +86,14 @@ BODY_STRUCTURE.PAW,,Paw
 BODY_STRUCTURE.RIGHT-ARM,,Right arm
 BODY_STRUCTURE.RIGHT-HAND,,Right hand
 BODY_STRUCTURE.TORSO,,Chest
-BODY_STRUCTURE.TRUNK,,Trunk
 
 BONE.BONE,,Bone
 
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets
 CARCASS.GROUP,,Corpses
-CARCASS.HIDE,,Hide
+CARCASS.HIDE.NOUN,,Hide
+CARCASS.HIDE.PLURAL,,Hides
 CARCASS.MEAT.LARGE,,Meat (large)
 CARCASS.MEAT.MEDIUM,,Meat (medium)
 CARCASS.MEAT.SMALL,,Meat (small)
@@ -224,9 +224,11 @@ FUEL.SACK,,Fuel
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}."
 
 FURNITURE.ARCHERY_TARGET,,Archery target
-FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.
 FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
+FURNITURE.ARTISAN_WORKSTATION.TOOLTIP,,A crafting station for intricate items produced by an {{PROFESSION.ARTISAN}}.
 FURNITURE.ARMOUR_STAND,,Armour stand
+FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven
@@ -240,7 +242,7 @@ FURNITURE.BEER_TAPPER.TOOLTIP,,This is where fermented {{LIQUID.BEER}} is served
 FURNITURE.BLOOMERY_FURNACE,A simple type of furnace to smelt metal from ore,Bloomery furnace
 FURNITURE.BLOOMERY_FURNACE.TOOLTIP,,A {{PROFESSION.BLACKSMITH}} uses this hand-operated furnace to turn {{RESOURCE.ORE.CRUSHED.PLURAL}} and {{FUEL.SACK}} into {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}}.
 FURNITURE.BONE_CRAFTING_BENCH,,Bone crafting bench
-FURNITURE.BONE_CRAFTING_BENCH.TOOLTIP,,This is used to construct items out of bone
+FURNITURE.BONE_CRAFTING_BENCH.TOOLTIP,,This is used to construct items out of bone.
 FURNITURE.BREW_KETTLE,,Brew kettle
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop
@@ -250,6 +252,7 @@ FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
 FURNITURE.CAULDRON.TOOLTIP,,A cauldron is used to serve a large quantity of soup to hungry settlers. The soup is produced in a {{ROOMS.KITCHEN}} before being moved to a {{ROOMS.FEASTING_HALL}} for serving.
 FURNITURE.CHAIR,,Chair
+FURNITURE.CHAIR.TOOLTIP,,Settlers can sit here while using the {{FURNITURE.FEASTING_TABLE}}.
 FURNITURE.CHARCOAL_CLAMP,,Charcoal clamp
 FURNITURE.CHARCOAL_CLAMP.TOOLTIP,,"This is a pile of {{RESOURCE.LOGS.PLURAL}} covered with {{MATERIAL_TYPE.EARTH}} and slowly burned to produce {{ORE.CHARCOAL.NOUN}}, which can then be used as {{FUEL.SACK}}."
 FURNITURE.COKE_OVEN,,Coke oven
@@ -262,31 +265,33 @@ FURNITURE.DESCRIPTION.WAITING_FOR_ITEM,,Waiting for {{itemType.noun}}
 FURNITURE.DESCRIPTION.WAITING_FOR_LIQUID,,Waiting to be filled
 FURNITURE.DESCRIPTION.WAITING_FOR_MUSHROOM_SPAWN,,Waiting to be injected with mushroom spawn
 FURNITURE.DOUGH_PROOFING_TABLE,,Dough proofing table
-FURNITURE.DOUGH_PROOFING_TABLE.TOOLTIP,,Dough can be taken from {{FURNITURE.BAKERS_WORKTOP}} to store here before entering the {{FURNITURE.BAKING_OVEN}}
+FURNITURE.DOUGH_PROOFING_TABLE.TOOLTIP,,Dough can be taken from {{FURNITURE.BAKERS_WORKTOP}} to store here before entering the {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table
 FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your settlers will enjoy their meals at this table."
 FURNITURE.FERMENTATION_TANK,,Fermentation tank
 FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.
 FURNITURE.FLETCHERS_WORKBENCH,,Fletcher's workbench
-FURNITURE.FLETCHERS_WORKBENCH.TOOTIP,,This is a crafting station for ranged weapons and ammunition
+FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,,This is a crafting station for ranged weapons and ammunition
 FURNITURE.FLOUR_MILL,This is a table with a hand-operated flour mill stone on top,Gristmill
 FURNITURE.FLOUR_MILL.TOOLTIP,,The gristmill grinds {{VEGETABLE.WHEAT}} into {{RESOURCE.FLOUR.SACK.NOUN}} so that it can be used by a {{PROFESSION.CHEF}}.
 FURNITURE.FORGE,,Forge
 FURNITURE.FORGE.TOOLTIP,,This is where a {{PROFESSION.BLACKSMITH}} works with {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}} and {{FUEL.SACK}} to craft items and weapons.
 FURNITURE.GRAVE,,Grave
-FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be placed in {{MATERIAL_TYPE.EARTH}}.
+FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be dug into {{MATERIAL_TYPE.EARTH}}.
 FURNITURE.HITCHING_POST,,Hitching post
+FURNITURE.HITCHING_POST.TOOLTIP,,Visiting merchants will park their wagons here.
 FURNITURE.KITCHEN_WORKTOP,Simple piece of furniture in a kitchen used to hold ingredients on top of it,Kitchen worktop
 FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSION.CHEF}} to cook soup.
 FURNITURE.LANTERN,,Lantern
-FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.
-FURNITURE.LARGE_TABLE,,Large table
+FURNITURE.LANTERN.TOOLTIP,,A lantern provides light. This does not currently have an in-game effect.
 FURNITURE.LEATHERWORKING_STATION,,Leatherworking station
-FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins.
 FURNITURE.LEDGER_TABLE,,Ledger table
+FURNITURE.LEDGER_TABLE.TOOLTIP,,A landmark for the {{ROOMS.TRADING_DEPOT}}. This does not currently have an in-game effect.
 FURNITURE.LOOM,,Loom
+FURNITURE.LOOM.TOOLTIP,,Used to craft textiles such as {{PRODUCT.LINEN.NOUN}} from {{RESOURCE.HEMP.FIBRE.BUNDLE.PLURAL}}.
 FURNITURE.MALTING_STATION,,Malting station
-FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. "
+FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt."
 FURNITURE.MASH_TUN,,Mash tun
 FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.
 FURNITURE.MUSHROOM_LOG,,Mushroom log
@@ -304,20 +309,19 @@ FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resti
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.SINGLE_BED,,Bed
-FURNITURE.SINGLE_BED.TOOLTIP,,"A bed is the best place for a comfortable night’s rest. "
+FURNITURE.SINGLE_BED.TOOLTIP,,"A bed is the best place for a comfortable night’s rest."
 FURNITURE.SINGLE_DOOR,,Door
 FURNITURE.SINGLE_DOOR_FRAME,,Door frame
 FURNITURE.SLEEPING_SPOT,,Sleeping spot
 FURNITURE.SLEEPING_SPOT.TOOLTIP,,Your settlers will use this space to sleep on the floor. Not very comfortable!
-FURNITURE.SMALL_TABLE,,Small table
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.
-FURNITURE.STOOL,,Stool
 FURNITURE.TANNING_FRAME,,Tanning frame
-FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
+FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRODUCT.LEATHER.PLURAL}}.
 FURNITURE.TRAINING_DUMMY,,Training dummy
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.
 FURNITURE.TRADE_BANNER,,Banner
+FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.
 FURNITURE.WATERWHEEL,,Water Wheel
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
@@ -328,6 +332,7 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.
 FURNITURE.WAGON_PARKED,,Wagon
 FURNITURE.WEAPON_RACK,,Weapon Rack
+FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.
 FURNITURE.WELL,,Well
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system."
 FURNITURE.WINDMILL,,Windmill
@@ -337,7 +342,9 @@ FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.
 FURNITURE.INVADER_CAMPFIRE,,Campfire
 FURNITURE.IMPORT_PALLET,,Import pallet
+FURNITURE.IMPORT_PALLET.TOOLTIP,,Use this to determine which items to import to the room.
 FURNITURE.EXPORT_PALLET,,Export pallet
+FURNITURE.EXPORT_PALLET.TOOLTIP,,Use this to determine which items to export from the room.
 
 GEM.AMETHYST.ADJECTIVE,,Amethyst
 GEM.AMETHYST.NOUN,,Amethyst
@@ -1097,7 +1104,9 @@ PRODUCT.CAULDRON.PLURAL,,Cauldrons
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}."
 PRODUCT.CHEST.NOUN,,Chest
 PRODUCT.CHEST.PLURAL,,Chests
-PRODUCT.LEATHER,,Leather
+PRODUCT.CHEST.TOOLTIP,,Used to store coins for trading.
+PRODUCT.LEATHER.NOUN,,Leather
+PRODUCT.LEATHER.PLURAL,,Leather
 PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
 PRODUCT.LINEN.TOOLTIP,,"A roll of fabric, primarily used for bedding."

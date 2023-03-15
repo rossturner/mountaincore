@@ -41,7 +41,6 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
-import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -351,7 +350,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
 			}
 		});
-		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+		tooltipFactory.withTooltipText(furnitureButton, furnitureType.getI18nKey(), TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 
 		buttonContainer.setActor(furnitureButton);
 		return buttonContainer;
