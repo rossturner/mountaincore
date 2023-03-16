@@ -33,6 +33,8 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 			ByteBuffer empty = ByteBuffer.allocateDirect(0);
 			try {
 				steamUser.requestEncryptedAppTicket(empty);
+				// Sometimes doesn't hit callback, maybe already valid?
+				getEncryptedAppTicketFromUser();
 			} catch (SteamException e) {
 				if (GlobalSettings.DEV_MODE) {
 					Logger.error(e, "Error requesting Steam encrypted app ticket");
@@ -54,22 +56,30 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 	@Override
 	public void onEncryptedAppTicket(SteamResult result) {
 		if (result == SteamResult.OK) {
-			int[] ticketSize = new int[1];
-			try {
-				steamUser.getEncryptedAppTicket(ticketEncrypted, ticketSize);
-				Logger.info("Received Steam encrypted app ticket: {}", new String(ticketEncrypted.array()));
-				Logger.info("As base64 encoded: " + Base64.encodeBase64String(ticketEncrypted.array()));
-				isEncryptedAppTicketReady = true;
-				this.ticketSize = ticketSize[0];
-				messageDispatcher.dispatchMessage(MessageType.STEAM_ENCRYPTED_APP_TICKET_READY);
-			} catch (SteamException e) {
-				if (GlobalSettings.DEV_MODE) {
-					Logger.error(e, "Error getting Steam encrypted app ticket");
-				}
-			}
+			getEncryptedAppTicketFromUser();
 		} else {
 			if (GlobalSettings.DEV_MODE) {
 				Logger.error("Error requesting Steam encrypted app ticket: {}", result);
+			}
+		}
+	}
+
+	private void getEncryptedAppTicketFromUser() {
+		try {
+			int[] ticketSize = new int[1];
+			steamUser.getEncryptedAppTicket(ticketEncrypted, ticketSize);
+			this.ticketSize = ticketSize[0];
+			if (this.ticketSize > 0) {
+				Logger.info("Received Steam encrypted app ticket: {}", ticketEncrypted.toString());
+				byte[] ticketData = new byte[this.ticketSize];
+				ticketEncrypted.get(ticketData, 0, this.ticketSize);
+				Logger.info("As base64 encoded: " + Base64.encodeBase64String(ticketData));
+				isEncryptedAppTicketReady = true;
+				messageDispatcher.dispatchMessage(MessageType.STEAM_ENCRYPTED_APP_TICKET_READY);
+			}
+		} catch (SteamException e) {
+			if (GlobalSettings.DEV_MODE) {
+				Logger.error(e, "Error getting Steam encrypted app ticket");
 			}
 		}
 	}
