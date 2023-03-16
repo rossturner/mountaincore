@@ -165,6 +165,11 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		if (!hiddenGuiAreas.contains(GuiArea.MINIMAP)) {
 			lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		}
+		if (!hiddenGuiAreas.contains(GuiArea.RESOURCE_OVERVIEW)) {
+			resourceOverviewContainerTable.setVisible(true);
+		} else {
+			resourceOverviewContainerTable.setVisible(false);
+		}
 
 		switchView(currentViewName);
 	}
