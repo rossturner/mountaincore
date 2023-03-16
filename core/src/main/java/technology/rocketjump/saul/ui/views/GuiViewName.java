@@ -39,6 +39,6 @@ public enum GuiViewName {
 	HINTS,
 	MINIMAP,
 	NOTIFICATION,
-	TIME_DATE
-
+	TIME_DATE,
+	RESOURCE_OVERVIEW
 }
