@@ -17,6 +17,7 @@ public class StockpileGroup {
 	private String name;
 	private String i18nKey;
 	private String drawableName;
+	private String overviewDrawableName;
 	private String colorCode;
 	@JsonIgnore
 	private Color color = HexColors.POSITIVE_COLOR;
@@ -111,5 +112,13 @@ public class StockpileGroup {
 
 	public void setDrawableName(String drawableName) {
 		this.drawableName = drawableName;
+	}
+
+	public String getOverviewDrawableName() {
+		return overviewDrawableName;
+	}
+
+	public void setOverviewDrawableName(String overviewDrawableName) {
+		this.overviewDrawableName = overviewDrawableName;
 	}
 }

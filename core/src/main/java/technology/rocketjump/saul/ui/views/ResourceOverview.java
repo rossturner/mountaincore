@@ -1,8 +1,6 @@
 package technology.rocketjump.saul.ui.views;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Tree;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -62,7 +60,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
     @Override
     public void populate(Table containerTable) {
         this.containerTable = containerTable;
-        containerTable.debugAll();
     }
 
     @Override
@@ -73,12 +70,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     private void rebuildTree() {
         containerTable.clearChildren();
-
-        //scrollpane
-        Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
-//        tree.setIndentSpacing();
-        //TODO: spacing and padding
-
 
         //Stockpile groups sorted alphabetically
         List<TreeNodeValue> individualEntities = settlementItemTracker.getAll(false)
@@ -115,21 +106,47 @@ public class ResourceOverview implements GuiView, GameContextAware {
                         ArrayList::addAll);
 
 
+        //scrollpane
+        Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
+//        tree.setIndentSpacing();
+        //TODO: spacing and padding
+
+
+
+
         //todo: root icon
-
-
         //todo: sort me
-        //TODO: add stockpile group icons to json
         //todo tooltip for icon
         for (TreeNodeValue stockpileValue : byStockpile.stream()
                 .sorted(Comparator.comparing(s -> i18nTranslator.translate(s.stockpileGroup.getI18nKey())))
                 .toList()) {
-            Label stockpileLabel = new Label(String.valueOf(stockpileValue.count), mainGameSkin, "resource_overview_stockpile_label");
+            Label stockpileLabel = new Label(String.valueOf(stockpileValue.count), mainGameSkin);
             stockpileLabel.setAlignment(Align.left);
+            Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileValue.stockpileGroup.getOverviewDrawableName()));
+
+            tree.setIndentSpacing(stockpileImage.getWidth());
+
+
+            Table stockpileBackgroundTable = new Table();
+            stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
+
+//            Container<Table> backgroundContainer = new Container<>(stockpileBackgroundTable);
+            Table backgroundContainer = new Table();
+            backgroundContainer.add(new Container<>()).width(stockpileImage.getWidth() / 2.0f).expand();
+            backgroundContainer.add(stockpileBackgroundTable);
+
+            Table stockpileContentsTable = new Table();
+            stockpileBackgroundTable.left();
+            stockpileContentsTable.add(stockpileImage);
+            stockpileContentsTable.add(stockpileLabel).growX();
+
+            Stack stockpileStack = new Stack();
+            stockpileStack.add(backgroundContainer);
+            stockpileStack.add(stockpileContentsTable);
+
 
             Table stockpileTable = new Table();
-            stockpileTable.add(stockpileLabel); //TODO: stack this to overlap the icon
-//            stockpileTable.addListener(tree.getClickListener());
+            stockpileTable.add(stockpileStack);
 
             TreeNode stockpileNode = new TreeNode();
             stockpileNode.setActor(stockpileTable);
@@ -146,7 +163,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
             for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
                 Label itemTypeLabel = new Label(i18nTranslator.getItemDescription(itemTypeValue.count, null, itemTypeValue.itemType, null).toString(), mainGameSkin);
                 itemTypeLabel.setAlignment(Align.left);
-                itemTypesTable.add(itemTypeLabel).left().row();
+                itemTypesTable.add(itemTypeLabel).minWidth(350).left().row();
 
             }
             TreeNode itemTypeNode = new TreeNode();
