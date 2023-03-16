@@ -89,11 +89,9 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer, gameDialogMessageHandler);
 
 		containerTable = new Table();
-		containerTable.setFillParent(true);
 		containerTable.pad(10f); // Table edge padding
 		containerTable.left().bottom();
 
-		primaryStage.addActor(containerTable);
 
 		this.messageDispatcher = messageDispatcher;
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW);
@@ -133,15 +131,21 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		upperLeftContainerTable.add(hintContainerTable).top().left().pad(10).row();
 		upperLeftContainerTable.add(debugContainerTable).top().left().pad(10).row();
 		upperLeftContainerTable.add(resourceOverviewContainerTable).top().left().pad(10).row();
-		upperLeftContainerTable.setFillParent(true);
 
 		lowerRightContainerTable = new Table();
 		lowerRightContainerTable.right().bottom();
 		lowerRightContainerTable.setFillParent(true);
 
+		Table leftHandTable = new Table();
+		leftHandTable.setFillParent(true);
+		leftHandTable.left();
+		leftHandTable.add(upperLeftContainerTable).left().growY().row();
+		leftHandTable.add(containerTable).left();
+
+
+		primaryStage.addActor(leftHandTable);
 		primaryStage.addActor(lowerRightContainerTable);
 		primaryStage.addActor(upperRightContainerTable);
-		primaryStage.addActor(upperLeftContainerTable);
 		minimapGuiView.populate(minimapContainerTable);
 		timeDateGuiView.populate(timeAndDateContainerTable);
 		timeAndDateContainerTable.row();

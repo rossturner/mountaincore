@@ -11,6 +11,7 @@ import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -106,19 +107,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
                         ArrayList::addAll);
 
 
-        //scrollpane
         Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
-//        tree.setIndentSpacing();
-        //TODO: spacing and padding
-
-
-
 
         //todo: root icon
-        //todo: sort me
         //todo tooltip for icon
         for (TreeNodeValue stockpileValue : byStockpile.stream()
-                .sorted(Comparator.comparing(s -> i18nTranslator.translate(s.stockpileGroup.getI18nKey())))
+                .sorted(Comparator.comparing(s -> s.stockpileGroup.getSortOrder()))
                 .toList()) {
             Label stockpileLabel = new Label(String.valueOf(stockpileValue.count), mainGameSkin);
             stockpileLabel.setAlignment(Align.left);
@@ -130,7 +124,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
             Table stockpileBackgroundTable = new Table();
             stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
 
-//            Container<Table> backgroundContainer = new Container<>(stockpileBackgroundTable);
             Table backgroundContainer = new Table();
             backgroundContainer.add(new Container<>()).width(stockpileImage.getWidth() / 2.0f).expand();
             backgroundContainer.add(stockpileBackgroundTable);
@@ -175,7 +168,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
             tree.add(stockpileNode);
         }
 
-        containerTable.add(tree);
+        ScrollPane scrollPane = new EnhancedScrollPane(tree, mainGameSkin);
+        scrollPane.setScrollBarPositions(true, false);
+        scrollPane.setScrollbarsVisible(false);
+        scrollPane.setForceScroll(false, true);
+        containerTable.add(scrollPane);
+        scrollPane.debug();
     }
 
     private void foldNodeValue(ArrayList<TreeNodeValue> values, TreeNodeValue v, Predicate<TreeNodeValue> predicate) {
