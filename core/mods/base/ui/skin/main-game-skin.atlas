@@ -36,8 +36,7 @@ Inv_Overview_BG
   rotate: false
   xy: 1686, 2180
   size: 102, 102
-  split: 6, 5, 9, 9
-  pad: 5, 5, 9, 9
+  split: 10, 10, 18, 18
   orig: 102, 102
   offset: 0, 0
   index: -1

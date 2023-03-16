@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.ui.views;
 
-import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
@@ -29,15 +28,13 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final MainGameSkin mainGameSkin;
     private final SettlementItemTracker settlementItemTracker;
     private final I18nTranslator i18nTranslator;
-    private final MessageDispatcher messageDispatcher;
     private Table containerTable;
 
     @Inject
-    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher) {
+    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator) {
         this.mainGameSkin = guiSkinRepository.getMainGameSkin();
         this.settlementItemTracker = settlementItemTracker;
         this.i18nTranslator = i18nTranslator;
-        this.messageDispatcher = messageDispatcher;
     }
 
     @Override
@@ -80,6 +77,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
         //scrollpane
         Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
 //        tree.setIndentSpacing();
+        //TODO: spacing and padding
 
 
         //Stockpile groups sorted alphabetically
@@ -117,9 +115,11 @@ public class ResourceOverview implements GuiView, GameContextAware {
                         ArrayList::addAll);
 
 
+        //todo: root icon
 
 
         //todo: sort me
+        //TODO: add stockpile group icons to json
         //todo tooltip for icon
         for (TreeNodeValue stockpileValue : byStockpile.stream()
                 .sorted(Comparator.comparing(s -> i18nTranslator.translate(s.stockpileGroup.getI18nKey())))
@@ -133,24 +133,26 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
             TreeNode stockpileNode = new TreeNode();
             stockpileNode.setActor(stockpileTable);
-            stockpileNode.setValue(stockpileValue); //nfc if this has any meaning
+            stockpileNode.setValue(List.of(stockpileValue)); //nfc if this has any meaning
 
-            for (TreeNodeValue itemTypeValue : byItemType.stream()
+
+            List<TreeNodeValue> itemTypeValuesForStockpile = byItemType.stream()
                     .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileValue.stockpileGroup)
                     .sorted(Comparator.comparing(v -> i18nTranslator.translate(v.itemType.getI18nKey())))
-                    .toList()) {
+                    .toList();
 
+            Table itemTypesTable = new Table();
+            itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
+            for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
                 Label itemTypeLabel = new Label(i18nTranslator.getItemDescription(itemTypeValue.count, null, itemTypeValue.itemType, null).toString(), mainGameSkin);
-                Table itemTypeTable = new Table();
-                itemTypeTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
-                itemTypeTable.add(itemTypeLabel);
-
-                TreeNode itemTypeNode = new TreeNode();
-                itemTypeNode.setActor(itemTypeTable);
-                itemTypeNode.setValue(itemTypeValue);
-                stockpileNode.add(itemTypeNode);
+                itemTypeLabel.setAlignment(Align.left);
+                itemTypesTable.add(itemTypeLabel).left().row();
 
             }
+            TreeNode itemTypeNode = new TreeNode();
+            itemTypeNode.setActor(itemTypesTable);
+            itemTypeNode.setValue(itemTypeValuesForStockpile);
+            stockpileNode.add(itemTypeNode);
 
 
             tree.add(stockpileNode);
@@ -169,7 +171,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 }, () -> values.add(v));
     }
 
-    static class TreeNode extends Tree.Node<TreeNode, TreeNodeValue, Table> {
+    static class TreeNode extends Tree.Node<TreeNode, List<TreeNodeValue>, Table> {
 
     }
 
