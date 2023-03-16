@@ -271,7 +271,7 @@ FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your set
 FURNITURE.FERMENTATION_TANK,,Fermentation tank
 FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.
 FURNITURE.FLETCHERS_WORKBENCH,,Fletcher's workbench
-FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,,This is a crafting station for ranged weapons and ammunition
+FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,,This is a crafting station for ranged weapons and ammunition.
 FURNITURE.FLOUR_MILL,This is a table with a hand-operated flour mill stone on top,Gristmill
 FURNITURE.FLOUR_MILL.TOOLTIP,,The gristmill grinds {{VEGETABLE.WHEAT}} into {{RESOURCE.FLOUR.SACK.NOUN}} so that it can be used by a {{PROFESSION.CHEF}}.
 FURNITURE.FORGE,,Forge
