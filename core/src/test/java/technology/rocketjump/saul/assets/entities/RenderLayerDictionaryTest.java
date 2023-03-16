@@ -26,8 +26,8 @@ public class RenderLayerDictionaryTest {
 	@Test
 	public void testGetRenderingLayer_withHeldValues() {
 		assertThat(renderLayerDictionary.getRenderingLayer(CREATURE, DOWN, entityAssetTypeDictionary.getByName("CREATURE_BODY"))).isEqualTo(0);
-		assertThat(renderLayerDictionary.getRenderingLayer(CREATURE, DOWN, entityAssetTypeDictionary.getByName("BODY_CLOTHING"))).isEqualTo(1);
-		assertThat(renderLayerDictionary.getRenderingLayer(CREATURE, DOWN, entityAssetTypeDictionary.getByName("BODY_OUTLINE"))).isEqualTo(2);
+		assertThat(renderLayerDictionary.getRenderingLayer(CREATURE, DOWN, entityAssetTypeDictionary.getByName("BODY_CLOTHING"))).isEqualTo(4);
+		assertThat(renderLayerDictionary.getRenderingLayer(CREATURE, DOWN, entityAssetTypeDictionary.getByName("BODY_OUTLINE"))).isEqualTo(8);
 	}
 
 	@Test

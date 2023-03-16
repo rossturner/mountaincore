@@ -142,9 +142,7 @@ public class HappinessComponent implements InfrequentlyUpdatableComponent {
 
 		SLEPT_OUTSIDE(-20, 3.0),
 		SLEPT_ON_GROUND(-10, 5.0),
-		SLEPT_IN_SHARED_BEDROOM(-15, 5.0),
-		SLEPT_IN_ENCLOSED_BEDROOM(30, 5.0),
-		SLEPT_IN_SMALL_BEDROOM(-5, 5.0),
+		SLEPT_IN_BED(20, 5.0),
 
 		CAUGHT_IN_RAIN(-10, 0.5),
 		WORKED_IN_RAIN(-20, 0.5),

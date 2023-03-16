@@ -2,10 +2,12 @@ package technology.rocketjump.saul.mapping;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.GridPoint2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
@@ -31,6 +33,7 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.zones.Zone;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MapMessageHandlerTest {
@@ -74,6 +77,7 @@ public class MapMessageHandlerTest {
 
 	@Test
 	public void removeWall_joinsRegions_keepsZones() {
+		when(mockFloorType.getColorForHeightValue(Mockito.anyFloat())).thenReturn(Color.MAGENTA);
 		TiledMap map = new TiledMap(1, 5, 5, mockFloorType, GameMaterial.NULL_MATERIAL);
 
 		int region1 = map.createNewRegionId();

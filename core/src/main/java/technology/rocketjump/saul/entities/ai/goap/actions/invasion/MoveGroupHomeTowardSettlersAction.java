@@ -32,7 +32,8 @@ public class MoveGroupHomeTowardSettlersAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
+			creatureBehaviour.getCreatureGroup() != null) {
 			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
 			MapTile currentHomeTile = gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation());
 			if (currentHomeTile == null) {
