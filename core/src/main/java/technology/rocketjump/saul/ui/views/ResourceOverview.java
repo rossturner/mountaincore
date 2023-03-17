@@ -91,7 +91,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
         List<TreeNodeValue> byItemType = getSettlementItemTypeValues();
 
-
         // StockpileGroup Level
         List<TreeNodeValue> byStockpile = byItemType.stream()
                 .map(node -> new TreeNodeValue(node.stockpileGroup, null, node.count))
@@ -137,34 +136,13 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 .toList()) {
             StockpileGroup stockpileGroup = stockpileValue.stockpileGroup;
 
-            Label stockpileLabel = new Label(String.valueOf(stockpileValue.count), mainGameSkin);
-            stockpileLabel.setAlignment(Align.left);
             Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileGroup.getOverviewDrawableName()));
-            tooltipFactory.simpleTooltip(stockpileImage, stockpileGroup.getI18nKey(), TooltipLocationHint.ABOVE);
-
-            Table stockpileBackgroundTable = new Table();
-            stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
-
-            Table backgroundContainer = new Table();
-            backgroundContainer.add(new Container<>()).width(stockpileImage.getWidth() / 2.0f).expand();
-            backgroundContainer.add(stockpileBackgroundTable);
-
-            Table stockpileContentsTable = new Table();
-            stockpileBackgroundTable.left();
-            stockpileContentsTable.add(stockpileImage);
-            stockpileContentsTable.add(stockpileLabel).growX();
-
-            Stack stockpileStack = new Stack();
-            stockpileStack.add(backgroundContainer);
-            stockpileStack.add(stockpileContentsTable);
-
-
-            Table stockpileTable = new Table();
-            stockpileTable.add(stockpileStack);
 
             TreeNode stockpileNode = new TreeNode();
-            stockpileNode.setActor(stockpileTable);
+            stockpileNode.setActor(stockpileTable(stockpileGroup, stockpileValue.count, stockpileImage));
             stockpileNode.setValue(List.of(stockpileValue));
+
+
 
             List<TreeNodeValue> itemTypeValuesForStockpile = byItemType.stream()
                     .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup)
@@ -174,16 +152,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
             Table itemTypesTable = new Table();
             itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
             for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
-                I18nWordClass i18nWordClass = itemTypeValue.count > 0 ? PLURAL : NOUN;
-                I18nText itemTypeText = i18nTranslator.getTranslatedString(itemTypeValue.itemType.getI18nKey(), i18nWordClass);
-                I18nText labelText = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM", Map.of(
-                        "quantity", new I18nWord(String.valueOf(itemTypeValue.count)),
-                        "item", itemTypeText
-                ));
-                Label itemTypeLabel = new Label(labelText.toString(), mainGameSkin);
-                itemTypeLabel.setAlignment(Align.left);
-                itemTypesTable.add(itemTypeLabel).minWidth(350).left().row();
-
+                itemTypesTable.add(getItemTypeLabel(itemTypeValue)).minWidth(350).left().row();
             }
 
             Table itemTypesIndentedTable = new Table();
@@ -193,7 +162,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
             itemTypeNode.setActor(itemTypesIndentedTable);
             itemTypeNode.setValue(itemTypeValuesForStockpile);
             stockpileNode.add(itemTypeNode);
-
 
             rootNode.add(stockpileNode);
         }
@@ -206,6 +174,45 @@ public class ResourceOverview implements GuiView, GameContextAware {
         scrollPane.setForceScroll(false, true);
         scrollPane.layout(); //needed for first displaying scrollpane cuts off half of the root node, as it is fantastically stupid
         containerTable.add(scrollPane);
+    }
+
+    private Label getItemTypeLabel(TreeNodeValue itemTypeValue) {
+        I18nWordClass i18nWordClass = itemTypeValue.count > 0 ? PLURAL : NOUN;
+        I18nText itemTypeText = i18nTranslator.getTranslatedString(itemTypeValue.itemType.getI18nKey(), i18nWordClass);
+        I18nText labelText = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM", Map.of(
+                "quantity", new I18nWord(String.valueOf(itemTypeValue.count)),
+                "item", itemTypeText
+        ));
+        Label itemTypeLabel = new Label(labelText.toString(), mainGameSkin);
+        itemTypeLabel.setAlignment(Align.left);
+        return itemTypeLabel;
+    }
+
+    private Table stockpileTable(StockpileGroup stockpileGroup, int quantity, Image stockpileImage) {
+        Label stockpileLabel = new Label(String.valueOf(quantity), mainGameSkin);
+        stockpileLabel.setAlignment(Align.left);
+        tooltipFactory.simpleTooltip(stockpileImage, stockpileGroup.getI18nKey(), TooltipLocationHint.ABOVE);
+
+        Table stockpileBackgroundTable = new Table();
+        stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
+
+        Table backgroundContainer = new Table();
+        backgroundContainer.add(new Container<>()).width(stockpileImage.getWidth() / 2.0f).expand();
+        backgroundContainer.add(stockpileBackgroundTable);
+
+        Table stockpileContentsTable = new Table();
+        stockpileBackgroundTable.left();
+        stockpileContentsTable.add(stockpileImage);
+        stockpileContentsTable.add(stockpileLabel).growX();
+
+        Stack stockpileStack = new Stack();
+        stockpileStack.add(backgroundContainer);
+        stockpileStack.add(stockpileContentsTable);
+
+
+        Table stockpileTable = new Table();
+        stockpileTable.add(stockpileStack);
+        return stockpileTable;
     }
 
     private List<TreeNodeValue> getSettlementItemTypeValues() {
