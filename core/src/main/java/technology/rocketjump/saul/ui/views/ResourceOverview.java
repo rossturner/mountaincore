@@ -1,14 +1,19 @@
 package technology.rocketjump.saul.ui.views;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
@@ -32,13 +37,15 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final MainGameSkin mainGameSkin;
     private final SettlementItemTracker settlementItemTracker;
     private final I18nTranslator i18nTranslator;
+    private final MessageDispatcher messageDispatcher;
     private Table containerTable;
 
     @Inject
-    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator) {
+    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher) {
         this.mainGameSkin = guiSkinRepository.getMainGameSkin();
         this.settlementItemTracker = settlementItemTracker;
         this.i18nTranslator = i18nTranslator;
+        this.messageDispatcher = messageDispatcher;
     }
 
     @Override
@@ -77,44 +84,49 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private void rebuildTree() {
         containerTable.clearChildren();
 
-        //Stockpile groups sorted alphabetically
-        List<TreeNodeValue> individualEntities = settlementItemTracker.getAll(false)
-                .stream()
-                .map(entity -> {
-                    if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemEntityAttributes) {
-                        return itemEntityAttributes;
-                    } else {
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .map(attributes -> {
-                    final int totalQuantity = attributes.getQuantity();
-                    final ItemType itemType = attributes.getItemType();
-                    final StockpileGroup stockpileGroup = itemType.getStockpileGroup();
-                    return new TreeNodeValue(stockpileGroup, itemType, totalQuantity);
-                })
-                .toList();
-
-
-        // ItemType Level
-        List<TreeNodeValue> byItemType = individualEntities.stream()
-                .collect(ArrayList::new,
-                        (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup && existing.itemType == v.itemType),
-                        ArrayList::addAll);
+        List<TreeNodeValue> byItemType = getSettlementItemTypeValues();
 
 
         // StockpileGroup Level
-        List<TreeNodeValue> byStockpile = individualEntities.stream()
+        List<TreeNodeValue> byStockpile = byItemType.stream()
                 .map(node -> new TreeNodeValue(node.stockpileGroup, null, node.count))
                 .collect(ArrayList::new,
                         (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup),
                         ArrayList::addAll);
 
 
+        float iconSpacing = 2.0f;
         Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
+        tree.setIconSpacing(iconSpacing, iconSpacing);
+        tree.addListener(new ClickListener() {
+            boolean enteredIcon = false;
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                TreeNode overNode = tree.getOverNode();
+                if (overNode != null) {
+                    float rowX = overNode.getActor().getX();
+                    if (overNode.getIcon() != null) rowX -= iconSpacing + overNode.getIcon().getMinWidth();
+                    if (x < rowX) {
+                        if (!enteredIcon) {
+                            messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, GameCursor.SELECT);
+                            enteredIcon = true;
+                        }
+                    } else if (enteredIcon) {
+                        messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, null);
+                        enteredIcon = false;
+                    }
+                }
 
-        //todo: root icon
+                return true;
+            }
+        });
+
+        Table rootNodeTable = new Table();
+        rootNodeTable.add(new Image(mainGameSkin.getDrawable("Inv_Overview_Top_Level")));
+        TreeNode rootNode = new TreeNode();
+        rootNode.setActor(rootNodeTable);
+        tree.add(rootNode);
+
         //todo tooltip for icon
         for (TreeNodeValue stockpileValue : byStockpile.stream()
                 .sorted(Comparator.comparing(s -> s.stockpileGroup.getSortOrder()))
@@ -123,7 +135,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
             stockpileLabel.setAlignment(Align.left);
             Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileValue.stockpileGroup.getOverviewDrawableName()));
 
-            tree.setIndentSpacing(stockpileImage.getWidth());
+            tree.setIndentSpacing(stockpileImage.getWidth()); //todo might need to revisit this, design has mixed indenting
 
 
             Table stockpileBackgroundTable = new Table();
@@ -148,8 +160,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
             TreeNode stockpileNode = new TreeNode();
             stockpileNode.setActor(stockpileTable);
-            stockpileNode.setValue(List.of(stockpileValue)); //nfc if this has any meaning
-
+            stockpileNode.setValue(List.of(stockpileValue));
 
             List<TreeNodeValue> itemTypeValuesForStockpile = byItemType.stream()
                     .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileValue.stockpileGroup)
@@ -176,14 +187,43 @@ public class ResourceOverview implements GuiView, GameContextAware {
             stockpileNode.add(itemTypeNode);
 
 
-            tree.add(stockpileNode);
+            rootNode.add(stockpileNode);
         }
+
 
         ScrollPane scrollPane = new EnhancedScrollPane(tree, mainGameSkin);
         scrollPane.setScrollBarPositions(true, false);
         scrollPane.setScrollbarsVisible(false);
         scrollPane.setForceScroll(false, true);
+        scrollPane.layout(); //needed for first displaying scrollpane cuts off half of the root node, as it is fantastically stupid
         containerTable.add(scrollPane);
+    }
+
+    private List<TreeNodeValue> getSettlementItemTypeValues() {
+        List<TreeNodeValue> individualEntities = settlementItemTracker.getAll(false)
+                .stream()
+                .map(entity -> {
+                    if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemEntityAttributes) {
+                        return itemEntityAttributes;
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .map(attributes -> {
+                    final int totalQuantity = attributes.getQuantity();
+                    final ItemType itemType = attributes.getItemType();
+                    final StockpileGroup stockpileGroup = itemType.getStockpileGroup();
+                    return new TreeNodeValue(stockpileGroup, itemType, totalQuantity);
+                })
+                .toList();
+
+
+        // ItemType Level
+        return individualEntities.stream()
+                .collect(ArrayList::new,
+                        (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup && existing.itemType == v.itemType),
+                        ArrayList::addAll);
     }
 
     private void foldNodeValue(ArrayList<TreeNodeValue> values, TreeNodeValue v, Predicate<TreeNodeValue> predicate) {
@@ -196,11 +236,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 }, () -> values.add(v));
     }
 
-    static class TreeNode extends Tree.Node<TreeNode, List<TreeNodeValue>, Table> {
+    static class TreeNode extends Tree.Node<TreeNode, List<TreeNodeValue>, Table> { }
 
-    }
-
-    record TreeNodeValue(StockpileGroup stockpileGroup, ItemType itemType, int count) {
-
-    }
+    record TreeNodeValue(StockpileGroup stockpileGroup, ItemType itemType, int count) { }
 }
