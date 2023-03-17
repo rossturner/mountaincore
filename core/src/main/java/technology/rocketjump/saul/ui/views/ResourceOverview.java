@@ -34,6 +34,7 @@ import static technology.rocketjump.saul.ui.i18n.I18nWordClass.PLURAL;
 @Singleton
 public class ResourceOverview implements GuiView, GameContextAware {
 
+    public static final int OVERALL_INDENT_SPACING = 40;
     private final MainGameSkin mainGameSkin;
     private final SettlementItemTracker settlementItemTracker;
     private final I18nTranslator i18nTranslator;
@@ -135,9 +136,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
             stockpileLabel.setAlignment(Align.left);
             Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileValue.stockpileGroup.getOverviewDrawableName()));
 
-            tree.setIndentSpacing(stockpileImage.getWidth()); //todo might need to revisit this, design has mixed indenting
-
-
             Table stockpileBackgroundTable = new Table();
             stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
 
@@ -181,8 +179,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 itemTypesTable.add(itemTypeLabel).minWidth(350).left().row();
 
             }
+
+            Table itemTypesIndentedTable = new Table();
+            itemTypesIndentedTable.add(new Container<>()).width(stockpileImage.getWidth() - OVERALL_INDENT_SPACING);
+            itemTypesIndentedTable.add(itemTypesTable);
             TreeNode itemTypeNode = new TreeNode();
-            itemTypeNode.setActor(itemTypesTable);
+            itemTypeNode.setActor(itemTypesIndentedTable);
             itemTypeNode.setValue(itemTypeValuesForStockpile);
             stockpileNode.add(itemTypeNode);
 
@@ -190,6 +192,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
             rootNode.add(stockpileNode);
         }
 
+        tree.setIndentSpacing(OVERALL_INDENT_SPACING);
 
         ScrollPane scrollPane = new EnhancedScrollPane(tree, mainGameSkin);
         scrollPane.setScrollBarPositions(true, false);
