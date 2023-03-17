@@ -14,6 +14,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
@@ -39,14 +41,16 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final SettlementItemTracker settlementItemTracker;
     private final I18nTranslator i18nTranslator;
     private final MessageDispatcher messageDispatcher;
+    private final TooltipFactory tooltipFactory;
     private Table containerTable;
 
     @Inject
-    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher) {
+    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
         this.mainGameSkin = guiSkinRepository.getMainGameSkin();
         this.settlementItemTracker = settlementItemTracker;
         this.i18nTranslator = i18nTranslator;
         this.messageDispatcher = messageDispatcher;
+        this.tooltipFactory = tooltipFactory;
     }
 
     @Override
@@ -128,13 +132,15 @@ public class ResourceOverview implements GuiView, GameContextAware {
         rootNode.setActor(rootNodeTable);
         tree.add(rootNode);
 
-        //todo tooltip for icon
         for (TreeNodeValue stockpileValue : byStockpile.stream()
                 .sorted(Comparator.comparing(s -> s.stockpileGroup.getSortOrder()))
                 .toList()) {
+            StockpileGroup stockpileGroup = stockpileValue.stockpileGroup;
+
             Label stockpileLabel = new Label(String.valueOf(stockpileValue.count), mainGameSkin);
             stockpileLabel.setAlignment(Align.left);
-            Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileValue.stockpileGroup.getOverviewDrawableName()));
+            Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileGroup.getOverviewDrawableName()));
+            tooltipFactory.simpleTooltip(stockpileImage, stockpileGroup.getI18nKey(), TooltipLocationHint.ABOVE);
 
             Table stockpileBackgroundTable = new Table();
             stockpileBackgroundTable.setBackground(mainGameSkin.getDrawable("Inventory_Overview_Ribbon_BG"));
@@ -161,7 +167,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
             stockpileNode.setValue(List.of(stockpileValue));
 
             List<TreeNodeValue> itemTypeValuesForStockpile = byItemType.stream()
-                    .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileValue.stockpileGroup)
+                    .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup)
                     .sorted(Comparator.comparing(v -> i18nTranslator.translate(v.itemType.getI18nKey())))
                     .toList();
 
