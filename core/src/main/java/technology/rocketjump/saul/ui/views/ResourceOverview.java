@@ -42,7 +42,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final I18nTranslator i18nTranslator;
     private final MessageDispatcher messageDispatcher;
     private final TooltipFactory tooltipFactory;
+    private final Comparator<TreeNodeValue> treeOrder;
+
+
     private Table containerTable;
+    private TreeNode rootNode;
+    private Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
 
     @Inject
     public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
@@ -51,6 +56,15 @@ public class ResourceOverview implements GuiView, GameContextAware {
         this.i18nTranslator = i18nTranslator;
         this.messageDispatcher = messageDispatcher;
         this.tooltipFactory = tooltipFactory;
+
+        treeOrder = Comparator.comparing((TreeNodeValue v) -> v.stockpileGroup().getSortOrder())
+                .thenComparing((TreeNodeValue v) -> {
+                    if (v.itemType() == null) {
+                        return "";
+                    } else {
+                        return i18nTranslator.translate(v.itemType().getI18nKey());
+                    }
+                });
     }
 
     @Override
@@ -66,11 +80,13 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     @Override
     public void onContextChange(GameContext gameContext) {
+        stockpileGroupLabels.clear();
         rebuildTree();
     }
 
     @Override
     public void clearContextRelatedState() {
+        stockpileGroupLabels.clear();
         containerTable.clearChildren();
     }
 
@@ -82,22 +98,13 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     @Override
     public void update() {
-        //todo: use updatables pattern?
-
+        if (rootNode != null) {
+            updateTree(rootNode, getSettlementItemTypeValues());
+        }
     }
 
     private void rebuildTree() {
         containerTable.clearChildren();
-
-        List<TreeNodeValue> byItemType = getSettlementItemTypeValues();
-
-        // StockpileGroup Level
-        List<TreeNodeValue> byStockpile = byItemType.stream()
-                .map(node -> new TreeNodeValue(node.stockpileGroup, null, node.count))
-                .collect(ArrayList::new,
-                        (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup),
-                        ArrayList::addAll);
-
 
         float iconSpacing = 2.0f;
         Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
@@ -127,53 +134,93 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
         Table rootNodeTable = new Table();
         rootNodeTable.add(new Image(mainGameSkin.getDrawable("Inv_Overview_Top_Level")));
-        TreeNode rootNode = new TreeNode();
+        rootNode = new TreeNode();
         rootNode.setActor(rootNodeTable);
         tree.add(rootNode);
 
-        for (TreeNodeValue stockpileValue : byStockpile.stream()
-                .sorted(Comparator.comparing(s -> s.stockpileGroup.getSortOrder()))
-                .toList()) {
-            StockpileGroup stockpileGroup = stockpileValue.stockpileGroup;
-
-            Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileGroup.getOverviewDrawableName()));
-
-            TreeNode stockpileNode = new TreeNode();
-            stockpileNode.setActor(stockpileTable(stockpileGroup, stockpileValue.count, stockpileImage));
-            stockpileNode.setValue(List.of(stockpileValue));
-
-
-
-            List<TreeNodeValue> itemTypeValuesForStockpile = byItemType.stream()
-                    .filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup)
-                    .sorted(Comparator.comparing(v -> i18nTranslator.translate(v.itemType.getI18nKey())))
-                    .toList();
-
-            Table itemTypesTable = new Table();
-            itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
-            for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
-                itemTypesTable.add(getItemTypeLabel(itemTypeValue)).minWidth(350).left().row();
-            }
-
-            Table itemTypesIndentedTable = new Table();
-            itemTypesIndentedTable.add(new Container<>()).width(stockpileImage.getWidth() - OVERALL_INDENT_SPACING);
-            itemTypesIndentedTable.add(itemTypesTable);
-            TreeNode itemTypeNode = new TreeNode();
-            itemTypeNode.setActor(itemTypesIndentedTable);
-            itemTypeNode.setValue(itemTypeValuesForStockpile);
-            stockpileNode.add(itemTypeNode);
-
-            rootNode.add(stockpileNode);
-        }
+        updateTree(rootNode, getSettlementItemTypeValues());
 
         tree.setIndentSpacing(OVERALL_INDENT_SPACING);
-
         ScrollPane scrollPane = new EnhancedScrollPane(tree, mainGameSkin);
         scrollPane.setScrollBarPositions(true, false);
         scrollPane.setScrollbarsVisible(false);
         scrollPane.setForceScroll(false, true);
         scrollPane.layout(); //needed for first displaying scrollpane cuts off half of the root node, as it is fantastically stupid
         containerTable.add(scrollPane);
+    }
+
+    private void updateTree(TreeNode rootNode, List<TreeNodeValue> byItemType) { //todo: don't really need these args
+        List<TreeNodeValue> byStockpile = byItemType.stream()
+                .map(node -> new TreeNodeValue(node.stockpileGroup, null, node.count))
+                .collect(ArrayList::new,
+                        (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup),
+                        ArrayList::addAll);
+
+        if (byStockpile.isEmpty() && rootNode.hasChildren()) {
+            rootNode.clearChildren();
+        }
+
+        //hideous code to figure out inserting/removing nodes in the stockpile level of tree, without rebuilding whole tree
+        for (int i = 0; i < byStockpile.size(); i++) {
+            TreeNodeValue stockpileValue = byStockpile.get(i);
+            StockpileGroup stockpileGroup = stockpileValue.stockpileGroup;
+            Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileGroup.getOverviewDrawableName()));
+
+            if (rootNode.getChildren().size > i) {
+                TreeNode existingTreeNode = rootNode.getChildren().get(i);
+                TreeNodeValue existingValue = existingTreeNode.getValue().get(0);//list type is horrible, but needed for the layout "continuous" black bg
+                int orderComparison = treeOrder.compare(stockpileValue, existingValue);
+
+                if (orderComparison == 0) { //if same stockpile, then update
+                    stockpileGroupLabels.get(stockpileGroup).setText(stockpileValue.count);
+
+                    updateItemTypeLabels(stockpileGroup, stockpileImage, existingTreeNode, byItemType);
+                } else if (orderComparison < 0) { //if before entry, then insert child before
+                    TreeNode stockpileNode = new TreeNode();
+                    stockpileNode.setActor(stockpileTable(stockpileGroup, stockpileValue.count, stockpileImage));
+                    stockpileNode.setValue(List.of(stockpileValue));
+
+                    rootNode.insert(i, stockpileNode);
+                    i--; //to compare again
+                } else { //else delete tree node
+                    rootNode.remove(existingTreeNode);
+                    stockpileGroupLabels.remove(stockpileGroup);
+                    i--; //to compare again
+                }
+            } else { //append to end
+                TreeNode stockpileNode = new TreeNode();
+                stockpileNode.setActor(stockpileTable(stockpileGroup, stockpileValue.count, stockpileImage));
+                stockpileNode.setValue(List.of(stockpileValue));
+                rootNode.add(stockpileNode);
+
+                updateItemTypeLabels(stockpileGroup, stockpileImage, stockpileNode, byItemType);
+            }
+        }
+
+    }
+
+//todo: feels rubbish passing in the same image over and over to get the width, images probably hsould be singletons
+    private void updateItemTypeLabels(StockpileGroup stockpileGroup, Image stockpileImage, TreeNode stockpileNode, List<TreeNodeValue> allItemTypeValues) {
+        List<TreeNodeValue> itemTypeValuesForStockpile = allItemTypeValues.stream().filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup).toList();
+
+
+        Table itemTypesTable = new Table();
+        itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
+
+        Table itemTypesIndentedTable = new Table();
+        itemTypesIndentedTable.add(new Container<>()).width(stockpileImage.getWidth() - OVERALL_INDENT_SPACING);
+        itemTypesIndentedTable.add(itemTypesTable);
+        TreeNode itemTypeNode = new TreeNode();
+        itemTypeNode.setActor(itemTypesIndentedTable);
+        itemTypeNode.setValue(itemTypeValuesForStockpile);
+
+        //lazily clear child and re-add
+        stockpileNode.clearChildren();
+        stockpileNode.add(itemTypeNode);
+
+        for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
+            itemTypesTable.add(getItemTypeLabel(itemTypeValue)).minWidth(350).left().row();
+        }
     }
 
     private Label getItemTypeLabel(TreeNodeValue itemTypeValue) {
@@ -191,6 +238,8 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private Table stockpileTable(StockpileGroup stockpileGroup, int quantity, Image stockpileImage) {
         Label stockpileLabel = new Label(String.valueOf(quantity), mainGameSkin);
         stockpileLabel.setAlignment(Align.left);
+        stockpileGroupLabels.put(stockpileGroup, stockpileLabel);
+
         tooltipFactory.simpleTooltip(stockpileImage, stockpileGroup.getI18nKey(), TooltipLocationHint.ABOVE);
 
         Table stockpileBackgroundTable = new Table();
@@ -208,7 +257,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
         Stack stockpileStack = new Stack();
         stockpileStack.add(backgroundContainer);
         stockpileStack.add(stockpileContentsTable);
-
 
         Table stockpileTable = new Table();
         stockpileTable.add(stockpileStack);
@@ -235,11 +283,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 .toList();
 
 
-        // ItemType Level
-        return individualEntities.stream()
+        ArrayList<TreeNodeValue> leaves = individualEntities.stream()
                 .collect(ArrayList::new,
                         (values, v) -> foldNodeValue(values, v, existing -> existing.stockpileGroup == v.stockpileGroup && existing.itemType == v.itemType),
                         ArrayList::addAll);
+        //java type erasure is ugly
+        return leaves.stream().sorted(treeOrder).toList();
     }
 
     private void foldNodeValue(ArrayList<TreeNodeValue> values, TreeNodeValue v, Predicate<TreeNodeValue> predicate) {
