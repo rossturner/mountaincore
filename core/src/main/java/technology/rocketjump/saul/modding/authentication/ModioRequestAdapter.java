@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.*;
 import org.apache.commons.codec.binary.Base64;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
 @Singleton
 public class ModioRequestAdapter {
@@ -55,6 +57,9 @@ public class ModioRequestAdapter {
 				.post(formBody)
 				.build();
 
+		if (GlobalSettings.DEV_MODE) {
+			Logger.debug("Steam Auth Request: " + request.toString());
+		}
 		client.newCall(request).enqueue(callback);
 	}
 

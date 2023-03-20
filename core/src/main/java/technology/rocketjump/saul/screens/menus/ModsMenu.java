@@ -521,6 +521,9 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 				Logger.debug("Not authenticated with Mod.io");
 			}
 			if (SteamAPI.isSteamRunning() && steamUserManager.isEncryptedAppTicketReady()) {
+				if (GlobalSettings.DEV_MODE) {
+					Logger.debug("Attempting authentication with Steam");
+				}
 				modioAuthManager.authenticateWithSteam(steamUserManager.getEncryptedAppTicket(), modioTermsConditions.isTermsAccepted(), () -> {
 					// on success
 					if (GlobalSettings.DEV_MODE) {
@@ -571,11 +574,15 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	}
 
 	private void doRefreshMods() {
-
+		if (GlobalSettings.DEV_MODE) {
+			Logger.debug("TODO: Full refresh of mods");
+		}
 	}
 
 	private void refreshLocalModsOnly() {
-
+		if (GlobalSettings.DEV_MODE) {
+			Logger.debug("TODO: Local only refresh of mods");
+		}
 	}
 
 	private class DraggableModSource extends DragAndDrop.Source {

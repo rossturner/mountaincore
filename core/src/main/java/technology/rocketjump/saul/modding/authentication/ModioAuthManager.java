@@ -89,10 +89,10 @@ public class ModioAuthManager {
 					onCompletion.run();
 				} else {
 					JSONObject responseBody = JSON.parseObject(response.body().string());
-					if (response.code() == HttpStatus.SC_FORBIDDEN && responseBody.getIntValue("error_ref") == MODIO_ERROR_REFERENCE_TERMS_ACCEPTANCE_REQUIRED) {
+					if (response.code() == HttpStatus.SC_FORBIDDEN && responseBody.getJSONObject("error").getIntValue("error_ref") == MODIO_ERROR_REFERENCE_TERMS_ACCEPTANCE_REQUIRED) {
 						onTermsRequired.run();
 					} else {
-						Logger.error("Failed request to mod.io to authenticate with Steam: " + response.body().string());
+						Logger.error("Failed request to mod.io to authenticate with Steam: " + responseBody);
 						onError.run();
 					}
 				}

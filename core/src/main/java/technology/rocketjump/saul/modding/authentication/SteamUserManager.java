@@ -17,6 +17,7 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 	private final MessageDispatcher messageDispatcher;
 	private SteamUser steamUser;
 	private ByteBuffer ticketEncrypted = ByteBuffer.allocateDirect(1024);
+	private byte[] ticketData;
 	private boolean isEncryptedAppTicketReady = false;
 	private int ticketSize;
 
@@ -64,8 +65,6 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 	}
 
 	public byte[] getEncryptedAppTicket() {
-		byte[] ticketData = new byte[this.ticketSize];
-		ticketEncrypted.get(ticketData, 0, this.ticketSize);
 		return ticketData;
 	}
 
@@ -80,6 +79,9 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 			steamUser.getEncryptedAppTicket(ticketEncrypted, ticketSize);
 			this.ticketSize = ticketSize[0];
 			if (this.ticketSize > 0) {
+				ticketData = new byte[this.ticketSize];
+				ticketEncrypted.get(ticketData, 0, this.ticketSize);
+
 				Logger.info("Received Steam encrypted app ticket: {}", ticketEncrypted.toString());
 				Logger.info("As base64 encoded: " + Base64.encodeBase64String(getEncryptedAppTicket()));
 				isEncryptedAppTicketReady = true;
