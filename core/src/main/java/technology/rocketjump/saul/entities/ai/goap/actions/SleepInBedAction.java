@@ -27,7 +27,8 @@ import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositio
 import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.ON_GROUND;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.*;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SLEPT_IN_BED;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SLEPT_ON_GROUND;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
 /**
@@ -62,22 +63,9 @@ public class SleepInBedAction extends SleepOnFloorAction {
 			SleepingPositionComponent sleepingPositionComponent = assignedFurniture.getComponent(SleepingPositionComponent.class);
 			if (sleepingPositionComponent.getBedCreaturePosition().equals(ON_GROUND)) {
 				parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_ON_GROUND);
-			}
-
-			if (bedroom == null || bedroomIsShared(bedroom, gameContext)) {
-				parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_IN_SHARED_BEDROOM);
-				if (bedroom != null && bedroomIsSmall(bedroom)) {
-					parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_IN_SMALL_BEDROOM);
-				}
 			} else {
-				if (bedroom.isFullyEnclosed()) {
-					parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_IN_ENCLOSED_BEDROOM);
-				}
-				if (bedroomIsSmall(bedroom)) {
-					parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_IN_SMALL_BEDROOM);
-				}
+				parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_IN_BED);
 			}
-
 
 			checkForWakingUp(gameContext);
 

@@ -15,7 +15,6 @@ import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
-import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -105,7 +104,8 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 					}
 				}
 			});
-			tooltipFactory.simpleTooltip(roomButton, roomType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+			tooltipFactory.withTooltipText(roomButton, roomType.getI18nKey(), TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 
 			Container<Button> buttonContainer = new Container<>();
 			buttonContainer.setBackground(skin.getDrawable("room_bg_small"));

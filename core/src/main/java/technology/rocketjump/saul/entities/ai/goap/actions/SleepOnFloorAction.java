@@ -35,7 +35,8 @@ import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.DRINK;
 import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.FOOD;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.*;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SLEPT_ON_GROUND;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SLEPT_OUTSIDE;
 import static technology.rocketjump.saul.entities.components.creature.NeedsComponent.MAX_NEED_VALUE;
 import static technology.rocketjump.saul.mapping.tile.MapTile.NULL_TILE;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
@@ -58,11 +59,6 @@ public class SleepOnFloorAction extends Action {
 		HappinessComponent happinessComponent = parent.parentEntity.getComponent(HappinessComponent.class);
 		if (happinessComponent != null) {
 			happinessComponent.add(SLEPT_ON_GROUND);
-
-			MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
-			if (currentTile != null && currentTile.hasRoom() && currentTile.getRoomTile().getRoom().isFullyEnclosed()) {
-				happinessComponent.add(SLEPT_IN_ENCLOSED_BEDROOM);
-			}
 		}
 
 		checkForWakingUp(gameContext);

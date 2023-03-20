@@ -23,7 +23,6 @@ import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
-import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
@@ -36,7 +35,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.FullscreenM
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
 
 @Singleton
-public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
+public class GraphicsOptionsTab implements OptionsTab {
 
 	private final MessageDispatcher messageDispatcher;
 	private final SoundAssetDictionary soundAssetDictionary;
@@ -71,12 +70,11 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 		this.sliderSoundAsset = soundAssetDictionary.getByName("Slider");
 		this.widgetFactory = widgetFactory;
 		this.tooltipFactory = tooltipFactory;
-
-		rebuildUI();
 	}
 
 	@Override
 	public void populate(Table menuTable) {
+		rebuildUI();
 		menuTable.add(fullscreenSelect).padBottom(48f).row();
 		menuTable.add(resolutionSelect).padBottom(48f).row();
 		menuTable.add(uiScaleLabel).spaceBottom(30f).row();
@@ -118,7 +116,6 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 		);
 	}
 
-	@Override
 	public void rebuildUI() {
 		fullscreenSelect = new SelectBox<>(skin);
 		fullscreenSelect.setAlignment(Align.center);
@@ -153,6 +150,7 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 			public void changed(ChangeEvent event, Actor actor) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				Resolution selectedResolution = resolutionSelect.getSelected();
+				DisplaySettings.currentResolution = selectedResolution;
 				userPreferences.setPreference(UserPreferences.PreferenceKey.DISPLAY_RESOLUTION, selectedResolution.toString());
 				if (!restartRequiredNotified) {
 					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);

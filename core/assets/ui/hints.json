@@ -54,6 +54,16 @@
     "quantity" : 0
   } ]
 }, {
+  "hintId" : "pre-spawn",
+  "i18nKeys" : [ "TUTORIAL.START.INTRO_1", "TUTORIAL.START.INTRO_2", "HINT.WELCOME.PRE_SPAWN" ],
+  "onShow" : [ ],
+  "progressDescriptors" : [ ],
+  "actions" : [ ],
+  "triggers" : [ {
+    "triggerType" : "ON_GAME_START",
+    "quantity" : 0
+  } ]
+}, {
   "hintId" : "tutorial_start",
   "i18nKeys" : [ "TUTORIAL.START.INTRO_1", "TUTORIAL.START.INTRO_2" ],
   "onShow" : [ {

@@ -13,10 +13,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceBehaviour;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -57,9 +59,26 @@ public class AssignedGoalTest {
 	@Mock
 	private RaceDictionary mockRaceDictionary;
 	private Race stubRace;
+	@Mock
+	private Schedule mockSchedule;
+	@Mock
+	private CreatureGroup mockCreatureGroup;
 
 	@Before
 	public void setUp() throws Exception {
+		when(mockMap.getNearestTiles(any(Vector2.class))).thenReturn(new Array<>());
+		when(mockMap.getTile(any(Vector2.class))).thenReturn(mockTile);
+
+		when(mockTile.getFloor()).thenReturn(new TileFloor(NULL_FLOOR, GameMaterial.NULL_MATERIAL));
+		stubRace = new Race();
+		stubRace.setBodyShapes(List.of());
+		RaceBehaviour stubBehaviour = new RaceBehaviour();
+		stubBehaviour.setSchedule(mockSchedule);
+		stubRace.setBehaviour(stubBehaviour);
+		when(mockRaceDictionary.getByName(anyString())).thenReturn(stubRace);
+
+		when(mockSchedule.getCurrentApplicableCategories(any())).thenReturn(List.of(ScheduleCategory.ANY));
+
 		Injector injector = Guice.createInjector((binder) -> {
 			binder.bind(EntityAssetUpdater.class).toInstance(mockAssetUpdater);
 			binder.bind(ItemEntityAttributesFactory.class).toInstance(mockItemEntityAttributesFactory);
@@ -71,13 +90,6 @@ public class AssignedGoalTest {
 		gameContext.setGameClock(new GameClock());
 		gameContext.setAreaMap(mockMap);
 
-		when(mockMap.getNearestTiles(any(Vector2.class))).thenReturn(new Array<>());
-		when(mockMap.getTile(any(Vector2.class))).thenReturn(mockTile);
-
-		when(mockTile.getFloor()).thenReturn(new TileFloor(NULL_FLOOR, GameMaterial.NULL_MATERIAL));
-		stubRace = new Race();
-		stubRace.setBodyShapes(List.of());
-		when(mockRaceDictionary.getByName(anyString())).thenReturn(stubRace);
 
 		this.goalDictionary = injector.getInstance(GoalDictionary.class);
 		this.i18nTranslator = injector.getInstance(I18nTranslator.class);
@@ -85,7 +97,6 @@ public class AssignedGoalTest {
 		this.roomStore = injector.getInstance(RoomStore.class);
 
 		this.entity = injector.getInstance(SettlerFactory.class).create(new Vector2(), NULL_PROFESSION, NULL_PROFESSION, gameContext, true);
-
 	}
 
 	@Test

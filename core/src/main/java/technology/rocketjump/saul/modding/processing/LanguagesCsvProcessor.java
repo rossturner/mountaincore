@@ -63,6 +63,7 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 
 					CSVParser parsedCsv = CSVParser.parse(csvFile.toFile(), Charset.forName("UTF-8"), CSVFormat.DEFAULT.withFirstRecordAsHeader());
 					Map<String, Integer> columnIndices = parsedCsv.getHeaderMap();
+					Set<String> encounteredKeys = new HashSet<>();
 
 					for (CSVRecord csvRecord : parsedCsv.getRecords()) {
 						String key = csvRecord.get(columnIndices.get("KEY"));
@@ -73,6 +74,10 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 						if (csvRecord.size() <= columnIndices.get(language.getLabelEn().toUpperCase())) {
 							throw new ModLoadingException(String.format("Not enough columns for language %s on line %s", language.getLabelEn(), csvRecord));
 						}
+						if (encounteredKeys.contains(key)) {
+							Logger.error(String.format("Duplicate key of %s in %s", key, csvFile.toAbsolutePath()));
+						}
+						encounteredKeys.add(key);
 
 						String value = csvRecord.get(columnIndices.get(language.getLabelEn().toUpperCase()));
 

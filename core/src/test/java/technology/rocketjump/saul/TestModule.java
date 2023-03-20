@@ -23,13 +23,13 @@ public class TestModule extends AbstractModule {
 	private final EntityAssetUpdater mockEntityAssetUpdater = mock(EntityAssetUpdater.class);
 
 	public TestModule() {
-		when(mockTextureAtlasRepository.get(any())).thenReturn(mockTextureAtlas);
+		lenient().when(mockTextureAtlasRepository.get(any())).thenReturn(mockTextureAtlas);
 
 		Sprite sprite = new Sprite();
-		when(mockTextureAtlas.createSprite(anyString())).thenReturn(sprite);
+		lenient().when(mockTextureAtlas.createSprite(anyString())).thenReturn(sprite);
 		Array<Sprite> spriteArray = new Array<>();
 		spriteArray.add(sprite);
-		when(mockTextureAtlas.createSprites(anyString())).thenReturn(spriteArray);
+		lenient().when(mockTextureAtlas.createSprites(anyString())).thenReturn(spriteArray);
 	}
 
 	@Override

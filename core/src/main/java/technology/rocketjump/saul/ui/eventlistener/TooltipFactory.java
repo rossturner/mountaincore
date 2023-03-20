@@ -14,6 +14,7 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 import static technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint.ABOVE;
@@ -96,6 +97,22 @@ public class TooltipFactory {
 		TooltipBackground(String tenPatchName) {
 			this.tenPatchName = tenPatchName;
 		}
+	}
+
+	public void withTooltipText(Actor parentActor, String i18nKey, TooltipBackground tooltipBackground) {
+		Table tooltipTable = new Table();
+		tooltipTable.defaults().padBottom(30);
+
+		String headerText = i18nTranslator.getTranslatedString(i18nKey).toString();
+		// TODO use different text style for light background
+		tooltipTable.add(new Label(headerText, skin.get("complex-tooltip-header", Label.LabelStyle.class))).center().row();
+
+		String itemDescriptionText = i18nTranslator.getTranslatedString(i18nKey, I18nWordClass.TOOLTIP).toString();
+		Label descriptionLabel = new Label(itemDescriptionText, skin);
+		descriptionLabel.setWrap(true);
+		tooltipTable.add(descriptionLabel).width(700).center().row();
+
+		complexTooltip(parentActor, tooltipTable, tooltipBackground);
 	}
 
 	public void complexTooltip(Actor parentActor, Actor tooltipContents, TooltipBackground background) {

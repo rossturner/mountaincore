@@ -21,6 +21,7 @@ import technology.rocketjump.saul.ui.hints.model.Hint;
 import technology.rocketjump.saul.ui.hints.model.HintAction;
 import technology.rocketjump.saul.ui.hints.model.HintProgress;
 import technology.rocketjump.saul.ui.hints.model.HintProgressDescriptor;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -38,7 +39,7 @@ import static technology.rocketjump.saul.ui.hints.model.HintAction.HintActionTyp
 import static technology.rocketjump.saul.ui.hints.model.HintTrigger.HintTriggerType.ON_SETTLEMENT_SPAWNED;
 
 @Singleton
-public class HintGuiView implements GuiView, GameContextAware {
+public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 
 	private static final float UPDATE_PERIOD = 1.23f;
 	private static final HintAction DISMISS_ACTION = new HintAction();
@@ -57,7 +58,6 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private List<HintProgress> currentProgress = new ArrayList<>();
 
 	private float timeSinceLastUpdate = 0f;
-	private final Label.LabelStyle defaultLabelStyle;
 
 	static {
 		DISMISS_ACTION.setButtonTextI18nKey("HINT.BUTTON.DISMISS");
@@ -78,7 +78,6 @@ public class HintGuiView implements GuiView, GameContextAware {
 		this.gameDialogDictionary = gameDialogDictionary;
 
 		layoutTable = new Table(uiSkin);
-		defaultLabelStyle = uiSkin.get("white_text_default-font-19", Label.LabelStyle.class);
 	}
 
 
@@ -109,18 +108,19 @@ public class HintGuiView implements GuiView, GameContextAware {
 		}
 
 		if (!newProgress.equals(currentProgress)) {
-			doUpdate();
+			rebuildUI();
 		}
 	}
 
-	private void doUpdate() {
+	@Override
+	public void rebuildUI() {
 		currentProgress.clear();
 
 		layoutTable.clearChildren();
-		if (hintsMinimised) {
+		if (hintsMinimised && !displayedHints.isEmpty()) {
 			Button button = buildButton("TUTORIAL.SHOW_LABEL", true, () -> {
 				HintGuiView.this.hintsMinimised = false;
-				HintGuiView.this.doUpdate();
+				HintGuiView.this.rebuildUI();
 			});
 			layoutTable.add(button).pad(40).row();
 		} else {
@@ -137,14 +137,18 @@ public class HintGuiView implements GuiView, GameContextAware {
 				exitButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
+						if (displayedHint.getHintId().contains("tutorial")) {
+							ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
+								messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+								// On dismiss of initial tutorial, ensure all GUI areas are visible again
+								for (GuiArea guiArea : GuiArea.values()) {
+									messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
+								}
+							});
+							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+						} else {
 							messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
-							// On dismiss of initial tutorial, ensure all GUI areas are visible again
-							for (GuiArea guiArea : GuiArea.values()) {
-								messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);
-							}
-						});
-						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+						}
 					}
 				});
 				upperLeftButtonsTable.add(exitButton);
@@ -155,7 +159,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						HintGuiView.this.hintsMinimised = true;
-						HintGuiView.this.doUpdate();
+						HintGuiView.this.rebuildUI();
 					}
 				});
 				upperLeftButtonsTable.add(minimiseButton).padLeft(20);
@@ -168,7 +172,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 				for (String i18nKey : displayedHint.getI18nKeys()) {
 					I18nText text = i18nTranslator.getTranslatedString(i18nKey);
-					Label label = new Label(text.toString(), defaultLabelStyle);
+					Label label = new Label(text.toString(), defaultLabelStyle());
 					label.setWrap(true);
 
 					hintTable.add(label).left().width(1900).row();
@@ -181,7 +185,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 				buildActions(displayedHint, hintTable, allowedToProgress);
 
-				tableWithBackground.add(hintTable).colspan(2);
+				tableWithBackground.add(hintTable).colspan(2).padBottom(30);
 				layoutTable.add(tableWithBackground).pad(40).row();
 			}
 		}
@@ -192,14 +196,14 @@ public class HintGuiView implements GuiView, GameContextAware {
 		displayedHints.add(hint);
 		gameContext.getSettlementState().getCurrentHints().add(hint.getHintId());
 		hintsMinimised = false;
-		doUpdate();
+		rebuildUI();
 	}
 
 	public void dismissAll() {
 		for (Hint hint : new ArrayList<>(displayedHints)) {
 			remove(hint);
 		}
-		doUpdate();
+		rebuildUI();
 	}
 
 	public void dismissAllExceptOnStart() {
@@ -208,14 +212,14 @@ public class HintGuiView implements GuiView, GameContextAware {
 				remove(hint);
 			}
 		}
-		doUpdate();
+		rebuildUI();
 	}
 
 	private void remove(Hint hint) {
 		displayedHints.remove(hint);
 		gameContext.getSettlementState().getCurrentHints().remove(hint.getHintId());
 		gameContext.getSettlementState().getPreviousHints().put(hint.getHintId(), true);
-		doUpdate();
+		rebuildUI();
 	}
 
 	public List<Hint> getDisplayedHints() {
@@ -279,7 +283,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 				replacements.put("requiredQuantity", new I18nText(String.valueOf(progress.total)));
 				replacements.put("targetDescription", progress.targetDescription);
 				I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
-				progressTable.add(new Label(text.toString(), defaultLabelStyle));
+				progressTable.add(new Label(text.toString(), defaultLabelStyle()));
 			}
 			hintTable.add(progressTable).left().row();
 
@@ -318,7 +322,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private Button buildButton(String i18nKey, boolean allowedToProgress, Runnable onClick) {
 		Button button = new Button(uiSkin);
 		button.setDisabled(!allowedToProgress);
-		Label label = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), defaultLabelStyle);
+		Label label = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), defaultLabelStyle());
 		button.add(label).padBottom(12).center();
 		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		button.addListener(new ClickListener() {
@@ -335,5 +339,9 @@ public class HintGuiView implements GuiView, GameContextAware {
 			}
 		});
 		return button;
+	}
+
+	private Label.LabelStyle defaultLabelStyle() {
+		return uiSkin.get("white_text_default-font-19", Label.LabelStyle.class);
 	}
 }
