@@ -115,7 +115,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
     @Override
     public void update() {
         if (rootNode != null) {
-            updateTree(rootNode, getSettlementItemTypeValues());
+            updateTree();
         }
     }
 
@@ -160,7 +160,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
         rootNode.setActor(rootNodeTable);
         tree.add(rootNode);
 
-        updateTree(rootNode, getSettlementItemTypeValues());
+        updateTree();
 
         tree.setIndentSpacing(OVERALL_INDENT_SPACING);
         ScrollPane scrollPane = new EnhancedScrollPane(tree, mainGameSkin);
@@ -171,7 +171,8 @@ public class ResourceOverview implements GuiView, GameContextAware {
         containerTable.add(scrollPane);
     }
 
-    private void updateTree(TreeNode rootNode, List<TreeNodeValue> byItemType) { //todo: don't really need these args
+    private void updateTree() {
+        List<TreeNodeValue> byItemType = getSettlementItemTypeValues();
         List<TreeNodeValue> byStockpile = byItemType.stream()
                 .map(node -> new TreeNodeValue(node.stockpileGroup, null, node.count))
                 .collect(ArrayList::new,
