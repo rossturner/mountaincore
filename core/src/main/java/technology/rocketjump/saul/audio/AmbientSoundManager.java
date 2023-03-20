@@ -27,7 +27,6 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 	private float riverRatio;
 	private GameContext gameContext;
 
-	public static final String DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING = "0.5";
 	private float ambientEffectVolume;
 
 	@Inject
@@ -44,7 +43,7 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 			initialised = false;
 		}
 
-		String volumeString = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
+		String volumeString = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME);
 		this.ambientEffectVolume = GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(volumeString);
 	}
 

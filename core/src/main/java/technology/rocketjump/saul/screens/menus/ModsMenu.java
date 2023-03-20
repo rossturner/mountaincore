@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -11,15 +12,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.codedisaster.steamworks.SteamAPI;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.modding.CompatibilityResult;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
+import technology.rocketjump.saul.modding.authentication.ModioAuthManager;
+import technology.rocketjump.saul.modding.authentication.ModioTermsConditions;
+import technology.rocketjump.saul.modding.authentication.SteamUserManager;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -37,7 +46,9 @@ import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,7 +58,6 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
-	public static final int MAX_FILES_TO_LIST = 5;
 	private final MenuSkin menuSkin;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
@@ -56,11 +66,26 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	private final TooltipFactory tooltipFactory;
 	private final LocalModRepository modRepository;
 	private final ModCompatibilityChecker modCompatibilityChecker;
+	private final MenuButtonFactory menuButtonFactory;
+	private final ModioAuthManager modioAuthManager;
+	private final SteamUserManager steamUserManager;
+	private final ModioTermsConditions modioTermsConditions;
+	private Container<TextButton> refreshButtonContainer;
+	private Container<TextButton> submitEmailButton;
+	private Container<TextButton> submitCodeButton;
+
+	private boolean showingEmailLogin;
+	private boolean emailCodeRequested;
+	private boolean errorEncountered;
+
+	private boolean showingTerms;
+	private boolean termsAccepted;
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-	                I18nTranslator i18nTranslator, TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary,
-	                LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker) {
+					I18nTranslator i18nTranslator, TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary,
+					LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker,
+					MenuButtonFactory menuButtonFactory, ModioAuthManager modioAuthManager, SteamUserManager steamUserManager, ModioTermsConditions modioTermsConditions) {
 		super(I18nText.BLANK, guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary);
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
@@ -70,6 +95,10 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 		this.tooltipFactory = tooltipFactory;
 		this.modRepository = modRepository;
 		this.modCompatibilityChecker = modCompatibilityChecker;
+		this.menuButtonFactory = menuButtonFactory;
+		this.modioAuthManager = modioAuthManager;
+		this.steamUserManager = steamUserManager;
+		this.modioTermsConditions = modioTermsConditions;
 	}
 
 	@Override
@@ -81,56 +110,174 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	public void rebuildUI() {
 		contentTable.clear();
 
-		Label titleRibbon = new Label(i18nTranslator.translate("MENU.MODS"), menuSkin, "key_bindings_title_ribbon");
-		titleRibbon.setAlignment(Align.center);
-
-		Table modsTable = modsTable();
-		modsTable.top();
-
-		ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
-		scrollPane.setForceScroll(false, true);
-		scrollPane.setFadeScrollBars(false);
-		scrollPane.setScrollbarsVisible(true);
-		scrollPane.setScrollBarPositions(true, true);
-
-
-
-
-		Label nameHeader = new Label(i18nTranslator.translate("MODS.TABLE.NAME"), menuSkin, "mod_table_header_label");
-		nameHeader.setAlignment(Align.center);
-		Label versionHeader = new Label(i18nTranslator.translate("MODS.TABLE.VERSION"), menuSkin, "mod_table_header_label");
-		versionHeader.setAlignment(Align.center);
-		Label compatibilityHeader = new Label(i18nTranslator.translate("MODS.TABLE.COMPATIBILITY"), menuSkin, "mod_table_header_label");
-		compatibilityHeader.setAlignment(Align.center);
-		Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
-		enabledHeader.setAlignment(Align.center);
-
-		modsTable.layout();
-		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
-
-		Table modsTableHeader = new Table();
-		modsTableHeader.left();
-		modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
-		modsTableHeader.add(nameHeader).minWidth(firstColumnMinWidth);
-		modsTableHeader.add(versionHeader).width(VERSION_WIDTH).spaceLeft(76).spaceRight(76);
-		modsTableHeader.add(compatibilityHeader).width(COMPATIBILITY_WIDTH).spaceLeft(76).padRight(76);
-		modsTableHeader.add(enabledHeader);
-
 
 		Table mainTable = new Table();
-		mainTable.defaults().padLeft(120f).padRight(120f);
+		mainTable.defaults().padLeft(120f).padRight(120f).spaceBottom(40f);
 		mainTable.center();
 		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
-		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-		mainTable.add(modsTableHeader).spaceBottom(32).row();
-		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()+20).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+
+		Label titleRibbon = new Label(i18nTranslator.translate("MENU.MODS"), menuSkin, "key_bindings_title_ribbon");
+		titleRibbon.setAlignment(Align.center);
+		mainTable.add(titleRibbon).spaceTop(28f).row();
+
+		if (showingEmailLogin) {
+			buildEmailLoginUI(mainTable);
+		} else {
+			Table modsTable = modsTable();
+			modsTable.top();
+
+			ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
+			scrollPane.setForceScroll(false, true);
+			scrollPane.setFadeScrollBars(false);
+			scrollPane.setScrollbarsVisible(true);
+			scrollPane.setScrollBarPositions(true, true);
+
+			Label nameHeader = new Label(i18nTranslator.translate("MODS.TABLE.NAME"), menuSkin, "mod_table_header_label");
+			nameHeader.setAlignment(Align.center);
+			Label versionHeader = new Label(i18nTranslator.translate("MODS.TABLE.VERSION"), menuSkin, "mod_table_header_label");
+			versionHeader.setAlignment(Align.center);
+			Label compatibilityHeader = new Label(i18nTranslator.translate("MODS.TABLE.COMPATIBILITY"), menuSkin, "mod_table_header_label");
+			compatibilityHeader.setAlignment(Align.center);
+			Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
+			enabledHeader.setAlignment(Align.center);
+
+			modsTable.layout();
+			float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
+
+			Table modsTableHeader = new Table();
+			modsTableHeader.left();
+			modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
+			modsTableHeader.add(nameHeader).minWidth(firstColumnMinWidth);
+			modsTableHeader.add(versionHeader).width(VERSION_WIDTH).spaceLeft(76).spaceRight(76);
+			modsTableHeader.add(compatibilityHeader).width(COMPATIBILITY_WIDTH).spaceLeft(76).padRight(76);
+			modsTableHeader.add(enabledHeader);
+
+			Table headerButtonsTable = new Table();
+			headerButtonsTable.defaults().padRight(40);
+			headerButtonsTable.left();
+
+			Container<TextButton> browseButton = menuButtonFactory.createButton("MODS.BUTTON.BROWSE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+					.withScaledToFitLabel(554)
+					.withAction(() -> Gdx.net.openURI(modioAuthManager.getModioGameHomepage()))
+					.build();
+			refreshButtonContainer = menuButtonFactory.createButton("MODS.BUTTON.REFRESH", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+					.withScaledToFitLabel(554)
+					.withAction(this::beginRefreshMods)
+					.build();
+
+			headerButtonsTable.add(browseButton).left();
+			headerButtonsTable.add(refreshButtonContainer).left();
+			headerButtonsTable.add(new Container<>()).growX();
+
+			mainTable.add(headerButtonsTable).growX().row();
+			mainTable.add(modsTableHeader).spaceBottom(32).row();
+			mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth() + 20).height(1256f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+		}
 
 		contentTable.add(mainTable);
+	}
+
+	private void buildEmailLoginUI(Table mainTable) {
+		mainTable.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.INFO").toString(), menuSkin, "mod_table_value_label")).row();
+		mainTable.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.EMAIL").toString(), menuSkin, "mod_table_value_label")).row();
+
+		TextField emailInput = new TextField("", menuSkin);
+		emailInput.addListener(new ChangeCursorOnHover(emailInput, GameCursor.I_BEAM, messageDispatcher));
+		emailInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		TextField codeInput = new TextField("", menuSkin);
+		codeInput.addListener(new ChangeCursorOnHover(emailInput, GameCursor.I_BEAM, messageDispatcher));
+		codeInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+
+		Table emailRow = new Table();
+		emailRow.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.EMAIL_LABEL").toString(), menuSkin, "mod_table_value_label")).padRight(20);
+		emailRow.add(emailInput).width(800);
+		mainTable.add(emailRow).row();
+
+		submitEmailButton = menuButtonFactory.createButton("MODS.EMAIL_LOGIN.REQUEST_CODE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withScaledToFitLabel(554)
+				.withAction(() -> {
+					if (!emailInput.getText().isEmpty()) {
+						submitEmailButton.getActor().setDisabled(true);
+						modioAuthManager.requestEmailCode(emailInput.getText(), new Callback() {
+							@Override
+							public void onFailure(Call call, IOException e) {
+								Logger.error("Failed request to mod.io to request email code", e);
+								errorEncountered = true;
+								submitEmailButton.getActor().setDisabled(false);
+								rebuildUI();
+							}
+
+							@Override
+							public void onResponse(Call call, Response response) throws IOException {
+								submitEmailButton.getActor().setDisabled(false);
+								if (response.isSuccessful()) {
+									emailCodeRequested = true;
+								} else {
+									Logger.error("Failed request to mod.io to request email code: " + response);
+									errorEncountered = true;
+								}
+								rebuildUI();
+							}
+						});
+					}
+				})
+				.build();
+		mainTable.add(submitEmailButton).row();
+
+		if (emailCodeRequested) {
+			mainTable.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.CHECK_EMAIL").toString(), menuSkin, "mod_table_value_label")).row();
+
+			Table codeRow = new Table();
+			codeRow.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.CODE_LABEL").toString(), menuSkin, "mod_table_value_label")).padRight(20);
+			codeRow.add(codeInput).width(800);
+			mainTable.add(codeRow).row();
+
+			submitCodeButton = menuButtonFactory.createButton("MODS.EMAIL_LOGIN.SUBMIT_CODE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+					.withScaledToFitLabel(554)
+					.withAction(() -> {
+						if (!codeInput.getText().isEmpty()) {
+							submitCodeButton.getActor().setDisabled(true);
+							modioAuthManager.submitEmailCode(codeInput.getText(), () -> {
+								submitCodeButton.getActor().setDisabled(false);
+								if (modioAuthManager.isUserAuthenticated()) {
+									showingEmailLogin = false;
+									messageDispatcher.dispatchMessage(MessageType.REFRESH_MOD_FILES); // this should cause the UI to change again
+								} else {
+									errorEncountered = true;
+									rebuildUI();
+								}
+							});
+						}
+					})
+					.build();
+			mainTable.add(submitCodeButton).row();
+		}
+
+		if (errorEncountered) {
+			Label errorLabel = new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.ERROR").toString(), menuSkin, "mod_table_value_label");
+			errorLabel.setWrap(true);
+			mainTable.add(errorLabel).row();
+		}
+
+		mainTable.add(new Container<>()).growY().row();
+	}
+
+	@Override
+	public void show(Stage stage) {
+		super.show(stage);
+		if (modioAuthManager.isUserAuthenticated()) {
+			beginRefreshMods();
+		}
+		rebuildUI();
 	}
 
 	@Override
 	public void close() {
 		super.close();
+		this.showingEmailLogin = false;
+		this.emailCodeRequested = false;
+		this.errorEncountered = false;
+
 		if (modRepository.hasChangesToApply()) {
 			messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_INFO, InfoType.MOD_CHANGES_OUTSTANDING);
 		}
@@ -283,7 +430,6 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			}
 
 
-
 			table.add(draggableModContainer).fill();
 			table.add(versionLabelContainer).fill();
 			table.add(compatibleLabelContainer).fill().expandX();
@@ -296,6 +442,32 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 		return table;
 	}
 
+	private void beginRefreshMods() {
+//		refreshButtonContainer.getActor().setDisabled(true);
+
+		if (!modioAuthManager.isUserAuthenticated()) {
+			if (SteamAPI.isSteamRunning() && steamUserManager.isEncryptedAppTicketReady()) {
+				modioAuthManager.authenticateWithSteam(steamUserManager.getEncryptedAppTicket(), termsAccepted, () -> {
+					// on success
+				}, () -> {
+					// on error, removing app ticket and calling this again to fall into email login path
+					steamUserManager.clearEncryptedAppTicket();
+					beginRefreshMods();
+				}, () -> {
+					// on terms required
+				});
+			} else {
+				this.showingEmailLogin = true;
+				rebuildUI();
+			}
+		} else {
+			doRefreshMods();
+		}
+	}
+
+	private void doRefreshMods() {
+
+	}
 
 	private class DraggableModSource extends DragAndDrop.Source {
 		private final DragAndDrop dragAndDrop;

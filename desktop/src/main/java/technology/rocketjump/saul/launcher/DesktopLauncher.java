@@ -71,7 +71,7 @@ public class DesktopLauncher {
     private static Resolution getDisplayResolution(UserPreferences userPreferences) {
         Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
         Resolution desktopResolution = new Resolution(desktopMode.width, desktopMode.height);
-        String preferredResolution = userPreferences.getPreference(DISPLAY_RESOLUTION, null);
+        String preferredResolution = userPreferences.getPreference(DISPLAY_RESOLUTION);
         Resolution resolutionToUse;
         if (preferredResolution == null) {
             userPreferences.setPreference(DISPLAY_RESOLUTION, desktopResolution.toString());

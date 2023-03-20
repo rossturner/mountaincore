@@ -36,7 +36,7 @@ public class TwitchDataStore {
 		this.messageDispatcher = messageDispatcher;
 		this.userPreferences = userPreferences;
 
-		String tokenAsString = userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_TOKEN, null);
+		String tokenAsString = userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_TOKEN);
 		if (tokenAsString != null) {
 			currentToken.set(new ObjectMapper().readValue(tokenAsString, TwitchToken.class));
 		}
@@ -44,7 +44,7 @@ public class TwitchDataStore {
 
 	public List<TwitchViewer> getPrioritisedViewers() {
 		List<TwitchViewer> result = new ArrayList<>();
-		boolean subscribersPrioritised = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_PRIORITISE_SUBSCRIBERS, "false"));
+		boolean subscribersPrioritised = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_PRIORITISE_SUBSCRIBERS));
 
 		List<TwitchViewer> liveSubscribers = new ArrayList<>();
 		List<TwitchViewer> liveNonSubscribers = new ArrayList<>();
@@ -72,7 +72,7 @@ public class TwitchDataStore {
 	}
 
 	public boolean isTwitchEnabled() {
-		return Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED, "false"));
+		return Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED));
 	}
 
 	public List<TwitchViewer> getCurrentViewers() {

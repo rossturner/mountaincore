@@ -105,7 +105,7 @@ public class GameplayOptionsTab implements OptionsTab, DisplaysText {
 				.build();
 
 		edgeScrollingCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING", skin, 428f);
-		GlobalSettings.USE_EDGE_SCROLLING = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.EDGE_SCROLLING, "true"));;
+		GlobalSettings.USE_EDGE_SCROLLING = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.EDGE_SCROLLING));;
 		edgeScrollingCheckbox.setChecked(GlobalSettings.USE_EDGE_SCROLLING);
 		edgeScrollingCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
@@ -117,7 +117,7 @@ public class GameplayOptionsTab implements OptionsTab, DisplaysText {
 		});
 
 		zoomToCursorCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR", skin, 428f);
-		GlobalSettings.ZOOM_TO_CURSOR = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ZOOM_TO_CURSOR, "true"));;
+		GlobalSettings.ZOOM_TO_CURSOR = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ZOOM_TO_CURSOR));;
 		zoomToCursorCheckbox.setChecked(GlobalSettings.ZOOM_TO_CURSOR);
 		zoomToCursorCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
@@ -129,7 +129,7 @@ public class GameplayOptionsTab implements OptionsTab, DisplaysText {
 		});
 
 		treeTransparencyCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS", skin, 428f);
-		GlobalSettings.TREE_TRANSPARENCY_ENABLED = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TREE_TRANSPARENCY, "true"));;
+		GlobalSettings.TREE_TRANSPARENCY_ENABLED = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TREE_TRANSPARENCY));;
 		treeTransparencyCheckbox.setChecked(GlobalSettings.TREE_TRANSPARENCY_ENABLED);
 		treeTransparencyCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {

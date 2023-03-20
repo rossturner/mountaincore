@@ -2,7 +2,6 @@ package technology.rocketjump.saul.modding;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.modding.model.ParsedMod;
@@ -22,8 +21,8 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @Singleton
 public class LocalModRepository {
 
-	private static final String MOD_NAME_SEPARATOR = "/";
-	private static final List<String> DEFAULT_ACTIVE_MODS = Arrays.asList("base", "Community Translations");
+	public static final String MOD_NAME_SEPARATOR = "/";
+	public static final List<String> DEFAULT_ACTIVE_MODS = Arrays.asList("base", "Community Translations");
 	public static final Path ASSETS_DIR = Paths.get("assets");
 	private final ModParser modParser;
 	private final ModCompatibilityChecker modCompatibilityChecker;
@@ -64,7 +63,7 @@ public class LocalModRepository {
 			Logger.error(e.getMessage());
 		}
 
-		String activeModsString = userPreferences.getPreference(ACTIVE_MODS, StringUtils.join(DEFAULT_ACTIVE_MODS, MOD_NAME_SEPARATOR));
+		String activeModsString = userPreferences.getPreference(ACTIVE_MODS);
 		this.originalActiveModString = activeModsString;
 		for (String activeModName : activeModsString.split(MOD_NAME_SEPARATOR)) {
 			ParsedMod activeMod = modsByName.get(activeModName);

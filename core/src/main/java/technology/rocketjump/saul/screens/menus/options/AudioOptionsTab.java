@@ -19,9 +19,6 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
-import static technology.rocketjump.saul.audio.AmbientSoundManager.DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING;
-import static technology.rocketjump.saul.audio.MusicJukebox.DEFAULT_VOLUME_AS_STRING;
-import static technology.rocketjump.saul.audio.SoundEffectManager.DEFAULT_SOUND_VOLUME_AS_STRING;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
 
 @Singleton
@@ -76,7 +73,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 
 		musicLabel = new Label(i18nTranslator.translate("GUI.MUSIC_VOLUME"), skin, "options_menu_label");
 		musicSlider = new Slider(0, 0.8f, 0.08f, false, skin);
-		String savedVolume = userPreferences.getPreference(MUSIC_VOLUME, DEFAULT_VOLUME_AS_STRING);
+		String savedVolume = userPreferences.getPreference(MUSIC_VOLUME);
 		musicSlider.setValue(Float.parseFloat(savedVolume));
 		musicSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
@@ -90,7 +87,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 
 		soundEffectLabel = new Label(i18nTranslator.translate("GUI.SOUND_EFFECT_VOLUME"), skin, "options_menu_label");
 		soundEffectSlider = new Slider(0, 1, 0.1f, false, skin);
-		String savedSoundEffectVolume = userPreferences.getPreference(SOUND_EFFECT_VOLUME, DEFAULT_SOUND_VOLUME_AS_STRING);
+		String savedSoundEffectVolume = userPreferences.getPreference(SOUND_EFFECT_VOLUME);
 		soundEffectSlider.setValue(Float.parseFloat(savedSoundEffectVolume));
 		soundEffectSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
@@ -104,7 +101,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 
 		ambientEffectLabel = new Label(i18nTranslator.translate("GUI.AMBIENT_EFFECT_VOLUME"), skin, "options_menu_label");
 		ambientEffectSlider = new Slider(0, 1, 0.1f, false, skin);
-		String savedAmbientEffectVolume = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
+		String savedAmbientEffectVolume = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME);
 		ambientEffectSlider.setValue(Float.parseFloat(savedAmbientEffectVolume));
 		ambientEffectSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {

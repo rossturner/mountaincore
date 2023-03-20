@@ -7,7 +7,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.codec.binary.Base64;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
 import java.nio.ByteBuffer;
@@ -64,6 +63,17 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 		}
 	}
 
+	public byte[] getEncryptedAppTicket() {
+		byte[] ticketData = new byte[this.ticketSize];
+		ticketEncrypted.get(ticketData, 0, this.ticketSize);
+		return ticketData;
+	}
+
+	public void clearEncryptedAppTicket() {
+		isEncryptedAppTicketReady = false;
+		ticketEncrypted.clear();
+	}
+
 	private void getEncryptedAppTicketFromUser() {
 		try {
 			int[] ticketSize = new int[1];
@@ -71,11 +81,9 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 			this.ticketSize = ticketSize[0];
 			if (this.ticketSize > 0) {
 				Logger.info("Received Steam encrypted app ticket: {}", ticketEncrypted.toString());
-				byte[] ticketData = new byte[this.ticketSize];
-				ticketEncrypted.get(ticketData, 0, this.ticketSize);
-				Logger.info("As base64 encoded: " + Base64.encodeBase64String(ticketData));
+				Logger.info("As base64 encoded: " + Base64.encodeBase64String(getEncryptedAppTicket()));
 				isEncryptedAppTicketReady = true;
-				messageDispatcher.dispatchMessage(MessageType.STEAM_ENCRYPTED_APP_TICKET_READY);
+//				messageDispatcher.dispatchMessage(MessageType.STEAM_ENCRYPTED_APP_TICKET_READY);
 			}
 		} catch (SteamException e) {
 			if (GlobalSettings.DEV_MODE) {
@@ -101,9 +109,5 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 
 	public boolean isEncryptedAppTicketReady() {
 		return isEncryptedAppTicketReady;
-	}
-
-	public ByteBuffer getEncryptedAppTicket() {
-		return ticketEncrypted;
 	}
 }

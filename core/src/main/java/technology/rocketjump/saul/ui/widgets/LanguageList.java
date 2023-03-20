@@ -24,7 +24,7 @@ public class LanguageList extends List<LanguageType> {
         getStyle().font = unicodeFont;
 
         i18nRepo.init(textureAtlasRepository);
-        String languageCode = userPreferences.getPreference(UserPreferences.PreferenceKey.LANGUAGE, "en-gb");
+        String languageCode = userPreferences.getPreference(UserPreferences.PreferenceKey.LANGUAGE);
         java.util.List<LanguageType> allLanguages = i18nRepo.getAllLanguages();
         this.setItems(WidgetBuilder.orderedArray(allLanguages));
 

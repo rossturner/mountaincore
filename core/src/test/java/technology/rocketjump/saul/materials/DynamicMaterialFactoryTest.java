@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.LANGUAGE;
@@ -48,7 +47,7 @@ public class DynamicMaterialFactoryTest {
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
 		gameMaterialDictionary = injector.getInstance(GameMaterialDictionary.class);
 		injector.getInstance(GameMaterialI18nUpdater.class).preLanguageUpdated();
-		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
+		when(mockUserPreferences.getPreference(eq(LANGUAGE))).thenReturn("en-gb");
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
 		i18nTranslator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
