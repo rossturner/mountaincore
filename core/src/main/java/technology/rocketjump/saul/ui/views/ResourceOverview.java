@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,6 +26,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
@@ -42,6 +44,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     public static final int OVERALL_INDENT_SPACING = 40;
     private final MainGameSkin mainGameSkin;
+    private final ManagementSkin managementSkin;
     private final SettlementItemTracker settlementItemTracker;
     private final I18nTranslator i18nTranslator;
     private final MessageDispatcher messageDispatcher;
@@ -54,11 +57,13 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private Table containerTable;
     private TreeNode rootNode;
     private final Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
+    private final Map<ItemType, Label> itemTypeLabels = new HashMap<>();
 
     @Inject
     public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
                             TooltipFactory tooltipFactory, ButtonFactory buttonFactory, ResourceManagementScreen resourceManagementScreen) {
         this.mainGameSkin = guiSkinRepository.getMainGameSkin();
+        this.managementSkin = guiSkinRepository.getManagementSkin();
         this.settlementItemTracker = settlementItemTracker;
         this.i18nTranslator = i18nTranslator;
         this.messageDispatcher = messageDispatcher;
@@ -90,12 +95,14 @@ public class ResourceOverview implements GuiView, GameContextAware {
     @Override
     public void onContextChange(GameContext gameContext) {
         stockpileGroupLabels.clear();
+        itemTypeLabels.clear();
         rebuildTree();
     }
 
     @Override
     public void clearContextRelatedState() {
         stockpileGroupLabels.clear();
+        itemTypeLabels.clear();
         containerTable.clearChildren();
     }
 
@@ -222,40 +229,80 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     }
 
-//todo: feels rubbish passing in the same image over and over to get the width, images probably hsould be singletons
     private void updateItemTypeLabels(StockpileGroup stockpileGroup, Image stockpileImage, TreeNode stockpileNode, List<TreeNodeValue> allItemTypeValues) {
         List<TreeNodeValue> itemTypeValuesForStockpile = allItemTypeValues.stream().filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup).toList();
+        if (itemTypeLabels.keySet().containsAll(itemTypeValuesForStockpile.stream().map(TreeNodeValue::itemType).toList())) {
+            for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
+                itemTypeLabels.get(itemTypeValue.itemType()).setText(getItemTypeText(itemTypeValue).toString());
+            }
+        } else {
+            //lazily clear child and re-add, messing with tables is a nightmare
+            Table itemTypesTable = new Table();
+            itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
 
+            Table itemTypesIndentedTable = new Table();
+            itemTypesIndentedTable.add(new Container<>()).width(stockpileImage.getWidth() - OVERALL_INDENT_SPACING);
+            itemTypesIndentedTable.add(itemTypesTable);
+            TreeNode itemTypeNode = new TreeNode();
+            itemTypeNode.setActor(itemTypesIndentedTable);
+            itemTypeNode.setValue(itemTypeValuesForStockpile);
 
-        Table itemTypesTable = new Table();
-        itemTypesTable.background(mainGameSkin.getDrawable("Inv_Overview_BG"));
+            stockpileNode.clearChildren();
+            stockpileNode.add(itemTypeNode);
 
-        Table itemTypesIndentedTable = new Table();
-        itemTypesIndentedTable.add(new Container<>()).width(stockpileImage.getWidth() - OVERALL_INDENT_SPACING);
-        itemTypesIndentedTable.add(itemTypesTable);
-        TreeNode itemTypeNode = new TreeNode();
-        itemTypeNode.setActor(itemTypesIndentedTable);
-        itemTypeNode.setValue(itemTypeValuesForStockpile);
+            for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
+                Label itemTypeLabel = getItemTypeLabel(itemTypeValue);
+                Container<Label> labelContainer = new Container<>(itemTypeLabel);
+                labelContainer.left();
+                buttonFactory.attachClickCursor(labelContainer, GameCursor.SELECT);
+                labelContainer.addListener(new InputListener() {
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        labelContainer.setBackground(managementSkin.getDrawable("accent_bg"));
+                    }
 
-        //lazily clear child and re-add
-        stockpileNode.clearChildren();
-        stockpileNode.add(itemTypeNode);
+                    @Override
+                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        if (pointer == -1) {
+                            labelContainer.setBackground(null);
+                        }
+                    }
+                });
 
-        for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
-            itemTypesTable.add(getItemTypeLabel(itemTypeValue)).minWidth(350).left().row();
+                labelContainer.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        resourceManagementScreen.setSelectedStockpileGroup(stockpileGroup);
+                        I18nWordClass i18nWordClass = itemTypeValue.count > 0 ? PLURAL : NOUN;
+                        resourceManagementScreen.setSearchBarText(i18nTranslator.getTranslatedString(itemTypeValue.itemType().getI18nKey(), i18nWordClass).toString());
+                        messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.RESOURCES.name());
+                    }
+                });
+
+                itemTypesTable.add(labelContainer).minWidth(350).growX().left().row();
+            }
         }
+
+
+
     }
 
     private Label getItemTypeLabel(TreeNodeValue itemTypeValue) {
+        I18nText labelText = getItemTypeText(itemTypeValue);
+
+        Label itemTypeLabel = new Label(labelText.toString(), mainGameSkin);
+        itemTypeLabel.setAlignment(Align.left);
+        itemTypeLabels.put(itemTypeValue.itemType, itemTypeLabel);
+        return itemTypeLabel;
+    }
+
+    private I18nText getItemTypeText(TreeNodeValue itemTypeValue) {
         I18nWordClass i18nWordClass = itemTypeValue.count > 0 ? PLURAL : NOUN;
-        I18nText itemTypeText = i18nTranslator.getTranslatedString(itemTypeValue.itemType.getI18nKey(), i18nWordClass);
-        I18nText labelText = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM", Map.of(
+        I18nText itemTypeText = i18nTranslator.getTranslatedString(itemTypeValue.itemType().getI18nKey(), i18nWordClass);
+        return i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM", Map.of(
                 "quantity", new I18nWord(String.valueOf(itemTypeValue.count)),
                 "item", itemTypeText
         ));
-        Label itemTypeLabel = new Label(labelText.toString(), mainGameSkin);
-        itemTypeLabel.setAlignment(Align.left);
-        return itemTypeLabel;
     }
 
     private Table stockpileTable(StockpileGroup stockpileGroup, int quantity, Image stockpileImage) {

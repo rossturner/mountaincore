@@ -230,7 +230,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 			@Override
 			public boolean keyTyped(InputEvent event, char character) {
-				searchBarText = searchBar.getText();
+				setSearchBarText(searchBar.getText());
 				rebuildStockpileComponents();
 				return true;
 			}
@@ -697,5 +697,9 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 	public void setSelectedStockpileGroup(StockpileGroup selectedStockpileGroup) {
 		this.selectedStockpileGroup = selectedStockpileGroup;
+	}
+
+	public void setSearchBarText(String searchBarText) {
+		this.searchBarText = searchBarText;
 	}
 }
