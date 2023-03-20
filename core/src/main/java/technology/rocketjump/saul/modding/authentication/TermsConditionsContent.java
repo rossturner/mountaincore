@@ -9,7 +9,7 @@ public class TermsConditionsContent {
 
 	private String plaintext;
 	private String html;
-	private Map<ModioTCsButton, String> buttons;
+	private Map<ModioTCsButton, ModioTCsButtonText> buttons;
 	private Map<ModioTCsLinkName, ModioTCsLink> links;
 
 	public String getPlaintext() {
@@ -28,11 +28,11 @@ public class TermsConditionsContent {
 		this.html = html;
 	}
 
-	public Map<ModioTCsButton, String> getButtons() {
+	public Map<ModioTCsButton, ModioTCsButtonText> getButtons() {
 		return buttons;
 	}
 
-	public void setButtons(Map<ModioTCsButton, String> buttons) {
+	public void setButtons(Map<ModioTCsButton, ModioTCsButtonText> buttons) {
 		this.buttons = buttons;
 	}
 
@@ -83,6 +83,19 @@ public class TermsConditionsContent {
 
 		public void setRequired(boolean required) {
 			this.required = required;
+		}
+	}
+
+	public static class ModioTCsButtonText {
+
+		private String text;
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
 		}
 	}
 }

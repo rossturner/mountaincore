@@ -29,6 +29,7 @@ import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.authentication.ModioAuthManager;
 import technology.rocketjump.saul.modding.authentication.ModioTermsConditions;
 import technology.rocketjump.saul.modding.authentication.SteamUserManager;
+import technology.rocketjump.saul.modding.authentication.TermsConditionsContent;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -52,6 +53,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static technology.rocketjump.saul.modding.authentication.TermsConditionsContent.ModioTCsButton.agree;
+import static technology.rocketjump.saul.modding.authentication.TermsConditionsContent.ModioTCsButton.disagree;
+import static technology.rocketjump.saul.modding.authentication.TermsConditionsContent.ModioTCsLinkName.privacy;
+import static technology.rocketjump.saul.modding.authentication.TermsConditionsContent.ModioTCsLinkName.terms;
 
 @Singleton
 public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
@@ -79,7 +85,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	private boolean errorEncountered;
 
 	private boolean showingTerms;
-	private boolean termsAccepted;
+	private TermsConditionsContent termsConditionsContent;
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -122,6 +128,8 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 		if (showingEmailLogin) {
 			buildEmailLoginUI(mainTable);
+		} else if (showingTerms) {
+			buildTermsConditionsUI(mainTable);
 		} else {
 			Table modsTable = modsTable();
 			modsTable.top();
@@ -252,6 +260,69 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 					.build();
 			mainTable.add(submitCodeButton).row();
 		}
+
+		if (errorEncountered) {
+			Label errorLabel = new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.ERROR").toString(), menuSkin, "mod_table_value_label");
+			errorLabel.setWrap(true);
+			mainTable.add(errorLabel).row();
+		}
+
+		mainTable.add(new Container<>()).growY().row();
+	}
+
+	private void buildTermsConditionsUI(Table mainTable) {
+		Label plainTextLabel = new Label(termsConditionsContent.getPlaintext(), menuSkin, "mod_table_value_label");
+		plainTextLabel.setWrap(true);
+		mainTable.add(plainTextLabel).width(1600f).row();
+
+		Table buttonsTable = new Table();
+		Container<TextButton> agreeButton = menuButtonFactory.createButton(termsConditionsContent.getButtons().get(agree).getText(),
+						menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withScaledToFitLabel(554)
+				.withAction(() -> {
+					modioTermsConditions.setTermsAccepted(true);
+					beginRefreshMods();
+				})
+				.build();
+		buttonsTable.add(agreeButton);
+		Container<TextButton> disagreeButton = menuButtonFactory.createButton(termsConditionsContent.getButtons().get(disagree).getText(),
+						menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withScaledToFitLabel(554)
+				.withAction(() -> {
+					modioTermsConditions.setTermsAccepted(false);
+					showingEmailLogin = false;
+					showingTerms = false;
+					rebuildUI();
+				})
+				.build();
+		buttonsTable.add(disagreeButton).padLeft(20);
+		mainTable.add(buttonsTable).row();
+
+		Table linksTable = new Table();
+		linksTable.defaults().padLeft(10).padRight(10);
+		Label termsLink = new Label(termsConditionsContent.getLinks().get(terms).getText(), menuSkin, "mod_table_value_label");
+		termsLink.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI(termsConditionsContent.getLinks().get(terms).getUrl());
+			}
+		});
+		termsLink.addListener(new ChangeCursorOnHover(termsLink, GameCursor.SELECT, messageDispatcher));
+		termsLink.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		linksTable.add(termsLink);
+		linksTable.add(new Label("-", menuSkin, "mod_table_value_label"));
+		Label privacyLink = new Label(termsConditionsContent.getLinks().get(privacy).getText(), menuSkin, "mod_table_value_label");
+		privacyLink.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI(termsConditionsContent.getLinks().get(privacy).getUrl());
+			}
+		});
+		privacyLink.addListener(new ChangeCursorOnHover(privacyLink, GameCursor.SELECT, messageDispatcher));
+		privacyLink.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		linksTable.add(privacyLink);
+
+		mainTable.add(linksTable).row();
 
 		if (errorEncountered) {
 			Label errorLabel = new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.ERROR").toString(), menuSkin, "mod_table_value_label");
@@ -446,26 +517,64 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 //		refreshButtonContainer.getActor().setDisabled(true);
 
 		if (!modioAuthManager.isUserAuthenticated()) {
+			if (GlobalSettings.DEV_MODE) {
+				Logger.debug("Not authenticated with Mod.io");
+			}
 			if (SteamAPI.isSteamRunning() && steamUserManager.isEncryptedAppTicketReady()) {
-				modioAuthManager.authenticateWithSteam(steamUserManager.getEncryptedAppTicket(), termsAccepted, () -> {
+				modioAuthManager.authenticateWithSteam(steamUserManager.getEncryptedAppTicket(), modioTermsConditions.isTermsAccepted(), () -> {
 					// on success
+					if (GlobalSettings.DEV_MODE) {
+						Logger.debug("Steam authentication with with Mod.io successful");
+					}
+					doRefreshMods();
 				}, () -> {
 					// on error, removing app ticket and calling this again to fall into email login path
+					if (GlobalSettings.DEV_MODE) {
+						Logger.debug("Steam authentication with with Mod.io failed, clearing app ticket");
+					}
 					steamUserManager.clearEncryptedAppTicket();
 					beginRefreshMods();
 				}, () -> {
 					// on terms required
+					if (GlobalSettings.DEV_MODE) {
+						Logger.debug("Steam authentication requires mod.io T&Cs acceptance");
+					}
+					modioTermsConditions.getTermsConditionsContent((terms) -> {
+						ModsMenu.this.termsConditionsContent = terms;
+						this.showingTerms = true;
+						rebuildUI();
+					}, () -> {
+						this.errorEncountered = true;
+						rebuildUI();
+					});
 				});
 			} else {
-				this.showingEmailLogin = true;
-				rebuildUI();
+				// User not authenticated and no steam app ticket
+				// Call T&Cs as a heartbeat to see if we are online
+				modioTermsConditions.getTermsConditionsContent((terms) -> {
+					// Can communicate with mod.io so use email code auth
+					this.showingEmailLogin = true;
+					rebuildUI();
+				}, () -> {
+					if (GlobalSettings.DEV_MODE) {
+						Logger.debug("Could not communicate with mod.io API, refreshing local mods only");
+					}
+					refreshLocalModsOnly();
+				});
 			}
 		} else {
+			if (GlobalSettings.DEV_MODE) {
+				Logger.debug("Authenticated with Mod.io, refreshing mods");
+			}
 			doRefreshMods();
 		}
 	}
 
 	private void doRefreshMods() {
+
+	}
+
+	private void refreshLocalModsOnly() {
 
 	}
 

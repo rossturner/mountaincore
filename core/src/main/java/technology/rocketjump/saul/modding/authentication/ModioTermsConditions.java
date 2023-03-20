@@ -37,7 +37,8 @@ public class ModioTermsConditions {
 			@Override
 			public void onResponse(Call call, Response response) throws java.io.IOException {
 				if (response.isSuccessful()) {
-					TermsConditionsContent content = new ObjectMapper().readValue(response.body().string(), TermsConditionsContent.class);
+					String responseString = response.body().string();
+					TermsConditionsContent content = new ObjectMapper().readValue(responseString, TermsConditionsContent.class);
 					onSuccess.accept(content);
 				} else {
 					Logger.error("Failed to get terms and conditions: " + response.code() + " " + response.message());
