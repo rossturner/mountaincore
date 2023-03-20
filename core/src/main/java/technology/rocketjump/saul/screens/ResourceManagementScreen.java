@@ -198,7 +198,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 					if (stockpileButton.isChecked()) {
 						removeInfoPane();
 
-						selectedStockpileGroup = stockpileGroup;
+						setSelectedStockpileGroup(stockpileGroup);
 						rebuildStockpileComponents();
 					}
 				}
@@ -211,7 +211,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 		if (selectedStockpileGroup == null) {
 			stockpileButtonGroup.getButtons().get(1).setChecked(true);
-			selectedStockpileGroup = stockpileGroupDictionary.getAll().get(1);
+			setSelectedStockpileGroup(stockpileGroupDictionary.getAll().get(1));
 		}
 
 
@@ -693,5 +693,9 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 
 		return entityStack;
+	}
+
+	public void setSelectedStockpileGroup(StockpileGroup selectedStockpileGroup) {
+		this.selectedStockpileGroup = selectedStockpileGroup;
 	}
 }

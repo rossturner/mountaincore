@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,6 +13,8 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
+import technology.rocketjump.saul.screens.ManagementScreenName;
+import technology.rocketjump.saul.screens.ResourceManagementScreen;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -22,6 +25,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
 import javax.inject.Inject;
@@ -43,14 +47,17 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final MessageDispatcher messageDispatcher;
     private final TooltipFactory tooltipFactory;
     private final Comparator<TreeNodeValue> treeOrder;
+    private final ButtonFactory buttonFactory;
+    private final ResourceManagementScreen resourceManagementScreen;
 
 
     private Table containerTable;
     private TreeNode rootNode;
-    private Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
+    private final Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
 
     @Inject
-    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
+    public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
+                            TooltipFactory tooltipFactory, ButtonFactory buttonFactory, ResourceManagementScreen resourceManagementScreen) {
         this.mainGameSkin = guiSkinRepository.getMainGameSkin();
         this.settlementItemTracker = settlementItemTracker;
         this.i18nTranslator = i18nTranslator;
@@ -65,6 +72,8 @@ public class ResourceOverview implements GuiView, GameContextAware {
                         return i18nTranslator.translate(v.itemType().getI18nKey());
                     }
                 });
+        this.buttonFactory = buttonFactory;
+        this.resourceManagementScreen = resourceManagementScreen;
     }
 
     @Override
@@ -130,6 +139,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
                 return true;
             }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, null);
+                enteredIcon = false;
+            }
         });
 
         Table rootNodeTable = new Table();
@@ -165,6 +180,14 @@ public class ResourceOverview implements GuiView, GameContextAware {
             TreeNodeValue stockpileValue = byStockpile.get(i);
             StockpileGroup stockpileGroup = stockpileValue.stockpileGroup;
             Image stockpileImage = new Image(mainGameSkin.getDrawable(stockpileGroup.getOverviewDrawableName()));
+            buttonFactory.attachClickCursor(stockpileImage, GameCursor.SELECT);
+            stockpileImage.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    resourceManagementScreen.setSelectedStockpileGroup(stockpileGroup);
+                    messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.RESOURCES.name());
+                }
+            });
 
             if (rootNode.getChildren().size > i) {
                 TreeNode existingTreeNode = rootNode.getChildren().get(i);
