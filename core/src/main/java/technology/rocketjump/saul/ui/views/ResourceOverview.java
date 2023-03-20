@@ -69,7 +69,9 @@ public class ResourceOverview implements GuiView, GameContextAware {
         this.messageDispatcher = messageDispatcher;
         this.tooltipFactory = tooltipFactory;
 
-        treeOrder = Comparator.comparing((TreeNodeValue v) -> v.stockpileGroup().getSortOrder())
+        treeOrder = Comparator.comparing((TreeNodeValue v) -> {
+                    return i18nTranslator.translate(v.stockpileGroup().getI18nKey());
+                })
                 .thenComparing((TreeNodeValue v) -> {
                     if (v.itemType() == null) {
                         return "";

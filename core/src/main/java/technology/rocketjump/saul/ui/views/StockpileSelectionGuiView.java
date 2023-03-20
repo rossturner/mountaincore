@@ -22,8 +22,6 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
-import java.util.ArrayList;
-
 @Singleton
 public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 
@@ -73,13 +71,7 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 		buttonsTable = new Table();
 
 		int rowCursor = 0;
-		ArrayList<StockpileGroup> stockpileGroups = new ArrayList<>(stockpileGroupDictionary.getAll());
-		stockpileGroups.sort((o1, o2) -> {
-			String o1Translated = i18nTranslator.getTranslatedString(o1.getI18nKey()).toString();
-			String o2Translated = i18nTranslator.getTranslatedString(o2.getI18nKey()).toString();
-			return o1Translated.compareTo(o2Translated);
-		});
-		for (StockpileGroup stockpileGroup : stockpileGroups) {
+		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll(i18nTranslator)) {
 
 			Drawable drawable;
 			try {

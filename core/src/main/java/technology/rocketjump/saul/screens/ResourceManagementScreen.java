@@ -188,7 +188,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
-		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
+		List<StockpileGroup> stockpileGroups = stockpileGroupDictionary.getAll(i18nTranslator);
+		for (StockpileGroup stockpileGroup : stockpileGroups) {
 			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()), false);
 
 			stockpileButtonGroup.add(stockpileButton);
@@ -211,7 +212,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 		if (selectedStockpileGroup == null) {
 			stockpileButtonGroup.getButtons().get(1).setChecked(true);
-			setSelectedStockpileGroup(stockpileGroupDictionary.getAll().get(1));
+			setSelectedStockpileGroup(stockpileGroups.get(0));
 		}
 
 

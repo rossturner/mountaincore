@@ -22,7 +22,6 @@ public class StockpileGroup {
 	@JsonIgnore
 	private Color color = HexColors.POSITIVE_COLOR;
 	private String iconName;
-	private int sortOrder = 0;
 	private boolean includesCreatureCorpses;
 
 	public StockpileGroup() {
@@ -70,14 +69,6 @@ public class StockpileGroup {
 
 	public void setIconName(String iconName) {
 		this.iconName = iconName;
-	}
-
-	public int getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(int sortOrder) {
-		this.sortOrder = sortOrder;
 	}
 
 	@Override

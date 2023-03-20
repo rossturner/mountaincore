@@ -148,7 +148,7 @@ public class I18NTranslatorTest {
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).preLanguageUpdated();
 
-		translator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
+		translator = new I18nTranslator(i18nRepo, mockEntityStore);
 
 
 

@@ -51,7 +51,7 @@ public class DynamicMaterialFactoryTest {
 		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
-		i18nTranslator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
+		i18nTranslator = new I18nTranslator(i18nRepo, mockEntityStore);
 
 		dynamicMaterialFactory = new DynamicMaterialFactory(gameMaterialDictionary, i18nTranslator);
 
