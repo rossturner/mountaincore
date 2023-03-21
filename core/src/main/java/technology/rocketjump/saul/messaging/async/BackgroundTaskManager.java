@@ -85,6 +85,7 @@ public class BackgroundTaskManager implements Telegraph {
 	}
 
 	public void clearContextRelatedState() {
+		waitForOutstandingTasks();
 		timeSinceLastUpdate = 0f;
 		outstandingTasks = new LinkedList<>();
 		try {

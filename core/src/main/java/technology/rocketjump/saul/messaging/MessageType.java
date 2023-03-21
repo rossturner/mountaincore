@@ -321,7 +321,9 @@ public class MessageType {
 
 
 //	public static final int STEAM_ENCRYPTED_APP_TICKET_READY = 98000;
-	public static final int REFRESH_MOD_FILES = 98001;
+	public static final int REQUEST_SYNC_MOD_FILES = 98001;
+	public static final int MOD_SYNC_IN_PROGRESS = 98002;
+	public static final int MOD_SYNC_COMPLETED = 98003;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

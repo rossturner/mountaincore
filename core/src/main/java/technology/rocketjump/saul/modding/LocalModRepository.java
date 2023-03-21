@@ -28,7 +28,8 @@ public class LocalModRepository {
 	private final ModCompatibilityChecker modCompatibilityChecker;
 	private final UserPreferences userPreferences;
 	private final AssetsPackager assetsPackager;
-	private final String originalActiveModString;
+	private String originalActiveModString;
+	private final Path modsDir;
 
 	private Map<String, ParsedMod> modsByName = new HashMap<>();
 	private List<ParsedMod> activeMods = new ArrayList<>();
@@ -43,10 +44,19 @@ public class LocalModRepository {
 		this.userPreferences = userPreferences;
 		this.assetsPackager = assetsPackager;
 
-		Path modsDir = Paths.get("mods");
+		modsDir = Paths.get("mods");
 		if (!Files.exists(modsDir)) {
 			throw new RuntimeException("Can not find 'mods' directory");
 		}
+
+		updateLocalModListing();
+
+	}
+
+	public void updateLocalModListing() {
+		modsByName.clear();
+		activeMods.clear();
+		incompatibleMods.clear();
 
 		try {
 			Files.list(modsDir).forEach(modDir -> {
@@ -55,7 +65,7 @@ public class LocalModRepository {
 						ParsedMod parsedMod = modParser.parseMod(modDir);
 						modsByName.put(parsedMod.getInfo().getName(), parsedMod);
 					} catch (Exception e) {
-						Logger.error("Error while parsing mod from " + modDir.toString(), e);
+						Logger.error("Error while parsing mod from " + modDir, e);
 					}
 				}
 			});
@@ -78,7 +88,6 @@ public class LocalModRepository {
 				Logger.error("Missing mod with name: " + activeModName);
 			}
 		}
-
 	}
 
 	public void setActiveMods(List<ParsedMod> activeMods) {

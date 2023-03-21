@@ -2,6 +2,8 @@ package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -60,7 +62,7 @@ import static technology.rocketjump.saul.modding.authentication.TermsConditionsC
 import static technology.rocketjump.saul.modding.authentication.TermsConditionsContent.ModioTCsLinkName.terms;
 
 @Singleton
-public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
+public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText, Telegraph {
 
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
@@ -80,12 +82,15 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	private Container<TextButton> submitEmailButton;
 	private Container<TextButton> submitCodeButton;
 
+	private boolean menuShown;
 	private boolean showingEmailLogin;
 	private boolean emailCodeRequested;
 	private boolean errorEncountered;
 
 	private boolean showingTerms;
 	private TermsConditionsContent termsConditionsContent;
+
+	private boolean showSyncInProgress;
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -105,6 +110,9 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 		this.modioAuthManager = modioAuthManager;
 		this.steamUserManager = steamUserManager;
 		this.modioTermsConditions = modioTermsConditions;
+
+		messageDispatcher.addListener(this, MessageType.MOD_SYNC_IN_PROGRESS);
+		messageDispatcher.addListener(this, MessageType.MOD_SYNC_COMPLETED);
 	}
 
 	@Override
@@ -114,8 +122,11 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 	@Override
 	public void rebuildUI() {
-		contentTable.clear();
+		if (!menuShown) {
+			return;
+		}
 
+		contentTable.clear();
 
 		Table mainTable = new Table();
 		mainTable.defaults().padLeft(120f).padRight(120f).spaceBottom(40f);
@@ -130,59 +141,65 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			buildEmailLoginUI(mainTable);
 		} else if (showingTerms) {
 			buildTermsConditionsUI(mainTable);
+		} else if (showSyncInProgress) {
+			buildSyncInProgressUI(mainTable);
 		} else {
-			Table modsTable = modsTable();
-			modsTable.top();
-
-			ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
-			scrollPane.setForceScroll(false, true);
-			scrollPane.setFadeScrollBars(false);
-			scrollPane.setScrollbarsVisible(true);
-			scrollPane.setScrollBarPositions(true, true);
-
-			Label nameHeader = new Label(i18nTranslator.translate("MODS.TABLE.NAME"), menuSkin, "mod_table_header_label");
-			nameHeader.setAlignment(Align.center);
-			Label versionHeader = new Label(i18nTranslator.translate("MODS.TABLE.VERSION"), menuSkin, "mod_table_header_label");
-			versionHeader.setAlignment(Align.center);
-			Label compatibilityHeader = new Label(i18nTranslator.translate("MODS.TABLE.COMPATIBILITY"), menuSkin, "mod_table_header_label");
-			compatibilityHeader.setAlignment(Align.center);
-			Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
-			enabledHeader.setAlignment(Align.center);
-
-			modsTable.layout();
-			float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
-
-			Table modsTableHeader = new Table();
-			modsTableHeader.left();
-			modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
-			modsTableHeader.add(nameHeader).minWidth(firstColumnMinWidth);
-			modsTableHeader.add(versionHeader).width(VERSION_WIDTH).spaceLeft(76).spaceRight(76);
-			modsTableHeader.add(compatibilityHeader).width(COMPATIBILITY_WIDTH).spaceLeft(76).padRight(76);
-			modsTableHeader.add(enabledHeader);
-
-			Table headerButtonsTable = new Table();
-			headerButtonsTable.defaults().padRight(40);
-			headerButtonsTable.left();
-
-			Container<TextButton> browseButton = menuButtonFactory.createButton("MODS.BUTTON.BROWSE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
-					.withScaledToFitLabel(554)
-					.withAction(() -> Gdx.net.openURI(modioAuthManager.getModioGameHomepage()))
-					.build();
-			refreshButtonContainer = menuButtonFactory.createButton("MODS.BUTTON.REFRESH", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
-					.withScaledToFitLabel(554)
-					.withAction(this::beginRefreshMods)
-					.build();
-
-			headerButtonsTable.add(browseButton).left();
-			headerButtonsTable.add(refreshButtonContainer).left();
-			headerButtonsTable.add(new Container<>()).growX();
-
-			mainTable.add(headerButtonsTable).growX().row();
-			mainTable.add(modsTableHeader).spaceBottom(32).row();
-			mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth() + 20).height(1256f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+			buildDefaultModsUI(mainTable);
 		}
 
 		contentTable.add(mainTable);
+	}
+
+	private void buildDefaultModsUI(Table mainTable) {
+		Table modsTable = modsTable();
+		modsTable.top();
+
+		ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
+		scrollPane.setForceScroll(false, true);
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setScrollbarsVisible(true);
+		scrollPane.setScrollBarPositions(true, true);
+
+		Label nameHeader = new Label(i18nTranslator.translate("MODS.TABLE.NAME"), menuSkin, "mod_table_header_label");
+		nameHeader.setAlignment(Align.center);
+		Label versionHeader = new Label(i18nTranslator.translate("MODS.TABLE.VERSION"), menuSkin, "mod_table_header_label");
+		versionHeader.setAlignment(Align.center);
+		Label compatibilityHeader = new Label(i18nTranslator.translate("MODS.TABLE.COMPATIBILITY"), menuSkin, "mod_table_header_label");
+		compatibilityHeader.setAlignment(Align.center);
+		Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
+		enabledHeader.setAlignment(Align.center);
+
+		modsTable.layout();
+		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
+
+		Table modsTableHeader = new Table();
+		modsTableHeader.left();
+		modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
+		modsTableHeader.add(nameHeader).minWidth(firstColumnMinWidth);
+		modsTableHeader.add(versionHeader).width(VERSION_WIDTH).spaceLeft(76).spaceRight(76);
+		modsTableHeader.add(compatibilityHeader).width(COMPATIBILITY_WIDTH).spaceLeft(76).padRight(76);
+		modsTableHeader.add(enabledHeader);
+
+		Table headerButtonsTable = new Table();
+		headerButtonsTable.defaults().padRight(40);
+		headerButtonsTable.left();
+
+		Container<TextButton> browseButton = menuButtonFactory.createButton("MODS.BUTTON.BROWSE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withScaledToFitLabel(554)
+				.withAction(() -> Gdx.net.openURI(modioAuthManager.getModioGameHomepage()))
+				.build();
+		refreshButtonContainer = menuButtonFactory.createButton("MODS.BUTTON.REFRESH", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withScaledToFitLabel(554)
+				.withAction(this::beginRefreshMods)
+				.build();
+
+		headerButtonsTable.add(browseButton).left();
+		headerButtonsTable.add(refreshButtonContainer).left();
+		headerButtonsTable.add(new Container<>()).growX();
+
+		mainTable.add(headerButtonsTable).growX().row();
+		mainTable.add(modsTableHeader).spaceBottom(32).row();
+		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth() + 20).height(1256f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
 	}
 
 	private void buildEmailLoginUI(Table mainTable) {
@@ -249,7 +266,8 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 								submitCodeButton.getActor().setDisabled(false);
 								if (modioAuthManager.isUserAuthenticated()) {
 									showingEmailLogin = false;
-									messageDispatcher.dispatchMessage(MessageType.REFRESH_MOD_FILES); // this should cause the UI to change again
+									rebuildUI();
+									messageDispatcher.dispatchMessage(MessageType.REQUEST_SYNC_MOD_FILES);
 								} else {
 									errorEncountered = true;
 									rebuildUI();
@@ -333,18 +351,25 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 		mainTable.add(new Container<>()).growY().row();
 	}
 
+	private void buildSyncInProgressUI(Table mainTable) {
+		Label syncInProgressLabel = new Label(i18nTranslator.translate("MODS.SYNC_IN_PROGRESS"), menuSkin, "mod_table_value_label");
+		syncInProgressLabel.setWrap(true);
+		mainTable.add(syncInProgressLabel).width(1600f).row();
+
+		mainTable.add(new Container<>()).growY().row();
+	}
+
 	@Override
 	public void show(Stage stage) {
 		super.show(stage);
-		if (modioAuthManager.isUserAuthenticated()) {
-			beginRefreshMods();
-		}
+		this.menuShown = true;
 		rebuildUI();
 	}
 
 	@Override
 	public void close() {
 		super.close();
+		this.menuShown = false;
 		this.showingEmailLogin = false;
 		this.emailCodeRequested = false;
 		this.errorEncountered = false;
@@ -529,7 +554,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 					if (GlobalSettings.DEV_MODE) {
 						Logger.debug("Steam authentication with with Mod.io successful");
 					}
-					doRefreshMods();
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_SYNC_MOD_FILES);
 				}, () -> {
 					// on error, removing app ticket and calling this again to fall into email login path
 					if (GlobalSettings.DEV_MODE) {
@@ -562,27 +587,31 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 					if (GlobalSettings.DEV_MODE) {
 						Logger.debug("Could not communicate with mod.io API, refreshing local mods only");
 					}
-					refreshLocalModsOnly();
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_SYNC_MOD_FILES);
 				});
 			}
 		} else {
 			if (GlobalSettings.DEV_MODE) {
 				Logger.debug("Authenticated with Mod.io, refreshing mods");
 			}
-			doRefreshMods();
+			messageDispatcher.dispatchMessage(MessageType.REQUEST_SYNC_MOD_FILES);
 		}
 	}
 
-	private void doRefreshMods() {
-		if (GlobalSettings.DEV_MODE) {
-			Logger.debug("TODO: Full refresh of mods");
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.MOD_SYNC_IN_PROGRESS -> {
+				this.showSyncInProgress = true;
+				rebuildUI();
+			}
+			case MessageType.MOD_SYNC_COMPLETED -> {
+				this.showSyncInProgress = false;
+				rebuildUI();
+			}
+			default -> Logger.error("Unexpected message type handled: " + msg.message);
 		}
-	}
-
-	private void refreshLocalModsOnly() {
-		if (GlobalSettings.DEV_MODE) {
-			Logger.debug("TODO: Local only refresh of mods");
-		}
+		return true;
 	}
 
 	private class DraggableModSource extends DragAndDrop.Source {

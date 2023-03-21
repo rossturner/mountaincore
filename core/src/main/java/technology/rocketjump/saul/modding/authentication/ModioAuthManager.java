@@ -44,6 +44,10 @@ public class ModioAuthManager {
 		}
 	}
 
+	public String getAccessToken() {
+		return accessToken;
+	}
+
 	public boolean isUserAuthenticated() {
 		return userIsAuthenticated;
 	}
@@ -64,7 +68,7 @@ public class ModioAuthManager {
 		modioRequestAdapter.emailSodeSubmit(code, new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
-				Logger.error("Failed request to mod.io to request email code", e);
+				Logger.error("Failed request to mod.io to submit email code", e);
 				onCompletion.run();
 			}
 
@@ -73,7 +77,7 @@ public class ModioAuthManager {
 				if (response.isSuccessful()) {
 					parseTokenFromResponse(response);
 				} else {
-					Logger.error("Failed request to mod.io to request email code: " + response);
+					Logger.error("Failed request to mod.io to submit email code: " + response.code() + " " + response.body().string());
 				}
 				onCompletion.run();
 			}
