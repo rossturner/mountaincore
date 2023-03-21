@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.BackgroundTaskResult;
 import technology.rocketjump.saul.modding.LocalModRepository;
+import technology.rocketjump.saul.modding.authentication.ModioAuthManager;
 
 import java.util.concurrent.Callable;
 
@@ -13,18 +14,21 @@ public class ModSyncTask implements Callable<BackgroundTaskResult> {
 	private boolean localUpdateOnly; // when not authenticated with mod.io and we should only update local files
 	private final LocalModRepository localModRepository;
 	private final MessageDispatcher messageDispatcher;
+	private final ModioAuthManager modioAuthManager;
 
 	@Inject
-	public ModSyncTask(LocalModRepository localModRepository, MessageDispatcher messageDispatcher) {
+	public ModSyncTask(LocalModRepository localModRepository, MessageDispatcher messageDispatcher, ModioAuthManager modioAuthManager) {
 		this.localModRepository = localModRepository;
 		this.messageDispatcher = messageDispatcher;
+		this.modioAuthManager = modioAuthManager;
 	}
 
 	@Override
 	public BackgroundTaskResult call() throws Exception {
 		try {
 			localModRepository.updateLocalModListing();
-			if (localUpdateOnly) {
+			if (!modioAuthManager.isUserAuthenticated()) {
+				// Not logged in to mod.io, so we can only update local files
 				return BackgroundTaskResult.success();
 			}
 

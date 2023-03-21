@@ -26,7 +26,7 @@ public class ModParser {
 	}
 
 	public ParsedMod parseMod(Path modBasePath) throws IOException {
-		ParsedMod parsedMod = new ParsedMod(modBasePath, readModInfo(modBasePath));
+		ParsedMod parsedMod = new ParsedMod(modBasePath, readModInfo(modBasePath, objectMapper));
 
 		for (ModArtifactDefinition artifactDefinition : artifactListing.getAll()) {
 			Optional<ModArtifact> artifact = new ArtifactParser(artifactDefinition).parse(modBasePath);
@@ -36,7 +36,7 @@ public class ModParser {
 		return parsedMod;
 	}
 
-	private ModInfo readModInfo(Path modBasePath) throws IOException {
+	public static ModInfo readModInfo(Path modBasePath, ObjectMapper objectMapper) throws IOException {
 		Path infoPath = modBasePath.resolve(MOD_INFO_FILENAME);
 		if (!Files.exists(infoPath)) {
 			throw new IOException("Could not find modInfo.json in " + modBasePath);

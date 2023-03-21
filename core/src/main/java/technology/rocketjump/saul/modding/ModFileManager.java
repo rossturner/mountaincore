@@ -41,11 +41,7 @@ public class ModFileManager implements Telegraph {
 				if (!syncInProgress) {
 					syncInProgress = true;
 					messageDispatcher.dispatchMessage(MessageType.MOD_SYNC_IN_PROGRESS);
-					ModSyncTask modSyncTask = modSyncTaskProvider.get();
-					if (!modioAuthManager.isUserAuthenticated()) {
-						modSyncTask.setLocalUpdateOnly(true);
-					}
-					backgroundTaskManager.runTask(modSyncTask);
+					backgroundTaskManager.runTask(modSyncTaskProvider.get());
 				}
 			}
 			case MessageType.MOD_SYNC_COMPLETED -> {
