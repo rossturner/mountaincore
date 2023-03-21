@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.widgets.furniture;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -34,14 +35,15 @@ import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
-import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
+import technology.rocketjump.saul.ui.widgets.crafting.CraftingHintWidgetFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,6 +57,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 
 	private final MessageDispatcher messageDispatcher;
 	private final TooltipFactory tooltipFactory;
+	private final CraftingHintWidgetFactory craftingHintWidgetFactory;
 	private final RoomEditorItemMap roomEditorItemMap;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final EntityRenderer entityRenderer;
@@ -81,7 +84,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 
 
 	@Inject
-	public ProductionExportFurnitureWidget(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
+	public ProductionExportFurnitureWidget(MessageDispatcher messageDispatcher, CraftingHintWidgetFactory craftingHintWidgetFactory, GuiSkinRepository guiSkinRepository,
 										   TooltipFactory tooltipFactory, RoomEditorItemMap roomEditorItemMap,
 										   GameMaterialDictionary gameMaterialDictionary, EntityRenderer entityRenderer,
 										   I18nTranslator i18nTranslator,
@@ -89,6 +92,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 										   CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary,
 										   ItemTypeDictionary itemTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
+		this.craftingHintWidgetFactory = craftingHintWidgetFactory;
 		this.guiSkinRepository = guiSkinRepository;
 		this.tooltipFactory = tooltipFactory;
 		this.roomEditorItemMap = roomEditorItemMap;
@@ -140,7 +144,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		Button button;
 		if (selectedItemType == null) {
 			button = new Button(noneSelectedDrawable);
-			tooltipFactory.simpleTooltip(button, "ITEM.NONE_SELECTED", TooltipLocationHint.ABOVE);
+			addNoneSelectedTooltip(button);
 		} else {
 			Entity displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
 			GameMaterial selectedMaterial = productionExportBehaviour.getSelectedMaterial();
@@ -155,7 +159,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			EntityDrawable entityDrawable = new EntityDrawable(displayedEntity, entityRenderer, true, messageDispatcher);
 			entityDrawable.setMinSize(backgroundDrawable.getMinWidth(), backgroundDrawable.getMinHeight());
 			button = new Button(entityDrawable);
-			tooltipFactory.simpleTooltip(button, selectedItemType.getI18nKey(), TooltipLocationHint.ABOVE);
+			craftingHintWidgetFactory.addComplexTooltip(button, skin, selectedItemType, selectedMaterial);
 		}
 
 		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
@@ -272,20 +276,19 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		List<ItemType> craftingOutputItems = getSelectableItemTypes(currentRoomType);
 
 		List<SelectItemDialog.Option> options = new ArrayList<>();
-		craftingOutputItems.forEach(itemType -> {
-			options.add(new SelectItemTypeOption(itemType, () -> {
-				if (itemType != productionExportBehaviour.getSelectedItemType()) {
-					productionExportBehaviour.setSelectedItemType(itemType);
-					productionExportBehaviour.setSelectedMaterial(null);
-					rebuildUI();
-				}
-			}));
-		});
-		options.add(new SelectItemDialog.Option(i18nTranslator.getTranslatedString("ITEM.NONE_SELECTED")) {
+		craftingOutputItems.forEach(itemType -> options.add(new SelectItemTypeOption(itemType, () -> {
+			if (itemType != productionExportBehaviour.getSelectedItemType()) {
+				productionExportBehaviour.setSelectedItemType(itemType);
+				productionExportBehaviour.setSelectedMaterial(null);
+				rebuildUI();
+			}
+		})));
+		options.add(new SelectItemDialog.Option(I18nText.BLANK) {
 			@Override
 			public void addSelectionComponents(Table innerTable) {
 				Image image = new Image(noneSelectedDrawable);
 				innerTable.add(image).size(183, 183).pad(10).row();
+				addNoneSelectedTooltip(innerTable);
 			}
 
 			@Override
@@ -303,6 +306,15 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		selectItemDialog.getContentTable().padLeft(60);
 		selectItemDialog.setShowWithAnimation(false);
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, selectItemDialog);
+	}
+
+	private void addNoneSelectedTooltip(Actor actor) {
+		Table tooltipTable = new Table();
+
+		String headerText = i18nTranslator.getTranslatedString("ITEM.NONE_SELECTED").toString();
+		tooltipTable.add(new Label(headerText, skin)).center();
+
+		tooltipFactory.complexTooltip(actor, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 	}
 
 	private List<ItemType> getSelectableItemTypes(RoomType currentRoomType) {
@@ -349,9 +361,11 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 
 		private final Drawable drawable;
 		private final Runnable onSelection;
+		private final ItemType itemType;
 
 		public SelectItemTypeOption(ItemType itemType, Runnable onSelection) {
-			super(i18nTranslator.getTranslatedString(itemType.getI18nKey()));
+			super(I18nText.BLANK);
+			this.itemType = itemType;
 			Entity itemEntity = roomEditorItemMap.getByItemType(itemType);
 			((ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes()).setQuantity(itemType.getMaxStackSize());
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemEntity);
@@ -364,6 +378,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			Image image = new Image(drawable);
 			innerTable.add(image).size(183, 183).pad(10).row();
 			innerTable.add(new Container<>()).height(30).row();
+			craftingHintWidgetFactory.addComplexTooltip(innerTable, skin, itemType, null);
 		}
 
 		@Override

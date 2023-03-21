@@ -1,5 +1,9 @@
 package technology.rocketjump.saul.ui.widgets.crafting;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
@@ -9,6 +13,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -25,12 +30,36 @@ public class CraftingHintWidgetFactory {
 	private final CraftingRecipeDictionary craftingRecipeDictionary;
 	private final I18nTranslator i18nTranslator;
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
+	private final TooltipFactory tooltipFactory;
 
 	@Inject
-	public CraftingHintWidgetFactory(CraftingRecipeDictionary craftingRecipeDictionary, I18nTranslator i18nTranslator, FurnitureTypeDictionary furnitureTypeDictionary) {
+	public CraftingHintWidgetFactory(CraftingRecipeDictionary craftingRecipeDictionary, I18nTranslator i18nTranslator,
+									 FurnitureTypeDictionary furnitureTypeDictionary, TooltipFactory tooltipFactory) {
 		this.craftingRecipeDictionary = craftingRecipeDictionary;
 		this.i18nTranslator = i18nTranslator;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
+		this.tooltipFactory = tooltipFactory;
+	}
+
+	public void addComplexTooltip(Actor button, Skin skin, ItemType itemType, GameMaterial material) {
+		Table tooltipTable = new Table();
+		tooltipTable.defaults().padBottom(30);
+
+		String headerText = i18nTranslator.getTranslatedString(itemType.getI18nKey()).toString();
+		tooltipTable.add(new Label(headerText, skin.get("complex-tooltip-header", Label.LabelStyle.class))).center().row();
+
+		String itemDescriptionText = i18nTranslator.getTranslatedString(itemType.getI18nKey(), I18nWordClass.TOOLTIP).toString();
+		Label descriptionLabel = new Label(itemDescriptionText, skin);
+		descriptionLabel.setWrap(true);
+		tooltipTable.add(descriptionLabel).width(700).center().row();
+
+		for (String hint : getCraftingRecipeDescriptions(itemType, material)) {
+			Label requirementLabel = new Label(hint, skin);
+			requirementLabel.setWrap(true);
+			tooltipTable.add(requirementLabel).width(700).center().row();
+		}
+
+		tooltipFactory.complexTooltip(button, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 	}
 
 	public Set<String> getCraftingRecipeDescriptions(ItemType itemType, GameMaterial material) {
