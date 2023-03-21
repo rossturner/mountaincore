@@ -36,6 +36,7 @@ import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -45,6 +46,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.widgets.*;
 import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
@@ -74,11 +76,13 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final GameMaterialDictionary materialDictionary;
 	private final GameDialogDictionary gameDialogDictionary;
 	private final ButtonFactory buttonFactory;
+	private final ManagementSkin managementSkin;
 	private GameContext gameContext;
 
 	private Button backButton;
 	private final Table mainTable;
 	private boolean displayed;
+	private FarmPlotWidget farmPlotWidget;
 
 	private boolean stockpileSettingsExpanded;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
@@ -86,6 +90,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final ItemTypeDictionary itemTypeDictionary;
 	private final RaceDictionary raceDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final SettlementItemTracker settlementItemTracker;
 
 	@Inject
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
@@ -95,10 +100,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureRequirementsWidget furnitureRequirementsWidget,
 						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary,
 						   ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
-						   ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary) {
+						   ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary, SettlementItemTracker settlementItemTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
+		managementSkin = skinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
 		this.furnitureMap = furnitureMap;
@@ -116,6 +122,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.raceDictionary = raceDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.settlementItemTracker = settlementItemTracker;
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
@@ -257,9 +264,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			}
 
 			if (farmPlotComponent != null) {
-				FarmPlotWidget farmPlotWidget = new FarmPlotWidget(selectedRoom, farmPlotComponent, skin, tooltipFactory, messageDispatcher,
-						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator, soundAssetDictionary);
+				farmPlotWidget = new FarmPlotWidget(farmPlotComponent, skin, tooltipFactory, messageDispatcher,
+						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator, soundAssetDictionary, managementSkin);
 				farmPlotWidget.setOnSeedChange(farmPlotDescriptionWidget::cropChanged);
+				farmPlotWidget.updateSeedQuantities(settlementItemTracker);
 				mainTable.add(farmPlotWidget).center().row();
 			}
 
@@ -439,7 +447,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	@Override
 	public void update() {
-
+		farmPlotWidget.updateSeedQuantities(settlementItemTracker);
 	}
 
 	@Override
