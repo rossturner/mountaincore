@@ -2,21 +2,25 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.constructions.Construction;
+import technology.rocketjump.saul.rooms.constructions.FurnitureConstruction;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.constructions.ConstructionPriorityWidget;
 import technology.rocketjump.saul.ui.widgets.constructions.ConstructionRequirementsWidget;
 
@@ -36,11 +40,13 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 	private Construction selectedConstruction;
 	private final ConstructionRequirementsWidget constructionRequirementsWidget;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final ButtonFactory buttonFactory;
 
 	@Inject
 	public ConstructionSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer interactionStateContainer,
 									   MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, I18nTranslator i18nTranslator,
-									   ConstructionRequirementsWidget constructionRequirementsWidget, SoundAssetDictionary soundAssetDictionary) {
+									   ConstructionRequirementsWidget constructionRequirementsWidget, SoundAssetDictionary soundAssetDictionary,
+									   ButtonFactory buttonFactory) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.interactionStateContainer = interactionStateContainer;
 		this.messageDispatcher = messageDispatcher;
@@ -48,6 +54,7 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 		this.i18nTranslator = i18nTranslator;
 		this.constructionRequirementsWidget = constructionRequirementsWidget;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.buttonFactory = buttonFactory;
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
@@ -77,10 +84,28 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 		Label headerLabel = new Label(headlineDescription.toString(), skin.get("title-header", Label.LabelStyle.class));
 		headerContainer.add(headerLabel).center();
 
+		Table actionButtons = new Table();
+		if (selectedConstruction instanceof FurnitureConstruction furnitureConstruction) {
+			PhysicalEntityComponent physicalEntityComponent = furnitureConstruction.getFurnitureEntityToBePlaced().getPhysicalEntityComponent();
+			if (physicalEntityComponent.getAttributes() instanceof FurnitureEntityAttributes attributes) {
+				boolean isCraftingStation = attributes.getFurnitureType().hasTag(CraftingStationBehaviourTag.class);
+
+				if (isCraftingStation) {
+					Container<Button> craftingButtonContainer = new Container<>();
+					Button craftingButton = buttonFactory.buildDrawableButton("btn_recipe", "GUI.CRAFTING_MANAGEMENT.TITLE", () -> {
+						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
+					});
+					craftingButtonContainer.setActor(craftingButton);
+
+					actionButtons.add(craftingButton);
+				}
+			}
+		}
+
 		Table topRow = new Table();
 		topRow.add(new Container<>()).width(150);
 		topRow.add(headerContainer).expandX();
-		topRow.add(new Container<>()).width(150);
+		topRow.add(actionButtons).width(150);
 		mainTable.add(topRow).padTop(20).growX().row();
 
 		updateDescriptionTable();

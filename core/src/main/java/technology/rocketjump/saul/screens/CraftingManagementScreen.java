@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,15 +16,21 @@ import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
+import technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag;
+import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.settlement.SettlementItemTracker;
+import technology.rocketjump.saul.rooms.constructions.Construction;
+import technology.rocketjump.saul.rooms.constructions.FurnitureConstruction;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -41,10 +48,8 @@ import technology.rocketjump.saul.ui.widgets.LabelFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static technology.rocketjump.saul.screens.ManagementScreenName.CRAFTING;
 
@@ -54,11 +59,10 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 	public static final float QUANTITY_CIRCLE_OVERLAP = 32f;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
-	private final SettlementItemTracker settlementItemTracker;
 	private final EntityRenderer entityRenderer;
 	private final CraftingRecipeDictionary craftingRecipeDictionary;
+	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final MenuSkin menuSkin;
-	private final Skin mainGameSkin;
 	private final ManagementSkin managementSkin;
 	private final ScrollPane scrollPane;
 	private final Image fullScreenOverlay;
@@ -73,23 +77,22 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 
 	@Inject
 	public CraftingManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
-									I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
+									I18nTranslator i18nTranslator,
 									EntityRenderer entityRenderer, CraftingRecipeDictionary craftingRecipeDictionary,
 									LabelFactory labelFactory, ButtonFactory buttonFactory, RoomEditorItemMap roomEditorItemMap,
-									GameInteractionStateContainer gameInteractionStateContainer, UserPreferences userPreferences) {
+									GameInteractionStateContainer gameInteractionStateContainer, UserPreferences userPreferences, CraftingTypeDictionary craftingTypeDictionary) {
 		super(userPreferences, messageDispatcher);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
-		this.settlementItemTracker = settlementItemTracker;
 		this.entityRenderer = entityRenderer;
 		this.menuSkin = guiSkinRepository.getMenuSkin();
-		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.craftingRecipeDictionary = craftingRecipeDictionary;
 		this.labelFactory = labelFactory;
 		this.buttonFactory = buttonFactory;
 		this.roomEditorItemMap = roomEditorItemMap;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
+		this.craftingTypeDictionary = craftingTypeDictionary;
 
 		scrollPane = new EnhancedScrollPane(null, menuSkin);
 
@@ -225,8 +228,22 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null) {
 			Entity entity = selectable.getEntity();
+			Construction construction = selectable.getConstruction();
 			if (entity != null && entity.getBehaviourComponent() instanceof CraftingStationBehaviour craftingStationBehaviour) {
 				return craftingStationBehaviour.getCraftingType();
+			}
+			if (construction instanceof FurnitureConstruction furnitureConstruction) {
+				PhysicalEntityComponent physicalEntityComponent = furnitureConstruction.getFurnitureEntityToBePlaced().getPhysicalEntityComponent();
+				if (physicalEntityComponent.getAttributes() instanceof FurnitureEntityAttributes attributes) {
+					Optional<Tag> optionalTag = attributes.getFurnitureType().getProcessedTags()
+							.stream()
+							.filter(pt -> pt.getClass().isAssignableFrom(CraftingStationBehaviourTag.class))
+							.findAny();
+					return optionalTag.map(tag -> {
+						CraftingStationBehaviourTag craftingTag = (CraftingStationBehaviourTag) tag;
+						return craftingTag.getCraftingType(craftingTypeDictionary);
+					}).orElse(null);
+				}
 			}
 		}
 		return null;
