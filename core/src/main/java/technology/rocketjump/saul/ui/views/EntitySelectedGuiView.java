@@ -39,6 +39,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionar
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
@@ -51,6 +52,7 @@ import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
@@ -464,9 +466,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			if (entity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				Container<Button> craftingButtonContainer = new Container<>();
-				Button craftingButton = buttonFactory.buildDrawableButton("btn_recipe", "GUI.CRAFTING_MANAGEMENT.TITLE", () -> {
-					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
-				});
+				Button craftingButton = buttonFactory.buildDrawableButton("btn_recipe", "GUI.CRAFTING_MANAGEMENT.TITLE", () ->
+						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name()));
 				craftingButtonContainer.setActor(craftingButton);
 				table.add(craftingButtonContainer);
 			}
@@ -1128,15 +1129,24 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (inventoryIterator.hasNext()) {
 					Entity inventoryItem = inventoryIterator.next();
 					int quantity = 1;
+					ItemType itemType = null;
+					GameMaterial primaryMaterial = null;
 
 					if (inventoryItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
 						quantity = attributes.getQuantity();
+						itemType = attributes.getItemType();
+						primaryMaterial = attributes.getPrimaryMaterial();
+
 					}
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
 					Image entityImage = new Image(entityDrawable);
-					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
+					if (itemType == null) {
+						tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW);
+					} else {
+						craftingHintWidgetFactory.addComplexTooltip(entityImage, mainGameSkin, itemType, primaryMaterial);
+					}
 					buttonFactory.attachClickCursor(entityImage, GameCursor.SELECT);
 					entityImage.addListener(new ClickListener() {
 						@Override
