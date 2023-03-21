@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +30,6 @@ public class StockpileGroupDictionary {
 			byName.put(stockpileGroup.getName(), stockpileGroup);
 			all.add(stockpileGroup);
 		}
-
-		Collections.sort(all, Comparator.comparing(StockpileGroup::getSortOrder));
 	}
 
 	public StockpileGroup getByName(String stockpileGroupName) {
@@ -39,5 +38,11 @@ public class StockpileGroupDictionary {
 
 	public List<StockpileGroup> getAll() {
 		return all;
+	}
+
+	public List<StockpileGroup> getAll(I18nTranslator i18nTranslator) {
+		ArrayList<StockpileGroup> stockpileGroups = new ArrayList<>(getAll());
+		stockpileGroups.sort(Comparator.comparing(stockpileGroup -> i18nTranslator.translate(stockpileGroup.getI18nKey())));
+		return stockpileGroups;
 	}
 }

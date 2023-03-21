@@ -6,7 +6,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
-import technology.rocketjump.saul.combat.CombatTracker;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
@@ -16,7 +15,6 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.PlantEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
-import technology.rocketjump.saul.entities.factories.SettlerCreatureAttributesFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -40,8 +38,6 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 @Singleton
 public class EntityStore implements GameContextAware, AssetDisposable {
 
-	private final SettlerCreatureAttributesFactory settlerCreatureAttributesFactory;
-
 	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
 	private final PlantEntityFactory plantEntityFactory;
 
@@ -58,17 +54,14 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
 	private final VehicleTracker vehicleTracker;
-	private final CombatTracker combatTracker;
 	private final ConstantsRepo constantsRepo;
 
 	@Inject
-	public EntityStore(SettlerCreatureAttributesFactory settlerCreatureAttributesFactory,
-					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
+	public EntityStore(PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   SettlementFurnitureTracker settlementFurnitureTracker,
 					   SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
-					   VehicleTracker vehicleTracker, CombatTracker combatTracker, ConstantsRepo constantsRepo) {
-		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
+					   VehicleTracker vehicleTracker, ConstantsRepo constantsRepo) {
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
 		this.itemTypeDictionary = itemTypeDictionary;
@@ -78,7 +71,6 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
 		this.vehicleTracker = vehicleTracker;
-		this.combatTracker = combatTracker;
 		this.constantsRepo = constantsRepo;
 	}
 

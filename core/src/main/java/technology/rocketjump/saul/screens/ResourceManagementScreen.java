@@ -188,7 +188,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
-		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
+		List<StockpileGroup> stockpileGroups = stockpileGroupDictionary.getAll(i18nTranslator);
+		for (StockpileGroup stockpileGroup : stockpileGroups) {
 			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()), false);
 
 			stockpileButtonGroup.add(stockpileButton);
@@ -198,7 +199,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 					if (stockpileButton.isChecked()) {
 						removeInfoPane();
 
-						selectedStockpileGroup = stockpileGroup;
+						setSelectedStockpileGroup(stockpileGroup);
 						rebuildStockpileComponents();
 					}
 				}
@@ -211,7 +212,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 		if (selectedStockpileGroup == null) {
 			stockpileButtonGroup.getButtons().get(1).setChecked(true);
-			selectedStockpileGroup = stockpileGroupDictionary.getAll().get(1);
+			setSelectedStockpileGroup(stockpileGroups.get(0));
 		}
 
 
@@ -230,7 +231,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 			@Override
 			public boolean keyTyped(InputEvent event, char character) {
-				searchBarText = searchBar.getText();
+				setSearchBarText(searchBar.getText());
 				rebuildStockpileComponents();
 				return true;
 			}
@@ -693,5 +694,13 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 
 		return entityStack;
+	}
+
+	public void setSelectedStockpileGroup(StockpileGroup selectedStockpileGroup) {
+		this.selectedStockpileGroup = selectedStockpileGroup;
+	}
+
+	public void setSearchBarText(String searchBarText) {
+		this.searchBarText = searchBarText;
 	}
 }

@@ -56,7 +56,7 @@ public class StockpileManagementTree extends Table {
 
 		Tree<StockpileTreeNode, String> treeRoot = new Tree<>(uiSkin);
 
-		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
+		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll(i18nTranslator)) {
 			if (!stockpileSettings.isAllowed(stockpileGroup)) {
 				continue;
 			}

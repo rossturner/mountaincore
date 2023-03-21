@@ -281,7 +281,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Cell<Table> middleRowCell = outerTable.add(middleRow).expandY().fillX();
 					middleRowCell.row();
 					if (GlobalSettings.DEV_MODE) {
-						outerTable.add(debugTextSummary.getActor()).left().row();
+						middleRow.add(debugTextSummary.getActor()).left().row();
 					}
 					if (entity.getComponent(InventoryComponent.class) != null) {
 						Updatable<Table> inventory = inventory(entity);
@@ -836,6 +836,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				}
 			});
+
+			updatable.update();
 		}
 
 		return updatable;

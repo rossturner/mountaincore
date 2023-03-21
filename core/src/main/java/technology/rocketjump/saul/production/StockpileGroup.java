@@ -17,11 +17,11 @@ public class StockpileGroup {
 	private String name;
 	private String i18nKey;
 	private String drawableName;
+	private String overviewDrawableName;
 	private String colorCode;
 	@JsonIgnore
 	private Color color = HexColors.POSITIVE_COLOR;
 	private String iconName;
-	private int sortOrder = 0;
 	private boolean includesCreatureCorpses;
 
 	public StockpileGroup() {
@@ -71,14 +71,6 @@ public class StockpileGroup {
 		this.iconName = iconName;
 	}
 
-	public int getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(int sortOrder) {
-		this.sortOrder = sortOrder;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -111,5 +103,13 @@ public class StockpileGroup {
 
 	public void setDrawableName(String drawableName) {
 		this.drawableName = drawableName;
+	}
+
+	public String getOverviewDrawableName() {
+		return overviewDrawableName;
+	}
+
+	public void setOverviewDrawableName(String overviewDrawableName) {
+		this.overviewDrawableName = overviewDrawableName;
 	}
 }

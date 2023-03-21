@@ -35,7 +35,6 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttri
 import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -70,14 +69,12 @@ public class I18nTranslator {
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
 	private final I18nRepo repo;
-	private final SkillDictionary skillDictionary;
 	private final EntityStore entityStore;
 	private I18nLanguageDictionary dictionary;
 
 	@Inject
-	public I18nTranslator(I18nRepo repo, SkillDictionary skillDictionary, EntityStore entityStore) {
+	public I18nTranslator(I18nRepo repo, EntityStore entityStore) {
 		this.repo = repo;
-		this.skillDictionary = skillDictionary;
 		this.dictionary = repo.getCurrentLanguage();
 		this.entityStore = entityStore;
 	}

@@ -371,6 +371,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-16
 		fontColor: debug_purple
 	}
+	resource_overview_stockpile_label: {
+		font: default-font-16
+		fontColor: white
+		background: Inventory_Overview_Ribbon_BG
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
@@ -420,6 +425,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 	default: {
 		plus: btn_tinycheck_add
 		minus: btn_tinycheck_subtract
+	}
+	resource_overview_tree: {
+		plus: Inv_Overview_Arrow_Closed
+		minus: Inv_Overview_Arrow_Open
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
