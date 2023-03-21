@@ -447,7 +447,9 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	@Override
 	public void update() {
-		farmPlotWidget.updateSeedQuantities(settlementItemTracker);
+		if (farmPlotWidget != null) {
+			farmPlotWidget.updateSeedQuantities(settlementItemTracker);
+		}
 	}
 
 	@Override
