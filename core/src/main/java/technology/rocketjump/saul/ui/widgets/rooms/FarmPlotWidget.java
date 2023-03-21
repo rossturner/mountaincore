@@ -11,10 +11,11 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDict
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 
 import java.util.ArrayList;
@@ -27,29 +28,17 @@ import static technology.rocketjump.saul.entities.model.physical.plant.PlantSpec
 public class FarmPlotWidget extends Table {
 
 	private static final int ITEMS_PER_ROW = 8;
-	private final Room selectedRoom;
 	private final FarmPlotComponent farmPlotComponent;
-	private final Skin skin;
-	private final TooltipFactory tooltipFactory;
-	private final MessageDispatcher messageDispatcher;
 
 	private final List<SeedButton> seedButtons = new ArrayList<>();
-	private final EntityRenderer entityRenderer;
-	private final I18nTranslator i18nTranslator;
 
 	private Consumer<PlantSpecies> onSeedChange;
 
-	public FarmPlotWidget(Room selectedRoom, FarmPlotComponent farmPlotComponent, Skin skin, TooltipFactory tooltipFactory,
+	public FarmPlotWidget(FarmPlotComponent farmPlotComponent, Skin skin, TooltipFactory tooltipFactory,
 						  MessageDispatcher messageDispatcher, PlantSpeciesDictionary plantSpeciesDictionary,
 						  RoomEditorItemMap itemMap, EntityRenderer entityRenderer, I18nTranslator i18nTranslator,
-						  SoundAssetDictionary soundAssetDictionary) {
-		this.selectedRoom = selectedRoom;
+						  SoundAssetDictionary soundAssetDictionary, ManagementSkin managementSkin) {
 		this.farmPlotComponent = farmPlotComponent;
-		this.skin = skin;
-		this.tooltipFactory = tooltipFactory;
-		this.messageDispatcher = messageDispatcher;
-		this.entityRenderer = entityRenderer;
-		this.i18nTranslator = i18nTranslator;
 
 		GameContext nullContext = new GameContext();
 		for (PlantSpecies plantSpecies : plantSpeciesDictionary.getAll()) {
@@ -58,7 +47,7 @@ public class FarmPlotWidget extends Table {
 				((ItemEntityAttributes) seedItem.getPhysicalEntityComponent().getAttributes()).setMaterial(plantSpecies.getSeed().getSeedMaterial());
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, seedItem);
 				SeedButton seedButton = new SeedButton(plantSpecies, seedItem, skin, tooltipFactory, messageDispatcher,
-						this.entityRenderer, this.i18nTranslator, soundAssetDictionary);
+						entityRenderer, i18nTranslator, soundAssetDictionary, managementSkin);
 				seedButton.onClick(() -> seedSelected(seedButton.isChecked() ? plantSpecies : null));
 				seedButtons.add(seedButton);
 			}
@@ -92,5 +81,11 @@ public class FarmPlotWidget extends Table {
 
 	public void setOnSeedChange(Consumer<PlantSpecies> onSeedChange) {
 		this.onSeedChange = onSeedChange;
+	}
+
+	public void updateSeedQuantities(SettlementItemTracker settlementItemTracker) {
+		for (SeedButton seedButton : seedButtons) {
+			seedButton.updateQuantityLabel(settlementItemTracker);
+		}
 	}
 }
