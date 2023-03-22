@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.modding.model.*;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ModParser {
 
 	public static final String MOD_INFO_FILENAME = "modInfo.json";
+	public static final String MODIO_JSON_FILENAME = "modio.json";
 	private final ModArtifactListing artifactListing;
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -26,7 +28,7 @@ public class ModParser {
 	}
 
 	public ParsedMod parseMod(Path modBasePath) throws IOException {
-		ParsedMod parsedMod = new ParsedMod(modBasePath, readModInfo(modBasePath, objectMapper));
+		ParsedMod parsedMod = new ParsedMod(modBasePath, readModInfo(modBasePath, objectMapper), parseModioMeta(modBasePath));
 
 		for (ModArtifactDefinition artifactDefinition : artifactListing.getAll()) {
 			Optional<ModArtifact> artifact = new ArtifactParser(artifactDefinition).parse(modBasePath);
@@ -42,6 +44,19 @@ public class ModParser {
 			throw new IOException("Could not find modInfo.json in " + modBasePath);
 		}
 		return objectMapper.readValue(FileUtils.readFileToString(infoPath.toFile(), "UTF-8"), ModInfo.class);
+	}
+
+	private Optional<ModioMetadata> parseModioMeta(Path modBasePath) {
+		Path modioMetaPath = modBasePath.resolve(MODIO_JSON_FILENAME);
+		if (Files.exists(modioMetaPath)) {
+			try {
+				return Optional.of(objectMapper.readValue(FileUtils.readFileToString(modioMetaPath.toFile(), "UTF-8"), ModioMetadata.class));
+			} catch (IOException e) {
+				Logger.error("Error parsing modio.json for " + modBasePath, e);
+				return Optional.empty();
+			}
+		}
+		return Optional.empty();
 	}
 
 	public void write(Path directory, ModInfo modInfo) throws IOException {

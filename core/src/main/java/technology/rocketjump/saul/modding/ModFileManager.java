@@ -9,28 +9,28 @@ import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.BackgroundTaskManager;
-import technology.rocketjump.saul.modding.authentication.ModioAuthManager;
 import technology.rocketjump.saul.modding.syncing.ModSyncTask;
 
 @Singleton
 public class ModFileManager implements Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
-	private final ModioAuthManager modioAuthManager;
 	private final BackgroundTaskManager backgroundTaskManager;
 	private final Provider<ModSyncTask> modSyncTaskProvider;
 	private boolean syncInProgress;
 
 	@Inject
-	public ModFileManager(MessageDispatcher messageDispatcher, ModioAuthManager modioAuthManager, BackgroundTaskManager backgroundTaskManager,
+	public ModFileManager(MessageDispatcher messageDispatcher, BackgroundTaskManager backgroundTaskManager,
 						  Provider<ModSyncTask> modSyncTaskProvider) {
 		this.messageDispatcher = messageDispatcher;
-		this.modioAuthManager = modioAuthManager;
 		this.backgroundTaskManager = backgroundTaskManager;
 		this.modSyncTaskProvider = modSyncTaskProvider;
 
 		messageDispatcher.addListener(this, MessageType.REQUEST_SYNC_MOD_FILES);
 		messageDispatcher.addListener(this, MessageType.MOD_SYNC_COMPLETED);
+
+		// Kick off mod syncing on startup
+		messageDispatcher.dispatchMessage(MessageType.REQUEST_SYNC_MOD_FILES);
 	}
 
 
