@@ -1367,6 +1367,21 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "FISH_BARREL",
+  "i18nKey" : "FURNITURE.FISH_BARREL",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Barrel",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "Weapon_Rack",
   "i18nKey" : "FURNITURE.WEAPON_RACK",
   "blocksMovement" : false,

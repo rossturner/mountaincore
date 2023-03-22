@@ -705,7 +705,7 @@
     "needs" : [ ],
     "group" : {
       "minSize" : 1,
-      "maxSize" : 200
+      "maxSize" : 12
     },
     "aggressionResponse" : "ATTACK",
     "isSapient" : false

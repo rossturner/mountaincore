@@ -13742,6 +13742,137 @@
     }
   }
 }, {
+  "uniqueName" : "Furniture-Fish-Barrel-Body-Floor",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Body-Floor.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 1.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_COVER_LAYER",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Contents-Floor",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furniture-Fish-Barrel-Contents-Floor_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Hoops-Floor",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Hoops-Floor.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -4.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Lid-Floor",
+  "type" : "FURNITURE_COVER_LAYER",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Lid-Floor.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 11.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Weapon_Rack-1x1EW-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Weapon_Rack",

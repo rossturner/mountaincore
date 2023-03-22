@@ -1,0 +1,67 @@
+[ {
+  "uniqueName" : "Furniture-Fish-Barrel-Body-Floor",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Body-Floor.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : 1.5
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT"
+      }, {
+        "type" : "FURNITURE_COVER_LAYER"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Contents-Floor",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furniture-Fish-Barrel-Contents-Floor_Down.png",
+      "offsetPixels" : {
+        "y" : 13.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Hoops-Floor",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Hoops-Floor.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -4.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Furniture-Fish-Barrel-Lid-Floor",
+  "type" : "FURNITURE_COVER_LAYER",
+  "furnitureTypeName" : "FISH_BARREL",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel-Lid-Floor.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : 11.0
+      }
+    }
+  }
+} ]
