@@ -26,9 +26,11 @@ public class HaulingComponent implements ParentDependentEntityComponent, Destruc
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		this.hauledEntity = gameContext.getEntities().get(hauledEntityId);
-		if (this.hauledEntity == null) {
-			Logger.error("Could not find entity with ID {}", hauledEntityId);
+		if (hauledEntityId != null) {
+			this.hauledEntity = gameContext.getEntities().get(hauledEntityId);
+			if (this.hauledEntity == null) {
+				Logger.error("Could not find entity with ID {}", hauledEntityId);
+			}
 		}
 		initialised = true;
 	}
