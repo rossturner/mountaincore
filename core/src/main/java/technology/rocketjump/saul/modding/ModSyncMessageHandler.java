@@ -12,7 +12,7 @@ import technology.rocketjump.saul.messaging.async.BackgroundTaskManager;
 import technology.rocketjump.saul.modding.syncing.ModSyncTask;
 
 @Singleton
-public class ModFileManager implements Telegraph {
+public class ModSyncMessageHandler implements Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
 	private final BackgroundTaskManager backgroundTaskManager;
@@ -20,8 +20,8 @@ public class ModFileManager implements Telegraph {
 	private boolean syncInProgress;
 
 	@Inject
-	public ModFileManager(MessageDispatcher messageDispatcher, BackgroundTaskManager backgroundTaskManager,
-						  Provider<ModSyncTask> modSyncTaskProvider) {
+	public ModSyncMessageHandler(MessageDispatcher messageDispatcher, BackgroundTaskManager backgroundTaskManager,
+								 Provider<ModSyncTask> modSyncTaskProvider) {
 		this.messageDispatcher = messageDispatcher;
 		this.backgroundTaskManager = backgroundTaskManager;
 		this.modSyncTaskProvider = modSyncTaskProvider;

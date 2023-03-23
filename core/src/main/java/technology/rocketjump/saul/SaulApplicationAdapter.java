@@ -33,7 +33,7 @@ import technology.rocketjump.saul.misc.AnalyticsManager;
 import technology.rocketjump.saul.misc.twitch.TwitchMessageHandler;
 import technology.rocketjump.saul.misc.twitch.TwitchTaskRunner;
 import technology.rocketjump.saul.modding.LocalModRepository;
-import technology.rocketjump.saul.modding.ModFileManager;
+import technology.rocketjump.saul.modding.ModSyncMessageHandler;
 import technology.rocketjump.saul.modding.authentication.SteamUserManager;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.persistence.UserFileManager;
@@ -137,7 +137,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			injector.getInstance(TagProcessor.class).init();
 			injector.getInstance(TimeDateGuiView.class).rebuildUI();
 			injector.getInstance(SteamUserManager.class);
-			injector.getInstance(ModFileManager.class);
+			injector.getInstance(ModSyncMessageHandler.class);
 
 			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_MENU");
 
