@@ -30,9 +30,8 @@ import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.FullscreenMode.BORDERLESS_FULLSCREEN;
-import static technology.rocketjump.saul.persistence.UserPreferences.FullscreenMode.WINDOWED;
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.FULLSCREEN_MODE;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.UI_SCALE;
 
 @Singleton
 public class GraphicsOptionsTab implements OptionsTab {
@@ -110,10 +109,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 	}
 
 	public static UserPreferences.FullscreenMode getFullscreenMode(UserPreferences userPreferences) {
-		boolean legacyFullscreen = Boolean.parseBoolean(userPreferences.getPreference(DISPLAY_FULLSCREEN, "true"));
-		return UserPreferences.FullscreenMode.valueOf(
-				userPreferences.getPreference(FULLSCREEN_MODE, legacyFullscreen ? BORDERLESS_FULLSCREEN.name() : WINDOWED.name())
-		);
+		return UserPreferences.FullscreenMode.valueOf(userPreferences.getPreference(FULLSCREEN_MODE));
 	}
 
 	public void rebuildUI() {
@@ -163,7 +159,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 
 		uiScaleLabel = new Label(i18nTranslator.translate("GUI.UI_SCALE"), skin, "options_menu_label");
 		uiScaleSlider = new Slider(ViewportUtils.MIN_VIEWPORT_SCALE, ViewportUtils.MAX_VIEWPORT_SCALE, 0.01f, false, skin); //Uses Viewport domain
-		uiScaleSlider.setValue(Float.parseFloat(userPreferences.getPreference(UI_SCALE, "1.0")));
+		uiScaleSlider.setValue(Float.parseFloat(userPreferences.getPreference(UI_SCALE)));
 
 		uiScaleSlider.setProgrammaticChangeEvents(false);
 
@@ -180,7 +176,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 		uiScaleSlider.addListener(new ChangeCursorOnHover(uiScaleSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
 		weatherEffectsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS", skin, 428f);
-		GlobalSettings.WEATHER_EFFECTS = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.WEATHER_EFFECTS, "true"));
+		GlobalSettings.WEATHER_EFFECTS = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.WEATHER_EFFECTS));
 		weatherEffectsCheckbox.setChecked(GlobalSettings.WEATHER_EFFECTS);
 		weatherEffectsCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {

@@ -136,7 +136,7 @@ public class I18NTranslatorTest {
 
 	@Before
 	public void setup() throws IOException {
-		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
+		when(mockUserPreferences.getPreference(eq(LANGUAGE))).thenReturn("en-gb");
 
 		when(mockCraftingTypeDictionary.getByName(Mockito.anyString())).thenReturn(mockCraftingType);
 		when(mockWallType.getI18nKey()).thenReturn("WALL.STONE_BLOCK");

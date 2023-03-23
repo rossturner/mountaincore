@@ -11,7 +11,6 @@ import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
-import technology.rocketjump.saul.audio.SoundEffectManager;
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -22,6 +21,8 @@ import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
 import javax.inject.Inject;
 import java.util.Map;
+
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.SOUND_EFFECT_VOLUME;
 
 public class ViewEditorPane extends VisTable {
 
@@ -90,7 +91,7 @@ public class ViewEditorPane extends VisTable {
         table.add(WidgetBuilder.label("Animation Controls")).padRight(14);
         table.add(WidgetBuilder.checkBox("Mute Sound", true,
                 checked -> messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, 0.0f),
-                unchecked -> messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, Float.parseFloat(SoundEffectManager.DEFAULT_SOUND_VOLUME_AS_STRING)))).padRight(12);
+                unchecked -> messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, Float.parseFloat(SOUND_EFFECT_VOLUME.defaultValue)))).padRight(12);
 
         table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), animationStudio.getAvailableAnimationNames(), null, a -> {
             animationComponent.setCurrentAnimation(a);

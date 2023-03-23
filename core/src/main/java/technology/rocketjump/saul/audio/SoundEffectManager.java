@@ -26,7 +26,6 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @Singleton
 public class SoundEffectManager implements AssetDisposable {
 
-	public static final String DEFAULT_SOUND_VOLUME_AS_STRING = "0.6";
 	public static final float GLOBAL_VOLUME_MULTIPLIER = 0.4f;
 	private final float VIEWPORT_OVERFLOW_DISTANCE = 2f;
 	private final int MAX_PARALLEL_SOUNDS = 5;
@@ -49,7 +48,7 @@ public class SoundEffectManager implements AssetDisposable {
 		JSONObject uiSettings = JSON.parseObject(FileUtils.readFileToString(new File("assets/ui/uiSettings.json")));
 		minTilesForZoom = uiSettings.getFloatValue("minTilesZoom");
 
-		this.baseVolumeLevel = GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(userPreferences.getPreference(SOUND_EFFECT_VOLUME, DEFAULT_SOUND_VOLUME_AS_STRING));
+		this.baseVolumeLevel = GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(userPreferences.getPreference(SOUND_EFFECT_VOLUME));
 	}
 
 	public void setViewportParams(float viewportWidth, float viewportHeight, Vector3 cameraPosition, float minTilesForZoom, float maxTilesForZoom) {

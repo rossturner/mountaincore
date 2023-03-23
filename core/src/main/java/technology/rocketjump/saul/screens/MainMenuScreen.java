@@ -377,7 +377,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	}
 
 	private boolean twitchEnabled() {
-		return Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED, "false"));
+		return Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED));
 	}
 
 	@Override

@@ -6,8 +6,11 @@ import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.codedisaster.steamworks.SteamAPI;
+import com.codedisaster.steamworks.SteamException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.pmw.tinylog.Logger;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import technology.rocketjump.saul.assets.AssetDisposable;
@@ -30,10 +33,13 @@ import technology.rocketjump.saul.misc.AnalyticsManager;
 import technology.rocketjump.saul.misc.twitch.TwitchMessageHandler;
 import technology.rocketjump.saul.misc.twitch.TwitchTaskRunner;
 import technology.rocketjump.saul.modding.LocalModRepository;
+import technology.rocketjump.saul.modding.ModFileManager;
+import technology.rocketjump.saul.modding.authentication.SteamUserManager;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.persistence.UserFileManager;
 import technology.rocketjump.saul.rendering.GameRenderer;
 import technology.rocketjump.saul.rendering.ScreenWriter;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.screens.ScreenManager;
 import technology.rocketjump.saul.screens.menus.OptionsMenu;
@@ -72,6 +78,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+		initSteamAPI();
 		try {
 			Injector injector = Guice.createInjector(new SaulGuiceModule());
 
@@ -129,6 +136,8 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 			injector.getInstance(TagProcessor.class).init();
 			injector.getInstance(TimeDateGuiView.class).rebuildUI();
+			injector.getInstance(SteamUserManager.class);
+			injector.getInstance(ModFileManager.class);
 
 			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_MENU");
 
@@ -153,6 +162,9 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		if (SteamAPI.isSteamRunning()) {
+			SteamAPI.runCallbacks();
+		}
 		try {
 			Color bgColor = constantsRepo.getWorldConstants().getBackgroundColorInstance();
 			Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
@@ -178,6 +190,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
 		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
+		SteamAPI.shutdown();
 		Gdx.app.exit();
 	}
 
@@ -216,6 +229,18 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 				CrashHandler.displayCrashDialog(e);
 			}
 		});
+	}
+
+	private static void initSteamAPI() {
+		try {
+			SteamAPI.loadLibraries();
+			if (!SteamAPI.init() && GlobalSettings.DEV_MODE) {
+				Logger.info("Steam API init() failed, probably not running under Steam");
+			}
+		} catch (SteamException e) {
+			Logger.error(e, "SteamAPI.loadLibraries() failed");
+		}
+
 	}
 
 }

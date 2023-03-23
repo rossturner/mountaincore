@@ -104,7 +104,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 		CheckBox crashReportCheckbox = widgetFactory.createLeftLabelledCheckbox("GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED", menuSkin, 524f);
 		crashReportCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
-		crashReportCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(CRASH_REPORTING, "true")));
+		crashReportCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(CRASH_REPORTING)));
 		crashReportCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, crashReportCheckbox.isChecked());
@@ -114,7 +114,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 		CheckBox tutorialCheckbox = widgetFactory.createLeftLabelledCheckbox("GUI.OPTIONS.MISC.TUTORIAL_ENABLED", menuSkin, 524f);
 		tutorialCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
-		tutorialCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL, "true")));
+		tutorialCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL)));
 		tutorialCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				userPreferences.setPreference(ENABLE_TUTORIAL, String.valueOf(tutorialCheckbox.isChecked()));

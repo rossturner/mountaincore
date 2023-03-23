@@ -32,7 +32,7 @@ public class ViewportUtils {
     }
 
     private static Float getViewportScale(UserPreferences userPreferences) {
-        String preference = userPreferences.getPreference(UserPreferences.PreferenceKey.UI_SCALE, "1.0f");
+        String preference = userPreferences.getPreference(UserPreferences.PreferenceKey.UI_SCALE);
         return Float.valueOf(preference);
     }
 }

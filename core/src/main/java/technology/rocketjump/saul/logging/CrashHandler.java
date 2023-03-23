@@ -39,7 +39,7 @@ public class CrashHandler implements Telegraph {
 	@Inject
 	public CrashHandler(UserPreferences userPreferences, MessageDispatcher messageDispatcher) {
 		this.userPreferences = userPreferences;
-		reportingEnabled = Boolean.valueOf(userPreferences.getPreference(CRASH_REPORTING, "true"));
+		reportingEnabled = Boolean.valueOf(userPreferences.getPreference(CRASH_REPORTING));
 		messageDispatcher.addListener(this, MessageType.CRASH_REPORTING_OPT_IN_MODIFIED);
 	}
 
@@ -81,7 +81,7 @@ public class CrashHandler implements Telegraph {
 	}
 
 	public boolean isOptInConfirmationRequired() {
-		return userPreferences.getPreference(CRASH_REPORTING, null) == null;
+		return userPreferences.getPreference(CRASH_REPORTING) == null;
 	}
 
 	@Override

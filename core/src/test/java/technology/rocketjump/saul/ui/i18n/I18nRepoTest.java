@@ -10,7 +10,6 @@ import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.persistence.UserPreferences;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.LANGUAGE;
@@ -28,7 +27,7 @@ public class I18nRepoTest {
 
 	@Before
 	public void setUp() throws Exception {
-		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
+		when(mockUserPreferences.getPreference(eq(LANGUAGE))).thenReturn("en-gb");
 		this.i18nRepo = new I18nRepo(mockUserPreferences);
 
 		when(mockAtlasRepo.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS)).thenReturn(mockAtlas);

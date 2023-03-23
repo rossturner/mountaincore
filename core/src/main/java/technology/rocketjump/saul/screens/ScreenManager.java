@@ -123,7 +123,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 
 	public static boolean chooseSpawnLocation(UserPreferences userPreferences) {
 		return (DEV_MODE && GlobalSettings.CHOOSE_SPAWN_LOCATION) ||
-				!Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ENABLE_TUTORIAL, "true"));
+				!Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ENABLE_TUTORIAL));
 	}
 
 	private List<Skill> buildProfessionList() {

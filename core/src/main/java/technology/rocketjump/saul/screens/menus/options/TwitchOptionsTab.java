@@ -154,7 +154,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		twitchEnabledCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.ENABLED", skin, 428f);
 		twitchEnabledCheckbox.setProgrammaticChangeEvents(false);
-		twitchEnabled = Boolean.parseBoolean(userPreferences.getPreference(TWITCH_INTEGRATION_ENABLED, "false"));
+		twitchEnabled = Boolean.parseBoolean(userPreferences.getPreference(TWITCH_INTEGRATION_ENABLED));
 		twitchEnabledCheckbox.setChecked(twitchEnabled);
 		twitchEnabledCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
@@ -204,7 +204,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		viewersAsSettersCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS", skin, 428f);
 		viewersAsSettersCheckbox.setProgrammaticChangeEvents(false);
-		viewersAsSettersCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_VIEWERS_AS_SETTLER_NAMES, "false")));
+		viewersAsSettersCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_VIEWERS_AS_SETTLER_NAMES)));
 		viewersAsSettersCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				userPreferences.setPreference(TWITCH_VIEWERS_AS_SETTLER_NAMES, String.valueOf(viewersAsSettersCheckbox.isChecked()));
@@ -214,7 +214,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		prioritiseSubsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS", skin, 428f);
 		prioritiseSubsCheckbox.setProgrammaticChangeEvents(false);
-		prioritiseSubsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_PRIORITISE_SUBSCRIBERS, "false")));
+		prioritiseSubsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_PRIORITISE_SUBSCRIBERS)));
 		prioritiseSubsCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				userPreferences.setPreference(TWITCH_PRIORITISE_SUBSCRIBERS, String.valueOf(prioritiseSubsCheckbox.isChecked()));

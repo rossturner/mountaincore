@@ -156,7 +156,7 @@
 }, {
   "label" : "简体中文",
   "labelEn" : "Simplified Chinese",
-  "code" : "zh-cn",
+  "code" : "zh-CN",
   "icon" : "China",
   "fallback" : "en-gb",
   "filename" : "simplified-chinese.csv",

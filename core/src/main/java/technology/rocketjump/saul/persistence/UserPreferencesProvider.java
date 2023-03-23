@@ -21,10 +21,12 @@ public class UserPreferencesProvider implements Provider<UserPreferences> {
 		this.userFileManager = userFileManager;
 
 		userPreferences = new UserPreferences(userFileManager);
-		String saveDirPath = userPreferences.getPreference(UserPreferences.PreferenceKey.SAVE_LOCATION,
-				userFileManager.userFileDirectoryForGame.getAbsolutePath() + File.separator + "saves");
+		if (userPreferences.getPreference(UserPreferences.PreferenceKey.SAVE_LOCATION) == null) {
+			userPreferences.setPreference(UserPreferences.PreferenceKey.SAVE_LOCATION,
+					userFileManager.userFileDirectoryForGame.getAbsolutePath() + File.separator + "saves");
+		}
 		try {
-			userFileManager.initSaveDir(saveDirPath);
+			userFileManager.initSaveDir(userPreferences.getPreference(UserPreferences.PreferenceKey.SAVE_LOCATION));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
