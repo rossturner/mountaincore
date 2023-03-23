@@ -69,9 +69,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
         this.messageDispatcher = messageDispatcher;
         this.tooltipFactory = tooltipFactory;
 
-        treeOrder = Comparator.comparing((TreeNodeValue v) -> {
-                    return i18nTranslator.translate(v.stockpileGroup().getI18nKey());
-                })
+        treeOrder = Comparator.comparing((TreeNodeValue v) -> i18nTranslator.translate(v.stockpileGroup().getI18nKey()))
                 .thenComparing((TreeNodeValue v) -> {
                     if (v.itemType() == null) {
                         return "";
@@ -347,6 +345,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
                     }
                 })
                 .filter(Objects::nonNull)
+                .filter(itemEntityAttributes -> itemEntityAttributes.getItemType().getStockpileGroup() != null)
                 .map(attributes -> {
                     final int totalQuantity = attributes.getQuantity();
                     final ItemType itemType = attributes.getItemType();
