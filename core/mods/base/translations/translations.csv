@@ -524,7 +524,6 @@ GUI.DIALOG.RESTART_REQUIRED,,You must restart the game for this change to take e
 GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE,,You already have a saved game for the settlement {{name}}. Starting a new game will overwrite the existing save file. Are you sure you want to continue?
 GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be specified.
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings
-GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!"
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community
 GUI.EMBARK.MAP_SEED,,Random Seed
 GUI.EMBARK.MAP_SIZE,,Map Size
@@ -907,7 +906,7 @@ MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen
 
 METAL.BRONZE.ADJECTIVE,,Bronze
 METAL.BRONZE.NOUN,,Bronze
-METAL.BRONZE.TOOLTIP,,Bronze is an alloy of copper and tin. It is harder and much more durable than copper alone. (Alloys have not yet been implemented in King under the Mountain)
+METAL.BRONZE.TOOLTIP,,Bronze is an alloy of copper and tin. It is harder and much more durable than copper alone. (Alloys have not yet been implemented)
 METAL.COPPER.ADJECTIVE,,Copper
 METAL.COPPER.NOUN,,Copper
 METAL.COPPER.TOOLTIP,,"As well as occuring naturally as {{ORE.NATIVE_COPPER.NOUN}}, it is also easy to smelt from {{ORE.MALACHITE.NOUN}} ore. Copper has many uses, particularly in coinage, though it is not hard enough to create effective weapons."
@@ -934,7 +933,7 @@ METAL.STEEL.NOUN,,Steel
 METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for superior weapons and tools, only the dwarves know the secret of creating steel."
 METAL.TIN.ADJECTIVE,,Tin
 METAL.TIN.NOUN,,Tin
-METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented in King under the Mountain)
+METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented)
 
 MILITARY.FORMATION.COLUMN,,Column - Narrow
 MILITARY.FORMATION.COLUMN_DOUBLE,,Column - Wide
@@ -1085,7 +1084,7 @@ PRIORITY.NORMAL,,Normal priority
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting
-PRIVACY.OPT_IN.DESCRIPTION,,"Project Saul is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
+PRIVACY.OPT_IN.DESCRIPTION,,"Mountaincore is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
 PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client
 PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
 PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash
@@ -1288,9 +1287,6 @@ RESOURCE.BONE.MEDIUM.NOUN,,Medium Bone
 RESOURCE.BONE.MEDIUM.PLURAL,,Medium Bones
 RESOURCE.BONE.SMALL.NOUN,,Small Bone
 RESOURCE.BONE.SMALL.PLURAL,,Small Bones
-RESOURCE.CRUSHED.VITRIOL.NOUN,,Vitriol
-RESOURCE.CRUSHED.VITRIOL.PLURAL,,Vitriol
-RESOURCE.CRUSHED.VITRIOL.TOOLTIP,,A salt of sulphuric acid with many uses in industry. (Usages of vitriol are not yet implemented in King under the Mountain)
 RESOURCE.FLOUR.SACK.NOUN,,Flour
 RESOURCE.FLOUR.SACK.PLURAL,,Flour
 RESOURCE.FLOUR.SACK.TOOLTIP,,Grain that has been milled into a fine powder ready to be used as an ingredient in the production of food.
@@ -1736,10 +1732,6 @@ VEGETABLE.WHEAT.USAGE,,used to bake bread
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
-
-VITRIOL.GREEN_VITRIOL.ADJECTIVE,,Green
-VITRIOL.GREEN_VITRIOL.NOUN,,Green
-VITRIOL.GREEN_VITRIOL.TOOLTIP,,"Also known as iron sulfate, this salt has several uses, including as a soil additive to improve crop farming. (Usages of vitriol are not yet implemented in King under the Mountain)"
 
 WALL.DESCRIPTION,"E.g. “Granite rock wall”, “Granite smooth stone wall”",{{materialType.adjective}} {{wallType.noun}}
 WALL.GEMS.NOUN,,Gems
