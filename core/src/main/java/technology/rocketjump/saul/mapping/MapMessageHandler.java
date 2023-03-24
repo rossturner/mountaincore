@@ -277,6 +277,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			if (stockpileRoomComponent != null && roomPlacementMessage.stockpileGroup != null) {
 				stockpileComponentUpdater.toggleGroup(stockpileRoomComponent.getStockpileSettings(), roomPlacementMessage.stockpileGroup, true, true);
 				roomFactory.updateRoomNameForStockpileGroup(newRoom, roomPlacementMessage.stockpileGroup);
+				stockpileRoomComponent.updateColor();
 			}
 			newRooms.add(newRoom);
 			roomToSelect = newRoom;

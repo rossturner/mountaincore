@@ -379,7 +379,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (entity.getComponent(FurnitureStockpileComponent.class) != null) {
 						StockpileManagementTree stockpileManagementTree = new StockpileManagementTree(mainGameSkin, messageDispatcher,
 								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, entity.getComponent(FurnitureStockpileComponent.class).getStockpileSettings(), soundAssetDictionary);
+								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE,
+								entity.getComponent(FurnitureStockpileComponent.class).getStockpileSettings(), soundAssetDictionary, null);
 						stockpileManagementTree.setSize(1700, 600);
 
 						CollapsibleWidget stockpileTreeCollapsible = new CollapsibleWidget(stockpileManagementTree, true);

@@ -20,6 +20,7 @@ import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.production.StockpileSettings;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -39,12 +40,13 @@ public class StockpileManagementTree extends Table {
 	private final HaulingAllocation.AllocationPositionType haulingTargetPositionType;
 	private final StockpileSettings stockpileSettings;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final StockpileRoomComponent stockpileRoomComponent;
 
 	public StockpileManagementTree(Skin uiSkin, MessageDispatcher messageDispatcher,
 								   StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 								   I18nTranslator i18nTranslator, ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
 								   RaceDictionary raceDictionary, Race settlerRace, long haulingTargetId, HaulingAllocation.AllocationPositionType haulingTargetPositionType,
-								   StockpileSettings stockpileSettings, SoundAssetDictionary soundAssetDictionary) {
+								   StockpileSettings stockpileSettings, SoundAssetDictionary soundAssetDictionary, StockpileRoomComponent stockpileRoomComponent) {
 		this.uiSkin = uiSkin;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.i18nTranslator = i18nTranslator;
@@ -53,6 +55,7 @@ public class StockpileManagementTree extends Table {
 		this.haulingTargetPositionType = haulingTargetPositionType;
 		this.haulingTargetId = haulingTargetId;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.stockpileRoomComponent = stockpileRoomComponent;
 
 		Tree<StockpileTreeNode, String> treeRoot = new Tree<>(uiSkin);
 
@@ -250,6 +253,9 @@ public class StockpileManagementTree extends Table {
 						updateCheckedState(childNode);
 						updateChildren(childNode);
 					}
+				}
+				if (stockpileRoomComponent != null) {
+					stockpileRoomComponent.updateColor();
 				}
 
 				return true;
