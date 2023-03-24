@@ -120,7 +120,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 				return false; // Not main handler
 			}
 			case MessageType.SETTLEMENT_SPAWNED: {
-				if ((Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL, "true")))) {
+				if ((Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL)))) {
 					for (Hint hint : hintDictionary.getByTriggerType(ON_START_WITH_TUTORIAL)) {
 						if (canBeShown(hint)) {
 							show(hint);

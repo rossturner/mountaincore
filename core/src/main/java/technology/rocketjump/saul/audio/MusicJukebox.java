@@ -28,7 +28,6 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @Singleton
 public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAware {
 
-	public static final String DEFAULT_VOLUME_AS_STRING = "0.24";
 	private static final float TIME_AFTER_STINGER_TO_SWITCH_STATE = 2f;
 	private static final float VOLUME_CHANGE_IN_SECONDS = 5f;
 	private static final float DELAY_BEFORE_EXITING_COMBAT = CombatTracker.COMBAT_ROUND_DURATION * 1.5f;
@@ -57,7 +56,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 		this.userPreferences = userPreferences;
 		this.combatTracker = combatTracker;
 
-		String volumeString = userPreferences.getPreference(UserPreferences.PreferenceKey.MUSIC_VOLUME, DEFAULT_VOLUME_AS_STRING);
+		String volumeString = userPreferences.getPreference(UserPreferences.PreferenceKey.MUSIC_VOLUME);
 		this.volume = SoundEffectManager.GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(volumeString);
 		if (this.volume < 0.01f) {
 			this.stopped = true;

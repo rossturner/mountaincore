@@ -955,13 +955,24 @@ MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training
 MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating
 
 MODS.APPLY,,Apply
+MODS.BUTTON.BROWSE,,Browse Mods
+MODS.BUTTON.REFRESH,,Refresh
 MODS.COMPATIBILITY.COMPATIBLE,,Yes
 MODS.COMPATIBILITY.INCOMPATIBLE,,No
 MODS.COMPATIBILITY.UNKNOWN,,Unknown
+MODS.EMAIL_LOGIN.CHECK_EMAIL,,"Check your email for an authentication code. If you do not receive an email, please check your spam folder."
+MODS.EMAIL_LOGIN.INFO,,"To download and update mods, you must connect to the Mod.io platform."
+MODS.EMAIL_LOGIN.EMAIL,,"Enter your email address to receive an authentication code."
+MODS.EMAIL_LOGIN.EMAIL_LABEL,,"Email:"
+MODS.EMAIL_LOGIN.ERROR,,"An error occurred while communicating to the server. Either the server is down, the email address is invalid, or you are not connected to the internet."
+MODS.EMAIL_LOGIN.REQUEST_CODE,,"Request Code"
+MODS.EMAIL_LOGIN.CODE_LABEL,,"6 Digit Code:"
+MODS.EMAIL_LOGIN.SUBMIT_CODE,,"Submit"
 MODS.INCOMPATIBLE_VERSION_DESCRIPTION,,The mod's game version ({{modGameVersion}}) is incompatible with the current game version ({{gameVersion}})
 MODS.MISSING_HOMEPAGE_URL,,The author(s) of this mod have not included a website to visit
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:"
+MODS.SYNC_IN_PROGRESS,,"Please wait while the mod list is being updated. This may take a few minutes."
 MODS.TABLE.COMPATIBILITY,,Compatible
 MODS.TABLE.ENABLED,,Enable
 MODS.TABLE.NAME,,Name
