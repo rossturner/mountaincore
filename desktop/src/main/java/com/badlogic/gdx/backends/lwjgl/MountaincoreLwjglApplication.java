@@ -32,7 +32,7 @@ import java.io.File;
  * As you might tell from the package this is in, this class is a copy and paste of the LWJGL code
  * with the mainLoop modified to call our onExit() method
  */
-public class SaulLwjglApplication implements Application {
+public class MountaincoreLwjglApplication implements Application {
 	protected final LwjglGraphics graphics;
 	protected OpenALLwjglAudio audio;
 	protected final LwjglFiles files;
@@ -48,27 +48,27 @@ public class SaulLwjglApplication implements Application {
 	protected String preferencesdir;
 	protected Files.FileType preferencesFileType;
 
-	public SaulLwjglApplication(ApplicationListener listener, String title, int width, int height) {
+	public MountaincoreLwjglApplication(ApplicationListener listener, String title, int width, int height) {
 		this(listener, createConfig(title, width, height));
 	}
 
-	public SaulLwjglApplication(ApplicationListener listener) {
+	public MountaincoreLwjglApplication(ApplicationListener listener) {
 		this(listener, null, 640, 480);
 	}
 
-	public SaulLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config) {
+	public MountaincoreLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config) {
 		this(listener, config, new LwjglGraphics(config));
 	}
 
-	public SaulLwjglApplication(ApplicationListener listener, Canvas canvas) {
+	public MountaincoreLwjglApplication(ApplicationListener listener, Canvas canvas) {
 		this(listener, new LwjglApplicationConfiguration(), new LwjglGraphics(canvas));
 	}
 
-	public SaulLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config, Canvas canvas) {
+	public MountaincoreLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config, Canvas canvas) {
 		this(listener, config, new LwjglGraphics(canvas, config));
 	}
 
-	public SaulLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config, LwjglGraphics graphics) {
+	public MountaincoreLwjglApplication(ApplicationListener listener, LwjglApplicationConfiguration config, LwjglGraphics graphics) {
 		LwjglNativesLoader.load();
 
 		if (config.title == null) config.title = listener.getClass().getSimpleName();
@@ -114,7 +114,7 @@ public class SaulLwjglApplication implements Application {
 			public void run () {
 				graphics.setVSync(graphics.config.vSyncEnabled);
 				try {
-					SaulLwjglApplication.this.mainLoop();
+					MountaincoreLwjglApplication.this.mainLoop();
 				} catch (Throwable t) {
 					if (audio != null) audio.dispose();
 					Gdx.input.setCursorCatched(false);

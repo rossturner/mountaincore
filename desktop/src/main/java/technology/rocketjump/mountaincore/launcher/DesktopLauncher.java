@@ -3,7 +3,7 @@ package technology.rocketjump.mountaincore.launcher;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl.SaulLwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.MountaincoreLwjglApplication;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.pmw.tinylog.Logger;
@@ -41,7 +41,7 @@ public class DesktopLauncher {
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-        config.title = "Project Saul";
+        config.title = "Mountaincore";
 
         Injector preInjector = Guice.createInjector(new MountaincoreGuiceModule());
         UserPreferences userPreferences = preInjector.getInstance(UserPreferences.class);
@@ -65,7 +65,7 @@ public class DesktopLauncher {
         config.addIcon("assets/icon/Steam_Icon_16x16.png", Files.FileType.Internal);
 
         MountaincoreApplicationAdapter gameInstance = new MountaincoreApplicationAdapter();
-        new SaulLwjglApplication(gameInstance, config);
+        new MountaincoreLwjglApplication(gameInstance, config);
     }
 
     private static Resolution getDisplayResolution(UserPreferences userPreferences) {
