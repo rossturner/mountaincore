@@ -1379,7 +1379,10 @@
       "liquid" : false
     } ]
   },
-  "tags" : { },
+  "tags" : {
+    "DECEASED_CONTAINER" : [ "FISH_BARREL", "16", "RACE_Carp", "RACE_Perch", "RACE_Pike" ],
+    "INVENTORY_ITEMS_UNALLOCATED" : [ ]
+  },
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "Weapon_Rack",
