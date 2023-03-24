@@ -1,0 +1,17 @@
+{
+  "name" : "FISH_BARREL",
+  "i18nKey" : "FURNITURE.FISH_BARREL",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Barrel",
+      "quantity" : 1
+    } ]
+  },
+  "tags": {
+    "DECEASED_CONTAINER": ["FISH_BARREL", "16", "RACE_Carp", "RACE_Perch", "RACE_Pike"],
+    "INVENTORY_ITEMS_UNALLOCATED": []
+  }
+}

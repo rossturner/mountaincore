@@ -235,6 +235,14 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			itemAllocationComponent.cancelAll();
 		}
 
+		Entity containerEntity = entityToPickUp.getLocationComponent().getContainerEntity();
+		if (containerEntity != null) {
+			InventoryComponent inventoryComponent = containerEntity.getComponent(InventoryComponent.class);
+			if (inventoryComponent != null) {
+				inventoryComponent.remove(entityToPickUp.getId());
+			}
+		}
+
 		HaulingComponent haulingComponent = parent.parentEntity.getOrCreateComponent(HaulingComponent.class);
 		haulingComponent.setHauledEntity(entityToPickUp, parent.messageDispatcher, parent.parentEntity);
 		completionType = SUCCESS;

@@ -1112,7 +1112,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		Map<Float, Entity> eligibleCorpsesByDistance = new TreeMap<>();
 
 		for (Entity deadCreatureEntity : creatureTracker.getDead()) {
-			MapTile corpseTile = gameContext.getAreaMap().getTile(deadCreatureEntity.getLocationComponent().getWorldPosition());
+			MapTile corpseTile = gameContext.getAreaMap().getTile(deadCreatureEntity.getLocationComponent().getWorldOrParentPosition());
 			if (corpseTile == null || corpseTile.getRegionId() != requesterRegionId) {
 				continue;
 			}

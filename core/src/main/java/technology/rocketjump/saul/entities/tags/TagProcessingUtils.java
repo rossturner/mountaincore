@@ -9,6 +9,7 @@ import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
 import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
@@ -39,6 +40,7 @@ public class TagProcessingUtils {
 	public final SoundAssetDictionary soundAssetDictionary;
 	public final JobStore jobStore;
 	public final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+	public final RaceDictionary raceDictionary;
 	public final StockpileComponentUpdater stockpileComponentUpdater;
 
 	@Inject
@@ -48,7 +50,7 @@ public class TagProcessingUtils {
 							  SkillDictionary skillDictionary, JobTypeDictionary jobTypeDictionary,
 							  CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
 							  SoundAssetDictionary soundAssetDictionary, JobStore jobStore,
-							  ParticleEffectTypeDictionary particleEffectTypeDictionary, StockpileComponentUpdater stockpileComponentUpdater) {
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary, RaceDictionary raceDictionary, StockpileComponentUpdater stockpileComponentUpdater) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
 		this.floorTypeDictionary = floorTypeDictionary;
@@ -66,6 +68,7 @@ public class TagProcessingUtils {
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.jobStore = jobStore;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.raceDictionary = raceDictionary;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 	}
 }

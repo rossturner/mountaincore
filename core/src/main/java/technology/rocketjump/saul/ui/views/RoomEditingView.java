@@ -277,7 +277,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						stockpileComponentUpdater, stockpileGroupDictionary,
 						i18nTranslator, itemTypeDictionary, materialDictionary, raceDictionary,
 						gameContext.getSettlementState().getSettlerRace(), selectedRoom.getRoomId(),
-						HaulingAllocation.AllocationPositionType.ROOM, stockpileComponent.getStockpileSettings(), soundAssetDictionary);
+						HaulingAllocation.AllocationPositionType.ROOM, stockpileComponent.getStockpileSettings(), soundAssetDictionary,
+						stockpileComponent);
 				stockpileManagementTree.setSize(1700, 600);
 				mainTable.add(stockpileManagementTree).left().row();
 			}
