@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.screens.ManagementScreenName;
@@ -58,6 +59,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private TreeNode rootNode;
     private final Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
     private final Map<ItemType, Label> itemTypeLabels = new HashMap<>();
+    private GameContext gameContext;
 
     @Inject
     public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
@@ -79,6 +81,10 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 });
         this.buttonFactory = buttonFactory;
         this.resourceManagementScreen = resourceManagementScreen;
+        this.messageDispatcher.addListener(msg -> {
+            rebuildTree();
+            return true;
+        }, MessageType.SETTLEMENT_SPAWNED);
     }
 
     @Override
@@ -94,6 +100,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     @Override
     public void onContextChange(GameContext gameContext) {
+        this.gameContext = gameContext;
         stockpileGroupLabels.clear();
         itemTypeLabels.clear();
         rebuildTree();
@@ -121,6 +128,10 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     private void rebuildTree() {
         containerTable.clearChildren();
+
+        if (gameContext != null && gameContext.getSettlementState().getGameState() == GameState.SELECT_SPAWN_LOCATION) {
+            return;
+        }
 
         float iconSpacing = 2.0f;
         Tree<TreeNode, TreeNodeValue> tree = new Tree<>(mainGameSkin, "resource_overview_tree");
