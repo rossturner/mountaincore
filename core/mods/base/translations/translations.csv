@@ -271,7 +271,7 @@ FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your set
 FURNITURE.FERMENTATION_TANK,,Fermentation tank
 FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.
 FURNITURE.FISH_BARREL,,Fish barrel
-FURNITURE.FISH_BARREL.TOOLTIP,,Neatly store away your caught fish for future cooking
+FURNITURE.FISH_BARREL.TOOLTIP,,Neatly store away your caught fish for future cooking.
 FURNITURE.FLETCHERS_WORKBENCH,,Fletcher's workbench
 FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,,This is a crafting station for ranged weapons and ammunition.
 FURNITURE.FLOUR_MILL,This is a table with a hand-operated flour mill stone on top,Gristmill
