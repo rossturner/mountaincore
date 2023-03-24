@@ -130,7 +130,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		upperLeftContainerTable.left().top();
 		upperLeftContainerTable.add(hintContainerTable).top().left().pad(10).row();
 		upperLeftContainerTable.add(debugContainerTable).top().left().pad(10).row();
-		upperLeftContainerTable.add(resourceOverviewContainerTable).top().left().pad(10).row();
+		upperLeftContainerTable.setFillParent(true);
 
 		lowerRightContainerTable = new Table();
 		lowerRightContainerTable.right().bottom();
@@ -139,13 +139,14 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		Table leftHandTable = new Table();
 		leftHandTable.setFillParent(true);
 		leftHandTable.left();
-		leftHandTable.add(upperLeftContainerTable).left().growY().row();
+		leftHandTable.add(resourceOverviewContainerTable).left().growY().row();
 		leftHandTable.add(containerTable).left();
 
 
 		primaryStage.addActor(leftHandTable);
 		primaryStage.addActor(lowerRightContainerTable);
 		primaryStage.addActor(upperRightContainerTable);
+		primaryStage.addActor(upperLeftContainerTable);
 		minimapGuiView.populate(minimapContainerTable);
 		timeDateGuiView.populate(timeAndDateContainerTable);
 		timeAndDateContainerTable.row();
@@ -164,11 +165,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		lowerRightContainerTable.clearChildren();
 		if (!hiddenGuiAreas.contains(GuiArea.MINIMAP)) {
 			lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
-		}
-		if (!hiddenGuiAreas.contains(GuiArea.RESOURCE_OVERVIEW)) {
-			resourceOverviewContainerTable.setVisible(true);
-		} else {
-			resourceOverviewContainerTable.setVisible(false);
 		}
 
 		switchView(currentViewName);
@@ -250,6 +246,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		minimapGuiView.update();
 		hintGuiView.update();
 		notificationGuiView.update();
+		resourceOverview.toggleVisibility(gameContext, currentViewName, hiddenGuiAreas);
 		resourceOverview.update();
 
 		primaryStage.act(deltaTime);

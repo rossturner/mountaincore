@@ -22,7 +22,7 @@ public class LocateBedAction extends Action implements FurnitureAssignmentCallba
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		if (parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+		if (parent.parentEntity.isSettler()) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_ASSIGNMENT,
 					FurnitureAssignmentRequest.requestBed(parent.parentEntity, willingToSleepOnFloor, this::furnitureAssigned));
 		} else {
