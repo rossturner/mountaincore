@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 
 @Singleton
 public class ReflectionsService {
-    private final URLClassLoader modClassLoader;
     private final Reflections reflections;
     private final Injector injector;
     private final GameContextRegister gameContextRegister;
@@ -30,19 +29,23 @@ public class ReflectionsService {
         this.injector = injector;
         this.gameContextRegister = gameContextRegister;
         Path assetsCodeDir = LocalModRepository.ASSETS_DIR.resolve("code");
-        List<Path> jarFiles = FileUtils.findFilesByFilename(assetsCodeDir, Pattern.compile(".*\\.jar"));
-        URL[] urls = jarFiles.stream()
-                .map(Path::toUri)
-                .map(uri -> {
-                    try {
-                        return uri.toURL();
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .toArray(URL[]::new);
-        this.modClassLoader = new URLClassLoader("ModClassLoader", urls, LocalModRepository.class.getClassLoader());
-        this.reflections = new Reflections(ClasspathHelper.forPackage("technology.rocketjump"), ClasspathHelper.forClassLoader(modClassLoader), modClassLoader); //man this was hard to figure
+        if (assetsCodeDir.toFile().exists()) {
+            List<Path> jarFiles = FileUtils.findFilesByFilename(assetsCodeDir, Pattern.compile(".*\\.jar"));
+            URL[] urls = jarFiles.stream()
+                    .map(Path::toUri)
+                    .map(uri -> {
+                        try {
+                            return uri.toURL();
+                        } catch (MalformedURLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .toArray(URL[]::new);
+            URLClassLoader modClassLoader = new URLClassLoader("ModClassLoader", urls, LocalModRepository.class.getClassLoader());
+            this.reflections = new Reflections(ClasspathHelper.forPackage("technology.rocketjump"), ClasspathHelper.forClassLoader(modClassLoader), modClassLoader); //man this was hard to figure
+        } else {
+            this.reflections = new Reflections(ClasspathHelper.forPackage("technology.rocketjump"));
+        }
     }
 
     public <T> Set<Class<? extends T>> getSubTypesOf(final Class<T> type) {
