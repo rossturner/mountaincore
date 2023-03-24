@@ -1,4 +1,4 @@
-# King under the Mountain
+# Mountaincore
 
 Note this is a private repository for the game code and assets.
 

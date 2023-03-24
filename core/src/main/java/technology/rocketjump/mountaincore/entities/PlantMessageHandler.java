@@ -1,0 +1,207 @@
+package technology.rocketjump.mountaincore.entities;
+
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.math.GridPoint2;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.mountaincore.constants.ConstantsRepo;
+import technology.rocketjump.mountaincore.entities.factories.PlantEntityAttributesFactory;
+import technology.rocketjump.mountaincore.entities.factories.PlantEntityFactory;
+import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpecies;
+import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpeciesType;
+import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
+import technology.rocketjump.mountaincore.mapgen.generators.ShrubPlanter;
+import technology.rocketjump.mountaincore.mapgen.generators.TreePlanter;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
+import technology.rocketjump.mountaincore.mapping.tile.MapTile;
+import technology.rocketjump.mountaincore.mapping.tile.TileNeighbours;
+import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.messaging.types.PlantCreationRequestMessage;
+import technology.rocketjump.mountaincore.messaging.types.PlantSeedDispersedMessage;
+
+import static technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState.OPEN;
+import static technology.rocketjump.mountaincore.materials.model.GameMaterialType.EARTH;
+
+@Singleton
+public class PlantMessageHandler implements GameContextAware, Telegraph {
+
+	private final int MAX_NEIGHBOUR_SHRUBS_ALLOWED;
+	private final MessageDispatcher messageDispatcher;
+	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
+	private final PlantEntityFactory plantEntityFactory;
+	private final TreePlanter treePlanter = new TreePlanter();
+	private final ShrubPlanter shrubPlanter = new ShrubPlanter();
+	private final EntityStore entityStore;
+
+	private GameContext gameContext;
+
+	@Inject
+	public PlantMessageHandler(MessageDispatcher messageDispatcher,
+							   PlantEntityAttributesFactory plantEntityAttributesFactory,
+							   PlantEntityFactory plantEntityFactory, EntityStore entityStore,
+							   ConstantsRepo constantsRepo) {
+		this.messageDispatcher = messageDispatcher;
+		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
+		this.plantEntityFactory = plantEntityFactory;
+		this.entityStore = entityStore;
+		MAX_NEIGHBOUR_SHRUBS_ALLOWED = constantsRepo.getWorldConstants().getMaxNeighbouringShrubs();
+		messageDispatcher.addListener(this, MessageType.PLANT_SEED_DISPERSED);
+		messageDispatcher.addListener(this, MessageType.PLANT_CREATION_REQUEST);
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.PLANT_SEED_DISPERSED: {
+				PlantSeedDispersedMessage entityMessage = (PlantSeedDispersedMessage) msg.extraInfo;
+				handle(entityMessage);
+				return true;
+			}
+			case MessageType.PLANT_CREATION_REQUEST: {
+				PlantCreationRequestMessage entityMessage = (PlantCreationRequestMessage) msg.extraInfo;
+				handle(entityMessage);
+				return true;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+		}
+	}
+
+	private void handle(PlantSeedDispersedMessage message) {
+		PlantSpeciesType plantType = message.getPlantSpecies().getPlantType();
+		int numAttempts = plantType.equals(PlantSpeciesType.TREE) ? 5 : 3;
+		int numToCreate = message.isFruit() ? 2 : 1;
+		int created = 0;
+		int attempted = 0;
+
+		MapTile sourceTile = gameContext.getAreaMap().getTile(message.getOrigin());
+		if (sourceTile == null) {
+			Logger.error("Source tile for handling message is null in " + this.getClass().getName());
+			return;
+		}
+
+		GridPoint2 sourcePoint = new GridPoint2(sourceTile.getTileX(), sourceTile.getTileY());
+
+		while (created < numToCreate && attempted < numAttempts) {
+			attempted++;
+			GridPoint2 nearbyPosition = (plantType.equals(PlantSpeciesType.TREE)) ?
+					treePlanter.randomPointNear(sourcePoint, gameContext.getRandom()) :
+					shrubPlanter.randomPointNear(sourcePoint, gameContext.getRandom());
+
+			MapTile nearbyTile = gameContext.getAreaMap().getTile(nearbyPosition.x, nearbyPosition.y);
+
+			boolean isAllowedToSpawn = (plantType.equals(PlantSpeciesType.TREE)) ?
+					isTreeAllowedAt(nearbyTile) :
+					isShrubAllowedAt(nearbyTile);
+
+			if (isAllowedToSpawn) {
+				createPlant(message.getPlantSpecies(), nearbyPosition);
+				created++;
+			}
+		}
+
+	}
+
+	private void handle(PlantCreationRequestMessage creationRequestMessage) {
+		PlantEntityAttributes plantAttributes = plantEntityAttributesFactory.createBySeedMaterial(creationRequestMessage.getSeedMaterial(), gameContext.getRandom());
+		if (plantAttributes != null) {
+			Entity plantEntity = plantEntityFactory.create(plantAttributes, null, gameContext);
+			// Not (currently) sending ENTITY_CREATED message
+			creationRequestMessage.getCallback().entityCreated(plantEntity);
+		} else {
+			creationRequestMessage.getCallback().entityCreated(null);
+		}
+	}
+
+	private boolean isShrubAllowedAt(MapTile targetTile) {
+		if (targetTile == null || targetTile.getFloor() == null || targetTile.getFloor().getMaterial() == null || targetTile.getFloor().hasBridge() ||
+				!targetTile.getRoof().getState().equals(OPEN) || !targetTile.isEmpty() || !EARTH.equals(targetTile.getFloor().getMaterial().getMaterialType()) ||
+				targetTile.hasChannel()) {
+			return false;
+		}
+
+		// For shrubs, allow max num nearby shrubs
+		TileNeighbours tileNeighbours = gameContext.getAreaMap().getNeighbours(targetTile.getTileX(), targetTile.getTileY());
+		int numNeighbourShrubs = 0;
+		for (MapTile mapTile : tileNeighbours.values()) {
+			if (mapTile.hasShrub()) {
+				numNeighbourShrubs++;
+			}
+		}
+
+		if (numNeighbourShrubs > MAX_NEIGHBOUR_SHRUBS_ALLOWED) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * FIXME This is effectively duplicated code from MapGenerator to ensure tree placement is consistent
+	 */
+	private boolean isTreeAllowedAt(MapTile targetTile) {
+		if (targetTile == null || !targetTile.getRoof().getState().equals(OPEN) || !targetTile.isEmpty() || targetTile.getFloor().hasBridge() ||
+				!EARTH.equals(targetTile.getFloor().getMaterial().getMaterialType()) || targetTile.isWaterSource() || targetTile.hasChannel()) {
+			return false;
+		}
+		GridPoint2 position = targetTile.getTilePosition();
+		TiledMap map = gameContext.getAreaMap();
+
+
+		// First check no trees nearby
+		for (int x = position.x - 1; x <= position.x + 1; x++) {
+			for (int y = position.y - TreePlanter.MAX_TREE_HEIGHT_TILES; y <= position.y + TreePlanter.MAX_TREE_HEIGHT_TILES; y++) {
+				MapTile tile = map.getTile(x, y);
+				if (tile == null) {
+					continue; // If bottom of map is below tree, don't care too much
+				}
+				if (tile.hasTree()) {
+					return false;
+				}
+			}
+		}
+
+		// Then check tree has room to grow into
+		for (int x = position.x - 1; x <= position.x + 1; x++) {
+			for (int y = position.y - 1; y <= position.y + TreePlanter.MAX_TREE_HEIGHT_TILES; y++) {
+				MapTile tile = map.getTile(x, y);
+				if (tile == null || !tile.getRoof().getState().equals(OPEN)) {
+					return false;
+				}
+			}
+		}
+
+
+		// Extra check, can't be adjacent to wall or river
+		for (MapTile neighbourTile : map.getNeighbours(targetTile.getTileX(), targetTile.getTileY()).values()) {
+			if (neighbourTile.hasWall() || neighbourTile.hasTree() || neighbourTile.isWaterSource()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private void createPlant(PlantSpecies plantSpecies, GridPoint2 targetTile) {
+		PlantEntityAttributes attributes = plantEntityAttributesFactory.createBySpecies(plantSpecies, gameContext.getRandom());
+		Entity newEntity = plantEntityFactory.create(attributes, targetTile, gameContext);
+		entityStore.add(newEntity);
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
+	}
+
+	@Override
+	public void clearContextRelatedState() {
+
+	}
+
+}

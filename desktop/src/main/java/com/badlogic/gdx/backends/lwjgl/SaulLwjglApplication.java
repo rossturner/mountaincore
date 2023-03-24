@@ -22,8 +22,8 @@ import com.badlogic.gdx.utils.*;
 import org.apache.commons.lang3.NotImplementedException;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import technology.rocketjump.saul.SaulApplicationAdapter;
-import technology.rocketjump.saul.logging.CrashHandler;
+import technology.rocketjump.mountaincore.MountaincoreApplicationAdapter;
+import technology.rocketjump.mountaincore.logging.CrashHandler;
 
 import java.awt.*;
 import java.io.File;
@@ -151,7 +151,7 @@ public class SaulLwjglApplication implements Application {
 			Display.processMessages();
 			// ROCKETJUMPTECH changes
 			if (Display.isCloseRequested()) {
-				((SaulApplicationAdapter)getApplicationListener()).onExit();
+				((MountaincoreApplicationAdapter)getApplicationListener()).onExit();
 				exit();
 			}
 

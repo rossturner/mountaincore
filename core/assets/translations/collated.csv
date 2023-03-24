@@ -275,7 +275,7 @@ FURNITURE.FEASTING_TABLE.TOOLTIP,"With a {{FURNITURE.CHAIR}} in place, your sett
 FURNITURE.FERMENTATION_TANK,Fermentation tank,,Gärtank,,Serbatoio di fermentazione,Cuba de fermentación,,,,"Резервуар для брожения ",Fermantasyon tankı,,,,,,,発酵桶,发酵罐,
 FURNITURE.FERMENTATION_TANK.TOOLTIP,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.,,Hier wird {{LIQUID.HOPPED_WORT}} zu {{LIQUID.BEER}} gegärt.,,Qui è dove {{LIQUID.HOPPED_WORT}} viene fermentato in {{LIQUID.BEER}}.,Aquí es donde se fermenta el {{LIQUID.HOPPED_WORT}} para producir {{LIQUID.BEER}}.,,,,"Здесь {{LIQUID.HOPPED_WORT}} ферментируется до {{LIQUID.BEER}} ",{{LIQUID.HOPPED_WORT}} un {{LIQUID.BEER}}ya dönüştüğü yer.,,,,,,,{{LIQUID.HOPPED_WORT}}を{{LIQUID.BEER}}に変えるのに必要な桶です。,{{LIQUID.HOPPED_WORT}}发酵成{{LIQUID.BEER}}的容器。,
 FURNITURE.FISH_BARREL,Fish barrel,,,,,,,,,,,,,,,,,,,
-FURNITURE.FISH_BARREL.TOOLTIP,Neatly store away your caught fish for future cooking,,,,,,,,,,,,,,,,,,,
+FURNITURE.FISH_BARREL.TOOLTIP,Neatly store away your caught fish for future cooking.,,,,,,,,,,,,,,,,,,,
 FURNITURE.FLETCHERS_WORKBENCH,Fletcher's workbench,,Pfeilmacher Werkbank,,Il banco di lavoro di Fletcher,Mesa de emplumado de flechas,,,,Верстак лучника,,,,,,,,弓矢製造台,制箭台,
 FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,This is a crafting station for ranged weapons and ammunition.,,,,,,,,,,,,,,,,,,,
 FURNITURE.FLETCHERS_WORKBENCH.TOOTIP,,,Dies ist eine Werkbank für Fernkampfwaffen und Munition,,Questa è una stazione di creazione di armi e munizioni a distanza,Esto es una mesa de trabajo para la fabricación de armas a distancia y munición,,,,"Это мастерская для стрелкового оружия и боеприпасов. ",,,,,,,,弓矢を製造するための場所です。,制造远程武器及弹药的工作台,

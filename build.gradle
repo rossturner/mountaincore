@@ -26,7 +26,7 @@ allprojects {
 
     version = 'Early Access 1.0.18'
     ext {
-        appName = 'saul'
+        appName = 'mountaincore'
         gdxVersion = '1.11.0'
         visUiVersion = '1.4.4'
         roboVMVersion = '1.0.0-SNAPSHOT'
@@ -93,7 +93,7 @@ project(":desktop") {
 
     task('iconWin', type: Exec, dependsOn: 'packrWin') {
         workingDir '../release_tools'
-        commandLine 'cmd', '/c', 'rcedit-x64.exe', '"win64_release/Project Saul.exe"',  '--set-icon', '"icon/Steam_Icon_128x128.ico"'
+        commandLine 'cmd', '/c', 'rcedit-x64.exe', '"win64_release/Mountaincore.exe"',  '--set-icon', '"icon/Steam_Icon_128x128.ico"'
     }
     task('iconToolWin', type: Exec, dependsOn: 'packrToolWin') {
         workingDir '../release_tools'
@@ -108,17 +108,17 @@ project(":desktop") {
     }
 
     task('zipWin', type: Zip, dependsOn: 'iconWin') {
-        archiveFileName = "Project Saul $project.version win64.zip"
+        archiveFileName = "Mountaincore $project.version win64.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/win64_release"
     }
     task('zipMac', type: Zip, dependsOn: 'packrMac') {
-        archiveFileName = "Project Saul $project.version macosx.zip"
+        archiveFileName = "Mountaincore $project.version macosx.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/macosx_release"
     }
     task('zipLinux', type: Zip, dependsOn: 'packrLinux') {
-        archiveFileName = "Project Saul $project.version linux64.zip"
+        archiveFileName = "Mountaincore $project.version linux64.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/linux64_release"
     }

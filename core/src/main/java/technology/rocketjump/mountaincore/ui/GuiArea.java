@@ -1,0 +1,17 @@
+package technology.rocketjump.mountaincore.ui;
+
+public enum GuiArea {
+
+	MAIN_GUI_VIEW,
+	TIME_AND_DATE,
+	VIEW_MODES,
+
+	SETTLER_MANAGEMENT_BUTTON,
+	RESOURCE_MANAGEMENT_BUTTON,
+	MILITARY_MANAGEMENT_BUTTON,
+
+	RESOURCE_OVERVIEW,
+
+	MINIMAP
+
+}

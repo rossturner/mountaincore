@@ -1,1 +1,1 @@
-jre\bin\java -jar project-saul.jar -Xms1200m -Dfile.encoding=UTF-8 -Dsun.java2d.dpiaware=true
+jre\bin\java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8 -Dsun.java2d.dpiaware=true
