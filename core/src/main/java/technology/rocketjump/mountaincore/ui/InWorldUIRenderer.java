@@ -238,6 +238,22 @@ public class InWorldUIRenderer {
 			hasRendered = true;
 		}
 
+		if (hasEntitySelected && interactionStateContainer.getSelectable().getEntity().getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes) {
+			Entity selectableEntity = interactionStateContainer.getSelectable().getEntity();
+			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+			shapeRenderer.setColor(getFactionColour(selectableEntity));
+
+			GridPoint2 furnitureGridPoint = toGridPoint(selectableEntity.getLocationComponent().getWorldPosition());
+
+			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
+				GridPoint2 workspaceAccessedFrom = furnitureGridPoint.cpy().add(workspace.getAccessedFrom());
+				shapeRenderer.circle(workspaceAccessedFrom.x + 0.5f, workspaceAccessedFrom.y + 0.5f, 0.35f, 50);
+			}
+
+			shapeRenderer.end();
+			hasRendered = true;
+		}
+
 		return hasRendered;
 	}
 
