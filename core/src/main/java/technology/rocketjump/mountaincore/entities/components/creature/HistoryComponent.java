@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.entities.components.creature;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.mountaincore.entities.components.EntityComponent;
+import technology.rocketjump.mountaincore.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
@@ -14,10 +15,18 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 /**
  * Currently just stores death reason which may want to move to a more settlement-wide historical records system
  */
-public class HistoryComponent implements EntityComponent {
+public class HistoryComponent implements ParentDependentEntityComponent {
 
 	private DeathReason deathReason;
+	private transient Long killedByEntityId;
 	private Entity killedBy;
+
+	@Override
+	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		if (killedByEntityId != null) {
+			this.killedBy = gameContext.getEntities().get(killedByEntityId);
+		}
+	}
 
 	public DeathReason getDeathReason() {
 		return deathReason;
@@ -65,11 +74,6 @@ public class HistoryComponent implements EntityComponent {
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		deathReason = EnumParser.getEnumValue(asJson, "death", DeathReason.class, null);
 
-		Long killedByEntityId = asJson.getLong("killedBy");
-		if (killedByEntityId != null) {
-			this.killedBy = savedGameStateHolder.entities.get(killedByEntityId);
-			// Not checking if it has loaded correctly
-		}
+		this.killedByEntityId = asJson.getLong("killedBy");
 	}
-
 }
