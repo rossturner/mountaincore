@@ -494,7 +494,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	private DoorwayPlacementMessage isDoorPlacementValid(TiledMap map, GridPoint2 tilePosition) {
 		MapTile targetTile = map.getTile(tilePosition);
-		if (targetTile == null || !targetTile.isEmptyExceptItemsAndPlants()) {
+		if (targetTile == null || (!targetTile.isEmptyExceptItemsAndPlants() && !targetTile.hasWallConstruction())) {
 			return null;
 		}
 
@@ -507,13 +507,19 @@ public class GameInteractionStateContainer implements GameContextAware {
 			return null;
 		}
 
-		if (north.hasWall() && south.hasWall() && east.isEmptyExceptEntities() && west.isEmptyExceptEntities()) {
+
+		boolean northWall = north.hasWall() || north.hasWallConstruction();
+		boolean southWall = south.hasWall() || south.hasWallConstruction();
+		boolean westWall = west.hasWall() || west.hasWallConstruction();
+		boolean eastWall = east.hasWall() || east.hasWallConstruction();
+
+		if (northWall && southWall && east.isEmptyExceptEntities() && west.isEmptyExceptEntities()) {
 			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.NORTH_SOUTH, doorMaterialSelection.selectedMaterialType,
 					doorMaterialSelection.selectedMaterial, tilePosition);
 		}
 
 
-		if (west.hasWall() && east.hasWall() && north.isEmptyExceptEntities() && south.isEmptyExceptEntities()) {
+		if (westWall && eastWall && north.isEmptyExceptEntities() && south.isEmptyExceptEntities()) {
 			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.EAST_WEST, doorMaterialSelection.selectedMaterialType,
 					doorMaterialSelection.selectedMaterial, tilePosition);
 		}
