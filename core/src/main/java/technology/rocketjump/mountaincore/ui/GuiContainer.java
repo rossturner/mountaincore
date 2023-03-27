@@ -139,7 +139,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		Table leftHandTable = new Table();
 		leftHandTable.setFillParent(true);
 		leftHandTable.left();
-		leftHandTable.add(resourceOverviewContainerTable).left().growY().row();
+		leftHandTable.add(resourceOverviewContainerTable).padTop(35).left().growY().row();
 		leftHandTable.add(containerTable).left();
 
 
