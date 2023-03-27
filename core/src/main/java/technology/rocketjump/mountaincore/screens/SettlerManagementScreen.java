@@ -28,11 +28,13 @@ import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBe
 import technology.rocketjump.mountaincore.entities.components.creature.*;
 import technology.rocketjump.mountaincore.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.DefenseType;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.mountaincore.entities.model.physical.creature.Sanity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.LossOfMainHand;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.LossOfOffHand;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
@@ -394,7 +396,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table needsColumn = needs(settler).getActor();
 			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
 			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView).getActor();
-			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
+			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView).getActor();
 			Table squadColumn = militarySquad(settler);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
@@ -867,7 +869,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	public Table militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
+	public Updatable<Table> militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
@@ -905,11 +907,30 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		militaryProficiencyLabel.setAlignment(Align.center);
 
 		Table table = new Table();
-		table.add(toggle).spaceBottom(14).row();
-		if (includeRibbon) {
-			table.add(militaryProficiencyLabel);
-		}
-		return table;
+		Updatable<Table> updatable = Updatable.of(table);
+		updatable.regularly(() -> {
+			EntityAttributes attributes = settler.getPhysicalEntityComponent().getAttributes();
+			if (attributes instanceof CreatureEntityAttributes creatureEntityAttributes) {
+				boolean isSane = creatureEntityAttributes.getSanity() == Sanity.SANE;
+				if (table.hasChildren()) {
+					if (!isSane) {
+						table.clearChildren();
+					}
+				} else {
+					if (isSane) {
+						table.add(toggle).spaceBottom(14).row();
+						if (includeRibbon) {
+							table.add(militaryProficiencyLabel);
+						}
+					}
+				}
+
+
+			}
+
+		});
+		updatable.update();
+		return updatable;
 	}
 
 	public Table professions(Entity settler, float scale, Consumer<Entity> rebuildSettlerView) {
@@ -1052,6 +1073,12 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				}
 			}
 		}
+		if (settler.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes
+				&& creatureEntityAttributes.getSanity() != Sanity.SANE) {
+			String sanityText = i18nTranslator.translate(creatureEntityAttributes.getSanity().i18nKey);
+			currentProfessionName = sanityText;
+		}
+
 
 		java.util.List<String> behaviourDescriptions = new ArrayList<>();
 		if (settler.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
