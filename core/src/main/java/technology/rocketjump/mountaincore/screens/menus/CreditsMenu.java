@@ -36,14 +36,12 @@ import java.util.List;
 public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     public static final int DEVELOPER_TITLE_MIN_WIDTH = 1100;
-    public static final String PARADOX_ARC_URL = "https://www.paradoxinteractive.com/our-games/paradox-arc";
     private final List<String> foundingBackers;
     private final List<String> patreonKickstarters;
     private final I18nTranslator i18nTranslator;
     private final ButtonFactory buttonFactory;
     private final MessageDispatcher messageDispatcher;
     private Texture rocketJumpTechnologyTexture;
-    private Texture paradoxArcTexture;
 
     @Inject
     public CreditsMenu(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, ButtonFactory buttonFactory,
@@ -59,7 +57,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
     @Override
     public void show() {
         rocketJumpTechnologyTexture = loadTexture("assets/ui/RJT_LOGO_BLACK.png");
-        paradoxArcTexture = loadTexture("assets/ui/PDX-Arc-BLACK.png");
         rebuild();
     }
 
@@ -79,9 +76,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         Label environmentArtTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.ENVIRONMENT_ART", 1000);
         Label additionalMusicTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.MUSIC_ADDITIONAL", 1000);
         Label specialThanksTitle = smallI18nTitleRibbon("GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS", 1000);
-        Label publishedByTitle = smallI18nTitleRibbon("GUI.CREDITS.PUBLISHED_BY", 1000);
-
-
 
         Label backersTitle = i18nTitleRibbon("GUI.CREDITS.FOUNDING_BACKERS_TITLE");
         Label patreonKickstarterTitle = i18nTitleRibbon("GUI.CREDITS.PATREON_KICKSTARTER_TITLE");
@@ -137,19 +131,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         Table sixthRow = new Table();
         sixthRow.defaults().expandX();
-        sixthRow.add(publishedByTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
-        if (paradoxArcTexture != null) {
-            Image paradoxArcImage = new Image(paradoxArcTexture);
-
-            attachUrl(PARADOX_ARC_URL, paradoxArcImage);
-            sixthRow.add(paradoxArcImage).center().width(1000).height(paradoxArcImage.getHeight() / (paradoxArcImage.getWidth() / 1000)).padBottom(108).row();
-        } else {
-            sixthRow.add(developerNameLabel("Paradox Arc", PARADOX_ARC_URL)).spaceBottom(108).row();
-        }
-
-        Table seventhRow = new Table();
-        seventhRow.defaults().expandX();
-        seventhRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
+        sixthRow.add(specialThanksTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).spaceBottom(108).row();
             Table specialThanksTable = new Table();
             specialThanksTable.defaults().spaceBottom(90).fillX();
             specialThanksTable.add(developerNameLabel("Kenney Vleugels", "http://kenney.nl")).padRight(80);
@@ -157,7 +139,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
             specialThanksTable.add(developerNameLabel("Amit Patel", "http://www.redblobgames.com/")).padRight(80);
             specialThanksTable.add(developerNameLabel("Dennis Russell (Sprite DLight)", "http://www.2deegameart.com/p/sprite-dlight.html")).row();
             specialThanksTable.add(developerNameLabel("Azagaya (Laigter)", "https://azagaya.itch.io/laigter")).fill(false, false).colspan(2).row();
-        seventhRow.add(specialThanksTable);
+        sixthRow.add(specialThanksTable);
 
         Table table = new Table();
         table.padLeft(30).padRight(30);
@@ -167,7 +149,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(fourthRow).spaceBottom(256).growX().row();
         table.add(fifthRow).spaceBottom(256).growX().row();
         table.add(sixthRow).spaceBottom(256).growX().row();
-        table.add(seventhRow).spaceBottom(256).growX().row();
 
         table.add(backersTitle).padTop(68f).padBottom(68).row();
         table.add(backersTable).row();
@@ -261,9 +242,6 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         super.hide();
         if (rocketJumpTechnologyTexture != null) {
             rocketJumpTechnologyTexture.dispose();
-        }
-        if (paradoxArcTexture != null) {
-            paradoxArcTexture.dispose();
         }
     }
 
