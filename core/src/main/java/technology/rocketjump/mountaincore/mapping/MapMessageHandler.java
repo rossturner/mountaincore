@@ -366,6 +366,17 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 											messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
 										}
 										if (tile.hasConstruction()) {
+											if (tile.hasWallConstruction()) {
+												for (MapTile neighbourTile : gameContext.getAreaMap().getOrthogonalNeighbours(x, y).values()) {
+													if (neighbourTile.hasDoorway()) {
+														messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_DOOR, neighbourTile.getDoorway());
+													}
+													if (neighbourTile.hasDoorwayConstruction()) {
+														messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, neighbourTile.getConstruction());
+													}
+												}
+											}
+
 											messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, tile.getConstruction());
 										}
 									}
@@ -834,6 +845,9 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				}
 				if (neighbourTile.hasDoorway()) {
 					messageDispatcher.dispatchMessage(MessageType.DECONSTRUCT_DOOR, neighbourTile.getDoorway());
+				}
+				if (neighbourTile.hasDoorwayConstruction()) {
+					messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, neighbourTile.getConstruction());
 				}
 				if (neighbourTile.hasRoom()) {
 					neighbourTile.getRoomTile().getRoom().checkIfEnclosed(gameContext.getAreaMap());

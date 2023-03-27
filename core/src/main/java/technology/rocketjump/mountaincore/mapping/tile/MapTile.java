@@ -190,6 +190,10 @@ public class MapTile implements Persistable {
 		return this.wall != null;
 	}
 
+	public boolean hasWallConstruction() {
+		return getConstruction() != null && getConstruction().getConstructionType() == ConstructionType.WALL_CONSTRUCTION;
+	}
+
 	public boolean isNavigable(Entity requestingEntity) {
 		return isNavigable(requestingEntity, null);
 	}
@@ -472,6 +476,10 @@ public class MapTile implements Persistable {
 
 	public boolean hasDoorway() {
 		return doorway != null;
+	}
+
+	public boolean hasDoorwayConstruction() {
+		return construction != null && construction.getConstructionType() == ConstructionType.DOORWAY_CONSTRUCTION;
 	}
 
 	public Doorway getDoorway() {
@@ -786,7 +794,7 @@ public class MapTile implements Persistable {
 	public boolean hasPowerMechanism() {
 		return underTile != null && underTile.getPowerMechanismEntity() != null;
 	}
-
+	
 	public enum RegionType {
 		RIVER, WALL, CHANNEL, GENERIC
 	}
