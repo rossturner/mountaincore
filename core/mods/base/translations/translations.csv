@@ -1575,7 +1575,7 @@ TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?
 TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial
 
 TUTORIAL.SHOW_LABEL,,Show Tutorial
-TUTORIAL.START.INTRO_1,,"Welcome to GAME_NAME! This is an Early Access release with gameplay and features still in development."
+TUTORIAL.START.INTRO_1,,"Welcome to Mountaincore! This is an Early Access release with gameplay and features still in development."
 TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
 
 TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
@@ -1639,6 +1639,7 @@ TUTORIAL.RESOURCES.C,,"Also select Orders > Chop. Drag a selection over a forest
 
 TUTORIAL.WORKSHOPS.A,,"Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason."
 TUTORIAL.WORKSHOPS.B,,"Click on Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed."
+TUTORIAL.WORKSHOPS.C,,"You can press the R key to Rotate most furniture."
 
 TUTORIAL.CRAFTING.A,,"Rooms with furniture that produce items are controlled using Import and Export Pallets."
 TUTORIAL.CRAFTING.B,,"Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop."

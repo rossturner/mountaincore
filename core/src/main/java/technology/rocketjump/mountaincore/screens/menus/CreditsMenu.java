@@ -86,7 +86,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         Table firstRow = new Table();
         firstRow.defaults().expandX();
         firstRow.add(leadDesignTitle).minWidth(DEVELOPER_TITLE_MIN_WIDTH).padTop(128).spaceBottom(108).row();
-        firstRow.add(developerNameLabel("Ross Taylor-Turner", "http://rocketjump.technology/")).row();
+        firstRow.add(developerNameLabel("Ross Taylor-Turner", "https://rocketjump.technology/")).row();
 
         Table secondRow = new Table();
         secondRow.defaults().expandX();
