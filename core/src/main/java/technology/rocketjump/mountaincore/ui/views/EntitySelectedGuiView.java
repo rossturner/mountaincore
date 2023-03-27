@@ -866,7 +866,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
 			boolean isSettlement = factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT;
-			boolean unknownHappiness = isMilitary || !entity.isSettler() || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
+			boolean isDead = entity.getBehaviourComponent() instanceof CorpseBehaviour;
+			boolean unknownHappiness = isMilitary || !entity.isSettler() || isDead;
 
 			List<String> ailments = new ArrayList<>();
 			for (StatusEffect statusEffect : statusComponent.getAll()) {
@@ -876,6 +877,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			for (I18nText damageDescription : attributes.getBody().getDamageDescriptions(i18nTranslator)) {
 				ailments.add(damageDescription.toString());
+			}
+			if (isDead) {
+				String deadText = i18nTranslator.translate("CREATURE.STATUS.DEAD");
+				if (!ailments.contains(deadText)) {
+					ailments.add(0, deadText);
+				}
 			}
 
 			if (!ailments.isEmpty()) {
