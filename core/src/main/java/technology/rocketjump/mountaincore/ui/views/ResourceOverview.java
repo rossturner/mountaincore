@@ -18,6 +18,7 @@ import technology.rocketjump.mountaincore.production.StockpileGroup;
 import technology.rocketjump.mountaincore.screens.ManagementScreenName;
 import technology.rocketjump.mountaincore.screens.ResourceManagementScreen;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
+import technology.rocketjump.mountaincore.ui.GuiArea;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.mountaincore.ui.eventlistener.TooltipLocationHint;
@@ -60,6 +61,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private final Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
     private final Map<ItemType, Label> itemTypeLabels = new HashMap<>();
     private GameContext gameContext;
+    private boolean currentlyVisible = false;
 
     @Inject
     public ResourceOverview(GuiSkinRepository guiSkinRepository, SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
@@ -81,10 +83,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 });
         this.buttonFactory = buttonFactory;
         this.resourceManagementScreen = resourceManagementScreen;
-        this.messageDispatcher.addListener(msg -> {
-            rebuildTree();
-            return true;
-        }, MessageType.SETTLEMENT_SPAWNED);
     }
 
     @Override
@@ -126,10 +124,25 @@ public class ResourceOverview implements GuiView, GameContextAware {
         }
     }
 
+    public void toggleVisibility(GameContext gameContext, GuiViewName currentViewName, Set<GuiArea> hiddenGuiAreas) {
+        boolean shouldShow = true;
+        if (gameContext != null && gameContext.getSettlementState().getGameState() == GameState.SELECT_SPAWN_LOCATION) {
+            shouldShow = false;
+        } else if (currentViewName == GuiViewName.SQUAD_SELECTED) {
+            shouldShow = false;
+        } else if (hiddenGuiAreas.contains(GuiArea.RESOURCE_OVERVIEW)) {
+            shouldShow = false;
+        }
+
+        if (currentlyVisible != shouldShow) {
+            currentlyVisible = shouldShow;
+            rebuildTree();
+        }
+    }
+
     private void rebuildTree() {
         containerTable.clearChildren();
-
-        if (gameContext != null && gameContext.getSettlementState().getGameState() == GameState.SELECT_SPAWN_LOCATION) {
+        if (!currentlyVisible) {
             return;
         }
 
@@ -294,9 +307,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 itemTypesTable.add(labelContainer).minWidth(350).growX().left().row();
             }
         }
-
-
-
     }
 
     private Label getItemTypeLabel(TreeNodeValue itemTypeValue) {
