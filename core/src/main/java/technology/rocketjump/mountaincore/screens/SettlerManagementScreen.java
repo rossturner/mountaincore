@@ -393,7 +393,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table happinessColumn = happiness(settler).getActor();
 			Table needsColumn = needs(settler).getActor();
 			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
-			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView);
+			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView).getActor();
 			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
 			Table squadColumn = militarySquad(settler);
 
@@ -420,12 +420,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	public Table weaponSelection(Entity settler, float overallScale, Consumer<Entity> onSettlerChange) {
+	public Updatable<Table> weaponSelection(Entity settler, float overallScale, Consumer<Entity> onSettlerChange) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
 
 		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
 
 		if (skillsComponent != null && militaryComponent != null) {
 			Drawable notEquippedIcon = managementSkin.getDrawable("icon_not_equipped");
@@ -433,11 +434,35 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			float scaleFactor = 0.9f * overallScale;
 			ImageButton.ImageButtonStyle weaponButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			weaponButtonStyle.imageUp = brawlIcon;
 			ImageButton.ImageButtonStyle shieldButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			shieldButtonStyle.imageUp = notEquippedIcon;
 			ImageButton.ImageButtonStyle armourButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			armourButtonStyle.imageUp = notEquippedIcon;
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedWeaponId()) == null) {
+					weaponButtonStyle.imageUp = brawlIcon;
+				} else {
+					EntityDrawable weaponDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedWeaponId()), entityRenderer, true, messageDispatcher);
+					weaponDrawable.setMinSize(weaponButtonStyle.up.getMinWidth() * scaleFactor, weaponButtonStyle.up.getMinHeight() * scaleFactor);
+					weaponButtonStyle.imageUp = weaponDrawable;
+				}
+			});
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedShieldId()) == null) {
+					shieldButtonStyle.imageUp = notEquippedIcon;
+				} else {
+					EntityDrawable shieldDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedShieldId()), entityRenderer, true, messageDispatcher);
+					shieldDrawable.setMinSize(shieldButtonStyle.up.getMinWidth() * scaleFactor, shieldButtonStyle.up.getMinHeight() * scaleFactor);
+					shieldButtonStyle.imageUp = shieldDrawable;
+				}
+			});
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedArmorId()) == null) {
+					armourButtonStyle.imageUp = notEquippedIcon;
+				} else {
+					EntityDrawable armourDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedArmorId()), entityRenderer, true, messageDispatcher);
+					armourDrawable.setMinSize(armourButtonStyle.up.getMinWidth() * scaleFactor, armourButtonStyle.up.getMinHeight() * scaleFactor);
+					armourButtonStyle.imageUp = armourDrawable;
+				}
+			});
 
 			Entity assignedWeapon = gameContext.getEntity(militaryComponent.getAssignedWeaponId());
 			Entity assignedShield = gameContext.getEntity(militaryComponent.getAssignedShieldId());
@@ -451,25 +476,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (weaponInfo != null) {
 					weaponIsTwoHanded = weaponInfo.isTwoHanded();
 					weaponSkill = weaponInfo.getCombatSkill();
-					EntityDrawable weaponDrawable = new EntityDrawable(assignedWeapon, entityRenderer, true, messageDispatcher);
-					weaponDrawable.setMinSize(weaponButtonStyle.up.getMinWidth() * scaleFactor, weaponButtonStyle.up.getMinHeight() * scaleFactor);
-					weaponButtonStyle.imageUp = weaponDrawable;
 				}
 			}
 			if (assignedShield == null) {
 				militaryComponent.setAssignedShieldId(null);
-			} else {
-				EntityDrawable shieldDrawable = new EntityDrawable(assignedShield, entityRenderer, true, messageDispatcher);
-				shieldDrawable.setMinSize(shieldButtonStyle.up.getMinWidth() * scaleFactor, shieldButtonStyle.up.getMinHeight() * scaleFactor);
-				shieldButtonStyle.imageUp = shieldDrawable;
 			}
 			if (assignedArmour == null) {
 				militaryComponent.setAssignedArmorId(null);
-			} else {
-				EntityDrawable armourDrawable = new EntityDrawable(assignedArmour, entityRenderer, true, messageDispatcher);
-				armourDrawable.setMinSize(armourButtonStyle.up.getMinWidth() * scaleFactor, armourButtonStyle.up.getMinHeight() * scaleFactor);
-				armourButtonStyle.imageUp = armourDrawable;
 			}
+
 
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
@@ -705,8 +720,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			table.add(shieldStack).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
 			table.add(armourColumn).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
 		}
+		updatable.update();
 
-		return table;
+		return updatable;
 	}
 
 	static class SelectItemOption extends SelectItemDialog.Option {

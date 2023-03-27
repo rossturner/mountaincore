@@ -202,7 +202,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Updatable<Table> textSummary = textSummary(entity);
 				Updatable<Table> debugTextSummary = debugTextSummary(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
-				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
+				Updatable<Table> weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				Updatable<Table> inventory = inventory(entity);
@@ -213,6 +213,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(needs);
 				updatables.add(inventory);
 				updatables.add(debugTextSummary);
+				updatables.add(weaponSelection);
 
 				//Top left first row - name and toggle
 //				Table topLeftFirstRow = new Table();
@@ -244,7 +245,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				topRow.add(topLeftColumn).left().growX().top();
 				if (isMilitary) {
-					topRow.add(weaponSelection).right();
+					topRow.add(weaponSelection.getActor()).right();
 				} else {
 					topRow.add(professionSelection).right();
 				}
