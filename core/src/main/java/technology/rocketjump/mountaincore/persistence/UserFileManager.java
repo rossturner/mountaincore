@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class UserFileManager {
 
+	public static final String GAME_NAME_FOR_FILESYSTEM = "Mountaincore";
 	File userFileDirectoryForGame;
 	File saveGameDirectory;
 
@@ -24,7 +25,7 @@ public class UserFileManager {
 	public UserFileManager() {
 		try {
 			File defaultDocsDir = FileSystemView.getFileSystemView().getDefaultDirectory();
-			userFileDirectoryForGame = initDirectory(defaultDocsDir.toPath().resolve("Mountaincore").toFile());
+			userFileDirectoryForGame = initDirectory(defaultDocsDir.toPath().resolve(GAME_NAME_FOR_FILESYSTEM).toFile());
 		} catch (Error | Exception e) {
 			// Couldn't write to user dir
 			Logger.error(e);

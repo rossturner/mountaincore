@@ -1,14 +1,14 @@
 "AppBuild"
 {
-	"AppID" "2019660" // your AppID
-	"Desc" "Main Project Saul build script" // internal description for this build
+	"AppID" "2370310" // your AppID
+	"Desc" "Main Mountaincore build script" // internal description for this build
 
 	"ContentRoot" "..\" // root content folder, relative to location of this file
 	"BuildOutput" ".\build_output\" // build output folder for build logs and build cache files
 
 	"Depots"
 	{
-		"2019661" // Windows depot
+		"2370311" // Windows depot
 		{
 			"FileMapping"
 			{
@@ -17,7 +17,7 @@
 				"recursive" "1" // include all subfolders
 			}
 		}
-		"2019662" // Mac depot
+		"2370312" // Mac depot
 		{
 			"FileMapping"
 			{
@@ -26,7 +26,7 @@
 				"recursive" "1" // include all subfolders
 			}
 		}
-		"2019664" // Linux depot
+		"2370313" // Linux depot
 		{
 			"FileMapping"
 			{

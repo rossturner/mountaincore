@@ -1,1 +1,1 @@
-call gradlew clean test dist packr && steamcmd +login rocketjumptechnology %STEAM_PASSWORD% +run_app_build c:/workspace/project-saul/release_tools/steam/app_build_2019660.vdf
+call gradlew clean test dist packr && steamcmd +login rocketjumptechnology %STEAM_PASSWORD% +run_app_build c:/workspace/mountaincore/release_tools/steam/app_build_2370310.vdf
