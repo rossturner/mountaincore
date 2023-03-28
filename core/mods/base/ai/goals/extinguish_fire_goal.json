@@ -2,9 +2,13 @@
   "name": "Extinguish fire goal",
   "i18nDescription": "GOAL.EXTINGUISH_FIRE.DESCRIPTION",
   "selectors": [],
-  "initialActions": ["LocateLiquidContainer"],
+  "initialActions": ["LocateLiquidContainerWithContents"],
   "actionRelationships": {
-    "LocateLiquidContainer": {
+    "LocateLiquidContainerWithContents": {
+      "pass": ["GoToLocation", "PickUpEntity"],
+      "fail": ["LocateEmptyLiquidContainer"]
+    },
+    "LocateEmptyLiquidContainer": {
       "pass": ["GoToLocation", "PickUpEntity"],
       "fail": ["UnassignJob"]
     },

@@ -97,7 +97,7 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 		if (attributes.getType().getPlaySoundAsset() != null && !STARTING.equals(state)) {
 			if (activeSoundEffect != null) {
 				if (activeSoundEffect.completed()) {
-					activeSoundEffect = null;
+					stopSound(parentEntity, messageDispatcher);
 				}
 			}
 
@@ -155,15 +155,19 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 		}
 
 		if (activeSoundEffect != null) {
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_STOP_SOUND_LOOP,
-					new RequestSoundStopMessage(activeSoundEffect.getAsset(), parentEntity.getId()));
-			activeSoundEffect = null;
+			stopSound(parentEntity, messageDispatcher);
 		}
 
 		FurnitureParticleEffectsComponent particleEffectsComponent = parentEntity.getComponent(FurnitureParticleEffectsComponent.class);
 		if (particleEffectsComponent != null) {
 			particleEffectsComponent.releaseParticles();
 		}
+	}
+
+	private void stopSound(Entity parentEntity, MessageDispatcher messageDispatcher) {
+		messageDispatcher.dispatchMessage(MessageType.REQUEST_STOP_SOUND_LOOP,
+				new RequestSoundStopMessage(activeSoundEffect.getAsset(), parentEntity.getId()));
+		activeSoundEffect = null;
 	}
 
 	@Override

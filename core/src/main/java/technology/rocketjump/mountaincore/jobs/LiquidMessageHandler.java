@@ -72,6 +72,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_ALLOCATION);
 		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_REMOVAL);
 		messageDispatcher.addListener(this, MessageType.REQUEST_DUMP_LIQUID_CONTENTS);
+		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_MATERIAL);
 	}
 
 
@@ -92,9 +93,18 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 				requestDumpLiquidContents(entity);
 				return true;
 			}
+			case MessageType.REQUEST_LIQUID_MATERIAL: {
+				MessageType.RequestLiquidMaterialMessage message = (MessageType.RequestLiquidMaterialMessage) msg.extraInfo;
+				return handle(message);
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
+	}
+
+	private boolean handle(MessageType.RequestLiquidMaterialMessage message) {
+		message.callback().accept(gameMaterialDictionary.getThirstQuenchingMaterials());
+		return true;
 	}
 
 	private boolean handle(RequestLiquidTransferMessage message) {

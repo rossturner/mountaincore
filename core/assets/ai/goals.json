@@ -313,22 +313,13 @@
     "WorkOnJob" : {
       "fail" : [ "RequeueSameJobType" ]
     },
-    "CancelHaulingAllocation" : { },
     "CancelLiquidAllocation" : { },
-    "LocateLiquidContainer" : {
-      "fail" : [ "UnassignJob" ],
-      "pass" : [ "GoToLocation", "PickUpEntity" ]
-    },
     "GoToLocation" : {
       "fail" : [ "UnassignJob" ]
     },
     "FillContainer" : {
       "fail" : [ "UnassignJob" ],
       "pass" : [ "GoToJobLocation" ]
-    },
-    "GoToJobLocation" : {
-      "fail" : [ "RequeueSameJobType" ],
-      "pass" : [ "FaceTowardsLocation", "WorkOnJob" ]
     },
     "RequeueSameJobType" : {
       "fail" : [ "UnassignJob" ],
@@ -338,9 +329,22 @@
       "fail" : [ "UnassignJob" ],
       "pass" : [ "GoToLocation", "FillContainer" ]
     },
+    "LocateEmptyLiquidContainer" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "GoToLocation", "PickUpEntity" ]
+    },
     "PickUpEntity" : {
       "fail" : [ "UnassignJob" ],
       "pass" : [ "LocateLiquidAllocation" ]
+    },
+    "CancelHaulingAllocation" : { },
+    "GoToJobLocation" : {
+      "fail" : [ "RequeueSameJobType" ],
+      "pass" : [ "FaceTowardsLocation", "WorkOnJob" ]
+    },
+    "LocateLiquidContainerWithContents" : {
+      "fail" : [ "LocateEmptyLiquidContainer" ],
+      "pass" : [ "GoToLocation", "PickUpEntity" ]
     },
     "UnassignJob" : {
       "fail" : [ "CancelLiquidAllocation", "CancelHaulingAllocation" ],
@@ -349,7 +353,7 @@
     "FaceTowardsLocation" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "LocateLiquidContainer" ]
+  "initialActions" : [ "LocateLiquidContainerWithContents" ]
 }, {
   "i18nDescription" : "GOAL.HAULING.DESCRIPTION",
   "name" : "Haul item goal",
