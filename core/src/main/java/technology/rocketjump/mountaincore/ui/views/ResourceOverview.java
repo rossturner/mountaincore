@@ -239,7 +239,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
                     i--; //to compare again
                 } else { //else delete tree node
                     rootNode.remove(existingTreeNode);
-                    stockpileGroupLabels.remove(stockpileGroup);
                     i--; //to compare again
                 }
             } else { //append to end

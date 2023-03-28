@@ -18,6 +18,8 @@ import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.TileExploration;
 import technology.rocketjump.mountaincore.particles.model.ParticleEffectInstance;
+import technology.rocketjump.mountaincore.rendering.camera.DisplaySettings;
+import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
 import technology.rocketjump.mountaincore.rendering.lighting.CombinedLightingResultRenderer;
 import technology.rocketjump.mountaincore.rendering.lighting.LightProcessor;
 import technology.rocketjump.mountaincore.rendering.lighting.PointLight;
@@ -138,7 +140,7 @@ public class GameRenderer implements AssetDisposable {
 
 		MapTile cursorLightTile = worldMap.getTile(cursorLightPosition);
 		cursorLightEnabled = cursorLightTile != null && cursorLightTile.getExploration().equals(TileExploration.EXPLORED) &&
-				!cursorLightTile.hasWall() && !cursorLightTile.hasDoorway();
+				!cursorLightTile.hasWall() && !cursorLightTile.hasDoorway() && DisplaySettings.showGui;
 
 		if (cursorLightEnabled) {
 			lightProcessor.updateLightGeometry(cursorLight, worldMap);
@@ -161,7 +163,7 @@ public class GameRenderer implements AssetDisposable {
 
 		//-------Image processing pipeline---------
 		TextureRegion overlay = null;
-		if (hasSelection) {
+		if (hasSelection && DisplaySettings.showGui) {
 			TextureRegion firstOutlinePass = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
 			TextureRegion secondOutlinePass = outlineExtensionRenderer.outline(firstOutlinePass);
 			overlay = secondOutlinePass;
