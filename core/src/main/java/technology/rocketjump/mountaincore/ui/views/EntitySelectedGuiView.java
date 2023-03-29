@@ -32,10 +32,7 @@ import technology.rocketjump.mountaincore.entities.components.furniture.Furnitur
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.EquippedItemComponent;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.HaulingComponent;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.mountaincore.entities.model.physical.creature.*;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
@@ -201,8 +198,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Updatable<Table> happinessIcons = happinessIcons(entity);
 				Updatable<Table> textSummary = textSummary(entity);
 				Updatable<Table> debugTextSummary = debugTextSummary(entity);
-				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
-				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
+				Updatable<Table> militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
+				Updatable<Table> weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				Updatable<Table> inventory = inventory(entity);
@@ -213,6 +210,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(needs);
 				updatables.add(inventory);
 				updatables.add(debugTextSummary);
+				updatables.add(weaponSelection);
+				updatables.add(militaryToggle);
 
 				//Top left first row - name and toggle
 //				Table topLeftFirstRow = new Table();
@@ -228,7 +227,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
 				topLeftColumn.add(settlerName.getActor()).left().growX().spaceBottom(35f);
-				topLeftColumn.add(militaryToggle).center().growX().spaceBottom(35f);
+				topLeftColumn.add(militaryToggle.getActor()).center().growX().spaceBottom(35f);
 				topLeftColumn.row();
 				topLeftColumn.add(topLeftSecondRow).left().top().grow();
 				topLeftColumn.add(squadEmblem).center();
@@ -244,7 +243,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				topRow.add(topLeftColumn).left().growX().top();
 				if (isMilitary) {
-					topRow.add(weaponSelection).right();
+					topRow.add(weaponSelection.getActor()).right();
 				} else {
 					topRow.add(professionSelection).right();
 				}
@@ -779,6 +778,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					headlineLabel.setText(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(), quantifiedSkill.getLevel(),
 							((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getGender()).toString());
 				}
+			} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes
+						&& creatureEntityAttributes.getSanity() != Sanity.SANE) {
+				String sanityText = i18nTranslator.translate(creatureEntityAttributes.getSanity().i18nKey);
+				headlineLabel.setText(sanityText);
 			}
 		};
 
@@ -866,7 +869,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
 			boolean isSettlement = factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT;
-			boolean unknownHappiness = isMilitary || !entity.isSettler() || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
+			boolean isDead = entity.getBehaviourComponent() instanceof CorpseBehaviour;
+			boolean unknownHappiness = isMilitary || !entity.isSettler() || isDead;
 
 			List<String> ailments = new ArrayList<>();
 			for (StatusEffect statusEffect : statusComponent.getAll()) {
@@ -876,6 +880,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			for (I18nText damageDescription : attributes.getBody().getDamageDescriptions(i18nTranslator)) {
 				ailments.add(damageDescription.toString());
+			}
+			if (isDead) {
+				String deadText = i18nTranslator.translate("CREATURE.STATUS.DEAD");
+				if (!ailments.contains(deadText)) {
+					ailments.add(0, deadText);
+				}
 			}
 
 			if (!ailments.isEmpty()) {

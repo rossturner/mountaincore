@@ -23,8 +23,8 @@ public class CreatureEntityAssetsByGender {
 		Gender assetGender = asset.getGender();
 		if (assetGender == null || assetGender.equals(Gender.ANY)) {
 			// Any gender, add to all lists
-			for (Gender racewGender : asset.getRace().getGenders().keySet()) {
-				genderMap.computeIfAbsent(racewGender, a -> new CreatureEntityAssetsByProfession()).add(asset);
+			for (Gender gender : Gender.values()) {
+				genderMap.computeIfAbsent(gender, a -> new CreatureEntityAssetsByProfession()).add(asset);
 			}
 			genderMap.get(Gender.ANY).add(asset);
 		} else {

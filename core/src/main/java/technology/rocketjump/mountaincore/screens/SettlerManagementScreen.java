@@ -28,11 +28,13 @@ import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBe
 import technology.rocketjump.mountaincore.entities.components.creature.*;
 import technology.rocketjump.mountaincore.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.DefenseType;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.mountaincore.entities.model.physical.creature.Sanity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.LossOfMainHand;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.LossOfOffHand;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
@@ -393,8 +395,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table happinessColumn = happiness(settler).getActor();
 			Table needsColumn = needs(settler).getActor();
 			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
-			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView);
-			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
+			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView).getActor();
+			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView).getActor();
 			Table squadColumn = militarySquad(settler);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
@@ -420,12 +422,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	public Table weaponSelection(Entity settler, float overallScale, Consumer<Entity> onSettlerChange) {
+	public Updatable<Table> weaponSelection(Entity settler, float overallScale, Consumer<Entity> onSettlerChange) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
 
 		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
 
 		if (skillsComponent != null && militaryComponent != null) {
 			Drawable notEquippedIcon = managementSkin.getDrawable("icon_not_equipped");
@@ -433,11 +436,35 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			float scaleFactor = 0.9f * overallScale;
 			ImageButton.ImageButtonStyle weaponButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			weaponButtonStyle.imageUp = brawlIcon;
 			ImageButton.ImageButtonStyle shieldButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			shieldButtonStyle.imageUp = notEquippedIcon;
 			ImageButton.ImageButtonStyle armourButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			armourButtonStyle.imageUp = notEquippedIcon;
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedWeaponId()) == null) {
+					weaponButtonStyle.imageUp = brawlIcon;
+				} else {
+					EntityDrawable weaponDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedWeaponId()), entityRenderer, true, messageDispatcher);
+					weaponDrawable.setMinSize(weaponButtonStyle.up.getMinWidth() * scaleFactor, weaponButtonStyle.up.getMinHeight() * scaleFactor);
+					weaponButtonStyle.imageUp = weaponDrawable;
+				}
+			});
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedShieldId()) == null) {
+					shieldButtonStyle.imageUp = notEquippedIcon;
+				} else {
+					EntityDrawable shieldDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedShieldId()), entityRenderer, true, messageDispatcher);
+					shieldDrawable.setMinSize(shieldButtonStyle.up.getMinWidth() * scaleFactor, shieldButtonStyle.up.getMinHeight() * scaleFactor);
+					shieldButtonStyle.imageUp = shieldDrawable;
+				}
+			});
+			updatable.regularly(() -> {
+				if (gameContext.getEntity(militaryComponent.getAssignedArmorId()) == null) {
+					armourButtonStyle.imageUp = notEquippedIcon;
+				} else {
+					EntityDrawable armourDrawable = new EntityDrawable(gameContext.getEntity(militaryComponent.getAssignedArmorId()), entityRenderer, true, messageDispatcher);
+					armourDrawable.setMinSize(armourButtonStyle.up.getMinWidth() * scaleFactor, armourButtonStyle.up.getMinHeight() * scaleFactor);
+					armourButtonStyle.imageUp = armourDrawable;
+				}
+			});
 
 			Entity assignedWeapon = gameContext.getEntity(militaryComponent.getAssignedWeaponId());
 			Entity assignedShield = gameContext.getEntity(militaryComponent.getAssignedShieldId());
@@ -451,25 +478,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (weaponInfo != null) {
 					weaponIsTwoHanded = weaponInfo.isTwoHanded();
 					weaponSkill = weaponInfo.getCombatSkill();
-					EntityDrawable weaponDrawable = new EntityDrawable(assignedWeapon, entityRenderer, true, messageDispatcher);
-					weaponDrawable.setMinSize(weaponButtonStyle.up.getMinWidth() * scaleFactor, weaponButtonStyle.up.getMinHeight() * scaleFactor);
-					weaponButtonStyle.imageUp = weaponDrawable;
 				}
 			}
 			if (assignedShield == null) {
 				militaryComponent.setAssignedShieldId(null);
-			} else {
-				EntityDrawable shieldDrawable = new EntityDrawable(assignedShield, entityRenderer, true, messageDispatcher);
-				shieldDrawable.setMinSize(shieldButtonStyle.up.getMinWidth() * scaleFactor, shieldButtonStyle.up.getMinHeight() * scaleFactor);
-				shieldButtonStyle.imageUp = shieldDrawable;
 			}
 			if (assignedArmour == null) {
 				militaryComponent.setAssignedArmorId(null);
-			} else {
-				EntityDrawable armourDrawable = new EntityDrawable(assignedArmour, entityRenderer, true, messageDispatcher);
-				armourDrawable.setMinSize(armourButtonStyle.up.getMinWidth() * scaleFactor, armourButtonStyle.up.getMinHeight() * scaleFactor);
-				armourButtonStyle.imageUp = armourDrawable;
 			}
+
 
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
@@ -705,8 +722,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			table.add(shieldStack).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
 			table.add(armourColumn).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
 		}
+		updatable.update();
 
-		return table;
+		return updatable;
 	}
 
 	static class SelectItemOption extends SelectItemDialog.Option {
@@ -851,7 +869,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	public Table militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
+	public Updatable<Table> militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
@@ -889,11 +907,30 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		militaryProficiencyLabel.setAlignment(Align.center);
 
 		Table table = new Table();
-		table.add(toggle).spaceBottom(14).row();
-		if (includeRibbon) {
-			table.add(militaryProficiencyLabel);
-		}
-		return table;
+		Updatable<Table> updatable = Updatable.of(table);
+		updatable.regularly(() -> {
+			EntityAttributes attributes = settler.getPhysicalEntityComponent().getAttributes();
+			if (attributes instanceof CreatureEntityAttributes creatureEntityAttributes) {
+				boolean isSane = creatureEntityAttributes.getSanity() == Sanity.SANE;
+				if (table.hasChildren()) {
+					if (!isSane) {
+						table.clearChildren();
+					}
+				} else {
+					if (isSane) {
+						table.add(toggle).spaceBottom(14).row();
+						if (includeRibbon) {
+							table.add(militaryProficiencyLabel);
+						}
+					}
+				}
+
+
+			}
+
+		});
+		updatable.update();
+		return updatable;
 	}
 
 	public Table professions(Entity settler, float scale, Consumer<Entity> rebuildSettlerView) {
@@ -1036,6 +1073,12 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				}
 			}
 		}
+		if (settler.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes
+				&& creatureEntityAttributes.getSanity() != Sanity.SANE) {
+			String sanityText = i18nTranslator.translate(creatureEntityAttributes.getSanity().i18nKey);
+			currentProfessionName = sanityText;
+		}
+
 
 		java.util.List<String> behaviourDescriptions = new ArrayList<>();
 		if (settler.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {

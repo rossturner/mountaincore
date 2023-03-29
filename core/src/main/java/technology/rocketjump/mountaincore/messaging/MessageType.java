@@ -3,8 +3,10 @@ package technology.rocketjump.mountaincore.messaging;
 import technology.rocketjump.mountaincore.entities.components.BehaviourComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
+import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.military.model.Squad;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 
 /**
@@ -236,6 +238,7 @@ public class MessageType {
 	public static final int REQUEST_LIQUID_ALLOCATION = 1105;
 	public static final int REQUEST_LIQUID_REMOVAL = 1106;
 	public static final int LIQUID_SPLASH = 1107;
+	public static final int REQUEST_LIQUID_MATERIAL = 1108; public record RequestLiquidMaterialMessage(Consumer<Collection<GameMaterial>> callback) {};
 
 	// Saved game messages
 	public static final int REQUEST_SAVE = 1200;

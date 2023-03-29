@@ -6,7 +6,9 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.mountaincore.entities.components.creature.StatusComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.creature.status.OnFireStatus;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.DoorwayEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureType;
@@ -105,6 +107,10 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 				FurnitureAssignmentRequest request = (FurnitureAssignmentRequest) msg.extraInfo;
 				List<Entity> matched = findByTag(request.requiredTag, true)
 						.stream()
+						.filter(entity -> {
+							StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
+							return statusComponent == null || !statusComponent.contains(OnFireStatus.class);
+						})
 						.filter(request.filter)
 						.toList();
 				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldOrParentPosition();
@@ -136,7 +142,7 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 				return true;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this + ", " + msg);
 		}
 	}
 

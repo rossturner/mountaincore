@@ -235,7 +235,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 			for (Entity settler : settlers) {
 				//TODO: ashamed of not refactoring this properly
 				Table militaryExperienceColumn = new Table();
-				Table militaryToggle = settlerManagementScreen.militaryToggle(settler, false, s -> update());
+				Table militaryToggle = settlerManagementScreen.militaryToggle(settler, false, s -> update()).getActor();
 				militaryExperienceColumn.add(militaryToggle).top().row();
 
 				SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
