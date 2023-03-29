@@ -159,7 +159,7 @@ public class LocationComponent implements ParentDependentEntityComponent {
 							attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
 						}
 					}
-					case CREATURE -> {
+					case CREATURE, ONGOING_EFFECT -> {
 						attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
 					}
 					default -> Logger.error("Not yet implemented, updating attached entity orientation for " + attachedEntity.entity.getType());

@@ -109,6 +109,9 @@ public class Entity implements Persistable, Disposable {
 			if (entityComponent instanceof Destructible) {
 				((Destructible) entityComponent).destroy(this, messageDispatcher, gameContext);
 			}
+			if (entityComponent instanceof Disposable disposable) {
+				disposable.dispose();
+			}
 		}
 	}
 

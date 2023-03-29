@@ -2,6 +2,8 @@ package technology.rocketjump.mountaincore.entities.behaviour.effects;
 
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import technology.rocketjump.mountaincore.entities.components.AttachedEntitiesComponent;
+import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.effect.OngoingEffectAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
@@ -74,8 +76,13 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 						this.state = OngoingEffectState.ACTIVE;
 						break;
 					case CONSUME_PARENT:
-						if (parentEntity.getLocationComponent().getContainerEntity() != null) {
-							messageDispatcher.dispatchMessage(MessageType.CONSUME_ENTITY_BY_FIRE, parentEntity.getLocationComponent().getContainerEntity());
+						Entity containerEntity = parentEntity.getLocationComponent().getContainerEntity();
+						if (containerEntity != null) {
+							AttachedEntitiesComponent attachedEntitiesComponent = containerEntity.getComponent(AttachedEntitiesComponent.class);
+							if (attachedEntitiesComponent != null) {
+								attachedEntitiesComponent.remove(parentEntity); //remove fire so that fire tags don't copy over
+							}
+							messageDispatcher.dispatchMessage(MessageType.CONSUME_ENTITY_BY_FIRE, containerEntity);
 						} else {
 							messageDispatcher.dispatchMessage(MessageType.CONSUME_TILE_BY_FIRE, parentEntity.getLocationComponent().getWorldOrParentPosition());
 						}
