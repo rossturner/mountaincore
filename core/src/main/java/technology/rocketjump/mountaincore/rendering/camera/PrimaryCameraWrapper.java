@@ -61,6 +61,9 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 	private boolean screenShakingToRight = true;
 	private float screenShakeProgress;
 
+	private Vector2 storedCameraPosition = null;
+	private float storedCameraZoom = 0f;
+
 	@Inject
 	public PrimaryCameraWrapper(ScreenWriter screenWriter, MessageDispatcher messageDispatcher) throws IOException {
 		this.screenWriter = screenWriter;
@@ -78,12 +81,14 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 		messageDispatcher.addListener(this, MessageType.MOVE_CAMERA_TO);
 		messageDispatcher.addListener(this, MessageType.TRIGGER_SCREEN_SHAKE);
 		messageDispatcher.addListener(this, MessageType.DEV_MODE_CHANGED);
+		messageDispatcher.addListener(this, MessageType.STORE_CAMERA_POSITION);
+		messageDispatcher.addListener(this, MessageType.RETRIEVE_CAMERA_POSITION);
 	}
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
-			case MessageType.MOVE_CAMERA_TO: {
+			case MessageType.MOVE_CAMERA_TO -> {
 				Vector2 worldPosition = (Vector2) msg.extraInfo;
 				if (worldPosition != null) {
 					camera.position.x = worldPosition.x;
@@ -93,21 +98,30 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 							camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, getCursorWorldPosition(),
 							minTilesForZoom, maxTilesForZoom));
 				}
-				return true;
 			}
-			case MessageType.TRIGGER_SCREEN_SHAKE: {
+			case MessageType.TRIGGER_SCREEN_SHAKE -> {
 				currentScreenShake = new Vector2();
 				screenShakingToRight = true;
 				screenShakeProgress = 0f;
-				return true;
 			}
-			case MessageType.DEV_MODE_CHANGED: {
+			case MessageType.DEV_MODE_CHANGED -> {
 				recalculateZoomLimits();
-				return true;
 			}
-			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+			case MessageType.STORE_CAMERA_POSITION -> {
+				storedCameraPosition = new Vector2(camera.position.x, camera.position.y);
+				storedCameraZoom = camera.zoom;
+			}
+			case MessageType.RETRIEVE_CAMERA_POSITION -> {
+				if (storedCameraPosition != null) {
+					xyzVelocity.set(0, 0, 0);
+					targetZoom = storedCameraZoom;
+					camera.zoom = storedCameraZoom;
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, storedCameraPosition);
+				}
+			}
+			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
+		return true;
 	}
 
 	public void zoom(int zoomAmount) {

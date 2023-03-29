@@ -42,7 +42,9 @@ public enum CommandName {
 	DEBUG_FRAME_BUFFER_6(Set.of(Input.Keys.CONTROL_LEFT, Input.Keys.NUM_6)),
 	DEBUG_FRAME_BUFFER_7(Set.of(Input.Keys.CONTROL_LEFT, Input.Keys.NUM_7)),
 	DEBUG_FRAME_BUFFER_8(Set.of(Input.Keys.CONTROL_LEFT, Input.Keys.NUM_8)),
-	DEBUG_FRAME_BUFFER_9(Set.of(Input.Keys.CONTROL_LEFT, Input.Keys.NUM_9));
+	DEBUG_FRAME_BUFFER_9(Set.of(Input.Keys.CONTROL_LEFT, Input.Keys.NUM_9)),
+	DEBUG_STORE_CAMERA_POSITION(Set.of(Input.Keys.F1)),
+	DEBUG_RETRIEVE_CAMERA_POSITION(Set.of(Input.Keys.F4));
 
 	public final List<Set<Integer>> defaultKeys;
 
