@@ -101,10 +101,11 @@ public class SoundEffectManager implements AssetDisposable {
 				}
 			}
 
-			// Only disallow multiple sounds when they come from entities
-			if (activeSoundsByAssetId.size() >= MAX_PARALLEL_SOUNDS || activeSoundsByAssetId.containsKey(asset.getSoundAssetId())) {
-				return;
-			}
+		}
+
+		// Only disallow multiple sounds when they come from entities
+		if (activeSoundsByAssetId.size() >= MAX_PARALLEL_SOUNDS || activeSoundsByAssetId.containsKey(asset.getSoundAssetId())) {
+			return;
 		}
 
 
@@ -124,7 +125,7 @@ public class SoundEffectManager implements AssetDisposable {
 				activeSoundEffect = new ActiveSoundEffect(asset, 0L, null);
 			}
 			if (activeSoundEffect != null) {
-				activeSoundsByAssetId.put(asset.getSoundAssetId(), activeSoundEffect);
+				replaceActiveSoundEffect(asset, activeSoundEffect);
 				if (asset.isLooping()) {
 					activeSoundEffect.loop(baseVolumeLevel);
 				} else {
@@ -143,6 +144,14 @@ public class SoundEffectManager implements AssetDisposable {
 		} catch (GdxAudioException e) {
 			// Gdx.audio is not set so just don't play sound
 		}
+	}
+
+	private void replaceActiveSoundEffect(SoundAsset asset, ActiveSoundEffect activeSoundEffect) {
+		long soundAssetId = asset.getSoundAssetId();
+		if (activeSoundsByAssetId.containsKey(soundAssetId)) {
+			activeSoundsByAssetId.get(soundAssetId).stop(); //prevent sound resource leak (e.g. fire that continues to play even though fire completed)
+		}
+		activeSoundsByAssetId.put(soundAssetId, activeSoundEffect);
 	}
 
 	public void stopSound(SoundAsset soundAsset, long requesterId) {

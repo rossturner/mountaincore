@@ -94,7 +94,7 @@ public class TradingMessageHandler implements Telegraph, GameContextAware {
 		for (Season seasonCounter = Season.SPRING; seasonCounter != nextSeason; seasonCounter = seasonCounter.getNext()) {
 			targetDayOfYear += clock.DAYS_IN_SEASON;
 		}
-		targetDayOfYear += gameContext.getRandom().nextInt(1, (clock.DAYS_IN_SEASON / 2) + 1);
+		targetDayOfYear += gameContext.getRandom().nextInt(1, Math.max((clock.DAYS_IN_SEASON / 2), 2) + 1);
 		gameContext.getSettlementState().getTraderInfo().setNextVisitDayOfYear(targetDayOfYear);
 	}
 

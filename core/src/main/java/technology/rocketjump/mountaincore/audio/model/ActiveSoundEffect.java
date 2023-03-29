@@ -107,6 +107,7 @@ public class ActiveSoundEffect implements Disposable {
 
 	@Override
 	public void dispose() {
+		resource.stop();
 		resource.dispose();
 	}
 
