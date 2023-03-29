@@ -45,7 +45,7 @@ public class CraftingHintWidgetFactory {
 		Table tooltipTable = new Table();
 		tooltipTable.defaults().padBottom(30);
 
-		String headerText = i18nTranslator.getTranslatedString(itemType.getI18nKey()).toString();
+		String headerText = i18nTranslator.getItemDescription(1, material, itemType, null).toString();
 		tooltipTable.add(new Label(headerText, skin.get("complex-tooltip-header", Label.LabelStyle.class))).center().row();
 
 		String itemDescriptionText = i18nTranslator.getTranslatedString(itemType.getI18nKey(), I18nWordClass.TOOLTIP).toString();
