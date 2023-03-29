@@ -163,11 +163,23 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(RequestHaulingAllocationMessage message) {
 		int requesterRegionId = gameContext.getAreaMap().getTile(message.requesterPosition).getRegionId();
-		List<Entity> unallocatedItems;
-		if (message.requiredMaterial != null) {
-			unallocatedItems = settlementItemTracker.getItemsByTypeAndMaterial(message.requiredItemType, message.requiredMaterial, true);
-		} else {
-			unallocatedItems = settlementItemTracker.getItemsByType(message.requiredItemType, true);
+		List<Entity> unallocatedItems = new ArrayList<>();
+		Set<ItemType> requiredItemTypes = new HashSet<>();
+		if (message.requiredItemType != null) {
+			requiredItemTypes.add(message.requiredItemType);
+		}
+		if (message.requiredItemTypeTag != null) {
+			messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPES_BY_TAG_CLASS, new LookupItemTypesByTagClassMessage(
+					message.requiredItemTypeTag, requiredItemTypes::addAll));
+		}
+
+
+		for (ItemType requiredItemType : requiredItemTypes) {
+			if (message.requiredMaterial != null) {
+				unallocatedItems.addAll(settlementItemTracker.getItemsByTypeAndMaterial(requiredItemType, message.requiredMaterial, true));
+			} else {
+				unallocatedItems.addAll(settlementItemTracker.getItemsByType(requiredItemType, true));
+			}
 		}
 
 		unallocatedItems.sort(new NearestDistanceSorter(message.requesterPosition));
