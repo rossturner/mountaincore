@@ -8,16 +8,15 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.FloorTypeDictionary;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
 import technology.rocketjump.mountaincore.cooking.CookingRecipeDictionary;
-import technology.rocketjump.mountaincore.cooking.model.CookingRecipe;
 import technology.rocketjump.mountaincore.entities.EntityStore;
-import technology.rocketjump.mountaincore.entities.components.Faction;
 import technology.rocketjump.mountaincore.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.mountaincore.entities.factories.ItemEntityFactory;
 import technology.rocketjump.mountaincore.entities.factories.SettlerFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.HaulingComponent;
-import technology.rocketjump.mountaincore.entities.model.physical.item.*;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.mountaincore.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpeciesType;
@@ -32,7 +31,6 @@ import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.production.StockpileComponentUpdater;
-import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
 import technology.rocketjump.mountaincore.rooms.RoomTypeDictionary;
 
 import java.util.*;
@@ -217,41 +215,41 @@ public class TiledMapFactory {
 
 		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);
 
-		if (GlobalSettings.DEV_MODE) {
-			HaulingComponent haulingComponent = settler.getOrCreateComponent(HaulingComponent.class);
-
-			ItemTypeWithMaterial itemTypeWithMaterial = new ItemTypeWithMaterial();
-			if (gameContext.getRandom().nextBoolean()) {
-				if (gameContext.getRandom().nextBoolean()) {
-					CookingRecipe recipe = cookingRecipeDictionary.getByName("Create soup");
-					itemTypeWithMaterial = recipe.getInputItemOptions().get(gameContext.getRandom().nextInt(recipe.getInputItemOptions().size()));
-				} else {
-					itemTypeWithMaterial.setItemType(itemTypeDictionary.getByName("Fuel-Sack"));
-					itemTypeWithMaterial.setMaterial(materialDictionary.getByName("Charcoal"));
-				}
-			} else {
-				itemTypeWithMaterial.setItemType(itemTypeDictionary.getByName("Resource-Grain-Sack"));
-				itemTypeWithMaterial.setMaterial(materialDictionary.getByName("Barley"));
-			}
-
-			ItemEntityAttributes itemAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-			itemAttributes.setItemType(itemTypeWithMaterial.getItemType());
-			itemAttributes.setMaterial(itemTypeWithMaterial.getMaterial());
-
-			for (GameMaterialType otherRequiredMaterialTypes : itemAttributes.getItemType().getMaterialTypes()) {
-				if (itemAttributes.getMaterial(otherRequiredMaterialTypes) == null) {
-					itemAttributes.setMaterial(pickMaterialType(otherRequiredMaterialTypes));
-				}
-			}
-
-			itemAttributes.setQuantity(1 + gameContext.getRandom().nextInt(10));
-			if (itemAttributes.getQuantity() > itemAttributes.getItemType().getMaxStackSize()) {
-				itemAttributes.setQuantity(itemAttributes.getItemType().getMaxStackSize());
-			}
-
-			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext, Faction.SETTLEMENT);
-			haulingComponent.setHauledEntity(itemEntity, messageDispatcher, settler);
-		}
+//		if (GlobalSettings.DEV_MODE) {
+//			HaulingComponent haulingComponent = settler.getOrCreateComponent(HaulingComponent.class);
+//
+//			ItemTypeWithMaterial itemTypeWithMaterial = new ItemTypeWithMaterial();
+//			if (gameContext.getRandom().nextBoolean()) {
+//				if (gameContext.getRandom().nextBoolean()) {
+//					CookingRecipe recipe = cookingRecipeDictionary.getByName("Create soup");
+//					itemTypeWithMaterial = recipe.getInputItemOptions().get(gameContext.getRandom().nextInt(recipe.getInputItemOptions().size()));
+//				} else {
+//					itemTypeWithMaterial.setItemType(itemTypeDictionary.getByName("Fuel-Sack"));
+//					itemTypeWithMaterial.setMaterial(materialDictionary.getByName("Charcoal"));
+//				}
+//			} else {
+//				itemTypeWithMaterial.setItemType(itemTypeDictionary.getByName("Resource-Grain-Sack"));
+//				itemTypeWithMaterial.setMaterial(materialDictionary.getByName("Barley"));
+//			}
+//
+//			ItemEntityAttributes itemAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
+//			itemAttributes.setItemType(itemTypeWithMaterial.getItemType());
+//			itemAttributes.setMaterial(itemTypeWithMaterial.getMaterial());
+//
+//			for (GameMaterialType otherRequiredMaterialTypes : itemAttributes.getItemType().getMaterialTypes()) {
+//				if (itemAttributes.getMaterial(otherRequiredMaterialTypes) == null) {
+//					itemAttributes.setMaterial(pickMaterialType(otherRequiredMaterialTypes));
+//				}
+//			}
+//
+//			itemAttributes.setQuantity(1 + gameContext.getRandom().nextInt(10));
+//			if (itemAttributes.getQuantity() > itemAttributes.getItemType().getMaxStackSize()) {
+//				itemAttributes.setQuantity(itemAttributes.getItemType().getMaxStackSize());
+//			}
+//
+//			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext, Faction.SETTLEMENT);
+//			haulingComponent.setHauledEntity(itemEntity, messageDispatcher, settler);
+//		}
 
 		return settler;
 	}
