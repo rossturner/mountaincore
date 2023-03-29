@@ -49,7 +49,6 @@ import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobType;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
-import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.military.model.Squad;
 import technology.rocketjump.mountaincore.production.StockpileComponentUpdater;
@@ -1147,12 +1146,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Entity inventoryItem = inventoryIterator.next();
 					int quantity = 1;
 					ItemType itemType = null;
-					GameMaterial primaryMaterial = null;
 
 					if (inventoryItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
 						quantity = attributes.getQuantity();
 						itemType = attributes.getItemType();
-						primaryMaterial = attributes.getPrimaryMaterial();
 
 					}
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
@@ -1162,7 +1159,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (itemType == null) {
 						tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW);
 					} else {
-						craftingHintWidgetFactory.addComplexTooltip(entityImage, mainGameSkin, itemType, primaryMaterial);
+						craftingHintWidgetFactory.addComplexTooltip(entityImage, mainGameSkin, inventoryItem);
 					}
 					buttonFactory.attachClickCursor(entityImage, GameCursor.SELECT);
 					entityImage.addListener(new ClickListener() {

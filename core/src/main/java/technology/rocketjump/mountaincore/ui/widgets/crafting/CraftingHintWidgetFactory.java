@@ -9,7 +9,9 @@ import com.google.inject.Singleton;
 import technology.rocketjump.mountaincore.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.mountaincore.crafting.model.CraftingRecipe;
 import technology.rocketjump.mountaincore.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.jobs.model.CraftingType;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
@@ -18,6 +20,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nString;
 import technology.rocketjump.mountaincore.ui.i18n.I18nText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWordClass;
+import technology.rocketjump.mountaincore.ui.skins.MainGameSkin;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -41,23 +44,44 @@ public class CraftingHintWidgetFactory {
 		this.tooltipFactory = tooltipFactory;
 	}
 
+
+	public void addComplexTooltip(Actor button, MainGameSkin skin, Entity entity) {
+		String headerText = i18nTranslator.getDescription(entity).toString();
+		ItemType itemType = null;
+		GameMaterial material = null;
+
+		if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			itemType = attributes.getItemType();
+			material = attributes.getPrimaryMaterial();
+		}
+
+		complexTooltip(button, skin, itemType, material, headerText);
+	}
+
 	public void addComplexTooltip(Actor button, Skin skin, ItemType itemType, GameMaterial material) {
+		String headerText = i18nTranslator.getItemDescription(1, material, itemType, null).toString();
+		complexTooltip(button, skin, itemType, material, headerText);
+	}
+
+	private void complexTooltip(Actor button, Skin skin, ItemType itemType, GameMaterial material, String headerText) {
 		Table tooltipTable = new Table();
 		tooltipTable.defaults().padBottom(30);
 
-		String headerText = i18nTranslator.getItemDescription(1, material, itemType, null).toString();
 		tooltipTable.add(new Label(headerText, skin.get("complex-tooltip-header", Label.LabelStyle.class))).center().row();
 
-		String itemDescriptionText = i18nTranslator.getTranslatedString(itemType.getI18nKey(), I18nWordClass.TOOLTIP).toString();
-		Label descriptionLabel = new Label(itemDescriptionText, skin);
-		descriptionLabel.setWrap(true);
-		tooltipTable.add(descriptionLabel).width(700).center().row();
+		if (itemType != null) {
+			String itemDescriptionText = i18nTranslator.getTranslatedString(itemType.getI18nKey(), I18nWordClass.TOOLTIP).toString();
+			Label descriptionLabel = new Label(itemDescriptionText, skin);
+			descriptionLabel.setWrap(true);
+			tooltipTable.add(descriptionLabel).width(700).center().row();
 
-		for (String hint : getCraftingRecipeDescriptions(itemType, material)) {
-			Label requirementLabel = new Label(hint, skin);
-			requirementLabel.setWrap(true);
-			tooltipTable.add(requirementLabel).width(700).center().row();
+			for (String hint : getCraftingRecipeDescriptions(itemType, material)) {
+				Label requirementLabel = new Label(hint, skin);
+				requirementLabel.setWrap(true);
+				tooltipTable.add(requirementLabel).width(700).center().row();
+			}
 		}
+
 
 		tooltipFactory.complexTooltip(button, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 	}
