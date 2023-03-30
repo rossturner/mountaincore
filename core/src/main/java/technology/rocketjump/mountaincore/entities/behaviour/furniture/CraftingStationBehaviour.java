@@ -191,6 +191,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				return;
 			}
 
+			if (craftingAssignment.getInputAllocations().isEmpty() && craftingAssignment.getInputLiquidAllocations().isEmpty() &&
+					craftingAssignment.getCraftingJob().getAssignedToEntityId() == null) {
+				cancelAssignment();
+				return;
+			}
+
 			if (poweredFurnitureComponent != null) {
 				adjustPoweredCraftingDuration(gameContext, poweredFurnitureComponent);
 			}

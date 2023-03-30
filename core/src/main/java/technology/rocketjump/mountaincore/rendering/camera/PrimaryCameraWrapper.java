@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
@@ -110,6 +111,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 			case MessageType.STORE_CAMERA_POSITION -> {
 				storedCameraPosition = new Vector2(camera.position.x, camera.position.y);
 				storedCameraZoom = camera.zoom;
+				Logger.debug("Storing camera position: " + storedCameraPosition + ", zoom: " + storedCameraZoom);
 			}
 			case MessageType.RETRIEVE_CAMERA_POSITION -> {
 				if (storedCameraPosition != null) {
