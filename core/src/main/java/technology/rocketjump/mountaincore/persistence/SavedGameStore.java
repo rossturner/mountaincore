@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -24,9 +27,10 @@ import java.io.*;
 import java.util.*;
 
 @Singleton
-public class SavedGameStore implements Telegraph, DisplaysText {
+public class SavedGameStore implements Telegraph, DisplaysText, Disposable {
 
 	public static final String ARCHIVE_HEADER_ENTRY_NAME = "header.json";
+	public static final String MINIMAP_ENTRY_NAME = "minimap.png";
 	private final UserFileManager userFileManager;
 	private final BackgroundTaskManager backgroundTaskManager;
 	private final MessageDispatcher messageDispatcher;
@@ -61,25 +65,35 @@ public class SavedGameStore implements Telegraph, DisplaysText {
 					try {
 						InputStream archiveStream = new FileInputStream(saveFile);
 						ArchiveInputStream archive = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.ZIP, archiveStream);
+
+						StringWriter headerWriter = new StringWriter();
+						Pixmap minimapPixmap = null;
+						boolean headerParsed = false;
+
 						ArchiveEntry archiveEntry = archive.getNextEntry();
-						while (archiveEntry != null && !archiveEntry.getName().equals(ARCHIVE_HEADER_ENTRY_NAME)) {
+						while (archiveEntry != null) {
+							if (ARCHIVE_HEADER_ENTRY_NAME.equals(archiveEntry.getName())) {
+								IOUtils.copy(archive, headerWriter);
+								headerParsed = true;
+							} else if (MINIMAP_ENTRY_NAME.equals(archiveEntry.getName())) {
+								byte[] rawData = IOUtils.toByteArray(archive);
+								minimapPixmap = new Pixmap(rawData, 0, rawData.length);
+							}
 							archiveEntry = archive.getNextEntry();
 						}
 
-						if (archiveEntry == null) {
+						if (!headerParsed) {
 							Logger.error("Could not find " + ARCHIVE_HEADER_ENTRY_NAME + " in " + saveFile.getName());
 							continue;
 						}
 
-						StringWriter headerWriter = new StringWriter();
-						IOUtils.copy(archive, headerWriter);
 						IOUtils.closeQuietly(headerWriter);
 						IOUtils.closeQuietly(archive);
 						IOUtils.closeQuietly(archiveStream);
 
 						JSONObject headerJson = JSON.parseObject(headerWriter.toString());
 
-						results.add(new SavedGameInfo(saveFile, headerJson, i18nTranslator));
+						results.add(new SavedGameInfo(saveFile, headerJson, i18nTranslator, minimapPixmap));
 					} catch (Exception e) {
 						Logger.error("Error while reading " + saveFile.getAbsolutePath());
 					}
@@ -90,9 +104,15 @@ public class SavedGameStore implements Telegraph, DisplaysText {
 						if (headerJsonFile.exists()) {
 							JSONObject headerJson = JSON.parseObject(FileUtils.readFileToString(headerJsonFile));
 							String settlementName = headerJson.getString("name");
+							File minimapFile = saveDirectory.toPath().resolve(MINIMAP_ENTRY_NAME).toFile();
+							Pixmap minimapPixmap = null;
+							if (minimapFile.exists()) {
+								minimapPixmap = new Pixmap(new FileHandle(minimapFile));
+							}
+
 							File bodyFile = saveDirectory.toPath().resolve(settlementName + ".json").toFile();
 							if (bodyFile.exists()) {
-								SavedGameInfo savedGameInfo = new SavedGameInfo(bodyFile, headerJson, i18nTranslator);
+								SavedGameInfo savedGameInfo = new SavedGameInfo(bodyFile, headerJson, i18nTranslator, minimapPixmap);
 								savedGameInfo.setCompressed(false);
 								results.add(savedGameInfo);
 							}
@@ -115,7 +135,7 @@ public class SavedGameStore implements Telegraph, DisplaysText {
 					Logger.debug("Save file list refreshed");
 				}
 				this.refreshInProgress = false;
-				bySettlementName.clear();
+				clearSavedGames();
 				for (SavedGameInfo savedGame : savedGames) {
 					if (!bySettlementName.containsKey(savedGame.settlementName) ||
 							bySettlementName.get(savedGame.settlementName).lastModifiedTime.isBefore(savedGame.lastModifiedTime)) {
@@ -147,6 +167,16 @@ public class SavedGameStore implements Telegraph, DisplaysText {
 		} catch (IOException e) {
 			Logger.error("Error while deleting "  + savedGameInfo.settlementName, e);
 		}
+		remove(savedGameInfo);
+	}
+
+
+	private void clearSavedGames() {
+		dispose();
+		bySettlementName.clear();
+	}
+	private void remove(SavedGameInfo savedGameInfo) {
+		savedGameInfo.dispose();
 		bySettlementName.remove(savedGameInfo.settlementName);
 	}
 
@@ -172,5 +202,10 @@ public class SavedGameStore implements Telegraph, DisplaysText {
 	public void rebuildUI() {
 		// Game clock display requires translation
 		refresh();
+	}
+
+	@Override
+	public void dispose() {
+		this.bySettlementName.values().forEach(Disposable::dispose);
 	}
 }

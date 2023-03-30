@@ -1,6 +1,8 @@
 package technology.rocketjump.mountaincore.persistence;
 
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
@@ -12,7 +14,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class SavedGameInfo {
+public class SavedGameInfo implements Disposable {
 
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
 
@@ -24,9 +26,11 @@ public class SavedGameInfo {
 	public final String formattedFileModifiedTime;
 	public final String formattedGameTime;
 	public final boolean peacefulMode;
+	public final Pixmap minimapPixmap;
 	private boolean isCompressed = true;
 
-	public SavedGameInfo(File saveFile, JSONObject headerJson, I18nTranslator i18nTranslator) throws InvalidSaveException, IOException {
+	public SavedGameInfo(File saveFile, JSONObject headerJson, I18nTranslator i18nTranslator, Pixmap minimapPixmap) throws InvalidSaveException, IOException {
+		this.minimapPixmap = minimapPixmap;
 		this.gameClock = new GameClock();
 		this.gameClock.readFrom(headerJson.getJSONObject("clock"), null, null);
 
@@ -45,5 +49,10 @@ public class SavedGameInfo {
 
 	public void setCompressed(boolean compressed) {
 		isCompressed = compressed;
+	}
+
+	@Override
+	public void dispose() {
+		minimapPixmap.dispose();
 	}
 }
