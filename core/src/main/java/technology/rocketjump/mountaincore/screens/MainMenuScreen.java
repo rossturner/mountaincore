@@ -225,11 +225,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	@Override
 	public void show() {
-		if (new RandomXS128().nextBoolean()) {
-			backgroundImage = new Texture("assets/main_menu/Dwarves.jpg");
-		} else {
-			backgroundImage = new Texture("assets/main_menu/Dwarf Realm.jpg");
-		}
+		backgroundImage = new Texture("assets/main_menu/Dwarven Settlement.png");
 
 		setupBackgroundRegion();
 

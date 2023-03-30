@@ -7,10 +7,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.mountaincore.entities.ai.memory.Memory;
 import technology.rocketjump.mountaincore.entities.ai.memory.MemoryType;
-import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
-import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
-import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
-import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
+import technology.rocketjump.mountaincore.entities.components.*;
 import technology.rocketjump.mountaincore.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.HappinessComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.MemoryComponent;
@@ -93,6 +90,9 @@ public class AssignedGoalFactory {
 	}
 
 	public static AssignedGoal checkToPlaceInventoryItems(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		if (!parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+			return null;
+		}
 		// Place an unused item into a stockpile if a space is available
 		InventoryComponent inventory = parentEntity.getComponent(InventoryComponent.class);
 		if (inventory != null) {
