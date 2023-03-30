@@ -8,8 +8,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
-import technology.rocketjump.mountaincore.assets.entities.tags.WorkspaceLocationsRestrictionTag;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
 import technology.rocketjump.mountaincore.assets.model.WallType;
 import technology.rocketjump.mountaincore.audio.model.SoundAsset;
@@ -18,7 +16,6 @@ import technology.rocketjump.mountaincore.doors.DoorwayOrientation;
 import technology.rocketjump.mountaincore.doors.DoorwaySize;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
-import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismTypeDictionary;
@@ -31,7 +28,6 @@ import technology.rocketjump.mountaincore.mapping.model.MechanismPlacement;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
-import technology.rocketjump.mountaincore.mapping.tile.TileExploration;
 import technology.rocketjump.mountaincore.mapping.tile.TileNeighbours;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
@@ -44,6 +40,7 @@ import technology.rocketjump.mountaincore.rendering.ScreenWriter;
 import technology.rocketjump.mountaincore.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.mountaincore.rooms.*;
 import technology.rocketjump.mountaincore.rooms.constructions.BridgeConstruction;
+import technology.rocketjump.mountaincore.rooms.constructions.ConstructionManager;
 import technology.rocketjump.mountaincore.rooms.constructions.WallConstruction;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
 import technology.rocketjump.mountaincore.sprites.model.BridgeOrientation;
@@ -61,7 +58,6 @@ import static technology.rocketjump.mountaincore.misc.VectorUtils.toVector;
 import static technology.rocketjump.mountaincore.rooms.RoomTypeDictionary.VIRTUAL_PLACING_ROOM;
 import static technology.rocketjump.mountaincore.sprites.model.BridgeOrientation.EAST_WEST;
 import static technology.rocketjump.mountaincore.sprites.model.BridgeOrientation.NORTH_SOUTH;
-import static technology.rocketjump.mountaincore.ui.GameInteractionMode.isRiverEdge;
 
 /**
  * This class keeps track of how the player is interacting with the game world - for example an input event not captured
@@ -241,7 +237,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 				furnitureEntityToPlace.getLocationComponent().setWorldPosition(toVector(tilePosition), false);
 
-				validFurniturePlacement = isFurniturePlacementValid(map, tilePosition, attributes);
+				validFurniturePlacement = ConstructionManager.isFurniturePlacementValid(map, furnitureEntityToPlace);
 			}
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_WALLS)) {
 			GameMaterial selectedMaterial = wallMaterialSelection.selectedMaterial;
@@ -557,84 +553,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 		}
 
 		return riverRegions.size() > 0 && floorRegions.size() > 0;
-	}
-
-	public static boolean isFurniturePlacementValid(TiledMap map, GridPoint2 tilePosition, FurnitureEntityAttributes attributes) {
-
-		List<GridPoint2> positionsToCheck = new LinkedList<>();
-		positionsToCheck.add(tilePosition);
-		for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
-			positionsToCheck.add(tilePosition.cpy().add(extraTileOffset));
-		}
-		if (attributes.getFurnitureType().hasTag(WorkspaceLocationsRestrictionTag.class)) {
-			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
-				positionsToCheck.add(tilePosition.cpy().add(workspace.getAccessedFrom()));
-			}
-		}
-
-		boolean oneTileNotRiverEdge = false;
-		for (GridPoint2 positionToCheck : positionsToCheck) {
-			MapTile tileToCheck = map.getTile(positionToCheck);
-			if (tileToCheck == null || !tileToCheck.isEmptyExceptItemsAndPlants() || !tileToCheck.getExploration().equals(TileExploration.EXPLORED)) {
-				return false;
-			}
-			if (attributes.getFurnitureType().getRequiredFloorMaterialType() != null &&
-					!tileToCheck.getAllFloors().getLast().getMaterial().getMaterialType().equals(attributes.getFurnitureType().getRequiredFloorMaterialType())) {
-				return false;
-			}
-			if (!attributes.getFurnitureType().isPlaceAnywhere()) {
-				// If not place anywhere, check that every tile is part of a valid room type
-				RoomTile roomTile = tileToCheck.getRoomTile();
-				if (roomTile == null || !attributes.getFurnitureType().getValidRoomTypes().contains(roomTile.getRoom().getRoomType())) {
-					return false;
-				}
-			}
-
-			if (!isRiverEdge(tileToCheck)) {
-				oneTileNotRiverEdge = true;
-			}
-		}
-
-		if (!oneTileNotRiverEdge && !attributes.getFurnitureType().getName().equals("WATERWHEEL")) {
-			return false;
-		}
-
-		if (attributes.getCurrentLayout().getWorkspaces().size() > 0) {
-			// Also check one workspace is accessible
-			boolean oneWorkspaceAccessible = false;
-			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
-				GridPoint2 workspaceAccessedFrom = tilePosition.cpy().add(workspace.getAccessedFrom());
-				MapTile tile = map.getTile(workspaceAccessedFrom);
-				if (tile != null && tile.isNavigable(null)) {
-					oneWorkspaceAccessible = true;
-					break;
-				}
-			}
-
-			if (!oneWorkspaceAccessible) {
-				return false;
-			}
-		}
-
-		for (FurnitureLayout.SpecialTile specialTile : attributes.getCurrentLayout().getSpecialTiles()) {
-			MapTile tileToCheck = map.getTile(tilePosition.cpy().add(specialTile.getLocation()));
-			if (tileToCheck == null) {
-				return false;
-			}
-
-			switch (specialTile.getRequirement()) {
-				case IS_RIVER:
-					if (!tileToCheck.getFloor().isRiverTile() || tileToCheck.getFloor().hasBridge()) {
-						return false;
-					}
-					break;
-				default:
-					Logger.warn("Not yet implemented, check for furniture special location of type " + specialTile.getRequirement());
-					return false;
-			}
-		}
-
-		return true;
 	}
 
 	public Vector2 getMinPoint() {
