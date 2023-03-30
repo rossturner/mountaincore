@@ -1,11 +1,11 @@
 package technology.rocketjump.mountaincore.ui.eventlistener;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
@@ -42,6 +42,7 @@ public class TooltipFactory {
 
 	public void simpleTooltip(Actor parentActor, I18nText i18nText, TooltipLocationHint locationHint) {
 		TooltipTable tooltipTable = new TooltipTable();
+		tooltipTable.setTouchable(Touchable.disabled);
 
 		if (locationHint.equals(TooltipLocationHint.BELOW)) {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f, 40f).center().row();
@@ -63,12 +64,12 @@ public class TooltipFactory {
 
 		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> labelContainer.getHeight() / 2f, locationHint, messageDispatcher));
 
-		tooltipTable.addListener(new InputListener() {
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				checkToRemove(tooltipTable, parentActor);
-			}
-		});
+//		tooltipTable.addListener(new InputListener() {
+//			@Override
+//			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+//				checkToRemove(tooltipTable, parentActor);
+//			}
+//		});
 
 		parentActor.addCaptureListener(event -> {
 			if (event instanceof InputEvent inputEvent) {
@@ -114,6 +115,7 @@ public class TooltipFactory {
 
 	public void complexTooltip(Actor parentActor, Actor tooltipContents, TooltipBackground background) {
 		TooltipTable tooltipTable = new TooltipTable();
+		tooltipTable.setTouchable(Touchable.disabled);
 
 		Container<Actor> contentContainer = new Container<>();
 		contentContainer.setBackground(skin.get(background.tenPatchName, TenPatchDrawable.class));
@@ -127,7 +129,7 @@ public class TooltipFactory {
 		tooltipTable.addListener(new InputListener() {
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				checkToRemove(tooltipTable, parentActor);
+//				checkToRemove(tooltipTable, parentActor);
 			}
 		});
 
@@ -143,28 +145,6 @@ public class TooltipFactory {
 			}
 			return false;
 		});
-	}
-
-	private void checkToRemove(Table tooltipTable, Actor parentActor) {
-		if (tooltipTable.getParent() != null) {
-			Vector2 stageCoords = tooltipTable.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-			if (!hoveringOverAny(stageCoords, tooltipTable, parentActor)) {
-				tooltipTable.remove();
-			}
-		}
-	}
-
-	private boolean hoveringOverAny(Vector2 stageCoords, Actor... actors) {
-		boolean hoveringOnAny = false;
-		for (Actor actor : actors) {
-			Vector2 localCoords = actor.stageToLocalCoordinates(stageCoords.cpy());
-			hoveringOnAny = 0 <= localCoords.x && localCoords.x <= actor.getWidth() &&
-					0 <= localCoords.y && localCoords.y <= actor.getHeight();
-			if (hoveringOnAny) {
-				break;
-			}
-		}
-		return hoveringOnAny;
 	}
 
 	private class TooltipHoverListener extends InputListener {
@@ -241,7 +221,7 @@ public class TooltipFactory {
 
 		@Override
 		public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-			checkToRemove(tooltipTable, parentActor);
+			tooltipTable.remove();
 		}
 
 	}
