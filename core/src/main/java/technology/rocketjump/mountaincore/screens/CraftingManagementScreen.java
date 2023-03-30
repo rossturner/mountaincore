@@ -152,7 +152,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
-		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 257, false));
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 257, false, false));
 		stack.add(buildExitTable());
 
 		stage.addActor(stack);
