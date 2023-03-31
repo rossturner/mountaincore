@@ -91,7 +91,6 @@ public class ConsumeFoodAction extends Action {
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
 		if (equippedItemComponent != null && equippedItemComponent.isEquippedToAnyHand(targetEntity)) {
 			equippedItemComponent.clearFromEquippedHand(targetEntity);
-			parent.parentEntity.removeComponent(EquippedItemComponent.class);
 			parentInventory.add(targetEntity, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		} else {
 			Entity containerEntity = targetEntity.getLocationComponent().getContainerEntity();
