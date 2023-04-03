@@ -18,7 +18,7 @@ import java.time.Instant;
 @Singleton
 public class ModioAuthManager {
 
-	private static final String MODIO_GAME_URL = "https://mod.io/g/kingunderthemountain";
+	private static final String MODIO_GAME_URL = "https://mod.io/g/mountaincore";
 	public static final int MODIO_ERROR_REFERENCE_TERMS_ACCEPTANCE_REQUIRED = 11074;
 	private final ModioRequestAdapter modioRequestAdapter;
 	private final UserPreferences userPreferences;

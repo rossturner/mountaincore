@@ -156,7 +156,7 @@
   "filenames" : [ "DoorClose1.wav", "DoorClose2.wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
-  "volumeModifier" : 0.3,
+  "volumeModifier" : 0.15,
   "looping" : false
 }, {
   "name" : "DoorOpen",
@@ -164,7 +164,7 @@
   "filenames" : [ "DoorOpen1.wav", "DoorOpen2.wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
-  "volumeModifier" : 0.3,
+  "volumeModifier" : 0.2,
   "looping" : false
 }, {
   "name" : "EatFood",
@@ -444,7 +444,7 @@
   "filenames" : [ "SFX_UI_Global_Hover_Medium_1.wav", "SFX_UI_Global_Hover_Medium_2.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
-  "volumeModifier" : 1.0,
+  "volumeModifier" : 0.7,
   "looping" : false
 }, {
   "name" : "LightHover",

@@ -38,6 +38,8 @@ public class MessageType {
 	public static final int GAME_PAUSED = 205;
 	public static final int MOVE_CAMERA_TO = 206;
 	public static final int TRIGGER_SCREEN_SHAKE = 207;
+	public static final int STORE_CAMERA_POSITION = 208;
+	public static final int RETRIEVE_CAMERA_POSITION = 209;
 
 	// GUI Messages
 	public static final int GUI_VIEW_MODE_CHANGED = 246;
@@ -123,9 +125,7 @@ public class MessageType {
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 	public static final int DESTROY_ENTITY = 350;
 	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
-	public static final int CHANGE_ENTITY_BEHAVIOUR = 352;
-
-	public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
+	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

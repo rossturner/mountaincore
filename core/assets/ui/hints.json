@@ -381,7 +381,7 @@
   "triggers" : [ ]
 }, {
   "hintId" : "tutorial_workshops",
-  "i18nKeys" : [ "TUTORIAL.WORKSHOPS.A", "TUTORIAL.WORKSHOPS.B" ],
+  "i18nKeys" : [ "TUTORIAL.WORKSHOPS.A", "TUTORIAL.WORKSHOPS.B", "TUTORIAL.WORKSHOPS.C" ],
   "onShow" : [ ],
   "progressDescriptors" : [ {
     "type" : "ROOM_TILES",

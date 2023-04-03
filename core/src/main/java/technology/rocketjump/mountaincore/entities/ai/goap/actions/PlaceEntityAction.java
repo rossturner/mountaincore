@@ -42,7 +42,7 @@ public class PlaceEntityAction extends Action {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		// Should already be in correct tile
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
 		HaulingAllocation haulingAllocation = parent.getAssignedHaulingAllocation();
 
 		EntityComponent containerComponent = pickContainerComponent(haulingAllocation);
@@ -85,7 +85,7 @@ public class PlaceEntityAction extends Action {
 					// Not adjacent or not in workspace
 					completionType = CompletionType.FAILURE;
 				}
-			} else if (!currentTile.getTilePosition().equals(haulingAllocation.getTargetPosition())) {
+			} else if (currentTile == null || !currentTile.getTilePosition().equals(haulingAllocation.getTargetPosition())) {
 				Logger.error("Not in correct tile to place item into");
 				completionType = CompletionType.FAILURE;
 			} else {

@@ -142,7 +142,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				professionList.add(allProfessions.get(cursor % allProfessions.size()));
 			}
 		} else {
-			for (int iteration = 0; iteration < 4; iteration++) {
+			for (int iteration = 0; iteration < 2; iteration++) {
 				for (Skill profession : skillDictionary.getSelectableProfessions()) {
 					if (profession.getName().equals("VILLAGER")) {
 						continue;

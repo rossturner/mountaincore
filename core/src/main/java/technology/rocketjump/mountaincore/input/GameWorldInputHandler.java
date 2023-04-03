@@ -110,6 +110,8 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware, 
 			keyUpActions.put(CommandName.DEBUG_GAME_SPEED_ULTRA_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5));
 			keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
 			keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
+			keyUpActions.put(CommandName.DEBUG_STORE_CAMERA_POSITION, () -> messageDispatcher.dispatchMessage(MessageType.STORE_CAMERA_POSITION));
+			keyUpActions.put(CommandName.DEBUG_RETRIEVE_CAMERA_POSITION, () -> messageDispatcher.dispatchMessage(MessageType.RETRIEVE_CAMERA_POSITION));
 		}
 		return keyUpActions;
 	}

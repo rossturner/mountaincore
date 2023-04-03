@@ -1,0 +1,39 @@
+"AppBuild"
+{
+	"AppID" "2370310" // your AppID
+	"Desc" "Main Mountaincore build script" // internal description for this build
+
+	"ContentRoot" "..\" // root content folder, relative to location of this file
+	"BuildOutput" ".\build_output\" // build output folder for build logs and build cache files
+
+	"Depots"
+	{
+		"2370311" // Windows depot
+		{
+			"FileMapping"
+			{
+				"LocalPath" "./win64_release/*" // all files from contentroot folder
+				"DepotPath" "." // mapped into the root of the depot
+				"recursive" "1" // include all subfolders
+			}
+		}
+		"2370312" // Mac depot
+		{
+			"FileMapping"
+			{
+				"LocalPath" "./macosx_release/*" // all files from contentroot folder
+				"DepotPath" "." // mapped into the root of the depot
+				"recursive" "1" // include all subfolders
+			}
+		}
+		"2370313" // Linux depot
+		{
+			"FileMapping"
+			{
+				"LocalPath" "./linux64_release/*" // all files from contentroot folder
+				"DepotPath" "." // mapped into the root of the depot
+				"recursive" "1" // include all subfolders
+			}
+		}
+	}
+}

@@ -1300,7 +1300,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override
