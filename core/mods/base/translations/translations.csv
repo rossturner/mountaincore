@@ -538,7 +538,6 @@ GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.
 GUI.FURNITURE_ASSIGNED_TO,Used to show who owns a piece of furniture,Assigned to {{name}}
 GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the process of being removed,Currently being removed
-GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.
 GUI.FURNITURE_REQUIREMENT.ALL_MATERIALS,,{{amount}} available
 GUI.FURNITURE_REQUIREMENT.SPECIFIED_MATERIALS,,{{amount}} {{material}} available
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen

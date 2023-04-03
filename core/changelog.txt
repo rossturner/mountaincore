@@ -1,3 +1,8 @@
+Early Access 1.1.1
+
+- Fix for a crash that could happen when the tutorial auto-starts the game near the edge of the map
+- Removed legacy text written to the upper-left corner of the screen
+
 Early Access 1.1.0 - 3rd April 2023
 
 - Initial Early Access release! This changelog will keep track of any future changes or bugfixes.

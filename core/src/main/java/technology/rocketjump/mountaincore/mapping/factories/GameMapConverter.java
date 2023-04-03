@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.mapping.factories;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.FloorTypeDictionary;
@@ -496,7 +497,11 @@ public class GameMapConverter {
 		if (tile.hasRiver()) {
 			return -1; // Can't embark in river
 		}
-		for (GameMapTile neighbourTile : map.getAllNeighbourTiles(tile.getPosition().x, tile.getPosition().y)) {
+		Array<GameMapTile> neighbourTiles = map.getAllNeighbourTiles(tile.getPosition().x, tile.getPosition().y);
+		if (neighbourTiles.size != 8) {
+			return -1; // Can't embark on edge of map
+		}
+		for (GameMapTile neighbourTile : neighbourTiles) {
 			if (neighbourTile.hasRiver()) {
 				return -1; // Can't embark next to river, or 3x3 area will cover river
 			}

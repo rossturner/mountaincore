@@ -5,7 +5,6 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
@@ -15,7 +14,6 @@ import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.doors.DoorwayOrientation;
 import technology.rocketjump.mountaincore.doors.DoorwaySize;
 import technology.rocketjump.mountaincore.entities.model.Entity;
-import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismTypeDictionary;
@@ -45,8 +43,6 @@ import technology.rocketjump.mountaincore.rooms.constructions.WallConstruction;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
 import technology.rocketjump.mountaincore.sprites.model.BridgeOrientation;
 import technology.rocketjump.mountaincore.sprites.model.BridgeType;
-import technology.rocketjump.mountaincore.ui.i18n.I18nText;
-import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 
 import java.util.*;
 
@@ -73,7 +69,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final RoomFactory roomFactory;
 	private final ScreenWriter screenWriter;
-	private final I18nTranslator i18nTranslator;
 	private final SettlementItemTracker settlementItemTracker;
 	private final MessageDispatcher messageDispatcher;
 	private final SoundAsset dragAreaSoundAsset;
@@ -127,12 +122,11 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	@Inject
 	public GameInteractionStateContainer(PrimaryCameraWrapper primaryCameraWrapper, RoomFactory roomFactory, ScreenWriter screenWriter,
-										 I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
+										 SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
 										 SoundAssetDictionary soundAssetDictionary, MechanismTypeDictionary mechanismTypeDictionary) {
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.roomFactory = roomFactory;
 		this.screenWriter = screenWriter;
-		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.dragAreaSoundAsset = soundAssetDictionary.getByName("DragArea"); // MODDING expose this
@@ -222,21 +216,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 			virtualRoom.updateLayout(map);
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_FURNITURE)) {
 			if (furnitureEntityToPlace != null) {
-				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntityToPlace.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getCurrentLayout().getRotatesTo() == null) {
-					screenWriter.printLine(i18nTranslator.getTranslatedString("GUI.NON_ROTATABLE_FURNITURE.HINT").toString());
-				} else {
-					screenWriter.printLine(i18nTranslator.getTranslatedString("GUI.ROTATE_FURNITURE.HINT").toString());
-				}
-				GameMaterialType requiredFloorMaterialType = attributes.getFurnitureType().getRequiredFloorMaterialType();
-				if (requiredFloorMaterialType != null) {
-					I18nText materialTypeHint = i18nTranslator.getTranslatedWordWithReplacements("GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE",
-							ImmutableMap.of("materialType", i18nTranslator.getTranslatedString(requiredFloorMaterialType.getI18nKey())));
-					screenWriter.printLine(materialTypeHint.toString());
-				}
-
 				furnitureEntityToPlace.getLocationComponent().setWorldPosition(toVector(tilePosition), false);
-
 				validFurniturePlacement = ConstructionManager.isFurniturePlacementValid(map, furnitureEntityToPlace);
 			}
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_WALLS)) {
@@ -289,7 +269,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 			virtualPowerMechanismPlacements.forEach(this::applyCorrectPowerMechanismType);
 
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_BRIDGE)) {
-			screenWriter.printLine(i18nTranslator.getTranslatedString("GUI.PLACE_BRIDGE.HINT").toString());
 			if (dragging) {
 				List<MapTile> bridgeTiles = new LinkedList<>();
 				for (int x = minX; x <= maxX; x++) {
