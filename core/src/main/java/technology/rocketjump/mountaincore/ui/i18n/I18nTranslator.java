@@ -566,7 +566,7 @@ public class I18nTranslator {
 			replacements.put("itemType", dictionary.getWord(itemType.getI18nKey()));
 		}
 
-		if (itemType.isDescribeAsMaterialOnly()) {
+		if (itemType.isDescribeAsMaterialOnly() && !replacements.getOrDefault("materialType", I18nWord.BLANK).equals(I18nWord.BLANK)) {
 			return applyReplacements(dictionary.getWord("ITEM.INGREDIENT.DESCRIPTION"), replacements, Gender.ANY);
 		} else {
 			return applyReplacements(dictionary.getWord("ITEM.DESCRIPTION"), replacements, Gender.ANY);

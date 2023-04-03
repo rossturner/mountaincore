@@ -1,7 +1,9 @@
-Early Access 1.1.1
+Early Access 1.1.1 - 3rd April 2023
 
 - Fix for a crash that could happen when the tutorial auto-starts the game near the edge of the map
 - Removed legacy text written to the upper-left corner of the screen
+- Corrected material selection when constructing a leatherworking station
+- Fix for a crash related to import/export pallets and item types described only by their material (i.e. wheat sack to kitchen)
 
 Early Access 1.1.0 - 3rd April 2023
 

@@ -5543,7 +5543,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -5651,7 +5651,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -5732,7 +5732,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -5759,7 +5759,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-North-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -5930,7 +5930,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_1-Wood_Down",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -5985,7 +5985,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6067,7 +6067,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6182,7 +6182,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6289,7 +6289,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6370,7 +6370,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-West-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6477,7 +6477,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -6584,7 +6584,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-West-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
