@@ -7,11 +7,13 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.mountaincore.assets.entities.tags.WorkspaceLocationsRestrictionTag;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
@@ -24,7 +26,9 @@ import technology.rocketjump.mountaincore.jobs.model.CraftingType;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobState;
 import technology.rocketjump.mountaincore.jobs.model.JobType;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
+import technology.rocketjump.mountaincore.mapping.tile.TileExploration;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.ItemMaterialSelectionMessage;
@@ -33,14 +37,18 @@ import technology.rocketjump.mountaincore.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.mountaincore.messaging.types.RequestPlantRemovalMessage;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
+import technology.rocketjump.mountaincore.rooms.RoomTile;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import static technology.rocketjump.mountaincore.entities.ItemEntityMessageHandler.createHaulingJob;
+import static technology.rocketjump.mountaincore.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.mountaincore.rooms.HaulingAllocation.AllocationPositionType.CONSTRUCTION;
+import static technology.rocketjump.mountaincore.ui.GameInteractionMode.isRiverEdge;
 
 @Singleton
 public class ConstructionManager implements Updatable {
@@ -77,6 +85,11 @@ public class ConstructionManager implements Updatable {
 	}
 
 	private void update(Construction construction) {
+		if (!checkConstructionStillValid(construction)) {
+			messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, construction);
+			return;
+		}
+
 		if (otherItemsNeedRemoving(construction)) {
 			construction.setState(ConstructionState.CLEARING_WORK_SITE);
 			return;
@@ -115,6 +128,14 @@ public class ConstructionManager implements Updatable {
 			createItemAllocations(construction);
 			completeConstructionIfAllRequirementsInPlace(construction);
 		} // else waiting for job to complete or similar
+	}
+
+	private boolean checkConstructionStillValid(Construction construction) {
+		if (construction instanceof FurnitureConstruction furnitureConstruction) {
+			return isFurniturePlacementValid(gameContext.getAreaMap(), furnitureConstruction.getEntity());
+		}
+
+		return true;
 	}
 
 	private void completeConstructionIfAllRequirementsInPlace(Construction construction) {
@@ -464,6 +485,95 @@ public class ConstructionManager implements Updatable {
 			}
 		}
 		return allocationsAtPosition;
+	}
+
+
+	public static boolean isFurniturePlacementValid(TiledMap map, Entity furniture) {
+		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furniture.getPhysicalEntityComponent().getAttributes();
+		Vector2 worldPosition = furniture.getLocationComponent().getWorldPosition();
+		GridPoint2 tilePosition = toGridPoint(worldPosition);
+
+		List<GridPoint2> positionsToCheck = new LinkedList<>();
+		positionsToCheck.add(tilePosition);
+		for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
+			positionsToCheck.add(tilePosition.cpy().add(extraTileOffset));
+		}
+		if (attributes.getFurnitureType().hasTag(WorkspaceLocationsRestrictionTag.class)) {
+			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
+				positionsToCheck.add(tilePosition.cpy().add(workspace.getAccessedFrom()));
+			}
+		}
+
+		boolean oneTileNotRiverEdge = false;
+		for (GridPoint2 positionToCheck : positionsToCheck) {
+			MapTile tileToCheck = map.getTile(positionToCheck);
+
+
+			if (tileToCheck == null || !tileToCheck.getExploration().equals(TileExploration.EXPLORED)) {
+				return false;
+			}
+
+			if (!tileToCheck.isEmptyExceptItemsAndPlants() && !(tileToCheck.hasConstruction() && furniture.equals(tileToCheck.getConstruction().getEntity()))) {
+				return false;
+			}
+
+			if (attributes.getFurnitureType().getRequiredFloorMaterialType() != null &&
+					!tileToCheck.getAllFloors().getLast().getMaterial().getMaterialType().equals(attributes.getFurnitureType().getRequiredFloorMaterialType())) {
+				return false;
+			}
+			if (!attributes.getFurnitureType().isPlaceAnywhere()) {
+				// If not place anywhere, check that every tile is part of a valid room type
+				RoomTile roomTile = tileToCheck.getRoomTile();
+				if (roomTile == null || !attributes.getFurnitureType().getValidRoomTypes().contains(roomTile.getRoom().getRoomType())) {
+					return false;
+				}
+			}
+
+			if (!isRiverEdge(tileToCheck)) {
+				oneTileNotRiverEdge = true;
+			}
+		}
+
+		if (!oneTileNotRiverEdge && !attributes.getFurnitureType().getName().equals("WATERWHEEL")) {
+			return false;
+		}
+
+		if (attributes.getCurrentLayout().getWorkspaces().size() > 0) {
+			// Also check one workspace is accessible
+			boolean oneWorkspaceAccessible = false;
+			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
+				GridPoint2 workspaceAccessedFrom = tilePosition.cpy().add(workspace.getAccessedFrom());
+				MapTile tile = map.getTile(workspaceAccessedFrom);
+				if (tile != null && tile.isNavigable(null)) {
+					oneWorkspaceAccessible = true;
+					break;
+				}
+			}
+
+			if (!oneWorkspaceAccessible) {
+				return false;
+			}
+		}
+
+		for (FurnitureLayout.SpecialTile specialTile : attributes.getCurrentLayout().getSpecialTiles()) {
+			MapTile tileToCheck = map.getTile(tilePosition.cpy().add(specialTile.getLocation()));
+			if (tileToCheck == null) {
+				return false;
+			}
+
+			switch (specialTile.getRequirement()) {
+				case IS_RIVER:
+					if (!tileToCheck.getFloor().isRiverTile() || tileToCheck.getFloor().hasBridge()) {
+						return false;
+					}
+					break;
+				default:
+					Logger.warn("Not yet implemented, check for furniture special location of type " + specialTile.getRequirement());
+					return false;
+			}
+		}
+
+		return true;
 	}
 
 

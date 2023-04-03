@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.ui.skins;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -19,7 +20,7 @@ public class MenuSkin extends Skin {
 		return table;
 	}
 
-	public Table buildPaperLayer(Actor paperComponents, int outsidePadding, boolean thinPattern) {
+	public Table buildPaperLayer(Actor paperComponents, int outsidePadding, boolean thinPattern, boolean centered) {
 		String patternName = "paper_texture_bg_pattern_large";
 		if (thinPattern) {
 			patternName = "paper_texture_bg_pattern_thin";
@@ -27,7 +28,12 @@ public class MenuSkin extends Skin {
 		Table baseLayer = new Table();
 		baseLayer.setBackground(getDrawable("paper_texture_bg_stretch"));
 		baseLayer.add(new Image(getDrawable(patternName))).growY().padLeft(outsidePadding); //TODO : change from padding from outside to just pad from paperComponents out?
-		baseLayer.add(paperComponents).top().expandX();
+		Cell<Actor> mainCell = baseLayer.add(paperComponents).expandX();
+		if (centered) {
+			mainCell.center();
+		} else {
+			mainCell.top();
+		}
 		baseLayer.add(new Image(getDrawable(patternName))).growY().padRight(outsidePadding);
 		return baseLayer;
 	}

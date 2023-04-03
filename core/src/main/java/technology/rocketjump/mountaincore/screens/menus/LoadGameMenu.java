@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -194,7 +195,13 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 			saveSlot.setBackground(skin.getDrawable(SAVE_BG));
 		}
 
-		saveSlot.add();
+		Container<Actor> minimapContainer = new Container<>();
+		if (savedGameInfo.minimapPixmap != null && !savedGameInfo.minimapPixmap.isDisposed()) {
+			Image minimapImage = new Image(new Texture(savedGameInfo.minimapPixmap));
+			minimapContainer.setActor(minimapImage);
+			minimapContainer.fill();
+		}
+		saveSlot.add(minimapContainer).pad(26).width(350).height(250);
 		saveSlot.row();
 
 		Label settlementName = new Label(savedGameInfo.settlementName, skin, "save_title_ribbon");
@@ -266,7 +273,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		titleTable.add(titleRibbon).width(1146);
 
 
-		table.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(5);
+		table.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(3);
 		table.row();
 
 		this.leftArrow = new Button(skin, "left_arrow");
@@ -316,9 +323,11 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		});
 
 		table.add(leftArrow);
-		table.add(stack1).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
-		table.add(stack2).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
-		table.add(stack3).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		Table saveSlotsTable = new Table();
+		saveSlotsTable.add(stack1).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		saveSlotsTable.add(stack2).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		saveSlotsTable.add(stack3).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(saveSlotsTable);
 		table.add(rightArrow);
 
 		table.row();
@@ -371,7 +380,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 		disablePlayAndDeleteButtons();
 
-		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right).colspan(5);
+		table.add();
+		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right);
+		table.add();
 
 		return table;
 	}

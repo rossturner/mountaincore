@@ -15,6 +15,7 @@ import technology.rocketjump.mountaincore.combat.CombatTracker;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.environment.model.Season;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -47,6 +48,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	private boolean shutdown;
 	private final CombatTracker combatTracker;
 	private InvasionCreatureGroup currentInvasion;
+	private GameContext gameContext;
 	private Random random = new RandomXS128();
 	private boolean gamePaused;
 
@@ -182,9 +184,12 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 					}
 				}
 
-
-				if (skirmishTrack == null && invasionTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
-					startNewPeacefulTrack();
+				if (isWinter()) {
+					fadeOutPeacefulTrack();
+				} else {
+					if (skirmishTrack == null && invasionTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
+						startNewPeacefulTrack();
+					}
 				}
 			}
 			case SKIRMISH_COMBAT -> {
@@ -192,13 +197,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				// if peaceful music stopped, play skirmish music
 
 
-				if (peacefulTrack != null) {
-					fadeOut(peacefulTrack);
-					if (peacefulTrack.getVolume() < 0.01f) {
-						disposeTrack(peacefulTrack);
-						peacefulTrack = null;
-					}
-				}
+				fadeOutPeacefulTrack();
 
 				if (invasionTrack != null) {
 					fadeOut(invasionTrack);
@@ -265,6 +264,20 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				} else if (timeInCurrentState > DELAY_BEFORE_EXITING_COMBAT) {
 					setState(JukeboxState.PEACEFUL);
 				}
+			}
+		}
+	}
+
+	private boolean isWinter() {
+		return gameContext != null && gameContext.getGameClock() != null && gameContext.getGameClock().getCurrentSeason() == Season.WINTER;
+	}
+
+	private void fadeOutPeacefulTrack() {
+		if (peacefulTrack != null) {
+			fadeOut(peacefulTrack);
+			if (peacefulTrack.getVolume() < 0.01f) {
+				disposeTrack(peacefulTrack);
+				peacefulTrack = null;
 			}
 		}
 	}
@@ -337,6 +350,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.currentInvasion = getCurrentInvasion(gameContext);
+		this.gameContext = gameContext;
 		setState(this.currentInvasion != null ? INVASION_STINGER : PEACEFUL);
 	}
 

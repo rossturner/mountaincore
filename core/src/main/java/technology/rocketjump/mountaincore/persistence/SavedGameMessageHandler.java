@@ -6,6 +6,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.compress.archivers.*;
@@ -20,6 +23,7 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.*;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.logging.CrashHandler;
+import technology.rocketjump.mountaincore.mapping.minimap.MinimapPixmapGenerator;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
@@ -262,27 +266,35 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		JSONObject fileContents = stateHolder.toCombinedJson();
 
 		Callable<BackgroundTaskResult> writeToDisk = () -> {
+			Pixmap minimapPixmap = null;
 			try {
 				JSONObject headerJson = produceHeaderFrom(fileContents);
 
 				File saveFile = userFileManager.getOrCreateSaveFile(saveFileName);
 				File tempMainFile = userFileManager.getOrCreateSaveFile("body.temp");
 				File tempHeaderFile = userFileManager.getOrCreateSaveFile("header.temp");
+				File tempMinimapTextureFile = userFileManager.getOrCreateSaveFile(SavedGameStore.MINIMAP_ENTRY_NAME);
+
 				writeJsonToFile(fileContents, tempMainFile);
 				writeJsonToFile(headerJson, tempHeaderFile);
+
+				minimapPixmap = MinimapPixmapGenerator.generateFrom(gameContext.getAreaMap());
+				PixmapIO.writePNG(new FileHandle(tempMinimapTextureFile), minimapPixmap);
 
 				OutputStream archiveStream = new FileOutputStream(saveFile);
 				ArchiveOutputStream archive = new ArchiveStreamFactory().createArchiveOutputStream(ArchiveStreamFactory.ZIP, archiveStream);
 
 				addArchiveEntry(tempHeaderFile, ARCHIVE_HEADER_ENTRY_NAME, archive);
 				addArchiveEntry(tempMainFile, saveFileName + ".json", archive);
+				addArchiveEntry(tempMinimapTextureFile, SavedGameStore.MINIMAP_ENTRY_NAME, archive);
 
 				archive.finish();
 				IOUtils.closeQuietly(archiveStream);
 
 				tempMainFile.delete();
 				tempHeaderFile.delete();
-				messageDispatcher.dispatchMessage(MessageType.SAVE_COMPLETED, new SavedGameInfo(saveFile, headerJson, i18nTranslator));
+				tempMinimapTextureFile.delete();
+				messageDispatcher.dispatchMessage(MessageType.SAVE_COMPLETED, new SavedGameInfo(saveFile, headerJson, i18nTranslator, minimapPixmap)); //do not dispose minimapPixmap, it will be handled elsewhere
 				return BackgroundTaskResult.success();
 			} catch (Exception e) {
 				CrashHandler.logCrash(e);

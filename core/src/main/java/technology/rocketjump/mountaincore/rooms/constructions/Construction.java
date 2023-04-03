@@ -12,6 +12,7 @@ import technology.rocketjump.mountaincore.entities.components.ItemAllocationComp
 import technology.rocketjump.mountaincore.entities.components.LiquidContainerComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Gender;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
@@ -165,6 +166,15 @@ public abstract class Construction implements Persistable, SelectableDescription
 			GameMaterial material = requirement.getMaterial();
 			if (material != null && material.getMaterialType().equals(primaryMaterialType)) {
 				return material;
+			}
+		}
+		Entity entity = getEntity();
+		if (entity != null) {
+			//materials assigned elsewhere like SpecificExtraMaterialsTag
+			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes furnitureEntityAttributes
+			&& furnitureEntityAttributes.getPrimaryMaterial() != null) {
+
+				return furnitureEntityAttributes.getPrimaryMaterial();
 			}
 		}
 		return GameMaterial.NULL_MATERIAL;

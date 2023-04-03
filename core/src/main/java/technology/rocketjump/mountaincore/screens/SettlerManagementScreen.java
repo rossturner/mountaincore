@@ -207,7 +207,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
-		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 136, true));
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 136, true, false));
 		stack.add(buildExitTable(136 + menuSkin.getDrawable("paper_texture_bg_pattern_thin").getMinWidth() + 5f));
 
 		stage.addActor(stack);

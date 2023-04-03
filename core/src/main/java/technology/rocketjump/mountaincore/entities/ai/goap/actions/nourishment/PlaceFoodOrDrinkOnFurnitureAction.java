@@ -80,7 +80,6 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 										itemAllocationComponent.getNumUnallocated(),
 										furnitureEntity, ItemAllocation.Purpose.FOOD_ALLOCATION);
 							}
-							parent.parentEntity.removeComponent(EquippedItemComponent.class);
 							completionType = SUCCESS;
 							return;
 						}
