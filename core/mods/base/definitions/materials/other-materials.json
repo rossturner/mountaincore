@@ -17,12 +17,12 @@
   {
     "materialName": "Grass",
     "materialType": "EARTH",
-    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#639448"
   },
   {
     "materialName": "Dirt",
     "materialType": "EARTH",
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#91694c"
   },
   {
