@@ -39,7 +39,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
         "x" : -29.5,
         "y" : -81.5
@@ -118,7 +118,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_3",
       "offsetPixels" : {
         "x" : 26.0,
         "y" : 85.5
@@ -168,7 +168,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherworking-East-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "MISC_COLOR_3",
+      "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
         "x" : -118.5,
         "y" : 70.0
