@@ -23,7 +23,6 @@ import technology.rocketjump.mountaincore.entities.components.LiquidContainerCom
 import technology.rocketjump.mountaincore.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
-import technology.rocketjump.mountaincore.entities.model.physical.AttachedEntity;
 import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
@@ -427,14 +426,6 @@ public class EntityAssetUpdater implements GameContextAware {
 		Set<Tag> attachedTags = new LinkedHashSet<>();
 		for (EntityAsset entityAsset : entity.getPhysicalEntityComponent().getTypeMap().values()) {
 			attachedTags.addAll(tagProcessor.processRawTags(entityAsset.getTags()));
-		}
-
-		for (AttachedEntity attachedEntity : entity.getAttachedEntities()) {
-			for (Tag attachedTag : findAttachedTags(attachedEntity.entity)) {
-				if (attachedTag.appliesToParentEntity()) {
-					attachedTags.add(attachedTag);
-				}
-			}
 		}
 
 		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();

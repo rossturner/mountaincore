@@ -24,7 +24,7 @@ import java.util.EnumMap;
 
 public class AttachedLightSourceComponent implements InfrequentlyUpdatableComponent, Disposable {
 
-	private PointLight light = new PointLight();
+	private final PointLight light = new PointLight();
 	private Entity parentEntity;
 	private boolean requiresMeshUpdate = true;
 	private boolean enabled = false; // For entity to toggle off in bright outdoor light
@@ -56,6 +56,7 @@ public class AttachedLightSourceComponent implements InfrequentlyUpdatableCompon
 			}
 		}
 
+		this.setEnabled(false);
 		if (parentEntity.getLocationComponent().getWorldPosition() != null) {
 			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 			if (currentTile != null) {
@@ -73,9 +74,7 @@ public class AttachedLightSourceComponent implements InfrequentlyUpdatableCompon
 
 				float nearbyLuminance = outdoorLight * currentSunlightAmount;
 
-				if (nearbyLuminance > gameContext.getConstantsRepo().getWorldConstants().getAttachedLightSourceTogglePoint()) {
-					this.setEnabled(false);
-				} else {
+				if (nearbyLuminance <= gameContext.getConstantsRepo().getWorldConstants().getAttachedLightSourceTogglePoint()) {
 					this.setEnabled(true);
 				}
 

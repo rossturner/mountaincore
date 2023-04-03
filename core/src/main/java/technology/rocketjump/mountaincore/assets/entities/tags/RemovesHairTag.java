@@ -26,8 +26,4 @@ public class RemovesHairTag extends Tag {
 		entity.getPhysicalEntityComponent().getTypeMap().remove(tagProcessingUtils.entityAssetTypeDictionary.getByName("HAIR_OUTLINE"));
 	}
 
-	@Override
-	public boolean appliesToParentEntity() {
-		return true;
-	}
 }
