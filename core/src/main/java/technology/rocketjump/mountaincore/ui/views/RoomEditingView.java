@@ -47,6 +47,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.skins.ManagementSkin;
+import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.widgets.*;
 import technology.rocketjump.mountaincore.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.mountaincore.ui.widgets.rooms.FarmPlotDescriptionWidget;
@@ -66,10 +67,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final RoomEditorFurnitureMap furnitureMap;
 	private final EntityRenderer entityRenderer;
+	private final RoomStore roomStore;
 	private final RoomEditorItemMap itemMap;
 	private final PlantSpeciesDictionary plantSpeciesDictionary;
 	private final Table headerContainer;
-	private final Button changeRoomNameButton;
 	private final Table sizingButtons;
 	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final RoomFactory roomFactory;
@@ -77,6 +78,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final GameDialogDictionary gameDialogDictionary;
 	private final ButtonFactory buttonFactory;
 	private final ManagementSkin managementSkin;
+	private final MenuSkin menuSkin;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -105,11 +107,13 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
 		managementSkin = skinRepository.getManagementSkin();
+		menuSkin = skinRepository.getMenuSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
 		this.furnitureMap = furnitureMap;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.entityRenderer = entityRenderer;
+		this.roomStore = roomStore;
 		this.itemMap = itemMap;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
@@ -134,37 +138,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		headerContainer = new Table();
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
-
-		changeRoomNameButton = buttonFactory.buildDrawableButton("icon_edit", "GUI.DIALOG.RENAME_ROOM_TITLE", () -> {
-			if (getSelectedRoom() != null) {
-				// Grabbing translations here so they're always for the correct language
-				I18nText renameRoomDialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
-				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
-
-				final boolean performPause = !gameContext.getGameClock().isPaused();
-				if (performPause) {
-					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
-				}
-
-				String originalRoomName = getSelectedRoom().getRoomName();
-
-				TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, skinRepository.getMenuSkin(), (newRoomName) -> {
-					if (performPause) {
-						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
-					}
-					if (!originalRoomName.equals(newRoomName)) {
-						try {
-							roomStore.rename(getSelectedRoom(), newRoomName);
-							rebuildUI();
-						} catch (RoomStore.RoomNameCollisionException e) {
-							ModalDialog errorDialog = RoomEditingView.this.gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
-							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
-						}
-					}
-				}, messageDispatcher, RoomEditingView.this.soundAssetDictionary);
-				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
-			}
-		});
 
 		sizingButtons = new Table();
 
@@ -213,6 +186,38 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		if (selectedRoom == null && selectedRoomType == null) {
 			return;
 		}
+
+
+		Button changeRoomNameButton = buttonFactory.buildDrawableButton("icon_edit", "GUI.DIALOG.RENAME_ROOM_TITLE", () -> {
+			if (getSelectedRoom() != null) {
+				// Grabbing translations here so they're always for the correct language
+				I18nText renameRoomDialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
+				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
+
+				final boolean performPause = !gameContext.getGameClock().isPaused();
+				if (performPause) {
+					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
+				}
+
+				String originalRoomName = getSelectedRoom().getRoomName();
+
+				TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, menuSkin, (newRoomName) -> {
+					if (performPause) {
+						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
+					}
+					if (!originalRoomName.equals(newRoomName)) {
+						try {
+							roomStore.rename(getSelectedRoom(), newRoomName);
+							rebuildUI();
+						} catch (RoomStore.RoomNameCollisionException e) {
+							ModalDialog errorDialog = RoomEditingView.this.gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
+							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
+						}
+					}
+				}, messageDispatcher, RoomEditingView.this.soundAssetDictionary);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
+			}
+		});
 
 		String headerText;
 		if (selectedRoom != null) {

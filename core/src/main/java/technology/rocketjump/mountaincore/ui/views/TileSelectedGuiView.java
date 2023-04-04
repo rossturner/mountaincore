@@ -1,7 +1,6 @@
 package technology.rocketjump.mountaincore.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -34,9 +33,6 @@ public class TileSelectedGuiView implements GuiView {
 	private final Table headerContainer;
 	private final Table topRow;
 	private final Table mainTable;
-	private final Label headerLabel;
-	private final Label.LabelStyle labelStyle;
-	private final Label.LabelStyle devModeLabelStyle;
 	private final Table descriptionTable;
 
 	@Inject
@@ -57,17 +53,11 @@ public class TileSelectedGuiView implements GuiView {
 
 		headerContainer = new Table();
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
-		headerLabel = new Label("", skin.get("title-header", Label.LabelStyle.class));
-		headerContainer.add(headerLabel).center();
 
 		topRow = new Table();
 		topRow.add(new Container<>()).width(200);
 		topRow.add(headerContainer).expandX();
 		topRow.add(new Container<>()).width(200);
-
-		labelStyle = skin.get("default-red", Label.LabelStyle.class);
-		devModeLabelStyle = new Label.LabelStyle(labelStyle);
-		devModeLabelStyle.fontColor = Color.PURPLE;
 	}
 
 	@Override
@@ -83,6 +73,12 @@ public class TileSelectedGuiView implements GuiView {
 	public void update() {
 		mainTable.clearChildren();
 		descriptionTable.clearChildren();
+		headerContainer.clearChildren();
+
+		Label headerLabel = new Label("", skin.get("title-header", Label.LabelStyle.class));
+		headerContainer.add(headerLabel).center();
+
+
 		mainTable.add(topRow).expandX().fillX().top().row();
 		mainTable.add(descriptionTable).expand().center().top().padTop(20).row();
 
@@ -98,11 +94,11 @@ public class TileSelectedGuiView implements GuiView {
 					if (underTile != null) {
 						Entity pipeEntity = underTile.getPipeEntity();
 						if (pipeEntity != null) {
-							descriptionTable.add(new Label(i18nTranslator.getPipeDescription(pipeEntity, underTile).toString(), labelStyle)).center().row();
+							descriptionTable.add(new Label(i18nTranslator.getPipeDescription(pipeEntity, underTile).toString(), skin, "default-red")).center().row();
 						}
 						Entity powerMechanismEntity = underTile.getPowerMechanismEntity();
 						if (powerMechanismEntity != null) {
-							descriptionTable.add(new Label(i18nTranslator.getPowerMechanismDescription(powerMechanismEntity, underTile).toString(), labelStyle)).center().row();
+							descriptionTable.add(new Label(i18nTranslator.getPowerMechanismDescription(powerMechanismEntity, underTile).toString(), skin, "default-red")).center().row();
 						}
 					}
 				} else {
@@ -114,24 +110,24 @@ public class TileSelectedGuiView implements GuiView {
 						if (stockpileRoomComponent != null) {
 							StockpileAllocation stockpileAllocation = stockpileRoomComponent.getAllocationAt(tile.getTilePosition());
 							if (stockpileAllocation == null) {
-								descriptionTable.add(new Label("Stockpile allocations - null", devModeLabelStyle)).center().row();
+								descriptionTable.add(new Label("Stockpile allocations - null", skin, "debug-label")).center().row();
 							} else {
 								descriptionTable.add(new Label("Stockpile allocations - Incoming: "+stockpileAllocation.getIncomingHaulingQuantity() +
-										" In tile: " + stockpileAllocation.getQuantityInTile(), devModeLabelStyle)).center().row();
+										" In tile: " + stockpileAllocation.getQuantityInTile(),  skin, "debug-label")).center().row();
 
 							}
 						}
 
-						descriptionTable.add(new Label("Room: " + tile.getRoomTile().getRoom(), devModeLabelStyle)).center().row();
+						descriptionTable.add(new Label("Room: " + tile.getRoomTile().getRoom(),  skin, "debug-label")).center().row();
 					}
 
 
-					descriptionTable.add(new Label("Location: " + tile.getTilePosition(), devModeLabelStyle)).center().row();
-					descriptionTable.add(new Label("Roof: " + tile.getRoof().getState(), devModeLabelStyle)).center().row();
-					descriptionTable.add(new Label("Region: " + tile.getRegionId(), devModeLabelStyle)).center().row();
-					descriptionTable.add(new Label("Zones: " + StringUtils.join(tile.getZones(), ", "), devModeLabelStyle)).center().row();
+					descriptionTable.add(new Label("Location: " + tile.getTilePosition(),  skin, "debug-label")).center().row();
+					descriptionTable.add(new Label("Roof: " + tile.getRoof().getState(),  skin, "debug-label")).center().row();
+					descriptionTable.add(new Label("Region: " + tile.getRegionId(),  skin, "debug-label")).center().row();
+					descriptionTable.add(new Label("Zones: " + StringUtils.join(tile.getZones(), ", "),  skin, "debug-label")).center().row();
 					if (tile.getUnderTile() != null) {
-						descriptionTable.add(new Label("UnderTile: " + tile.getUnderTile().toString(), devModeLabelStyle)).center().row();
+						descriptionTable.add(new Label("UnderTile: " + tile.getUnderTile().toString(),  skin, "debug-label")).center().row();
 					}
 				}
 			}
