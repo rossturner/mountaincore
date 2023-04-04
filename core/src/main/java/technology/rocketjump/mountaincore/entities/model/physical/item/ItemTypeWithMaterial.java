@@ -98,7 +98,9 @@ public class ItemTypeWithMaterial implements ChildPersistable {
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("itemType", itemType.getItemTypeName());
-		asJson.put("material", material.getMaterialName());
+		if (material != null) {
+			asJson.put("material", material.getMaterialName());
+		}
 	}
 
 	@Override
@@ -110,9 +112,11 @@ public class ItemTypeWithMaterial implements ChildPersistable {
 		}
 
 		this.materialName = asJson.getString("material");
-		this.material = relatedStores.gameMaterialDictionary.getByName(materialName);
-		if (this.material == null) {
-			throw new InvalidSaveException("Could not find material with name " + materialName);
+		if (this.materialName != null) {
+			this.material = relatedStores.gameMaterialDictionary.getByName(materialName);
+			if (this.material == null) {
+				throw new InvalidSaveException("Could not find material with name " + materialName);
+			}
 		}
 	}
 }
