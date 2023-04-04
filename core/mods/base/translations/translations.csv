@@ -1335,6 +1335,7 @@ RESOURCE.STONE.UNREFINED.PLURAL,,Rough stone boulders
 RESOURCE.STONE.UNREFINED.TOOLTIP,,A huge piece of stone that must be chiselled into a more useful shape by a {{PROFESSION.STONEMASON}}.
 RESOURCE.WHEAT.SACK.NOUN,,Wheat (sack)
 RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack)
+RESOURCE.WHEAT.SACK.TOOLTIP,,Sacks of wheat are harvested from farm plots sown with wheat seeds.
 
 ROOMS.ARMOURY,,Armoury
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here.
