@@ -1,11 +1,13 @@
 package technology.rocketjump.mountaincore.screens.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
@@ -142,6 +144,17 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         sixthRow.add(specialThanksTable);
 
         Table table = new Table();
+        table.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (button == Input.Buttons.RIGHT) {
+                    backToMainMenu();
+                }
+                return true;
+            }
+        });
+        table.setTouchable(Touchable.enabled);
+
         table.padLeft(30).padRight(30);
         table.add(firstRow).spaceBottom(256).growX().row();
         table.add(secondRow).spaceBottom(256).growX().row();
@@ -168,7 +181,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
                 new ScrollDownAction(scrollPane, 80f),
                 Actions.delay(3),
                 Actions.run(() -> {
-                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+                    backToMainMenu();
                 })
         );
 
@@ -196,6 +209,10 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         scrollPane.setForceScroll(false, true);
         scrollPane.setScrollingDisabled(true, false);
         return scrollPane;
+    }
+
+    private void backToMainMenu() {
+        messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
     }
 
     private Table thankYouTable(List<String> names) {

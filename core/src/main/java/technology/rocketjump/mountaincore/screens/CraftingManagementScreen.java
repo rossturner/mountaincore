@@ -169,7 +169,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 			}
 		});
 		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
-		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
+		table.add(exitButton).expandX().align(Align.topRight).padRight(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
 	}

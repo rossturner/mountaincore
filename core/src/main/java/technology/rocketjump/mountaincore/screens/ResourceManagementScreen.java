@@ -174,7 +174,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			}
 		});
 		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
-		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
+		table.add(exitButton).expandX().align(Align.topRight).padRight(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
 	}
@@ -357,7 +357,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			}
 		});
 		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
-		sideTable.add(exitButton).expandX().align(Align.topLeft).pad(5f).row();
+		sideTable.add(exitButton).expandX().align(Align.topRight).pad(5f).row();
 		sideTable.add(infoTitle).width(wrappedLabelWidth).padBottom(100).row();
 		sideTable.add(entitiesScrollpane).growY().row();
 
