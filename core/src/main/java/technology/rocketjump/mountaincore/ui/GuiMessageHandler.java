@@ -12,7 +12,6 @@ import technology.rocketjump.mountaincore.assets.FloorTypeDictionary;
 import technology.rocketjump.mountaincore.assets.WallTypeDictionary;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
 import technology.rocketjump.mountaincore.assets.model.WallType;
-import technology.rocketjump.mountaincore.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.mountaincore.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.mountaincore.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -422,16 +421,6 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					Selectable selectableEntity = new Selectable(entity, distanceToEntity);
 					if (!selectables.contains(selectableEntity)) {
 						selectables.add(selectableEntity);
-					}
-					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
-					if (militaryComponent != null && militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
-						Squad entitySquad = gameContext.getSquads().get(militaryComponent.getSquadId());
-						if (entitySquad != null) {
-							Selectable selectableSquad = new Selectable(entitySquad);
-							if (!selectables.contains(selectableSquad)) {
-								selectables.add(selectableSquad);
-							}
-						}
 					}
 				}
 
