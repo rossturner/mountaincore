@@ -1101,10 +1101,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		DecorationInventoryComponent decorationInventoryComponent = entity.getComponent(DecorationInventoryComponent.class);
 
+		Map<Long, Container<Image>> tooltipHoverHack = new HashMap<>(); //hack to reuse existing Scene2d component if available
+
 		final int MAX_SLOTS_PER_ROW = 8;
 		updatable.regularly(() -> {
-			table.clear();
-
 			List<Entity> inventoryEntities = new ArrayList<>();
 			AttachedEntitiesComponent attachedEntitiesComponent = entity.getComponent(AttachedEntitiesComponent.class);
 			if (attachedEntitiesComponent != null) {
@@ -1133,6 +1133,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
 
+
+			table.clear();
 			for (int slotIndex = 1; slotIndex <= numTotalCells(MAX_SLOTS_PER_ROW, inventoryEntities); slotIndex++) {
 				Stack entityStack = new Stack();
 
@@ -1150,27 +1152,35 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (inventoryItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
 						quantity = attributes.getQuantity();
 						itemType = attributes.getItemType();
-
 					}
-					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
-					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
-					Image entityImage = new Image(entityDrawable);
-					if (itemType == null) {
-						tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW);
+					final Container<Image> entityImageContainer;
+					if (tooltipHoverHack.containsKey(inventoryItem.getId())) {
+						entityImageContainer = tooltipHoverHack.get(inventoryItem.getId());
 					} else {
-						craftingHintWidgetFactory.addComplexTooltip(entityImage, mainGameSkin, inventoryItem);
-					}
-					buttonFactory.attachClickCursor(entityImage, GameCursor.SELECT);
-					entityImage.addListener(new ClickListener() {
-						@Override
-						public void clicked(InputEvent event, float x, float y) {
-							messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(inventoryItem, 0));
+						EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
+						entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
+						Image entityImage = new Image(entityDrawable);
+						if (itemType == null) {
+							tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW);
+						} else {
+							craftingHintWidgetFactory.addComplexTooltip(entityImage, mainGameSkin, inventoryItem);
 						}
-					});
+						buttonFactory.attachClickCursor(entityImage, GameCursor.SELECT);
+						entityImage.addListener(new ClickListener() {
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(inventoryItem, 0));
+							}
+						});
 
-					Container<Image> entityImageContainer = new Container<>(entityImage);
-					entityImageContainer.bottom().right();
+						entityImageContainer = new Container<>(entityImage);
+						entityImageContainer.bottom().right();
+
+						tooltipHoverHack.put(inventoryItem.getId(), entityImageContainer);
+					}
+
+
 
 					entityStack.add(entityImageContainer);
 
