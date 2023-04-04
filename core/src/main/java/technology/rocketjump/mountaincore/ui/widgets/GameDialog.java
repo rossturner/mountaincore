@@ -80,7 +80,7 @@ public abstract class GameDialog implements Disposable {
 		});
 
 		layoutTable.defaults().pad(10);
-		layoutTable.add(exitButton).align(Align.topLeft).expandX().padBottom(0).row();
+		layoutTable.add(exitButton).align(Align.topRight).expandX().padBottom(0).row();
 		if (titleText != null) {
 			Label titleLabel = new Label(titleText.toString(), skin.get("dialog_title", Label.LabelStyle.class));
 			layoutTable.add(titleLabel).center().top().padTop(0).row();

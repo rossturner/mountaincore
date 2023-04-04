@@ -214,7 +214,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 
-	private Actor buildExitTable(float leftPadding) {
+	private Actor buildExitTable(float rightPadding) {
 		Table table = new Table();
 		Button exitButton = new Button(menuSkin, "btn_exit");
 		exitButton.addListener(new ChangeListener() {
@@ -224,7 +224,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			}
 		});
 		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
-		table.add(exitButton).expandX().align(Align.topLeft).padLeft(leftPadding).padTop(5f).row();
+		table.add(exitButton).expandX().align(Align.topRight).padRight(rightPadding).padTop(5f).row();
 		table.add().grow();
 		return table;
 	}

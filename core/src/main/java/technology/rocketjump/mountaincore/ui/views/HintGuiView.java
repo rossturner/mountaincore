@@ -147,7 +147,6 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 						}
 					}
 				});
-				upperLeftButtonsTable.add(exitButton);
 
 				Button minimiseButton = new Button(uiSkin.getDrawable("btn_minimise_tutorial"));
 				buttonFactory.attachClickCursor(minimiseButton, GameCursor.SELECT);
@@ -158,10 +157,12 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 						HintGuiView.this.rebuildUI();
 					}
 				});
-				upperLeftButtonsTable.add(minimiseButton).padLeft(20);
 
-				tableWithBackground.add(upperLeftButtonsTable).pad(10).left().top();
-				tableWithBackground.add(new Container<>()).row();
+				upperLeftButtonsTable.add(minimiseButton).padRight(20);
+				upperLeftButtonsTable.add(exitButton);
+
+				tableWithBackground.add(new Container<>());
+				tableWithBackground.add(upperLeftButtonsTable).pad(10).right().top().row();
 
 				Table hintTable = new Table();
 				hintTable.defaults().padRight(40).padLeft(40).padTop(20).padBottom(20);
