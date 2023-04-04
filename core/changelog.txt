@@ -1,3 +1,10 @@
+Early Access 1.1.2 - 4th April 2023
+
+- Stopped UI hover sounds from playing multiple times in an inventory view
+- Fix for some UI text showing as a black mess for some players
+- Fixed a crash for trading depot imports without a material set
+- Fix for a crash when updating the stockpile overview in a weird state
+
 Early Access 1.1.1 - 3rd April 2023
 
 - Fix for a crash that could happen when the tutorial auto-starts the game near the edge of the map

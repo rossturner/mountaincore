@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
@@ -15,6 +16,7 @@ import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.gamecontext.GameState;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.production.StockpileGroup;
+import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
 import technology.rocketjump.mountaincore.screens.ManagementScreenName;
 import technology.rocketjump.mountaincore.screens.ResourceManagementScreen;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
@@ -227,7 +229,12 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 int orderComparison = treeOrder.compare(stockpileValue, existingValue);
 
                 if (orderComparison == 0) { //if same stockpile, then update
-                    stockpileGroupLabels.get(stockpileGroup).setText(stockpileValue.count);
+                    Label label = stockpileGroupLabels.get(stockpileGroup);
+                    if (label != null) {
+                        label.setText(stockpileValue.count);
+                    } else if (GlobalSettings.DEV_MODE) {
+                        Logger.error("Fix me: stockpile group label not found for " + stockpileGroup);
+                    }
 
                     updateItemTypeLabels(stockpileGroup, stockpileImage, existingTreeNode, byItemType);
                 } else if (orderComparison < 0) { //if before entry, then insert child before
