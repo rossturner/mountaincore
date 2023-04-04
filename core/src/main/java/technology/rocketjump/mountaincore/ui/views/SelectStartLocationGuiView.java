@@ -9,11 +9,13 @@ import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.gamecontext.GameState;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
 import technology.rocketjump.mountaincore.ui.widgets.ButtonFactory;
 
 @Singleton
-public class SelectStartLocationGuiView implements GuiView, GameContextAware {
+public class SelectStartLocationGuiView implements GuiView, GameContextAware, DisplaysText {
 
+	private final MessageDispatcher messageDispatcher;
 	private final ButtonFactory buttonFactory;
 	private Button confirmEmbarkButton;
 	private Table containerTable;
@@ -22,15 +24,10 @@ public class SelectStartLocationGuiView implements GuiView, GameContextAware {
 
 	@Inject
 	private SelectStartLocationGuiView(MessageDispatcher messageDispatcher, ButtonFactory buttonFactory) {
+		this.messageDispatcher = messageDispatcher;
 		this.buttonFactory = buttonFactory;
 
-		confirmEmbarkButton = buttonFactory.buildDrawableButton("icon_begin", "GUI.EMBARK.START", () -> {
-			if (gameContext.getAreaMap().getEmbarkPoint() != null) {
-				SelectStartLocationGuiView.this.hidden = true;
-				gameContext.getSettlementState().setGameState(GameState.STARTING_SPAWN);
-				messageDispatcher.dispatchMessage(MessageType.BEGIN_SPAWN_SETTLEMENT);
-			}
-		});
+		rebuildUI();
 	}
 
 	@Override
@@ -66,5 +63,17 @@ public class SelectStartLocationGuiView implements GuiView, GameContextAware {
 	@Override
 	public void clearContextRelatedState() {
 		this.hidden = false;
+	}
+
+	@Override
+	public void rebuildUI() {
+
+		confirmEmbarkButton = buttonFactory.buildDrawableButton("icon_begin", "GUI.EMBARK.START", () -> {
+			if (gameContext.getAreaMap().getEmbarkPoint() != null) {
+				SelectStartLocationGuiView.this.hidden = true;
+				gameContext.getSettlementState().setGameState(GameState.STARTING_SPAWN);
+				messageDispatcher.dispatchMessage(MessageType.BEGIN_SPAWN_SETTLEMENT);
+			}
+		});
 	}
 }
