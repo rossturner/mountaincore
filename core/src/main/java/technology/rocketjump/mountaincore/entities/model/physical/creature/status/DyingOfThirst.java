@@ -15,7 +15,10 @@ public class DyingOfThirst extends StatusEffect {
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
-		parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.DYING_OF_THIRST);
+		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+		if (happinessComponent != null) {
+			happinessComponent.add(HappinessComponent.HappinessModifier.DYING_OF_THIRST);
+		}
 	}
 
 	@Override

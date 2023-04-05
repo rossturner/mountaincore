@@ -15,7 +15,10 @@ public class Poisoned extends StatusEffect {
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
-		parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.POISONED);
+		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+		if (happinessComponent != null) {
+			happinessComponent.add(HappinessComponent.HappinessModifier.POISONED);
+		}
 	}
 
 	@Override

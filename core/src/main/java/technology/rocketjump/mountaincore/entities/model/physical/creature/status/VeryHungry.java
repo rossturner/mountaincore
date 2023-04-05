@@ -18,7 +18,10 @@ public class VeryHungry extends StatusEffect {
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
-		parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.VERY_HUNGRY);
+		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+		if (happinessComponent != null) {
+			happinessComponent.add(HappinessComponent.HappinessModifier.VERY_HUNGRY);
+		}
 	}
 
 	@Override

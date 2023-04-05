@@ -15,7 +15,10 @@ public class VeryThirsty extends StatusEffect {
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
-		parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.VERY_THIRSTY);
+		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+		if (happinessComponent != null) {
+			happinessComponent.add(HappinessComponent.HappinessModifier.VERY_THIRSTY);
+		}
 	}
 
 	@Override
