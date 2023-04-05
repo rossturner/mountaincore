@@ -1,4 +1,4 @@
-Early Access 1.1.4
+Early Access 1.1.4 - 5th April 2023
 
 - Improvement to hauling and item allocations so items should not be left stuck when the hauling job is cancelled elsewhere
 - You can now purchase part of a stack of an item from the merchants (in case you can't afford the whole stack)

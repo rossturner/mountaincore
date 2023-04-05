@@ -10,6 +10,7 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -36,6 +37,7 @@ public class ItemAllocationComponentTest {
 		itemAttributes.setQuantity(10);
 
 		when(mockEntity.getType()).thenReturn(EntityType.ITEM);
+		when(mockGameContext.getGameClock()).thenReturn(new GameClock());
 
 		itemAllocationComponent = new ItemAllocationComponent();
 		itemAllocationComponent.init(mockEntity, mockMessageDispatcher, mockGameContext);
