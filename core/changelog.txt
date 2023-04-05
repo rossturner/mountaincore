@@ -1,3 +1,7 @@
+Early Access 1.1.3
+
+- Moved close icons from upper left to upper right
+
 Early Access 1.1.2 - 4th April 2023
 
 - Stopped UI hover sounds from playing multiple times in an inventory view
