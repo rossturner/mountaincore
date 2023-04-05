@@ -131,8 +131,8 @@ public class ConstructionManager implements Updatable {
 	}
 
 	private boolean checkConstructionStillValid(Construction construction) {
-		if (construction instanceof FurnitureConstruction furnitureConstruction) {
-			return isFurniturePlacementValid(gameContext.getAreaMap(), furnitureConstruction.getEntity());
+		if (construction.getConstructionType() == ConstructionType.FURNITURE_CONSTRUCTION) {
+			return isFurniturePlacementValid(gameContext.getAreaMap(), construction.getEntity());
 		}
 
 		return true;
