@@ -95,26 +95,28 @@ public class PlanMerchantSaleAction extends Action {
 							if (allocationFromWagon != null) {
 								Entity allocatedItem = gameContext.getEntity(allocationFromWagon.getTargetItemEntityId());
 
-								ItemAllocation paymentAllocation = findPayment(calculateTradeValue(allocationFromWagon, gameContext), tile.getRoomTile().getRoom(), gameContext);
+								ItemPayment payment = findPayment(getValuePerItem(allocationFromWagon, gameContext), allocationFromWagon.getAllocationAmount(), tile.getRoomTile().getRoom(), allocationFromWagon, gameContext);
 
+								parent.messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, allocationFromWagon);
+								if (payment != null && payment.amountToPurchase > 0) {
+									// recreate allocation as it may be less than the full stack size
+									allocationFromWagon = createAllocation(tradingImportFurnitureBehaviour.getSelectedItemType(), materialRequired, payment.amountToPurchase, myFactionVehiclesInRoom, gameContext);
 
-								if (paymentAllocation == null) {
-									parent.messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, allocationFromWagon);
-								} else {
-									PlannedTrade plannedTrade = new PlannedTrade();
+									if (allocationFromWagon != null) {
+										PlannedTrade plannedTrade = new PlannedTrade();
+										HaulingAllocation haulingAllocation = HaulingAllocationBuilder
+												.createWithItemAllocation(allocatedItem, allocationFromWagon)
+												.toEntity(tradeImportFurniture);
+										parent.setAssignedHaulingAllocation(haulingAllocation);
+										plannedTrade.setHaulingAllocation(haulingAllocation);
+										plannedTrade.setPaymentItemAllocation(payment.paymentAllocation);
+										plannedTrade.setImportExportFurniture(tradeImportFurniture);
 
-									HaulingAllocation haulingAllocation = HaulingAllocationBuilder
-											.createWithItemAllocation(allocatedItem, allocationFromWagon)
-											.toEntity(tradeImportFurniture);
-									parent.setAssignedHaulingAllocation(haulingAllocation);
-									plannedTrade.setHaulingAllocation(haulingAllocation);
-									plannedTrade.setPaymentItemAllocation(paymentAllocation);
-									plannedTrade.setImportExportFurniture(tradeImportFurniture);
-
-									parent.setPlannedTrade(plannedTrade);
-									traderCreatureGroup.getPlannedTrades().add(plannedTrade);
-									completionType = CompletionType.SUCCESS;
-									return;
+										parent.setPlannedTrade(plannedTrade);
+										traderCreatureGroup.getPlannedTrades().add(plannedTrade);
+										completionType = CompletionType.SUCCESS;
+										return;
+									}
 								}
 							}
 						}
@@ -143,18 +145,18 @@ public class PlanMerchantSaleAction extends Action {
 		return null;
 	}
 
-	private int calculateTradeValue(ItemAllocation itemAllocation, GameContext gameContext) {
+	private int getValuePerItem(ItemAllocation itemAllocation, GameContext gameContext) {
 		Entity entity = gameContext.getEntities().get(itemAllocation.getTargetItemEntityId());
 		if (entity == null) {
 			Logger.error("Entity just selected for trade is null");
 			return Integer.MAX_VALUE;
 		} else {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return attributes.getValuePerItem() * itemAllocation.getAllocationAmount();
+			return attributes.getValuePerItem();
 		}
 	}
 
-	private ItemAllocation findPayment(int tradeValue, Room tradeDepotRoom, GameContext gameContext) {
+	private ItemPayment findPayment(int valuePerItem, int maxAmountAvailable, Room tradeDepotRoom, ItemAllocation itemAllocationFromWagon, GameContext gameContext) {
 		List<CurrencyDefinition> currencyDefinitions = new ArrayList<>();
 		parent.messageDispatcher.dispatchMessage(MessageType.GET_SETTLEMENT_CONSTANTS, (Consumer<SettlementConstants>) (settlementConstants) -> {
 			currencyDefinitions.addAll(settlementConstants.getCurrency());
@@ -170,12 +172,21 @@ public class PlanMerchantSaleAction extends Action {
 				InventoryComponent.InventoryEntry inventoryEntry = stockpileInventory.findByItemTypeAndMaterial(currencyDefinition.getItemType(), currencyDefinition.getMaterial(), gameContext.getGameClock());
 				if (inventoryEntry != null) {
 					ItemAllocationComponent itemAllocationComponent = inventoryEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-					int quantityAvailable = itemAllocationComponent.getNumUnallocated();
-					int valueAvailable = quantityAvailable * currencyDefinition.getValue();
+					int currencyQuantityAvailable = itemAllocationComponent.getNumUnallocated();
+					int currencyValueAvailable = currencyQuantityAvailable * currencyDefinition.getValue();
 
-					if (tradeValue < valueAvailable) {
-						int quantityRequired = Math.min(IntMath.divide(tradeValue, currencyDefinition.getValue(), RoundingMode.CEILING), quantityAvailable);
-						return itemAllocationComponent.createAllocation(quantityRequired, parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
+					if (currencyValueAvailable >= valuePerItem) {
+						int amountToPurchase;
+						if (currencyValueAvailable >= valuePerItem * maxAmountAvailable) {
+							amountToPurchase = maxAmountAvailable;
+						} else {
+							amountToPurchase = currencyValueAvailable / valuePerItem;
+						}
+
+						int currencyQuantityRequired = Math.min(IntMath.divide(amountToPurchase * valuePerItem, currencyDefinition.getValue(), RoundingMode.CEILING), currencyQuantityAvailable);
+						ItemAllocation currencyAllocation = itemAllocationComponent.createAllocation(currencyQuantityRequired, parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
+
+						return new ItemPayment(currencyAllocation, amountToPurchase);
 					}
 				}
 			}
@@ -186,6 +197,16 @@ public class PlanMerchantSaleAction extends Action {
 	private boolean currentTradeInProgress(Entity tradeImportFurniture, TraderCreatureGroup traderCreatureGroup) {
 		return traderCreatureGroup.getPlannedTrades().stream()
 				.anyMatch(trade -> trade.getImportExportFurniture().equals(tradeImportFurniture));
+	}
+
+	private class ItemPayment {
+		public final ItemAllocation paymentAllocation;
+		public final int amountToPurchase;
+
+		private ItemPayment(ItemAllocation paymentAllocation, int amountToPurchase) {
+			this.paymentAllocation = paymentAllocation;
+			this.amountToPurchase = amountToPurchase;
+		}
 	}
 
 	@Override

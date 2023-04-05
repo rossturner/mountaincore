@@ -15,6 +15,7 @@ import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictiona
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 
+import static technology.rocketjump.mountaincore.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.mountaincore.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.mountaincore.misc.VectorUtils.toVector;
 
@@ -47,6 +48,10 @@ public class IdleAction extends Action {
 				} else {
 					target = parent.parentEntity.getLocationComponent().getWorldPosition();
 				}
+			}
+			if (target == null) {
+				completionType = FAILURE;
+				return;
 			}
 			if (gameContext.getRandom().nextBoolean() && !parent.parentEntity.isDrivingVehicle()) {
 				// 50/50 face a new direction
@@ -83,12 +88,15 @@ public class IdleAction extends Action {
 		Vector2 targetLocation = null;
 		int attempts = 0;
 		while (targetLocation == null && attempts < 24) {
-			Vector2 centralPosition = entity.getLocationComponent().getWorldPosition();
+			Vector2 centralPosition = entity.getLocationComponent().getWorldOrParentPosition();
 			if (entity.getBehaviourComponent() instanceof CreatureBehaviour) {
 				CreatureGroup creatureGroup = ((CreatureBehaviour) entity.getBehaviourComponent()).getCreatureGroup();
 				if (creatureGroup != null) {
 					centralPosition = toVector(creatureGroup.getHomeLocation());
 				}
+			}
+			if (centralPosition == null) {
+				return null;
 			}
 
 			MapTile randomCell = gameContext.getAreaMap().getTile(
