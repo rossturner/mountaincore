@@ -2,10 +2,7 @@ package technology.rocketjump.mountaincore.ui.eventlistener;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
@@ -173,7 +170,11 @@ public class TooltipFactory {
 				messageDispatcher.dispatchMessage(MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 			}
 			// add to stage first or table size will be 0 (rarrrgghhh)
-			parentActor.getStage().addActor(tooltipTable);
+			Stage stage = parentActor.getStage();
+			if (stage == null) {
+				return;
+			}
+			stage.addActor(tooltipTable);
 			// layout after adding to stage or else subsequent displaying of actor will be positioned differently (FFS)
 			tooltipTable.layout();
 			// Position here is lower-left corner of parent actor
@@ -201,10 +202,10 @@ public class TooltipFactory {
 				}
 
 				position.x = (tooltipWidth / 2.0f) + screenEdgePadding;
-			} else if ((tooltipWidth / 2.0) + position.x > parentActor.getStage().getWidth()) {
+			} else if ((tooltipWidth / 2.0) + position.x > stage.getWidth()) {
 				if (tooltipTable.getCells().size > 1) { //assumes two cells, one for arrow
 					//TODO: this calc needs more work
-					float arrowX =  parentActor.getStage().getWidth() - parentActor.localToStageCoordinates(new Vector2(0, 0)).x + screenEdgePadding - parentActor.getWidth();
+					float arrowX =  stage.getWidth() - parentActor.localToStageCoordinates(new Vector2(0, 0)).x + screenEdgePadding - parentActor.getWidth();
 					if (locationHint == TooltipLocationHint.ABOVE) {
 						tooltipTable.getCells().get(1).align(Align.right).padRight(arrowX);
 					} else {
@@ -212,7 +213,7 @@ public class TooltipFactory {
 					}
 					tooltipTable.invalidate();
 				}
-				position.x =   parentActor.getStage().getWidth() - ((tooltipWidth / 2.0f) - screenEdgePadding);
+				position.x =   stage.getWidth() - ((tooltipWidth / 2.0f) - screenEdgePadding);
 			}
 
 			// setPosition() ***centers*** the actor being positioned around the point specified (internal screaming)
