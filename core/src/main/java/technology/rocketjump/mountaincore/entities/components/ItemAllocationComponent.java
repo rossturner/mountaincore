@@ -7,7 +7,9 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.misc.Destructible;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
@@ -16,9 +18,11 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAllocationComponent implements ParentDependentEntityComponent, Destructible {
+public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, Destructible {
 
 	private Entity parentEntity;
+	private MessageDispatcher messageDispatcher;
+	private GameContext gameContext;
 
 	private List<ItemAllocation> allocations = new ArrayList<>();
 
@@ -29,6 +33,8 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
+		this.messageDispatcher = messageDispatcher;
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -46,6 +52,14 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 	}
 
 	public ItemAllocation createAllocation(int numToAllocate, Entity requestingEntity, ItemAllocation.Purpose purpose) {
+		double expiryGameTime = 0D;
+		if (gameContext != null) {
+			GameClock gameClock = gameContext.getGameClock();
+			double hoursInDay = gameClock.HOURS_IN_DAY;
+			double currentGameTime = gameClock.getCurrentGameTime();
+			expiryGameTime = currentGameTime + hoursInDay;
+		}
+
 		int quantity = 1;
 		if (parentEntity.getType().equals(EntityType.ITEM)) {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
@@ -55,19 +69,19 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 		if (currentAllocated + numToAllocate > quantity) {
 			throw new RuntimeException("Attempting to requestAllocation too many items");
 		} else {
-			ItemAllocation itemAllocation = new ItemAllocation(parentEntity, numToAllocate, requestingEntity, purpose);
+			ItemAllocation itemAllocation = new ItemAllocation(parentEntity, numToAllocate, requestingEntity, purpose, expiryGameTime);
 			allocations.add(itemAllocation);
 			return itemAllocation;
 		}
 	}
 
-	public ItemAllocation cancel(ItemAllocation itemAllocaton) {
-		if (allocations.contains(itemAllocaton) && !itemAllocaton.isCancelled()) {
-			allocations.remove(itemAllocaton);
-			itemAllocaton.markAsCancelled();
-			return itemAllocaton;
+	public ItemAllocation cancel(ItemAllocation itemAllocation) {
+		if (allocations.contains(itemAllocation) && !itemAllocation.isCancelled()) {
+			allocations.remove(itemAllocation);
+			itemAllocation.markAsCancelled();
+			return itemAllocation;
 		} else {
-			Logger.error("Incorrect cancellation of " + this.getClass().getSimpleName());
+			Logger.error("Incorrect cancellation of {} id={}", this.getClass().getSimpleName(), itemAllocation.getItemAllocationId());
 			return null;
 		}
 	}
@@ -138,6 +152,51 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 		return this.allocations;
 	}
 
+	private List<ItemAllocation> getExpired() {
+		return getAll().stream().filter(this::isExpired).toList();
+	}
+
+	private boolean isExpired(ItemAllocation itemAllocation) {
+		if (gameContext == null) {
+			return false;
+		} else {
+			double currentGameTime = gameContext.getGameClock().getCurrentGameTime();
+			double expiryGameTime = itemAllocation.getExpiryGameTime();
+			return expiryGameTime < currentGameTime;
+		}
+	}
+
+	@Override
+	public void infrequentUpdate(double elapsedTime) {
+		List<ItemAllocation> itemAllocationsToCancel = new ArrayList<>();
+
+
+		for (ItemAllocation itemAllocation : getExpired()) {
+
+			//find allocations for hauling without a job
+			Long relatedHaulingAllocationId = itemAllocation.getRelatedHaulingAllocationId();
+			if (relatedHaulingAllocationId != null) {
+				long haulingJobCount = gameContext.getJobs()
+						.values()
+						.stream()
+						.filter(j -> j.getHaulingAllocation() != null
+								&& relatedHaulingAllocationId.equals(j.getHaulingAllocation().getHaulingAllocationId()))
+						.count();
+
+
+				if (haulingJobCount == 0) {
+					itemAllocationsToCancel.add(itemAllocation);
+				}
+			}
+		}
+
+		for (ItemAllocation toCancel : itemAllocationsToCancel) {
+			Logger.warn("Cancelling item allocation id={} {} as hauling job can no longer be found", toCancel.getItemAllocationId(), toCancel);
+			messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, toCancel);
+			allocations.remove(toCancel);
+		}
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (!allocations.isEmpty()) {
@@ -165,4 +224,5 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 			}
 		}
 	}
+
 }

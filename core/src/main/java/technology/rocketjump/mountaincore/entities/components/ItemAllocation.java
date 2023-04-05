@@ -22,6 +22,7 @@ public class ItemAllocation implements Persistable {
 	private Purpose purpose;
 	private AllocationState state = AllocationState.ACTIVE;
 	private Long relatedHaulingAllocationId;
+	private double expiryGameTime;
 
 	public enum Purpose {
 
@@ -55,7 +56,7 @@ public class ItemAllocation implements Persistable {
 
 	}
 
-	public ItemAllocation(Entity targetItemEntity, int quantity, Entity owningEntity, Purpose purpose) {
+	public ItemAllocation(Entity targetItemEntity, int quantity, Entity owningEntity, Purpose purpose, double expiryGameTime) {
 		itemAllocationId = SequentialIdGenerator.nextId();
 
 		this.targetItemEntityId = targetItemEntity.getId();
@@ -63,6 +64,7 @@ public class ItemAllocation implements Persistable {
 
 		this.owningEntityId = owningEntity.getId();
 		this.purpose = purpose;
+		this.expiryGameTime = expiryGameTime;
 	}
 
 	public ItemAllocation clone() {
@@ -75,6 +77,7 @@ public class ItemAllocation implements Persistable {
 		cloned.owningEntityId = this.owningEntityId;
 		cloned.purpose = this.purpose;
 		cloned.state = this.state;
+		cloned.expiryGameTime = this.expiryGameTime;
 
 		return cloned;
 	}
@@ -127,6 +130,10 @@ public class ItemAllocation implements Persistable {
 		this.relatedHaulingAllocationId = relatedHaulingAllocationId;
 	}
 
+	public double getExpiryGameTime() {
+		return expiryGameTime;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -173,6 +180,7 @@ public class ItemAllocation implements Persistable {
 		if (relatedHaulingAllocationId != null) {
 			asJson.put("relatedHaulingAllocationId", relatedHaulingAllocationId);
 		}
+		asJson.put("expiryGameTime", expiryGameTime);
 
 		savedGameStateHolder.itemAllocations.put(this.itemAllocationId, this);
 		savedGameStateHolder.itemAllocationsJson.add(asJson);
@@ -187,6 +195,7 @@ public class ItemAllocation implements Persistable {
 		this.purpose = EnumParser.getEnumValue(asJson, "purpose", Purpose.class, Purpose.HELD_IN_INVENTORY);
 		this.state = EnumParser.getEnumValue(asJson, "state", AllocationState.class, AllocationState.ACTIVE);
 		this.relatedHaulingAllocationId = asJson.getLong("relatedHaulingAllocationId");
+		this.expiryGameTime = asJson.getDoubleValue("expiryGameTime");
 
 		savedGameStateHolder.itemAllocations.put(this.itemAllocationId, this);
 	}

@@ -373,7 +373,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 			Entity itemToBeMoved = message.getEntityToBeMoved();
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
-			if (containerEntity != null) {
+			if (containerEntity != null && EntityType.FURNITURE == containerEntity.getType()) {
 				FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 				if (navigableWorkspace != null) {
 					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
