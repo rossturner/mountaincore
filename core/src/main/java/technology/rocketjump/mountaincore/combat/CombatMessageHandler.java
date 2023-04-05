@@ -238,40 +238,41 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 			if (damageAmount > 0) {
 				BodyPart impactedBodyPart = defenderAttributes.getBody().randomlySelectPartBasedOnSize(gameContext.getRandom());
-				BodyPartDamage currentDamage = defenderAttributes.getBody().getDamage(impactedBodyPart);
-				Optional<BodyPartOrgan> impactedOrgan = impactedBodyPart.rollToHitOrgan(gameContext.getRandom(), currentDamage);
+				if (impactedBodyPart != null) { // can be null if body was hit after the root node was destroyed
+					BodyPartDamage currentDamage = defenderAttributes.getBody().getDamage(impactedBodyPart);
+					Optional<BodyPartOrgan> impactedOrgan = impactedBodyPart.rollToHitOrgan(gameContext.getRandom(), currentDamage);
 
-				if (impactedOrgan.isPresent()) {
-					BodyPartOrgan targetOrgan = impactedOrgan.get();
-					OrganDamageLevel currentOrganDamage = defenderAttributes.getBody().getOrganDamage(impactedBodyPart, targetOrgan);
-					damageAmount += currentOrganDamage.furtherDamageModifier;
-					OrganDamageLevel newOrganDamage = OrganDamageLevel.getForDamageAmount(damageAmount);
-					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
-						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
-						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage,
-								attackMessage.attackerEntity));
-					}
-				} else {
-					// impacted with body part only
-					damageAmount += currentDamage.getDamageLevel().furtherDamageModifier;
-					BodyPartDamageLevel newDamageLevel = BodyPartDamageLevel.getForDamageAmount(damageAmount);
-					if (newDamageLevel.isGreaterThan(currentDamage.getDamageLevel())) {
-						defenderAttributes.getBody().setDamage(impactedBodyPart, newDamageLevel);
-						messageDispatcher.dispatchMessage(MessageType.CREATURE_DAMAGE_APPLIED, new CreatureDamagedMessage(
-								attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, newDamageLevel
-						));
+					if (impactedOrgan.isPresent()) {
+						BodyPartOrgan targetOrgan = impactedOrgan.get();
+						OrganDamageLevel currentOrganDamage = defenderAttributes.getBody().getOrganDamage(impactedBodyPart, targetOrgan);
+						damageAmount += currentOrganDamage.furtherDamageModifier;
+						OrganDamageLevel newOrganDamage = OrganDamageLevel.getForDamageAmount(damageAmount);
+						if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
+							defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
+							messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
+									attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage,
+									attackMessage.attackerEntity));
+						}
+					} else {
+						// impacted with body part only
+						damageAmount += currentDamage.getDamageLevel().furtherDamageModifier;
+						BodyPartDamageLevel newDamageLevel = BodyPartDamageLevel.getForDamageAmount(damageAmount);
+						if (newDamageLevel.isGreaterThan(currentDamage.getDamageLevel())) {
+							defenderAttributes.getBody().setDamage(impactedBodyPart, newDamageLevel);
+							messageDispatcher.dispatchMessage(MessageType.CREATURE_DAMAGE_APPLIED, new CreatureDamagedMessage(
+									attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, newDamageLevel
+							));
 
-						if (newDamageLevel.equals(Destroyed)) {
-							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
-							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
-								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
-										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES, attackMessage.attackerEntity));
+							if (newDamageLevel.equals(Destroyed)) {
+								bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
+								if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
+									messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
+											new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES, attackMessage.attackerEntity));
+								}
 							}
 						}
 					}
 				}
-
 			}
 
 		} else if (attackMessage.defenderEntity.getType().equals(EntityType.FURNITURE)) {

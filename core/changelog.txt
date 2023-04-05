@@ -1,6 +1,7 @@
 Early Access 1.1.3
 
 - Moved close icons from upper left to upper right
+- Fix for a crash in combat when hitting a body which has been entirely destroyed
 
 Early Access 1.1.2 - 4th April 2023
 
