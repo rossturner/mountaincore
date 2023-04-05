@@ -130,7 +130,7 @@ public class SkillsComponent implements EntityComponent {
 
 		skillLevels.put(UNARMED_COMBAT_SKILL, 30);
 		skillLevels.put(NULL_PROFESSION, 50); // always 50 for null/none profession so will take medium time
-		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Villager" profession
+		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Hauler" profession
 	}
 
 	@Override

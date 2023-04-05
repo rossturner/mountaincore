@@ -258,7 +258,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		for (Skill profession : skillDictionary.getSelectableProfessions()) {
 			professionFilterButton(professionButtonGroup, professionButtons, profession.getIcon(), profession.getI18nKey(), new MatchesActiveProfession(profession));
 		}
-		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_hauler", "GUI.SETTLER_MANAGEMENT.PROFESSION.HAULER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));
 
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setText(searchBarText);

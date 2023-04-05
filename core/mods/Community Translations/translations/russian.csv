@@ -947,10 +947,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,Высекание
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,Механик
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,Механик
 PROFESSION.TINKERER.VERB,,Tinkering,Починка
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Крестьянка
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Крестьянин
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,"Этот поселенец не имеет какой-либо конкретной профессии и будет выполнять любые повседневные задачи, такие как транспортировка предметов."
-PROFESSION.VILLAGER.VERB,,Working,Рабочий
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,Skulptur
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,Tinker
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,Tinker
 PROFESSION.TINKERER.VERB,,Tinkering,Lattinkering
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Landsbybeboer
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Landsbybeboer
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,Denne bosætter har ingen specifikke erhverv og vil udføre verdslige opgaver såsom at slæbe genstande.
-PROFESSION.VILLAGER.VERB,,Working,- Arbejder
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

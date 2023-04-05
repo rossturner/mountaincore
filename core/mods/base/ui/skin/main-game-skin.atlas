@@ -1458,7 +1458,7 @@ settlers_job_miner
   orig: 208, 208
   offset: 0, 0
   index: -1
-settlers_job_villager
+settlers_job_hauler
   rotate: false
   xy: 795, 2191
   size: 208, 208

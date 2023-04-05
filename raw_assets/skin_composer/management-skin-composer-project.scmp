@@ -852,7 +852,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_drag_job_villager.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_drag_job_hauler.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -861,7 +861,7 @@ atlasData: {
 			}
 			tint: null
 			tintName: null
-			name: btn_drag_job_villager
+			name: btn_drag_job_hauler
 			tiled: false
 			minWidth: -1
 			minHeight: -1
@@ -1212,7 +1212,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/settlers_job_villager.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/settlers_job_hauler.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1221,7 +1221,7 @@ atlasData: {
 			}
 			tint: null
 			tintName: null
-			name: settlers_job_villager
+			name: settlers_job_hauler
 			tiled: false
 			minWidth: -1
 			minHeight: -1

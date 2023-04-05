@@ -704,8 +704,8 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.STATUS,,The off hand cannot be used. {{status}}
 GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires two hands to use
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian
+GUI.SETTLER_MANAGEMENT.PROFESSION.HAULER,,Hauler
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian
@@ -1184,6 +1184,10 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.
 PROFESSION.FISHER.VERB,,Fishing
+PROFESSION.HAULER.FEMALE_NOUN,,Hauler
+PROFESSION.HAULER.MALE_NOUN,,Hauler
+PROFESSION.HAULER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.
+PROFESSION.HAULER.VERB,,Working
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter
 PROFESSION.HUNTER.MALE_NOUN,,Hunter
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.
@@ -1236,10 +1240,6 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason
 PROFESSION.STONEMASON.PLURAL,,Stonemasons
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.
 PROFESSION.STONEMASON.VERB,,Sculpting
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager
-PROFESSION.VILLAGER.MALE_NOUN,,Villager
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.
-PROFESSION.VILLAGER.VERB,,Working
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver
 PROFESSION.WEAVER.MALE_NOUN,,Weaver
 PROFESSION.WEAVER.PLURAL,,Weavers
@@ -1617,7 +1617,7 @@ TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used 
 
 TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do."
 TUTORIAL.PROFESSIONS.B,,"You can click on a Settler to view or change their professions. This can also be done from the Settlers Management screen."
-TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Villagers as they're responsible for moving items around."
+TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Haulers as they're responsible for moving items around."
 
 TUTORIAL.STOCKPILES.A,,"It is a good idea to place Stockpiles for your Settlers to place and share items."
 TUTORIAL.STOCKPILES.B,,"Click on Rooms and select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."

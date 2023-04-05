@@ -13643,6 +13643,117 @@
     }
   }
 }, {
+  "uniqueName" : "Dwarf-Female-Average-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "FEMALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -1.0,
+        "unit" : true
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -1.0,
+        "unit" : true
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Average-Hauler-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dwarf-Female-Average-Hunter-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -15593,117 +15704,6 @@
     }
   }
 }, {
-  "uniqueName" : "Dwarf-Female-Average-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "AVERAGE",
-  "gender" : "FEMALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -1.0,
-        "unit" : true
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -1.0,
-        "unit" : true
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Female-Average-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Dwarf-Female-Average-Weaver-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -16696,6 +16696,117 @@
     },
     "UP" : {
       "filename" : "Dwarf-Female-Fat-Fisher-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Female-Fat-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "FEMALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Fat-Hauler-Clothing-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -18663,117 +18774,6 @@
     }
   }
 }, {
-  "uniqueName" : "Dwarf-Female-Fat-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "FAT",
-  "gender" : "FEMALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Female-Fat-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Dwarf-Female-Fat-Weaver-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -19766,6 +19766,117 @@
     },
     "UP" : {
       "filename" : "Dwarf-Female-Strong-Fisher-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Female-Strong-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "FEMALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 1.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 1.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Strong-Hauler-Clothing-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -21733,117 +21844,6 @@
     }
   }
 }, {
-  "uniqueName" : "Dwarf-Female-Strong-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "STRONG",
-  "gender" : "FEMALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -1.0,
-        "y" : 1.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 1.0,
-        "y" : 1.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Female-Strong-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Dwarf-Female-Strong-Weaver-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -22837,6 +22837,117 @@
     },
     "UP" : {
       "filename" : "Dwarf-Male-Average-Fisher-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -1.0,
+        "unit" : true
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Male-Average-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Average-Hauler-Clothing-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -24805,117 +24916,6 @@
     }
   }
 }, {
-  "uniqueName" : "Dwarf-Male-Average-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "AVERAGE",
-  "gender" : "MALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Male-Average-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -1.0,
-        "unit" : true
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Dwarf-Male-Average-Weaver-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -25908,6 +25908,117 @@
     },
     "UP" : {
       "filename" : "Dwarf-Male-Fat-Fisher-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Male-Fat-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Fat-Hauler-Clothing-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -27875,117 +27986,6 @@
     }
   }
 }, {
-  "uniqueName" : "Dwarf-Male-Fat-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "FAT",
-  "gender" : "MALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Male-Fat-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Dwarf-Male-Fat-Weaver-Clothing",
   "type" : "BODY_CLOTHING",
   "raceName" : "Dwarf",
@@ -28979,6 +28979,117 @@
     },
     "UP" : {
       "filename" : "Dwarf-Male-Strong-Fisher-Clothing-B.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Dwarf-Male-Strong-Hauler-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-F.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-F34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-B34.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Strong-Hauler-Clothing-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : { },
@@ -30936,117 +31047,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : -13.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Dwarf-Male-Strong-Villager-Clothing",
-  "type" : "BODY_CLOTHING",
-  "raceName" : "Dwarf",
-  "bodyShape" : "STRONG",
-  "gender" : "MALE",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-F.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-F34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-B34.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Dwarf-Male-Strong-Villager-Clothing-B.png",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,

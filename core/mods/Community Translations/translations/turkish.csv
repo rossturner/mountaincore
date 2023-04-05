@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,Şekillendirmek
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,Tamirci
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,Tamirci
 PROFESSION.TINKERER.VERB,,Tinkering,Tamirediliyor
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Köylü
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Köylü
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,"Bu vatandaşın özel bir mesleği yoktur. Kendisine verilen, eşya taşımak gibi angarya işlerin hepsini yerine getirir."
-PROFESSION.VILLAGER.VERB,,Working,Çalışıyor
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

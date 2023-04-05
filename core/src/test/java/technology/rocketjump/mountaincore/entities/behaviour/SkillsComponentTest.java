@@ -13,7 +13,7 @@ public class SkillsComponentTest {
 	private Skill profA;
 	private Skill profB;
 	private Skill profC;
-	private Skill villager;
+	private Skill hauler;
 
 	@Before
 	public void setup() {
@@ -29,9 +29,9 @@ public class SkillsComponentTest {
 		profC.setName("profC");
 		profC.setType(SkillType.PROFESSION);
 
-		villager = new Skill();
-		villager.setName("VILLAGER");
-		villager.setType(SkillType.PROFESSION);
+		hauler = new Skill();
+		hauler.setName("HAULER");
+		hauler.setType(SkillType.PROFESSION);
 	}
 
 	@Test

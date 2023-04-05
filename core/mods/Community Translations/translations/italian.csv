@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,Sta lavorando
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,Stagnaia
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,Stagnaio
 PROFESSION.TINKERER.VERB,,Tinkering,Sta riparando
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Abitante del villaggio
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Abitante del villaggio
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,Questo colono non ha alcuna professione specifica e svolgerà compiti banali come il trasporto di oggetti.
-PROFESSION.VILLAGER.VERB,,Working,Sta lavorando
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

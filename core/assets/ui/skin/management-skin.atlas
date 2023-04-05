@@ -291,7 +291,7 @@ btn_drag_job_stonemason
   orig: 170, 182
   offset: 0, 0
   index: -1
-btn_drag_job_villager
+btn_drag_job_hauler
   rotate: false
   xy: 3212, 3892
   size: 170, 182
@@ -910,7 +910,7 @@ settlers_job_stonemason
   orig: 206, 206
   offset: 0, 0
   index: -1
-settlers_job_villager
+settlers_job_hauler
   rotate: false
   xy: 2792, 3238
   size: 206, 206

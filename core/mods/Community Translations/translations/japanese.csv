@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,石を加工している
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,修理屋
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,修理屋
 PROFESSION.TINKERER.VERB,,Tinkering,修理している
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村人
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,村人
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,この入植者は特定の役割を持ちませんが、アイテムを運搬するなどの誰でもできるような仕事を果たします。
-PROFESSION.VILLAGER.VERB,,Working,働いている
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

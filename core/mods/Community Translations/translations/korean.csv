@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,조각
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,팅커
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,팅커
 PROFESSION.TINKERER.VERB,,Tinkering,땜질
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,마을 주민
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,마을 주민
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,이 정착민은 특정 직업이 없으며 물품 운반과 같은 일상적인 작업을 수행합니다.
-PROFESSION.VILLAGER.VERB,,Working,일하면서
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

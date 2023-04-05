@@ -946,10 +946,6 @@ PROFESSION.STONEMASON.VERB,,Sculpting,雕刻
 PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,修补匠
 PROFESSION.TINKERER.MALE_NOUN,,Tinker,修补匠
 PROFESSION.TINKERER.VERB,,Tinkering,修补
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村民
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,村民
-PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,这类殖民者没有特定的职业，可以完成任何普通的任务，比如搬运东西。
-PROFESSION.VILLAGER.VERB,,Working,劳作
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
 PROFESSION.WEAVER.MALE_NOUN,,Weaver,
 PROFESSION.WEAVER.PLURAL,,Weavers,

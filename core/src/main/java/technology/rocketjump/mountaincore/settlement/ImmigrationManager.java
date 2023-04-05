@@ -260,7 +260,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		List<Skill> allProfessions = new ArrayList<>(skillDictionary.getSelectableProfessions());
 		Skill primaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		Skill secondaryProfession = null;
-		if (!primaryProfession.getName().equals("VILLAGER")) {
+		if (!primaryProfession.getName().equals("HAULER")) {
 			secondaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		}
 		Entity settler = settlerFactory.create(spawnPosition, primaryProfession, secondaryProfession, gameContext, true);
