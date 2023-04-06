@@ -7,9 +7,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
-import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.misc.Destructible;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
@@ -19,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, Destructible {
+public class ItemAllocationComponent implements ParentDependentEntityComponent, Destructible {
 
 	private Entity parentEntity;
-	private MessageDispatcher messageDispatcher;
-	private GameContext gameContext;
 
 	private List<ItemAllocation> allocations = new ArrayList<>();
 
@@ -34,8 +30,6 @@ public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
-		this.messageDispatcher = messageDispatcher;
-		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -53,14 +47,6 @@ public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, 
 	}
 
 	public ItemAllocation createAllocation(int numToAllocate, Entity requestingEntity, ItemAllocation.Purpose purpose) {
-		double expiryGameTime = 0D;
-		if (gameContext != null) {
-			GameClock gameClock = gameContext.getGameClock();
-			double hoursInDay = gameClock.HOURS_IN_DAY;
-			double currentGameTime = gameClock.getCurrentGameTime();
-			expiryGameTime = currentGameTime + hoursInDay;
-		}
-
 		int quantity = 1;
 		if (parentEntity.getType().equals(EntityType.ITEM)) {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
@@ -73,7 +59,7 @@ public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, 
 					.collect(Collectors.joining());
 			throw new RuntimeException(String.format("Attempting to requestAllocation too many items. numToAllocate=%s quantity=%s currentAllocations=%s", numToAllocate, quantity, currentAllocationString));
 		} else {
-			ItemAllocation itemAllocation = new ItemAllocation(parentEntity, numToAllocate, requestingEntity, purpose, expiryGameTime);
+			ItemAllocation itemAllocation = new ItemAllocation(parentEntity, numToAllocate, requestingEntity, purpose);
 			allocations.add(itemAllocation);
 			return itemAllocation;
 		}
@@ -154,51 +140,6 @@ public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, 
 
 	public List<ItemAllocation> getAll() {
 		return this.allocations;
-	}
-
-	private List<ItemAllocation> getExpired() {
-		return getAll().stream().filter(this::isExpired).toList();
-	}
-
-	private boolean isExpired(ItemAllocation itemAllocation) {
-		if (gameContext == null) {
-			return false;
-		} else {
-			double currentGameTime = gameContext.getGameClock().getCurrentGameTime();
-			double expiryGameTime = itemAllocation.getExpiryGameTime();
-			return expiryGameTime < currentGameTime;
-		}
-	}
-
-	@Override
-	public void infrequentUpdate(double elapsedTime) {
-		List<ItemAllocation> itemAllocationsToCancel = new ArrayList<>();
-
-
-		for (ItemAllocation itemAllocation : getExpired()) {
-
-			//find allocations for hauling without a job
-			Long relatedHaulingAllocationId = itemAllocation.getRelatedHaulingAllocationId();
-			if (relatedHaulingAllocationId != null) {
-				long haulingJobCount = gameContext.getJobs()
-						.values()
-						.stream()
-						.filter(j -> j.getHaulingAllocation() != null
-								&& relatedHaulingAllocationId.equals(j.getHaulingAllocation().getHaulingAllocationId()))
-						.count();
-
-
-				if (haulingJobCount == 0) {
-					itemAllocationsToCancel.add(itemAllocation);
-				}
-			}
-		}
-
-		for (ItemAllocation toCancel : itemAllocationsToCancel) {
-			Logger.warn("Cancelling item allocation id={} {} as hauling job can no longer be found", toCancel.getItemAllocationId(), toCancel);
-			messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, toCancel);
-			allocations.remove(toCancel);
-		}
 	}
 
 	@Override
