@@ -1,3 +1,8 @@
+Early Access 1.1.5 - 6th April 2023
+
+- Steam Deck support: Tutorial shows official Steam Deck controls, text fields open onscreen keyboard, and cloud saves are compatible with desktop
+- Fix for a crash when changing between screens with different resolutions
+
 Early Access 1.1.4 - 5th April 2023
 
 - Improvement to hauling and item allocations so items should not be left stuck when the hauling job is cancelled elsewhere
