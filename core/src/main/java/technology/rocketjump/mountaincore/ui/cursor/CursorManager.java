@@ -86,23 +86,24 @@ public class CursorManager implements Telegraph {
 	}
 
 	private void createCursors() {
-		FileHandle cursorsDir = isResolution1080pOrLower() ? Gdx.files.internal("assets/ui/cursors/1080p") : Gdx.files.internal("assets/ui/cursors/4k");
+		boolean lowResolution = isResolution1080pOrLower();
+		FileHandle cursorsDir = lowResolution ? Gdx.files.internal("assets/ui/cursors/1080p") : Gdx.files.internal("assets/ui/cursors/4k");
 		for (FileHandle cursorFile : cursorsDir.list()) {
 			if (cursorFile.name().startsWith("cursor_") && cursorFile.name().endsWith(".png")) {
-				createCursor(cursorFile);
+				createCursor(cursorFile, lowResolution);
 			}
 		}
 	}
 
-	private void createCursor(FileHandle cursorFile) {
+	private void createCursor(FileHandle cursorFile, boolean lowResolution) {
 		Pixmap cursorPixmap = new Pixmap(cursorFile);
 		String name = cursorFile.nameWithoutExtension();
 		name = name.substring(7);
 		GameCursor gameCursor = GameCursor.forName(name);
 		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
 				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
-				isResolution1080pOrLower() ? gameCursor.hotspotX / 2 : gameCursor.hotspotX,
-				isResolution1080pOrLower() ? gameCursor.hotspotY / 2 : gameCursor.hotspotY);
+				lowResolution ? gameCursor.hotspotX / 2 : gameCursor.hotspotX,
+				lowResolution ? gameCursor.hotspotY / 2 : gameCursor.hotspotY);
 		allCursors.put(gameCursor, cursor);
 		cursorPixmap.dispose();
 	}
