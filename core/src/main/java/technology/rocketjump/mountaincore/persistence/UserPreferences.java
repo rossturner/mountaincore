@@ -127,8 +127,8 @@ public class UserPreferences {
 			this.defaultValue = defaultValue;
 		}
 
-	}
 
+	}
 	public String getPreference(PreferenceKey key) {
 		String property = properties.getProperty(key.name());
 		if (property == null) {
@@ -137,6 +137,10 @@ public class UserPreferences {
 		} else {
 			return property;
 		}
+	}
+
+	public boolean hasPreference(PreferenceKey preferenceKey) {
+		return properties.getProperty(preferenceKey.name()) != null;
 	}
 
 	public void setPreference(PreferenceKey preferenceKey, String value) {

@@ -4,6 +4,7 @@ public enum I18nWordClass {
 
 	NOUN, ADJECTIVE, PLURAL, VERB,
 	TOOLTIP,
+	STEAMDECK,
 	UNSPECIFIED
 
 }

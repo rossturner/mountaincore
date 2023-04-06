@@ -683,6 +683,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE,,{{item}} is on fire
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE.PLURAL,,{{item}} are on fire
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}} is being placed for construction
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}}
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By
@@ -1579,19 +1581,27 @@ TUTORIAL.START.INTRO_1,,"Welcome to Mountaincore! This is an Early Access releas
 TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
 
 TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
+TUTORIAL.START.CAMERA_CONTROLS_1.STEAMDECK,,"Use the Left Stick or D-Pad to move the camera around"
 TUTORIAL.START.CAMERA_CONTROLS_2,,"Press Q & E or scroll the mouse wheel to zoom"
+TUTORIAL.START.CAMERA_CONTROLS_2.STEAMDECK,,"Press L1 and R1 to zoom in and out"
 
 TUTORIAL.MINIMAP.DESCRIPTION,,"This is the Minimap."
 TUTORIAL.MINIMAP.PROGRESS,,"Click on the Minimap to jump to a location"
+TUTORIAL.MINIMAP.PROGRESS.STEAMDECK,,"Press R2 with the cursor on the Minimap to jump to a location"
 
 TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here."
-TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,"Press space to pause the game"
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,"Press space to pause and unpause the game"
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP.STEAMDECK,,"Press the A button to pause and unpause the game"
 TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds"
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP.STEAMDECK,,"Press R2 on the icons for increasingly faster speeds"
 TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,"Click the icon or press 1 for normal speed"
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP.STEAMDECK,,"Press R2 over the icon for normal speed"
 
 TUTORIAL.VIEW_MODES.DESCRIPTION,,"Below the time and date are buttons to show different views overlaid onto the game world."
-TUTORIAL.VIEW_MODES.OTHER_STEP,,"Click one of the view mode buttons"
+TUTORIAL.VIEW_MODES.OTHER_STEP,,"Click one of the other view mode buttons"
+TUTORIAL.VIEW_MODES.OTHER_STEP.STEAMDECK,,"Press R2 over one of the other view mode buttons"
 TUTORIAL.VIEW_MODES.DEFAULT_STEP,,"Click the left-most button to return to the default view mode"
+TUTORIAL.VIEW_MODES.DEFAULT_STEP.STEAMDECK,,"Press R2 on the left-most icon to return to the default view mode"
 
 TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION,,"The icons to the left of the time and date are various management and overview screens."
 TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT,,"View the Settlers management screen"
@@ -1599,11 +1609,14 @@ TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT,,"View the Resources management 
 
 TUTORIAL.SAVING.A,,"Progress is saved automatically at midnight or when you exit the game."
 TUTORIAL.SAVING.B,,"You can also press F5 to Quicksave."
+TUTORIAL.SAVING.A.STEAMDECK,,"Progress is saved automatically at midnight each day."
+TUTORIAL.SAVING.B.STEAMDECK,,"The game is also saved when you quit from the main menu."
 TUTORIAL.SAVING.C,,"Press F5 to Quicksave now"
 
 TUTORIAL.MAIN_VIEW.A,,"The controls in the lower-left corner of the screen are the main way of interacting with the game."
 TUTORIAL.MAIN_VIEW.B,,"You can assign orders, queue rooms and furniture to be created, and also adjust the priority of tasks."
 TUTORIAL.MAIN_VIEW.C,,"You can right-click to go back to a previous menu or clear the current selection."
+TUTORIAL.MAIN_VIEW.C.STEAMDECK,,"You can press L2 to go back to a previous menu or clear the current selection."
 
 TUTORIAL.NEEDS.A,,"Settlers need Food, Drink and Sleep."
 TUTORIAL.NEEDS.B,,"For now they can drink from the river and sleep on the ground."
@@ -1613,22 +1626,23 @@ TUTORIAL.FARMING.A,,"Click on Rooms and select Farm Plot. They are listed alphab
 TUTORIAL.FARMING.B,,"Drag out 4 separate Farm Plots in a grassy area."
 
 TUTORIAL.FARMING_2.A,,"Click on each Farm Plot and select a Crop to be planted."
+TUTORIAL.FARMING_2.A.STEAMDECK,,"Press R2 on each Farm Plot and select a Crop to be planted."
 TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used for Textiles and Brewing."
 
 TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do."
-TUTORIAL.PROFESSIONS.B,,"You can click on a Settler to view or change their professions. This can also be done from the Settlers Management screen."
-TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Villagers as they're responsible for moving items around."
+TUTORIAL.PROFESSIONS.B,,"You can select a Settler to view or change their professions. This can also be done from the Settlers Management screen."
+TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Haulers as they're responsible for moving items around."
 
 TUTORIAL.STOCKPILES.A,,"It is a good idea to place Stockpiles for your Settlers to place and share items."
-TUTORIAL.STOCKPILES.B,,"Click on Rooms and select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."
+TUTORIAL.STOCKPILES.B,,"Select Rooms and then select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."
 
 TUTORIAL.KITCHEN.A,,"Crops are harvested in Autumn and should be stored in a Food Stockpile."
 TUTORIAL.KITCHEN.B,,"To get the most from your crops it is best to produce soup from vegetables or bake bread from grain."
-TUTORIAL.KITCHEN.C,,"Click on Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function."
+TUTORIAL.KITCHEN.C,,"Select Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function."
 
 TUTORIAL.FEASTING_HALL.A,,"Settlers eat in the Feasting Hall."
 TUTORIAL.FEASTING_HALL.B,,"The Cauldron furniture for the Feasting Hall is only completed when a Cauldron containing soup is available."
-TUTORIAL.FEASTING_HALL.C,,"Click on Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later."
+TUTORIAL.FEASTING_HALL.C,,"Select Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later."
 
 TUTORIAL.FOOD_COMPLETE.A,,"This simple setup will ensure your Settlers have food once the crops are harvested later in the year."
 TUTORIAL.FOOD_COMPLETE.B,,"You can also fish from the river or hunt animals once you have set up a military to provide more food."
@@ -1638,14 +1652,15 @@ TUTORIAL.RESOURCES.B,,"Select Orders > Mine. Drag a selection over the mountain 
 TUTORIAL.RESOURCES.C,,"Also select Orders > Chop. Drag a selection over a forested area to order your Woodcutters to start chopping trees."
 
 TUTORIAL.WORKSHOPS.A,,"Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason."
-TUTORIAL.WORKSHOPS.B,,"Click on Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed."
+TUTORIAL.WORKSHOPS.B,,"Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed."
 TUTORIAL.WORKSHOPS.C,,"You can press the R key to Rotate most furniture."
+TUTORIAL.WORKSHOPS.C.STEAMDECK,,"You can press the X button to Rotate most furniture."
 
 TUTORIAL.CRAFTING.A,,"Rooms with furniture that produce items are controlled using Import and Export Pallets."
 TUTORIAL.CRAFTING.B,,"Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop."
 TUTORIAL.CRAFTING.C,,"Also, place a Products Stockpile which will hold the items that are produced."
 
-TUTORIAL.CRAFTING_SELECTION.A,,"Click on each Import and Export Pallet and select the item to be imported or exported from the room."
+TUTORIAL.CRAFTING_SELECTION.A,,"Select each Import and Export Pallet and select the item to be imported or exported from the room."
 TUTORIAL.CRAFTING_SELECTION.B,,"In the Sawmill, import Logs and export Planks."
 TUTORIAL.CRAFTING_SELECTION.C,,"In the Masonry Workshop, import Rough stone boulders and export Blocks."
 

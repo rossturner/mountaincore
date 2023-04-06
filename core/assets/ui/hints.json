@@ -87,12 +87,14 @@
     "type" : "CAMERA_MOVED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.START.CAMERA_CONTROLS_1",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "CAMERA_ZOOMED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.START.CAMERA_CONTROLS_2",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -111,7 +113,8 @@
     "type" : "MINIMAP_CLICKED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.MINIMAP.PROGRESS",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -130,17 +133,20 @@
     "type" : "GAME_PAUSED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.TIME_AND_DATE.PAUSE_STEP",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FAST_SPEED_SELECTED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "NORMAL_SPEED_SELECTED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -159,12 +165,14 @@
     "type" : "OTHER_VIEW_MODE",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.VIEW_MODES.OTHER_STEP",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "DEFAULT_VIEW_MODE",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.VIEW_MODES.DEFAULT_STEP",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -186,12 +194,14 @@
     "type" : "SETTLER_MANAGEMENT",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "RESOURCE_MANAGEMENT",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -207,7 +217,8 @@
     "type" : "GAME_SAVED",
     "quantityRequired" : 0,
     "i18nKey" : "TUTORIAL.SAVING.C",
-    "displayAsCheckbox" : true
+    "displayAsCheckbox" : true,
+    "ignoreOnSteamDeck" : true
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -248,12 +259,14 @@
     "type" : "ROOM_TILES",
     "targetTypeName" : "FARM_PLOT",
     "quantityRequired" : 70,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "ROOMS",
     "targetTypeName" : "FARM_PLOT",
     "quantityRequired" : 4,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -267,7 +280,8 @@
   "progressDescriptors" : [ {
     "type" : "FARM_PLOT_SELECTIONS",
     "quantityRequired" : 4,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -282,7 +296,8 @@
     "type" : "PROFESSIONS_ASSIGNED",
     "targetTypeName" : "FARMER",
     "quantityRequired" : 3,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -297,7 +312,8 @@
     "type" : "STOCKPILE_TILES",
     "targetTypeName" : "TOOLS",
     "quantityRequired" : 32,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -312,22 +328,26 @@
     "type" : "ROOM_TILES",
     "targetTypeName" : "KITCHEN",
     "quantityRequired" : 12,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "WATER_BARREL",
     "quantityRequired" : 1,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "KITCHEN_WORKTOP",
     "quantityRequired" : 1,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "CHEFS_CAULDRON",
     "quantityRequired" : 1,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -342,7 +362,8 @@
     "type" : "ROOM_TILES",
     "targetTypeName" : "FEASTING_HALL",
     "quantityRequired" : 12,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -367,12 +388,14 @@
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Logs",
     "quantityRequired" : 4,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Stone-Unrefined",
     "quantityRequired" : 4,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -387,22 +410,26 @@
     "type" : "ROOM_TILES",
     "targetTypeName" : "SAWMILL",
     "quantityRequired" : 15,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "ROOM_TILES",
     "targetTypeName" : "MASONRY_WORKSHOP",
     "quantityRequired" : 15,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "WOODCUTTERS_BENCH",
     "quantityRequired" : 1,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "Stonemason_Bench",
     "quantityRequired" : 1,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -417,17 +444,20 @@
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "IMPORT_PALLET",
     "quantityRequired" : 2,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
     "targetTypeName" : "EXPORT_PALLET",
     "quantityRequired" : 2,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "STOCKPILE_TILES",
     "targetTypeName" : "PRODUCTS",
     "quantityRequired" : 20,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",
@@ -452,12 +482,14 @@
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Planks",
     "quantityRequired" : 45,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   }, {
     "type" : "ITEM_EXISTS",
     "targetTypeName" : "Resource-Stone-Block",
     "quantityRequired" : 45,
-    "displayAsCheckbox" : false
+    "displayAsCheckbox" : false,
+    "ignoreOnSteamDeck" : false
   } ],
   "actions" : [ {
     "type" : "SHOW_OTHER_HINT",

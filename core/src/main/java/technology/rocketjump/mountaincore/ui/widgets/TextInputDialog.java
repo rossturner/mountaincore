@@ -14,6 +14,7 @@ import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.mountaincore.ui.i18n.I18nText;
+import technology.rocketjump.mountaincore.ui.widgets.libgdxclone.MountaincoreTextField;
 
 import java.util.function.Consumer;
 
@@ -27,7 +28,7 @@ public class TextInputDialog extends GameDialog {
 		super(titleText, uiSkin, messageDispatcher, soundAssetDictionary);
 
 		TextField.TextFieldStyle textFieldStyle = uiSkin.get("input-dialog-text", TextField.TextFieldStyle.class);
-		inputBox = new TextField(inputPlaceholder, textFieldStyle) {
+		inputBox = new MountaincoreTextField(inputPlaceholder, textFieldStyle) {
 			@Override
 			protected InputListener createInputListener () {
 				return new TextFieldClickListener(){

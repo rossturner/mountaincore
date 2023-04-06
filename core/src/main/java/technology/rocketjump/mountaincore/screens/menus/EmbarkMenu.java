@@ -30,6 +30,7 @@ import technology.rocketjump.mountaincore.ui.widgets.GameDialog;
 import technology.rocketjump.mountaincore.ui.widgets.GameDialogDictionary;
 import technology.rocketjump.mountaincore.ui.widgets.LabelFactory;
 import technology.rocketjump.mountaincore.ui.widgets.WidgetFactory;
+import technology.rocketjump.mountaincore.ui.widgets.libgdxclone.MountaincoreTextField;
 
 import java.util.Collections;
 import java.util.Map;
@@ -103,7 +104,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		nameLabel.setAlignment(Align.top);  //this uses padding to make it off center for aesthetics
 
 
-		this.nameInput = new TextField("", skin);
+		this.nameInput = new MountaincoreTextField("", skin);
 		this.nameInput.addListener(new ChangeCursorOnHover(nameInput, GameCursor.I_BEAM, messageDispatcher));
 		this.nameInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		this.nameInput.setAlignment(Align.center);
@@ -132,7 +133,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		}
 
 		Label seedLabel = new Label(i18nTranslator.translate("GUI.EMBARK.MAP_SEED"), skin, "embark_seed_label");
-		this.seedInput = new TextField("", skin);
+		this.seedInput = new MountaincoreTextField("", skin);
 		this.seedInput.addListener(new ChangeCursorOnHover(this.seedInput, GameCursor.I_BEAM, messageDispatcher));
 		this.seedInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		this.seedInput.setAlignment(Align.center);

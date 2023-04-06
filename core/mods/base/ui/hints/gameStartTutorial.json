@@ -184,7 +184,8 @@
       {
         "type": "GAME_SAVED",
         "i18nKey": "TUTORIAL.SAVING.C",
-        "displayAsCheckbox": true
+        "displayAsCheckbox": true,
+        "ignoreOnSteamDeck": true
       }
     ],
     "actions": [

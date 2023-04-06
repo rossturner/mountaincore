@@ -22,6 +22,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.mountaincore.ui.widgets.WidgetFactory;
+import technology.rocketjump.mountaincore.ui.widgets.libgdxclone.MountaincoreTextField;
 
 import static technology.rocketjump.mountaincore.messaging.MessageType.*;
 import static technology.rocketjump.mountaincore.persistence.UserPreferences.PreferenceKey.*;
@@ -185,7 +186,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 
 		codeLabel = new Label(i18nTranslator.translate("GUI.OPTIONS.TWITCH.CODE_LABEL"), skin, "options_menu_label");
-		codeInput = new TextField("", skin);
+		codeInput = new MountaincoreTextField("", skin);
 		codeInput.addListener(new ChangeCursorOnHover(codeInput, GameCursor.I_BEAM, messageDispatcher));
 
 		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
