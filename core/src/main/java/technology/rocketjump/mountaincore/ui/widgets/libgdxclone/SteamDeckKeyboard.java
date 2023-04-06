@@ -20,13 +20,12 @@ public class SteamDeckKeyboard implements TextField.OnscreenKeyboard {
 		steamUtils.dismissFloatingGamepadTextInput();
 		if (visible) {
 			if (parent.getStage() != null) {
-				Vector2 screenPosition = parent.getStage().stageToScreenCoordinates(new Vector2(parent.getX(), parent.getY()));
-				Vector2 screenSize = parent.getStage().stageToScreenCoordinates(new Vector2(parent.getWidth(), parent.getHeight()));
+				Vector2 screenPosition = parent.localToScreenCoordinates(new Vector2(0, 0));
 
 				parent.setSelection(0, parent.getText().length());
 				if ((int)screenPosition.y > Gdx.graphics.getHeight() / 2) {
 					steamUtils.showFloatingGamepadTextInput(SteamUtils.FloatingGamepadTextInputMode.ModeSingleLine,
-							(int) screenPosition.x, Gdx.graphics.getHeight() - (int) screenPosition.y, (int) screenSize.x, (int) screenSize.y);
+							(int) screenPosition.x, Gdx.graphics.getHeight() - (int) screenPosition.y, 10, 10);
 				} else {
 					steamUtils.showFloatingGamepadTextInput(SteamUtils.FloatingGamepadTextInputMode.ModeSingleLine,
 							0, 0, 10, 10);
