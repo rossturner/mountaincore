@@ -17,6 +17,7 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, Destructible {
 
@@ -67,7 +68,10 @@ public class ItemAllocationComponent implements InfrequentlyUpdatableComponent, 
 		}
 		int currentAllocated = this.getNumAllocated();
 		if (currentAllocated + numToAllocate > quantity) {
-			throw new RuntimeException("Attempting to requestAllocation too many items");
+			String currentAllocationString = getAll().stream()
+					.map(ItemAllocation::toString)
+					.collect(Collectors.joining());
+			throw new RuntimeException(String.format("Attempting to requestAllocation too many items. numToAllocate=%s quantity=%s currentAllocations=%s", numToAllocate, quantity, currentAllocationString));
 		} else {
 			ItemAllocation itemAllocation = new ItemAllocation(parentEntity, numToAllocate, requestingEntity, purpose, expiryGameTime);
 			allocations.add(itemAllocation);
