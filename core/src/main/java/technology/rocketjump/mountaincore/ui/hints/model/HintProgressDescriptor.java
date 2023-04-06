@@ -11,6 +11,7 @@ public class HintProgressDescriptor {
 
 	private String i18nKey;
 	private boolean displayAsCheckbox;
+	private boolean ignoreOnSteamDeck;
 
 	public enum ProgressDescriptorTargetType {
 
@@ -75,6 +76,14 @@ public class HintProgressDescriptor {
 
 	public void setDisplayAsCheckbox(boolean displayAsCheckbox) {
 		this.displayAsCheckbox = displayAsCheckbox;
+	}
+
+	public boolean isIgnoreOnSteamDeck() {
+		return ignoreOnSteamDeck;
+	}
+
+	public void setIgnoreOnSteamDeck(boolean ignoreOnSteamDeck) {
+		this.ignoreOnSteamDeck = ignoreOnSteamDeck;
 	}
 
 	@Override

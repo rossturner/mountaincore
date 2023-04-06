@@ -13,15 +13,13 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.misc.SteamUtils;
 import technology.rocketjump.mountaincore.ui.GuiArea;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.hints.HintDictionary;
 import technology.rocketjump.mountaincore.ui.hints.HintProgressEvaluator;
 import technology.rocketjump.mountaincore.ui.hints.model.*;
-import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
-import technology.rocketjump.mountaincore.ui.i18n.I18nString;
-import technology.rocketjump.mountaincore.ui.i18n.I18nText;
-import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
+import technology.rocketjump.mountaincore.ui.i18n.*;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.widgets.ButtonFactory;
 import technology.rocketjump.mountaincore.ui.widgets.GameDialogDictionary;
@@ -121,6 +119,7 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 			layoutTable.add(button).pad(40).row();
 		} else {
 
+			I18nWordClass wordClass = determineWordClass();
 			for (Hint displayedHint : displayedHints) {
 				Table tableWithBackground = new Table();
 				tableWithBackground.setBackground(uiSkin.get("asset_notifications_bg_patch", TenPatchDrawable.class));
@@ -168,7 +167,7 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 				hintTable.defaults().padRight(40).padLeft(40).padTop(20).padBottom(20);
 
 				for (String i18nKey : displayedHint.getI18nKeys()) {
-					I18nText text = i18nTranslator.getTranslatedString(i18nKey);
+					I18nText text = i18nTranslator.getTranslatedString(i18nKey, wordClass);
 					Label label = new Label(text.toString(), defaultLabelStyle());
 					label.setWrap(true);
 
@@ -254,39 +253,58 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 
 	private boolean buildProgressDescriptors(Hint hint, Table hintTable) {
 		boolean allProgressComplete = true;
+		I18nWordClass wordClass = determineWordClass();
 		for (HintProgressDescriptor progressDescriptor : hint.getProgressDescriptors()) {
-			Table progressTable = new Table(uiSkin);
+			if (isApplicable(progressDescriptor)) {
+				Table progressTable = new Table(uiSkin);
 
-			HintProgress progress = hintProgressEvaluator.evaluate(progressDescriptor);
-			currentProgress.add(progress);
-			if (!progress.isComplete()) {
-				allProgressComplete = false;
+				HintProgress progress = hintProgressEvaluator.evaluate(progressDescriptor);
+				currentProgress.add(progress);
+				if (!progress.isComplete()) {
+					allProgressComplete = false;
+				}
+
+				if (progressDescriptor.isDisplayAsCheckbox()) {
+					CheckBox.CheckBoxStyle checkBoxStyle = uiSkin.get("tutorial", CheckBox.CheckBoxStyle.class);
+					I18nText translatedString = i18nTranslator.getTranslatedString(progressDescriptor.getI18nKey(), wordClass);
+					CheckBox checkBox = new CheckBox(" " + translatedString.toString(), checkBoxStyle);
+					checkBox.setChecked(progress.isComplete());
+					checkBox.setDisabled(true);
+					progressTable.add(checkBox).padRight(25);
+				} else {
+					ProgressBar bar = new ProgressBar(0, progress.total, 1, false, uiSkin);
+					bar.setValue(progress.current);
+					bar.setDisabled(true);
+					progressTable.add(bar).padRight(25);
+
+					Map<String, I18nString> replacements = new HashMap<>();
+					replacements.put("currentQuantity", new I18nText(String.valueOf(progress.current)));
+					replacements.put("requiredQuantity", new I18nText(String.valueOf(progress.total)));
+					replacements.put("targetDescription", progress.targetDescription);
+					I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
+					progressTable.add(new Label(text.toString(), defaultLabelStyle()));
+				}
+				hintTable.add(progressTable).left().row();
 			}
-
-			if (progressDescriptor.isDisplayAsCheckbox()) {
-				CheckBox.CheckBoxStyle checkBoxStyle = uiSkin.get("tutorial", CheckBox.CheckBoxStyle.class);
-				CheckBox checkBox = new CheckBox(" " + i18nTranslator.getTranslatedString(progressDescriptor.getI18nKey()).toString(), checkBoxStyle);
-				checkBox.setChecked(progress.isComplete());
-				checkBox.setDisabled(true);
-				progressTable.add(checkBox).padRight(25);
-			} else {
-				ProgressBar bar = new ProgressBar(0, progress.total, 1, false, uiSkin);
-				bar.setValue(progress.current);
-				bar.setDisabled(true);
-				progressTable.add(bar).padRight(25);
-
-				Map<String, I18nString> replacements = new HashMap<>();
-				replacements.put("currentQuantity", new I18nText(String.valueOf(progress.current)));
-				replacements.put("requiredQuantity", new I18nText(String.valueOf(progress.total)));
-				replacements.put("targetDescription", progress.targetDescription);
-				I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
-				progressTable.add(new Label(text.toString(), defaultLabelStyle()));
-			}
-			hintTable.add(progressTable).left().row();
-
 		}
 
 		return allProgressComplete;
+	}
+
+	private I18nWordClass determineWordClass() {
+		if (SteamUtils.isRunningOnSteamDeck()) {
+			return I18nWordClass.STEAMDECK;
+		} else {
+			return I18nWordClass.UNSPECIFIED;
+		}
+	}
+
+	private boolean isApplicable(HintProgressDescriptor progressDescriptor) {
+		if (SteamUtils.isRunningOnSteamDeck()) {
+			return !progressDescriptor.isIgnoreOnSteamDeck();
+		} else {
+			return true;
+		}
 	}
 
 	private void buildActions(Hint displayedHint, Table hintTable, boolean allowedToProgress) {
