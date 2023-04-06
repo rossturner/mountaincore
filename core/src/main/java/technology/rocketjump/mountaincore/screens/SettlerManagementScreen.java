@@ -62,6 +62,7 @@ import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.skins.ManagementSkin;
 import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.widgets.*;
+import technology.rocketjump.mountaincore.ui.widgets.libgdxclone.MountaincoreTextField;
 
 import javax.inject.Singleton;
 import java.util.List;
@@ -260,7 +261,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));
 
-		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
+		TextField searchBar = new MountaincoreTextField("", managementSkin, "search_bar_input");
 		searchBar.setText(searchBarText);
 		searchBar.setMessageText(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		searchBar.addListener(new InputListener() {

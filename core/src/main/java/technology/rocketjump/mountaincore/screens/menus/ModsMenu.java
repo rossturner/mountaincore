@@ -50,6 +50,7 @@ import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.widgets.BlurredBackgroundDialog;
 import technology.rocketjump.mountaincore.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.mountaincore.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.mountaincore.ui.widgets.libgdxclone.MountaincoreTextField;
 
 import java.io.IOException;
 import java.util.List;
@@ -206,10 +207,10 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText, T
 		mainTable.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.INFO").toString(), menuSkin, "mod_table_value_label")).row();
 		mainTable.add(new Label(i18nTranslator.getTranslatedString("MODS.EMAIL_LOGIN.EMAIL").toString(), menuSkin, "mod_table_value_label")).row();
 
-		TextField emailInput = new TextField("", menuSkin);
+		TextField emailInput = new MountaincoreTextField("", menuSkin);
 		emailInput.addListener(new ChangeCursorOnHover(emailInput, GameCursor.I_BEAM, messageDispatcher));
 		emailInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		TextField codeInput = new TextField("", menuSkin);
+		TextField codeInput = new MountaincoreTextField("", menuSkin);
 		codeInput.addListener(new ChangeCursorOnHover(emailInput, GameCursor.I_BEAM, messageDispatcher));
 		codeInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 
