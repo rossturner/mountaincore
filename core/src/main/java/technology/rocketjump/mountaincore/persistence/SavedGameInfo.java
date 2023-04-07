@@ -53,6 +53,8 @@ public class SavedGameInfo implements Disposable {
 
 	@Override
 	public void dispose() {
-		minimapPixmap.dispose();
+		if (this.minimapPixmap != null) {
+			minimapPixmap.dispose();
+		}
 	}
 }

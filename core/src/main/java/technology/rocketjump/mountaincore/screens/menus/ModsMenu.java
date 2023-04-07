@@ -25,6 +25,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.messaging.InfoType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.misc.SteamUtils;
 import technology.rocketjump.mountaincore.modding.CompatibilityResult;
 import technology.rocketjump.mountaincore.modding.LocalModRepository;
 import technology.rocketjump.mountaincore.modding.ModCompatibilityChecker;
@@ -185,16 +186,17 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText, T
 		headerButtonsTable.defaults().padRight(40);
 		headerButtonsTable.left();
 
-		Container<TextButton> browseButton = menuButtonFactory.createButton("MODS.BUTTON.BROWSE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
-				.withScaledToFitLabel(554)
-				.withAction(() -> Gdx.net.openURI(modioAuthManager.getModioGameHomepage()))
-				.build();
+		if (!SteamUtils.isRunningOnSteamDeck()) {
+			Container<TextButton> browseButton = menuButtonFactory.createButton("MODS.BUTTON.BROWSE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+					.withScaledToFitLabel(554)
+					.withAction(() -> Gdx.net.openURI(modioAuthManager.getModioGameHomepage()))
+					.build();
+			headerButtonsTable.add(browseButton).left();
+		}
 		refreshButtonContainer = menuButtonFactory.createButton("MODS.BUTTON.REFRESH", menuSkin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withScaledToFitLabel(554)
 				.withAction(this::beginRefreshMods)
 				.build();
-
-		headerButtonsTable.add(browseButton).left();
 		headerButtonsTable.add(refreshButtonContainer).left();
 		headerButtonsTable.add(new Container<>()).growX();
 
