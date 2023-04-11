@@ -37,7 +37,6 @@ public class ItemAllocationComponentTest {
 		itemAttributes.setQuantity(10);
 
 		when(mockEntity.getType()).thenReturn(EntityType.ITEM);
-		when(mockGameContext.getGameClock()).thenReturn(new GameClock());
 
 		itemAllocationComponent = new ItemAllocationComponent();
 		itemAllocationComponent.init(mockEntity, mockMessageDispatcher, mockGameContext);
