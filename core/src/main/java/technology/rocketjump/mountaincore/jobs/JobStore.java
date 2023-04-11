@@ -60,6 +60,9 @@ public class JobStore implements Updatable {
 	private static final List<Job> emptyList = new LinkedList<>();
 
 	public List<Job> getJobsAtLocation(GridPoint2 location) {
+		if (location == null) {
+			return emptyList;
+		}
 		List<Job> jobs = byLocation.get(location);
 		if (jobs == null) {
 			return emptyList;

@@ -7,7 +7,6 @@
   "baseValuePerItem": 5,
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 1.0,
-  "stockpileGroupName" : "FOOD",
   "consumeSoundAssetName" : "EatFood",
   "i18nKey" : "PRODUCT.BREAD.LOAF"
 }

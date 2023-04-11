@@ -236,7 +236,8 @@ public class WorldRenderer implements Disposable {
 		if (renderMode.equals(RenderMode.DIFFUSE)) {
 
 			for (MapTile mapTile : roomTiles) {
-				if (!mapTile.getRoomTile().getRoom().getRoomType().getRoomName().equals(RoomTypeDictionary.VIRTUAL_PLACING_ROOM.getRoomName())) {
+				if (mapTile.getRoomTile().getRoom() != null && // not sure how this is null but it has come up in a crash report
+						!mapTile.getRoomTile().getRoom().getRoomType().getRoomName().equals(RoomTypeDictionary.VIRTUAL_PLACING_ROOM.getRoomName())) {
 					roomRenderer.render(mapTile, basicSpriteBatch, spriteCache);
 				}
 			}

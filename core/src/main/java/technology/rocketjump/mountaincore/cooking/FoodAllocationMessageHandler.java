@@ -213,8 +213,9 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 		for (Entity furnitureEntity : shuffledEntities) {
 			// Check for edible liquid contents
 			LiquidContainerComponent liquidContainerComponent = furnitureEntity.getComponent(LiquidContainerComponent.class);
-			if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial().isEdible() && liquidContainerComponent.getNumUnallocated() > 0) {
-				// Can allocated from this
+			if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null &&
+					liquidContainerComponent.getTargetLiquidMaterial().isEdible() && liquidContainerComponent.getNumUnallocated() > 0) {
+				// Can allocate from this
 				LiquidAllocation liquidAllocation = liquidContainerComponent.createAllocation(AMOUNT_LIQUID_FOOD_USED, requestingEntity);
 				if (liquidAllocation != null) {
 					return new FoodAllocation(LIQUID_CONTAINER, furnitureEntity, liquidAllocation);

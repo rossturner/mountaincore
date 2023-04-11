@@ -2792,7 +2792,7 @@
 }, {
   "speciesName" : "Fir",
   "plantType" : "TREE",
-  "materialName" : "Ironwood",
+  "materialName" : "Fir",
   "maxGrowthSpeedVariance" : 0.2,
   "replacesOtherPlantsInRegion" : 0,
   "defaultColors" : {

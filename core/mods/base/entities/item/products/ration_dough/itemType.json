@@ -7,7 +7,6 @@
   "baseValuePerItem": 9,
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 1.0,
-  "stockpileGroupName" : "FOOD",
   "i18nKey" : "PRODUCT.RATION.DOUGH",
   "specificMaterialNames": ["Wheat"]
 }

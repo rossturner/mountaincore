@@ -144,14 +144,16 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 				// reduce potential stack size by incoming hauling
 				GameMaterial materialToRequest = selectedMaterial;
 				for (Job incomingHaulingJob : incomingHaulingJobs) {
-					amountToRequest -= incomingHaulingJob.getHaulingAllocation().getItemAllocation().getAllocationAmount();
-					if (selectedMaterial == null) {
-						Entity targetItem = gameContext.getEntity(incomingHaulingJob.getHaulingAllocation().getItemAllocation().getTargetItemEntityId());
-						if (targetItem != null) {
-							ItemEntityAttributes attributes = (ItemEntityAttributes) targetItem.getPhysicalEntityComponent().getAttributes();
-							materialToRequest = attributes.getPrimaryMaterial();
-						} else if (GlobalSettings.DEV_MODE) {
-							Logger.error("Target item in " + getClass().getSimpleName() + " is null, investigate why");
+					if (incomingHaulingJob.getHaulingAllocation() != null) {
+						amountToRequest -= incomingHaulingJob.getHaulingAllocation().getItemAllocation().getAllocationAmount();
+						if (selectedMaterial == null) {
+							Entity targetItem = gameContext.getEntity(incomingHaulingJob.getHaulingAllocation().getItemAllocation().getTargetItemEntityId());
+							if (targetItem != null) {
+								ItemEntityAttributes attributes = (ItemEntityAttributes) targetItem.getPhysicalEntityComponent().getAttributes();
+								materialToRequest = attributes.getPrimaryMaterial();
+							} else if (GlobalSettings.DEV_MODE) {
+								Logger.error("Target item in " + getClass().getSimpleName() + " is null, investigate why");
+							}
 						}
 					}
 				}

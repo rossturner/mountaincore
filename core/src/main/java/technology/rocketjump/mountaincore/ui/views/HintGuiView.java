@@ -14,6 +14,7 @@ import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.misc.SteamUtils;
+import technology.rocketjump.mountaincore.persistence.UserPreferences;
 import technology.rocketjump.mountaincore.ui.GuiArea;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.hints.HintDictionary;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.mountaincore.persistence.UserPreferences.PreferenceKey.ENABLE_TUTORIAL;
 import static technology.rocketjump.mountaincore.ui.hints.model.HintAction.HintActionType.DISMISS;
 
 @Singleton
@@ -44,6 +46,7 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 	private final ButtonFactory buttonFactory;
 	private final Skin uiSkin;
 	private final GameDialogDictionary gameDialogDictionary;
+	private final UserPreferences userPreferences;
 	private Table layoutTable;
 	private GameContext gameContext;
 	private boolean hintsMinimised;
@@ -52,6 +55,7 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 	private List<HintProgress> currentProgress = new ArrayList<>();
 
 	private float timeSinceLastUpdate = 0f;
+
 
 	static {
 		DISMISS_ACTION.setButtonTextI18nKey("HINT.BUTTON.DISMISS");
@@ -62,7 +66,8 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 	public HintGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 					   I18nTranslator i18nTranslator,
 					   HintDictionary hintDictionary,
-					   HintProgressEvaluator hintProgressEvaluator, ButtonFactory buttonFactory, GameDialogDictionary gameDialogDictionary) {
+					   HintProgressEvaluator hintProgressEvaluator, ButtonFactory buttonFactory, GameDialogDictionary gameDialogDictionary,
+					   UserPreferences userPreferences) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -70,6 +75,7 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 		this.hintProgressEvaluator = hintProgressEvaluator;
 		this.buttonFactory = buttonFactory;
 		this.gameDialogDictionary = gameDialogDictionary;
+		this.userPreferences = userPreferences;
 
 		layoutTable = new Table(uiSkin);
 	}
@@ -135,6 +141,8 @@ public class HintGuiView implements GuiView, GameContextAware, DisplaysText {
 						if (displayedHint.getHintId().contains("tutorial")) {
 							ModalDialog dialog = gameDialogDictionary.confirmDismissTutorial(() -> {
 								messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+								userPreferences.setPreference(ENABLE_TUTORIAL, "false");
+								messageDispatcher.dispatchMessage(MessageType.PREFERENCE_CHANGED, ENABLE_TUTORIAL);
 								// On dismiss of initial tutorial, ensure all GUI areas are visible again
 								for (GuiArea guiArea : GuiArea.values()) {
 									messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, guiArea);

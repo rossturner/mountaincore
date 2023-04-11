@@ -22,7 +22,6 @@ import java.util.List;
 
 public class TraderCreatureGroup extends CreatureGroup {
 
-	private static final double MAX_HOURS_IN_ANY_STAGE = 8.0;
 	private TraderGroupStage stage = TraderGroupStage.SPAWNED;
 	private SpecialGoal pendingSpecialGoal;
 	private double hoursInCurrentStage;
@@ -41,7 +40,7 @@ public class TraderCreatureGroup extends CreatureGroup {
 		hoursInCurrentStage += elapsed;
 
 		// TODO leave after spending too long in current stage
-		if (hoursInCurrentStage > MAX_HOURS_IN_ANY_STAGE) {
+		if (hoursInCurrentStage > stage.maxHoursInStage) {
 			progressToNextStage();
 		}
 

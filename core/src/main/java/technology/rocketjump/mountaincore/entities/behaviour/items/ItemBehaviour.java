@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.mountaincore.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.mountaincore.entities.behaviour.furniture.CollectItemFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.BehaviourComponent;
 import technology.rocketjump.mountaincore.entities.components.Faction;
 import technology.rocketjump.mountaincore.entities.components.FactionComponent;
@@ -89,7 +90,13 @@ public class ItemBehaviour implements BehaviourComponent {
 				if (container.getComponent(FurnitureStockpileComponent.class) != null) {
 					forceRemoval = !container.getComponent(FurnitureStockpileComponent.class).getStockpileSettings().canHold(parentEntity);
 				}
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, forceRemoval, JobPriority.NORMAL, null));
+				boolean attemptToHaul = true;
+				if (container.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour) {
+					attemptToHaul = false;
+				}
+				if (attemptToHaul) {
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, forceRemoval, JobPriority.NORMAL, null));
+				}
 			}
 		}
 

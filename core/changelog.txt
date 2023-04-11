@@ -1,3 +1,16 @@
+Early Access 1.1.6 - 11th April 2023
+
+- Removed stockpile group from bread and dough so they won't be moved out of the bakery/feasting hall
+- Stopped items that are brought to furniture (such as kitchen worktop) from being hauled away again
+- Increased the length of time traders can spend in each stage of their visit so they won't arrive, sleep and then leave
+- Dismissing the tutorial now also disables the tutorial in future games
+- Corrected fir tree description (was showing as "ironwood")
+- Fix for a crash when a hauling job has lost track of what it is hauling
+- Fix for a crash when describing what is being hauled when the item has been removed from the map
+- Fix for a crash when rendering a room tile that is no longer part of a room
+- Fix for a crash when allocating food from a container which can also contain liquid
+- Reverted a change which may have been cleaning up item allocations too aggressively, may have been causing further issues
+
 Early Access 1.1.5 - 6th April 2023
 
 - Steam Deck support: Tutorial shows official Steam Deck controls, text fields open onscreen keyboard, and cloud saves are compatible with desktop
