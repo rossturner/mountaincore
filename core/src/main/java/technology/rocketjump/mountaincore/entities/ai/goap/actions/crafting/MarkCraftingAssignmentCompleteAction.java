@@ -27,6 +27,11 @@ public class MarkCraftingAssignmentCompleteAction extends Action {
 	}
 
 	@Override
+	public boolean isInterruptible() {
+		return false;
+	}
+
+	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 	}
 
