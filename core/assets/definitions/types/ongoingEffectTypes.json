@@ -1,5 +1,6 @@
 [ {
   "name" : "Fire",
+  "i18nKey" : "EFFECT.FIRE",
   "particleEffectTypeName" : "Fire",
   "initialColor" : "#ffffff00",
   "states" : {

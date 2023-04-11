@@ -24,6 +24,8 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.body.
 import technology.rocketjump.mountaincore.entities.model.physical.creature.body.BodyPartDamageLevel;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.body.BodyPartOrgan;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.body.organs.OrganDamageLevel;
+import technology.rocketjump.mountaincore.entities.model.physical.effect.OngoingEffectAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.effect.OngoingEffectType;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemQuality;
@@ -139,6 +141,8 @@ public class I18nTranslator {
 				return getDescription((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			case VEHICLE:
 				return getDescription((VehicleEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
+			case ONGOING_EFFECT:
+				return getDescription((OngoingEffectAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			default:
 				return new I18nText("Not yet implemented description for entity with type " + entity.getType());
 		}
@@ -544,6 +548,11 @@ public class I18nTranslator {
 	public I18nText getCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
 		I18nWord raceWord = dictionary.getWord(attributes.getRace().getI18nKey());
 		return new I18nText(raceWord.get(I18nWordClass.NOUN, attributes.getGender()), raceWord.hasTooltip() ? raceWord.getKey() : null);
+	}
+
+	private I18nText getDescription(OngoingEffectAttributes attributes) {
+		OngoingEffectType effectType = attributes.getType();
+		return new I18nText(dictionary.getWord(effectType.getI18nKey()).get(I18nWordClass.NOUN));
 	}
 
 	public I18nText getItemDescription(int quantity, GameMaterial material, ItemType itemType, ItemQuality itemQuality) {

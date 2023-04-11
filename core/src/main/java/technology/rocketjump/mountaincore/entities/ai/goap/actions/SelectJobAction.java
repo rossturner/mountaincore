@@ -35,7 +35,7 @@ public class SelectJobAction extends Action implements JobAssignmentCallback, In
 	}
 
 	@Override
-	public void init() {
+	public void init(GameContext gameContext) {
 		if (jobRequest != null) {
 			jobRequest.setRequestingEntity(parent.parentEntity);
 		}

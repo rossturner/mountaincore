@@ -30,10 +30,10 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 	}
 
 	@Override
-	public void init() {
+	public void init(GameContext gameContext) {
 		if (subGoal != null) {
 			subGoal.setParentGoal(this.parent);
-			subGoal.init(parent.parentEntity, parent.messageDispatcher);
+			subGoal.init(parent.parentEntity, parent.messageDispatcher, gameContext);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 			List<LiquidAllocation> liquidAllocations = craftingStationBehaviour.getCurrentCraftingAssignment().getInputLiquidAllocations();
 			LiquidAllocation liquidAllocation = liquidAllocations.remove(0);
 
-			subGoal = new AssignedGoal(SpecialGoal.TRANSFER_LIQUID_FOR_CRAFTING.getInstance(), parent.parentEntity, parent.messageDispatcher);
+			subGoal = new AssignedGoal(SpecialGoal.TRANSFER_LIQUID_FOR_CRAFTING.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
 
 			// need a hauling allocation of an item to carry the liquid in
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(

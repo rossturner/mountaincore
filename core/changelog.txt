@@ -5,6 +5,11 @@ Early Access 1.1.6 - 11th April 2023
 - Increased the length of time traders can spend in each stage of their visit so they won't arrive, sleep and then leave
 - Dismissing the tutorial now also disables the tutorial in future games
 - Corrected fir tree description (was showing as "ironwood")
+- Corrected military training to use ranged weapons correctly
+- Fixed an issue where furniture could be constructed of the wrong material type when resources were no longer present
+- Fixed cleanup for issues when crafting jobs get stuck after being interrupted
+- Added missing description for ongoing effects (e.g. a fire)
+- Fix for save files which became unusable due to circular references in planned trades
 - Fix for a crash when a hauling job has lost track of what it is hauling
 - Fix for a crash when describing what is being hauled when the item has been removed from the map
 - Fix for a crash when rendering a room tile that is no longer part of a room

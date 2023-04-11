@@ -261,17 +261,21 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		FurnitureEntityAttributes constructionAttributes = (FurnitureEntityAttributes) construction.getFurnitureEntityToBePlaced().getPhysicalEntityComponent().getAttributes();
 		FurnitureEntityAttributes createdAttributes = furnitureEntityAttributesFactory.byType(
 				constructionAttributes.getFurnitureType(), findApplicableMaterial(itemsRemovedFromConstruction.values(), constructionAttributes.getPrimaryMaterialType()));
-		createdAttributes.setCurrentLayout(constructionAttributes.getCurrentLayout());
 
-		messageDispatcher.dispatchMessage(MessageType.FURNITURE_CREATION_REQUEST, new FurnitureCreationRequestMessage(
-				createdAttributes, itemsRemovedFromConstruction, construction.getPrimaryLocation(), construction.getTileLocations(),
-				furnitureEntity -> {
-					if (placedOnRoom != null && furnitureEntity.getBehaviourComponent() instanceof Prioritisable &&
-							placedOnRoom.getBehaviourComponent() instanceof Prioritisable) {
-						((Prioritisable)furnitureEntity.getBehaviourComponent()).setPriority(((Prioritisable)placedOnRoom.getBehaviourComponent()).getPriority());
+		createdAttributes.setCurrentLayout(constructionAttributes.getCurrentLayout());
+		if (!constructionAttributes.getPrimaryMaterialType().equals(createdAttributes.getPrimaryMaterialType())) {
+			Logger.error(String.format("Construction should be material type %s but is %s", constructionAttributes.getPrimaryMaterialType(), createdAttributes.getPrimaryMaterialType()));
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.FURNITURE_CREATION_REQUEST, new FurnitureCreationRequestMessage(
+					createdAttributes, itemsRemovedFromConstruction, construction.getPrimaryLocation(), construction.getTileLocations(),
+					furnitureEntity -> {
+						if (placedOnRoom != null && furnitureEntity.getBehaviourComponent() instanceof Prioritisable &&
+								placedOnRoom.getBehaviourComponent() instanceof Prioritisable) {
+							((Prioritisable)furnitureEntity.getBehaviourComponent()).setPriority(((Prioritisable)placedOnRoom.getBehaviourComponent()).getPriority());
+						}
 					}
-				}
-		));
+			));
+		}
 	}
 
 	private void handleWallConstructionCompleted(WallConstruction construction) {

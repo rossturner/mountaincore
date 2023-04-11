@@ -45,6 +45,10 @@ public class CreatureGroup implements Persistable {
 		this.homeLocation = homeLocation;
 	}
 
+	public void init(GameContext gameContext) {
+
+	}
+
 	/**
 	 * This is called by child entity infrequent updates so it is not accurately updated, but "every so often" is good enough
 	 */

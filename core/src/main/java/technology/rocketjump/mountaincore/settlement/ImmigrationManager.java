@@ -267,7 +267,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		CreatureBehaviour settlerBehaviour = (CreatureBehaviour) settler.getBehaviourComponent();
 
 		Goal idleGoal = SpecialGoal.IDLE.getInstance();
-		AssignedGoal assignedGoal = new AssignedGoal(idleGoal, settler, messageDispatcher);
+		AssignedGoal assignedGoal = new AssignedGoal(idleGoal, settler, messageDispatcher, gameContext);
 		assignedGoal.actionQueue.pop();
 		GoToLocationAction goToLocationAction = new GoToLocationAction(assignedGoal);
 		goToLocationAction.setOverrideLocation(VectorUtils.toVector(gameContext.getAreaMap().getEmbarkPoint()));

@@ -467,12 +467,12 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	private void equipWeapon() {
-		new EquipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
+		new EquipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher, gameContext))
 				.update(0.1f, gameContext);
 	}
 
 	private void unequipWeapon() {
-		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
+		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher, gameContext))
 				.update(0.1f, gameContext);
 	}
 

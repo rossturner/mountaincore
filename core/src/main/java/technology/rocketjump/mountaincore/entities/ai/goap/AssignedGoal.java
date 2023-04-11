@@ -58,22 +58,25 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 
 	}
 
-	public AssignedGoal(Goal goal, Entity parentEntity, MessageDispatcher messageDispatcher) {
+	public AssignedGoal(Goal goal, Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.goal = goal;
-		init(parentEntity, messageDispatcher);
+		init(parentEntity, messageDispatcher, gameContext);
 		for (Class<? extends Action> initialActionClass : goal.getInitialActions()) {
 			actionQueue.add(Action.newInstance(initialActionClass, this));
 		}
 	}
 
-	public void init(Entity parentEntity, MessageDispatcher messageDispatcher) {
+	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
 
 		for (Action action : actionQueue) {
 			if (action instanceof InitialisableAction) {
-				((InitialisableAction)action).init();
+				((InitialisableAction)action).init(gameContext);
 			}
+		}
+		if (plannedTrade != null) {
+			plannedTrade.init(gameContext);
 		}
 	}
 

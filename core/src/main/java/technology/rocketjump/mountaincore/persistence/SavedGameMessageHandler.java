@@ -19,6 +19,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.AssetDisposable;
 import technology.rocketjump.mountaincore.constants.ConstantsRepo;
 import technology.rocketjump.mountaincore.entities.SequentialIdGenerator;
+import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureGroup;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.*;
 import technology.rocketjump.mountaincore.jobs.model.Job;
@@ -402,6 +403,9 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		gameContext.setConstantsRepo(constantsRepo);
 		for (Entity entity : stateHolder.entities.values()) {
 			entity.init(messageDispatcher, gameContext);
+		}
+		for (CreatureGroup creatureGroup : stateHolder.creatureGroups.values()) {
+			creatureGroup.init(gameContext);
 		}
 		TiledMap map = gameContext.getAreaMap();
 		for (int y = 0; y < map.getHeight(); y++) {

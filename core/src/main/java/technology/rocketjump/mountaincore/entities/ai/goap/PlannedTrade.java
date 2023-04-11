@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.mountaincore.entities.SequentialIdGenerator;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.ChildPersistable;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
@@ -16,6 +17,19 @@ public class PlannedTrade implements ChildPersistable {
 	private HaulingAllocation haulingAllocation;
 	private ItemAllocation paymentItemAllocation;
 	private Entity importExportFurniture;
+
+	private transient Long importExportFurnitureId;
+
+	public void init(GameContext gameContext) {
+		if (importExportFurnitureId != null) {
+			importExportFurniture = gameContext.getEntity(importExportFurnitureId);
+			if (importExportFurniture == null) {
+				throw new RuntimeException("Could not find importExportFurniture with ID " + importExportFurnitureId);
+			} else {
+				importExportFurnitureId = null;
+			}
+		}
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -96,13 +110,7 @@ public class PlannedTrade implements ChildPersistable {
 			}
 		}
 
-		Long importExportFurnitureId = asJson.getLong("importExportFurniture");
-		if (importExportFurnitureId != null) {
-			this.importExportFurniture = savedGameStateHolder.entities.get(importExportFurnitureId);
-			if (this.importExportFurniture == null) {
-				throw new InvalidSaveException("Could not find entity by ID " + importExportFurnitureId);
-			}
-		}
+		this.importExportFurnitureId = asJson.getLong("importExportFurniture");
 	}
 
 }

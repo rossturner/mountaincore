@@ -28,10 +28,10 @@ public class MoveOutputToExportSpotAction extends Action implements Initialisabl
 	}
 
 	@Override
-	public void init() {
+	public void init(GameContext gameContext) {
 		if (subGoal != null) {
 			subGoal.setParentGoal(this.parent);
-			subGoal.init(parent.parentEntity, parent.messageDispatcher);
+			subGoal.init(parent.parentEntity, parent.messageDispatcher, gameContext);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class MoveOutputToExportSpotAction extends Action implements Initialisabl
 						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(haulingQuantity, itemEntry.entity, parent.parentEntity)
 								.toEntity(targetExportBehaviour.getParentEntity());
 
-						subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher);
+						subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
 						subGoal.setAssignedHaulingAllocation(haulingAllocation);
 						subGoal.setParentGoal(this.parent);
 					} else {

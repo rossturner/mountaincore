@@ -184,6 +184,8 @@ DEATH_REASON.UNKNOWN,,Mysterious circumstances
 EARTH.DIRT,,Dirt
 EARTH.GRASS,,Grass
 
+EFFECT.FIRE,When the player selects a fire by itself,Fire
+
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat

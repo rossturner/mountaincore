@@ -25,10 +25,10 @@ public class MoveInputToCraftingStationAction extends Action implements Initiali
 	}
 
 	@Override
-	public void init() {
+	public void init(GameContext gameContext) {
 		if (subGoal != null) {
 			subGoal.setParentGoal(this.parent);
-			subGoal.init(parent.parentEntity, parent.messageDispatcher);
+			subGoal.init(parent.parentEntity, parent.messageDispatcher, gameContext);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class MoveInputToCraftingStationAction extends Action implements Initiali
 			List<HaulingAllocation> inputAllocations = craftingStationBehaviour.getCurrentCraftingAssignment().getInputAllocations();
 			HaulingAllocation haulingAllocation = inputAllocations.remove(0);
 
-			subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher);
+			subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
 			subGoal.setAssignedHaulingAllocation(haulingAllocation);
 			subGoal.setParentGoal(this.parent);
 		} else {

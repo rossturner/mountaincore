@@ -82,7 +82,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		combatBehaviour.init(parentEntity, messageDispatcher, gameContext);
 
 		if (currentGoal != null) {
-			currentGoal.init(parentEntity, messageDispatcher);
+			currentGoal.init(parentEntity, messageDispatcher, gameContext);
 		}
 	}
 
@@ -147,7 +147,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		try {
 			currentGoal.update(deltaTime, gameContext);
 		} catch (SwitchGoalException e) {
-			AssignedGoal newGoal = new AssignedGoal(e.target, parentEntity, messageDispatcher);
+			AssignedGoal newGoal = new AssignedGoal(e.target, parentEntity, messageDispatcher, gameContext);
 			newGoal.setAssignedJob(currentGoal.getAssignedJob());
 			newGoal.setAssignedHaulingAllocation(currentGoal.getAssignedHaulingAllocation());
 			newGoal.setLiquidAllocation(currentGoal.getLiquidAllocation());
@@ -261,7 +261,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 				return AssignedGoalFactory.tantrumGoal(parentEntity, messageDispatcher, gameContext);
 			} else {
 				messageDispatcher.dispatchMessage(MessageType.SAPIENT_CREATURE_INSANITY, parentEntity);
-				return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher);
+				return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher, gameContext);
 			}
 		}
 
@@ -273,21 +273,21 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		if (creatureGroup != null && creatureGroup instanceof InvasionCreatureGroup invasionCreatureGroup) {
 			SpecialGoal specialGoal = invasionCreatureGroup.popSpecialGoal();
 			if (specialGoal != null) {
-				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
+				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher, gameContext);
 			}
 		} else if (creatureGroup != null && creatureGroup instanceof TraderCreatureGroup traderCreatureGroup) {
 			SpecialGoal specialGoal = traderCreatureGroup.popSpecialGoal();
 			if (specialGoal != null) {
-				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
+				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher, gameContext);
 			}
 		}
 
 		List<ScheduleCategory> currentScheduleCategories = getCurrentSchedule().getCurrentApplicableCategories(gameContext.getGameClock());
 		QueuedGoal nextGoal = goalQueue.popNextGoal(currentScheduleCategories);
 		if (nextGoal == null) {
-			return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher);
+			return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher, gameContext);
 		}
-		return new AssignedGoal(nextGoal.getGoal(), parentEntity, messageDispatcher);
+		return new AssignedGoal(nextGoal.getGoal(), parentEntity, messageDispatcher, gameContext);
 	}
 
 	private static final List<MemoryType> enterCombatMemoryTypes = List.of(MemoryType.ATTACKED_BY_CREATURE, MemoryType.ABOUT_TO_ATTACK_CREATURE);

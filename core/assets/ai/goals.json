@@ -709,12 +709,12 @@
       "pass" : [ "UnassignFurniture", "RequeueThisGoal" ]
     },
     "EquipWeapon" : {
-      "fail" : [ "UnassignFurniture" ],
-      "pass" : [ "GoToLocation" ]
+      "fail" : [ ],
+      "pass" : [ "CheckAmmoAvailable" ]
     },
     "LocateTrainingFurniture" : {
-      "fail" : [ ],
-      "pass" : [ "EquipWeapon" ]
+      "fail" : [ "UnassignFurniture" ],
+      "pass" : [ "GoToLocation" ]
     },
     "GoToLocation" : {
       "fail" : [ "UnassignFurniture" ],
@@ -744,7 +744,7 @@
     } ],
     "priority" : "JOB_NORMAL"
   } ],
-  "initialActions" : [ "CheckAmmoAvailable" ]
+  "initialActions" : [ "EquipWeapon" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],

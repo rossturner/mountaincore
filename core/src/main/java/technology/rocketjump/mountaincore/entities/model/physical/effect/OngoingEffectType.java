@@ -13,6 +13,7 @@ public class OngoingEffectType {
 
 	@Name
 	private String name;
+	private String i18nKey;
 
 	private String particleEffectTypeName;
 	@JsonIgnore
@@ -113,6 +114,14 @@ public class OngoingEffectType {
 		this.triggersNotification = triggersNotification;
 	}
 
+	public String getI18nKey() {
+		return i18nKey;
+	}
+
+	public void setI18nKey(String i18nKey) {
+		this.i18nKey = i18nKey;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -133,4 +142,5 @@ public class OngoingEffectType {
 	public void setCanBeExtinguished(boolean canBeExtinguished) {
 		this.canBeExtinguished = canBeExtinguished;
 	}
+
 }

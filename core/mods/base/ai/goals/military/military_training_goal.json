@@ -19,17 +19,17 @@
       "scheduleCategory": "MILITARY_DUTY"
     }
   ],
-  "initialActions": ["CheckAmmoAvailable"],
+  "initialActions": ["EquipWeapon"],
   "actionRelationships": {
+    "EquipWeapon": {
+      "pass": ["CheckAmmoAvailable"],
+      "fail": []
+    },
     "CheckAmmoAvailable": {
       "pass": ["LocateTrainingFurniture"],
       "fail": ["UnequipWeapon"]
     },
     "LocateTrainingFurniture": {
-      "pass": ["EquipWeapon"],
-      "fail": []
-    },
-    "EquipWeapon": {
       "pass": ["GoToLocation"],
       "fail": ["UnassignFurniture"]
     },

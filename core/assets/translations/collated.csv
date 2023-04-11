@@ -185,6 +185,8 @@ DEATH_REASON.UNKNOWN,Mysterious circumstances,,Mysteriöse Umstände,Circonstanc
 EARTH.DIRT,Dirt,,Erde,Terre,Terra,Tierra,Sujeira,,,Грязь,Toprak,Jord,,Smuts,,,,土,泥土,
 EARTH.GRASS,Grass,,Gras,Herbe,Erba,Hierba,Erva,Relva,,Трава,Çimen,Gras,,Gräs,,,,草地,青草,
 
+EFFECT.FIRE,Fire,,,,,,,,,,,,,,,,,,,
+
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,Destroyed by fire,,Zerstört durch Feuer,,Distrutto dal fuoco,Calcinado por el fuego,,,,Уничтожен огнем,,,,,,,,火によって損壊,毁于一场大火,
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,Destroyed during combat,,,,,,,,,,,,,,,,,,,
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,Destroyed by prolonged exposure to rain,,Zerstört durch längere Einwirkung von Regen,,Distrutto dall'esposizione prolungata alla pioggia,Destruido por exposición prolongada a las lluvias,,,,"Разрушается при длительном пребывании под дождем ",,,,,,,,長期に渡って雨に晒されたことによる損壊,由于长期日晒雨淋损坏了,

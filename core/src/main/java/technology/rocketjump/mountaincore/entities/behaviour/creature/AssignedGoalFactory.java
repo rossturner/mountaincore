@@ -81,9 +81,9 @@ public class AssignedGoalFactory {
 
 		if (stockpileAllocation == null) {
 			// Couldn't find any stockpile, just go somewhere nearby and dump
-			return new AssignedGoal(SpecialGoal.DUMP_ITEM.getInstance(), parentEntity, messageDispatcher);
+			return new AssignedGoal(SpecialGoal.DUMP_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
 		} else {
-			AssignedGoal assignedGoal = new AssignedGoal(SpecialGoal.PLACE_ITEM.getInstance(), parentEntity, messageDispatcher);
+			AssignedGoal assignedGoal = new AssignedGoal(SpecialGoal.PLACE_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
 			assignedGoal.setAssignedHaulingAllocation(stockpileAllocation);
 			return assignedGoal;
 		}
@@ -140,7 +140,7 @@ public class AssignedGoalFactory {
 								itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
 							}
 
-							return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, stockpileAllocation);
+							return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, gameContext, stockpileAllocation);
 						}
 					}
 				}
@@ -197,7 +197,7 @@ public class AssignedGoalFactory {
 		// giving happiness buff even with no target found or else player gets multiple tantrum notifications until dead
 		parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.HAD_A_TANTRUM);
 		if (target == null) {
-			return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher);
+			return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher, gameContext);
 		} else {
 			Memory tantrumMemory = new Memory(MemoryType.HAD_A_TANTRUM, gameContext.getGameClock());
 			parentEntity.getComponent(MemoryComponent.class).addLongTerm(tantrumMemory);
@@ -210,8 +210,8 @@ public class AssignedGoalFactory {
 		}
 	}
 
-	public static AssignedGoal placeItemIntoStockpileGoal(Entity itemEntity, Entity parentEntity, MessageDispatcher messageDispatcher, HaulingAllocation stockpileAllocation) {
-		AssignedGoal assignedGoal = new AssignedGoal(SpecialGoal.PLACE_ITEM.getInstance(), parentEntity, messageDispatcher);
+	public static AssignedGoal placeItemIntoStockpileGoal(Entity itemEntity, Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext, HaulingAllocation stockpileAllocation) {
+		AssignedGoal assignedGoal = new AssignedGoal(SpecialGoal.PLACE_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
 		assignedGoal.setAssignedHaulingAllocation(stockpileAllocation);
 		ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getItemType().isEquippedWhileWorkingOnJob()) {
@@ -241,7 +241,7 @@ public class AssignedGoalFactory {
 					messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, liquidAllocation.get().get());
 					liquidAllocation.set(Optional.empty());
 				} else {
-					AssignedGoal douseSelfGoal = new AssignedGoal(SpecialGoal.DOUSE_SELF.getInstance(), parentEntity, messageDispatcher);
+					AssignedGoal douseSelfGoal = new AssignedGoal(SpecialGoal.DOUSE_SELF.getInstance(), parentEntity, messageDispatcher, gameContext);
 					// return douse goal with allocation set
 					douseSelfGoal.setLiquidAllocation(liquidAllocation.get().get());
 					return douseSelfGoal;
@@ -250,13 +250,13 @@ public class AssignedGoalFactory {
 		}
 
 		if (gameContext.getRandom().nextBoolean()) {
-			return new AssignedGoal(SpecialGoal.ROLL_ON_FLOOR.getInstance(), parentEntity, messageDispatcher);
+			return new AssignedGoal(SpecialGoal.ROLL_ON_FLOOR.getInstance(), parentEntity, messageDispatcher, gameContext);
 		}
-		return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher);
+		return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher, gameContext);
 	}
 
 	public static AssignedGoal doNothingGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		return new AssignedGoal(SpecialGoal.DO_NOTHING.getInstance(), parentEntity, messageDispatcher);
+		return new AssignedGoal(SpecialGoal.DO_NOTHING.getInstance(), parentEntity, messageDispatcher, gameContext);
 	}
 
 }

@@ -25,7 +25,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 	@Override
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) throws ExitingCombatException {
 		if (goToLocationAction == null) {
-			goToLocationAction = new GoToCombatOpponentAction(new AssignedGoal(Goal.NULL_GOAL, parentEntity, messageDispatcher));
+			goToLocationAction = new GoToCombatOpponentAction(new AssignedGoal(Goal.NULL_GOAL, parentEntity, messageDispatcher, gameContext));
 			parentEntity.getComponent(CombatStateComponent.class).setHeldLocation(null);
 		}
 

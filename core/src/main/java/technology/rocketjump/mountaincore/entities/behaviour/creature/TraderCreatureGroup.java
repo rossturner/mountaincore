@@ -30,6 +30,11 @@ public class TraderCreatureGroup extends CreatureGroup {
 	private TradeCaravanDefinition caravanDefinition;
 
 	@Override
+	public void init(GameContext gameContext) {
+		plannedTrades.forEach(p -> p.init(gameContext));
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		double now = gameContext.getGameClock().getCurrentGameTime();
 		if (lastUpdateGameTime == 0) {

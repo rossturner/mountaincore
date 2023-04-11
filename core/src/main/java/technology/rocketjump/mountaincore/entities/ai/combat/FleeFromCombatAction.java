@@ -36,7 +36,7 @@ public class FleeFromCombatAction extends CombatAction {
 		if (goToLocationAction == null) {
 			GridPoint2 destinationTile = pickFleeDestination(gameContext);
 			if (destinationTile != null) {
-				goToLocationAction = new GoToLocationAction(new AssignedGoal(Goal.NULL_GOAL, parentEntity, messageDispatcher));
+				goToLocationAction = new GoToLocationAction(new AssignedGoal(Goal.NULL_GOAL, parentEntity, messageDispatcher, gameContext));
 				goToLocationAction.setOverrideLocation(VectorUtils.toVector(destinationTile));
 			}
 		}

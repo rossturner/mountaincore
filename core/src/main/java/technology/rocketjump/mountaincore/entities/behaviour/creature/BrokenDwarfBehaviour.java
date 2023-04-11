@@ -97,7 +97,7 @@ public class BrokenDwarfBehaviour extends CreatureBehaviour implements ParticleR
 
 	@Override
 	protected AssignedGoal pickNextGoalFromQueue() {
-		return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher);
+		return new AssignedGoal(SpecialGoal.IDLE.getInstance(), parentEntity, messageDispatcher, gameContext);
 	}
 
 	@Override
