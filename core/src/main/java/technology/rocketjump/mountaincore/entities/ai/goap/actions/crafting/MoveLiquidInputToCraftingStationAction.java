@@ -38,6 +38,15 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 	}
 
 	@Override
+	public void actionInterrupted(GameContext gameContext) {
+		super.actionInterrupted(gameContext);
+		if (subGoal != null) {
+			subGoal.setInterrupted(true);
+			subGoal.destroy(null, parent.messageDispatcher, gameContext);
+		}
+	}
+
+	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
 		if (subGoal == null) {
 			initialiseLiquidTransferInput(gameContext);
