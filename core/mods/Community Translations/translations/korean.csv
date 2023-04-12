@@ -36,25 +36,41 @@ ACTION.STUNNED,,Stunned,
 
 ARMOUR.LEATHER,,Leather armour,
 ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+ARMOUR.ORC.HEAVY,,Orc armour,
+ARMOUR.ORC.LIGHT,,Leather orc armour,
+ARMOUR.PLATE,,Plate armour,
+ARMOUR.PLATE.TOOLTIP,,Thick and sturdy armour which offers a lot of protection in combat,
 
 ASHES.NOUN,,Ash,
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,
 BODY_STRUCTURE.ARM,,Arm,
+BODY_STRUCTURE.CEPHALOTHORAX,,Cephalothorax,
 BODY_STRUCTURE.DAMAGE.BLEEDING,,Bleeding,
 BODY_STRUCTURE.DAMAGE.BROKENBONES,,Broken,
 BODY_STRUCTURE.DAMAGE.BRUISED,,Bruised,
 BODY_STRUCTURE.DAMAGE.DESTROYED,,Destroyed,
+BODY_STRUCTURE.DAMAGE.NOT_INJURED,,Not Injured,
 BODY_STRUCTURE.DISCRIMINATOR.BACKLEFT,,Rear left,
 BODY_STRUCTURE.DISCRIMINATOR.BACKRIGHT,,Rear right,
+BODY_STRUCTURE.DISCRIMINATOR.FIRSTLEFT,,First left,
+BODY_STRUCTURE.DISCRIMINATOR.FIRSTRIGHT,,First right,
+BODY_STRUCTURE.DISCRIMINATOR.FOURTHLEFT,,Fourth left,
+BODY_STRUCTURE.DISCRIMINATOR.FOURTHRIGHT,,Fourth right,
 BODY_STRUCTURE.DISCRIMINATOR.FRONTLEFT,,Front left,
 BODY_STRUCTURE.DISCRIMINATOR.FRONTRIGHT,,Front right,
 BODY_STRUCTURE.DISCRIMINATOR.LEFT,,Left,
 BODY_STRUCTURE.DISCRIMINATOR.RIGHT,,Right,
+BODY_STRUCTURE.DISCRIMINATOR.SECONDLEFT,,Second left,
+BODY_STRUCTURE.DISCRIMINATOR.SECONDRIGHT,,Second right,
+BODY_STRUCTURE.DISCRIMINATOR.THIRDLEFT,,Third left,
+BODY_STRUCTURE.DISCRIMINATOR.THIRDRIGHT,,Third right,
 BODY_STRUCTURE.FOOT,,Foot,
 BODY_STRUCTURE.HAND,,Hand,
 BODY_STRUCTURE.HEAD,,Head,
 BODY_STRUCTURE.HOOF,,Hoof,
+BODY_STRUCTURE.LEFT-ARM,,Left arm,
+BODY_STRUCTURE.LEFT-HAND,,Left hand,
 BODY_STRUCTURE.LEG,,Leg,
 BODY_STRUCTURE.ORGAN.BRAIN,,Brain,
 BODY_STRUCTURE.ORGAN.EYE,,Eye,
@@ -66,14 +82,18 @@ BODY_STRUCTURE.ORGAN_DAMAGE.DESTROYED,,Destroyed,
 BODY_STRUCTURE.ORGAN_DAMAGE.HEAVY,,Heavy damage to,
 BODY_STRUCTURE.ORGAN_DAMAGE.LIGHT,,Light damage to,
 BODY_STRUCTURE.PAW,,Paw,
+BODY_STRUCTURE.RIGHT-ARM,,Right arm,
+BODY_STRUCTURE.RIGHT-HAND,,Right hand,
 BODY_STRUCTURE.TORSO,,Chest,
+BODY_STRUCTURE.TRUNK,,Trunk,
 
 BONE.BONE,,Bone,
 
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,
 CARCASS.GROUP,,Corpses,
-CARCASS.HIDE,,Hide,
+CARCASS.HIDE.NOUN,,Hide,
+CARCASS.HIDE.PLURAL,,Hides,
 CARCASS.MEAT.LARGE,,Meat (large),
 CARCASS.MEAT.MEDIUM,,Meat (medium),
 CARCASS.MEAT.SMALL,,Meat (small),
@@ -92,7 +112,9 @@ COMBAT.DESCRIPTION.GENERIC,,In combat,
 COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},{{materialType.adjective}} {{furnitureType.noun}} 의 건설
-CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,{{{항목 설명}} 의 {{quantity}} 이 (가) 할당되었습니다.
+CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned,
+CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.,
+CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.,
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items,다른 항목 제거
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be removed from this furniture’s construction area before it can progress.,이 가구의 건설 지역에서 제거해야 할 품목이 있습니다.
 CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available,{{재료 유형}} {{항목 설명.복수형}} 을 (를) 사용할 수 있을 때까지 기다리는 중입니다.
@@ -101,23 +123,29 @@ CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES,This is displayed while a construction
 
 COOKING.BREAD.DESCRIPTION,E.g. “Wheat bread”,{{materialDescription}} bread,{{재료 설명}} 빵
 COOKING.DUAL_INGREDIENT.DESCRIPTION,"E.g. “Tomato and potato”, to be used for for two ingredients together as below",{{materialOne}} and {{materialTwo}},{{materialOne}} 과 {{materialTwo}}
+COOKING.RATION.DESCRIPTION,E.g. “Rockbread ration”,{{materialDescription}} ration,
 COOKING.SOUP.DESCRIPTION,"E.g. “Tomato soup”, “Tomato and potato soup”, “Vegetable soup”",{{materialDescription}} soup,{{재료 설명}} 수프
 COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. “Fish, tomato and potato”, to be used for for three ingredients together as below","{{materialOne}}, {{materialTwo}} and {{materialThree}}",
 
 CRAFTING_TYPE.BAKING,,Baking,
 CRAFTING_TYPE.BLACKSMITHING,,Blacksmithing,
+CRAFTING_TYPE.BONE_CRAFTING,,Bone crafting,
 CRAFTING_TYPE.CARPENTRY,,Carpentry,
+CRAFTING_TYPE.CARVING_VERB,,Carving,
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,
 CRAFTING_TYPE.FERMENTING,,Fermenting,
+CRAFTING_TYPE.FINE_DETAIL_CRAFTING,,Fine detailing,
 CRAFTING_TYPE.FLETCHING,,Fletching,
 CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,
 CRAFTING_TYPE.MILLING,,Milling,
+CRAFTING_TYPE.MINTING,,Minting,
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,
 CRAFTING_TYPE.SMELTING,,Smelting,
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,
 CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
+CRAFTING_TYPE.WEAPONSMITHING,,Weaponsmithing,
 CRAFTING_TYPE.WEAVING,,Weaving,
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,
 CRAFTING_TYPE.WORT_BREWING,,Brewing,
@@ -131,6 +159,7 @@ CREATURE.STATUS.DEAD,,Dead,
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,해충에 의해 고통
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,"이 작물은 지나치게 많은 진딧물과 다른 곤충에 시달렸으며, 다시 번성하기 전에 {{PROFESSION.FARMER}} 에 의해 제거되어야 합니다. 시간에 해충을 제거하지 않는이 작물이 죽는 것을 의미 할 수있다!"
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}} 식물
+CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest ({{progress}}%):,
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,
@@ -141,20 +170,32 @@ DEATH_REASON.CRITICAL_ORGAN_DAMAGE,,Critical organ damage,
 DEATH_REASON.CRUSHED_BY_FALLING_DEBRIS,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Falling debris,떨어지는 파편
 DEATH_REASON.DEHYDRATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Dehydration,탈수
 DEATH_REASON.EXHAUSTION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exhaustion,피로
+DEATH_REASON.EXTENSIVE_INJURIES,,Extensive injuries,
 DEATH_REASON.FOOD_POISONING,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Food poisoning,식중독
 DEATH_REASON.FROZEN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exposure to freezing weather,
 DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life,
 DEATH_REASON.INTERNAL_BLEEDING,,Internal bleeding,
+DEATH_REASON.KILLED_BY_ENTITY,,wounds suffered in combat,
+DEATH_REASON.MURDERED.UNKNOWN_KILLER,,someone,
 DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation,기아
 DEATH_REASON.SUFFOCATION,,Suffocation,
-DEATH_REASON.UNKNOWN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Mysterious circumstances,신비한 상황
+DEATH_REASON.UNKNOWN,,Mysterious circumstances,신비한 상황
 
 EARTH.DIRT,,Dirt,먼지
 EARTH.GRASS,,Grass,잔디
 
+EFFECT.FIRE,When the player selects a fire by itself,Fire,
+
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire,
+ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat,
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain,
-ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,,Destroyed in a tantrum,
+
+FACTION.HOSTILE_INVASION,,Hostile Invader,
+FACTION.MERCHANTS,,Merchant,
+FACTION.MONSTERS,,Monster,
+FACTION.SETTLEMENT,,Settler,
+FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,
+FACTION.WILD_ANIMALS,,Wild Animal,
 
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}}),
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.,
@@ -184,6 +225,12 @@ FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not
 FUEL.SACK,,Fuel,연료
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}.",금속 생산에는 {{FURNITURE.BLOOMERY_FURNACE}} 와 {{FURNITURE.FORGE}} 모두 연료가 필요합니다.
 
+FURNITURE.ARCHERY_TARGET,,Archery target,
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.,
+FURNITURE.ARMOUR_STAND,,Armour stand,
+FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.,
+FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation,
+FURNITURE.ARTISAN_WORKSTATION.TOOLTIP,,A crafting station for intricate items produced by an {{PROFESSION.ARTISAN}}.,
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop,베이커의 작업대
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.,{{PROFESSION.CHEF}} 이 (가) {{RESOURCE.FLOUR.SACK.PLURAL}} 을 (를) {{INGREDIENT.DOUGH}} 으로 바꾸려고 노력하고 있습니다.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven,베이커의 오븐
@@ -196,6 +243,8 @@ FURNITURE.BEER_TAPPER.STATE.IDLE,,Idle (no beer available),
 FURNITURE.BEER_TAPPER.TOOLTIP,,This is where fermented {{LIQUID.BEER}} is served from.,
 FURNITURE.BLOOMERY_FURNACE,A simple type of furnace to smelt metal from ore,Bloomery furnace,부루마 용광로
 FURNITURE.BLOOMERY_FURNACE.TOOLTIP,,A {{PROFESSION.BLACKSMITH}} uses this hand-operated furnace to turn {{RESOURCE.ORE.CRUSHED.PLURAL}} and {{FUEL.SACK}} into {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}}.,{{PROFESSION.BLACKSMITH}} 는 이 수동식 용광로를 사용하여 {{RESOURCE.ORE.CRUSHED.PLURAL}} 과 {{FUEL.SACK}} 을 {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}} 으로 전환합니다.
+FURNITURE.BONE_CRAFTING_BENCH,,Bone crafting bench,
+FURNITURE.BONE_CRAFTING_BENCH.TOOLTIP,,This is used to construct items out of bone.,
 FURNITURE.BREW_KETTLE,,Brew kettle,
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,
@@ -205,6 +254,7 @@ FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,가마솥
 FURNITURE.CAULDRON.TOOLTIP,,A cauldron is used to serve a large quantity of soup to hungry settlers. The soup is produced in a {{ROOMS.KITCHEN}} before being moved to a {{ROOMS.FEASTING_HALL}} for serving.,가마솥은 배고픈 정착민에게 다량의 수프를 제공하는 데 사용됩니다. 수프는 {{ROOMS.KITCHEN}} 에서 생산되기 전에 봉사하기 위해 {{ROOMS.FEASTING_HALL}} 으로 옮겨집니다.
 FURNITURE.CHAIR,,Chair,의자
+FURNITURE.CHAIR.TOOLTIP,,Settlers can sit here while using the {{FURNITURE.FEASTING_TABLE}}.,
 FURNITURE.CHARCOAL_CLAMP,,Charcoal clamp,차콜 클램프
 FURNITURE.CHARCOAL_CLAMP.TOOLTIP,,"This is a pile of {{RESOURCE.LOGS.PLURAL}} covered with {{MATERIAL_TYPE.EARTH}} and slowly burned to produce {{ORE.CHARCOAL.NOUN}}, which can then be used as {{FUEL.SACK}}.",이것은 {{RESOURCE.LOGS.PLURAL}} 으로 덮여 있고 {{MATERIAL_TYPE.EARTH}} 을 (를) 천천히 태워서 {{ORE.CHARCOAL.NOUN}} 을 (를) 만들어 {{FUEL.SACK}} 로 사용할 수 있습니다.
 FURNITURE.COKE_OVEN,,Coke oven,코크스 오븐
@@ -216,28 +266,41 @@ FURNITURE.DESCRIPTION.SHOCKING_IN_PROGRESS,,Progress: {{progress}}%,버섯 로�
 FURNITURE.DESCRIPTION.WAITING_FOR_ITEM,,Waiting for {{itemType.noun}},{{항목 유형.명사}} 을 (를) 기다리고 있습니다.
 FURNITURE.DESCRIPTION.WAITING_FOR_LIQUID,,Waiting to be filled,채워질 때까지 기다리는 중
 FURNITURE.DESCRIPTION.WAITING_FOR_MUSHROOM_SPAWN,,Waiting to be injected with mushroom spawn,버섯 산란을 주입하기를 기다리고 있습니다.
+FURNITURE.DOUGH_PROOFING_TABLE,,Dough proofing table,
+FURNITURE.DOUGH_PROOFING_TABLE.TOOLTIP,,Dough can be taken from {{FURNITURE.BAKERS_WORKTOP}} to store here before entering the {{FURNITURE.BAKING_OVEN}}.,
+FURNITURE.EXPORT_PALLET,,Export pallet,
+FURNITURE.EXPORT_PALLET.TOOLTIP,,Use this to determine which items to export from the room.,
 FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table,잔치 테이블
 FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your settlers will enjoy their meals at this table.","{{FURNITURE.CHAIR}} 이 자리에 있으면, 이주민들은 이 테이블에서 식사를 즐길 수 있습니다."
 FURNITURE.FERMENTATION_TANK,,Fermentation tank,
 FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.,
+FURNITURE.FISH_BARREL,,Fish barrel,
+FURNITURE.FISH_BARREL.TOOLTIP,,Neatly store away your caught fish for future cooking.,
 FURNITURE.FLETCHERS_WORKBENCH,,Fletcher's workbench,
-FURNITURE.FLETCHERS_WORKBENCH.TOOTIP,,This is a crafting station for ranged weapons and ammunition,
+FURNITURE.FLETCHERS_WORKBENCH.TOOLTIP,,This is a crafting station for ranged weapons and ammunition.,
 FURNITURE.FLOUR_MILL,This is a table with a hand-operated flour mill stone on top,Gristmill,그리스트밀
 FURNITURE.FLOUR_MILL.TOOLTIP,,The gristmill grinds {{VEGETABLE.WHEAT}} into {{RESOURCE.FLOUR.SACK.NOUN}} so that it can be used by a {{PROFESSION.CHEF}}.,분쇄기는 {{VEGETABLE.WHEAT}} 을 (를) {{RESOURCE.FLOUR.SACK.NOUN}} 로 갈아서 {{PROFESSION.CHEF}} 가 사용할 수 있도록 합니다.
 FURNITURE.FORGE,,Forge,대장간
 FURNITURE.FORGE.TOOLTIP,,This is where a {{PROFESSION.BLACKSMITH}} works with {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}} and {{FUEL.SACK}} to craft items and weapons.,여기서 {{PROFESSION.BLACKSMITH}} {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}} 및 {{FUEL.SACK}} 와 함께 아이템과 무기를 제작합니다.
 FURNITURE.GRAVE,,Grave,무덤
-FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be placed in {{MATERIAL_TYPE.EARTH}}.,{{MATERIAL_TYPE.EARTH}} 에만 배치될 수 있는 사망자를 위한 급히 파낸 무덤입니다.
+FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be dug into {{MATERIAL_TYPE.EARTH}}.,{{MATERIAL_TYPE.EARTH}} 에만 배치될 수 있는 사망자를 위한 급히 파낸 무덤입니다.
+FURNITURE.HITCHING_POST,,Hitching post,
+FURNITURE.HITCHING_POST.TOOLTIP,,Visiting merchants will park their wagons here.,
+FURNITURE.IMPORT_PALLET,,Import pallet,
+FURNITURE.IMPORT_PALLET.TOOLTIP,,Use this to determine which items to import to the room.,
+FURNITURE.INVADER_CAMPFIRE,,Campfire,
 FURNITURE.KITCHEN_WORKTOP,Simple piece of furniture in a kitchen used to hold ingredients on top of it,Kitchen worktop,주방 작업대
 FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSION.CHEF}} to cook soup.,수프를 요리하기 위해 {{PROFESSION.CHEF}} 의 재료를 저장할 영역.
 FURNITURE.LANTERN,,Lantern,랜턴
-FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,랜턴은 빛을 제공합니다. 현재 게임 내 효과는 없습니다.
-FURNITURE.LARGE_TABLE,,Large table,대형 테이블
+FURNITURE.LANTERN.TOOLTIP,,A lantern provides light. This does not currently have an in-game effect.,랜턴은 빛을 제공합니다. 현재 게임 내 효과는 없습니다.
 FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
-FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins.,
+FURNITURE.LEDGER_TABLE,,Ledger table,
+FURNITURE.LEDGER_TABLE.TOOLTIP,,A landmark for the {{ROOMS.TRADING_DEPOT}}. This does not currently have an in-game effect.,
 FURNITURE.LOOM,,Loom,
+FURNITURE.LOOM.TOOLTIP,,Used to craft textiles such as {{PRODUCT.LINEN.NOUN}} from {{RESOURCE.HEMP.FIBRE.BUNDLE.PLURAL}}.,
 FURNITURE.MALTING_STATION,,Malting station,
-FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ",
+FURNITURE.MALTING_STATION.TOOLTIP,,Here brewers steep barley and then dry it out using a kiln to produce malt.,
 FURNITURE.MASH_TUN,,Mash tun,
 FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.,
 FURNITURE.MUSHROOM_LOG,,Mushroom log,머쉬룸 로그
@@ -255,28 +318,36 @@ FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resti
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,서빙 테이블
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{PRODUCT.BREAD.LOAF.PLURAL}} 은 (는) {{FURNITURE.BAKING_OVEN}} 에서 구운 후 서빙하기 위해 여기에 놓입니다.
 FURNITURE.SINGLE_BED,,Bed,침대
-FURNITURE.SINGLE_BED.TOOLTIP,,"A bed is the best place for a comfortable night’s rest. ",침대는 편안한 야간 휴식을위한 최고의 장소입니다.
+FURNITURE.SINGLE_BED.TOOLTIP,,A bed is the best place for a comfortable night’s rest.,침대는 편안한 야간 휴식을위한 최고의 장소입니다.
 FURNITURE.SINGLE_DOOR,,Door,문
 FURNITURE.SINGLE_DOOR_FRAME,,Door frame,도어 프레임
 FURNITURE.SLEEPING_SPOT,,Sleeping spot,
 FURNITURE.SLEEPING_SPOT.TOOLTIP,,Your settlers will use this space to sleep on the floor. Not very comfortable!,
-FURNITURE.SMALL_TABLE,,Small table,작은 테이블
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,스톤메이슨 워크벤치
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,{{PROFESSION.STONEMASON}} 은 {{MATERIAL_TYPE.STONE.ADJECTIVE}} 리소스와 함께 작동합니다.
-FURNITURE.STOOL,,Stool,의자
 FURNITURE.TANNING_FRAME,,Tanning frame,
-FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
-FURNITURE.WATERWHEEL,,Water wheel,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRODUCT.LEATHER.PLURAL}}.,
+FURNITURE.TRADE_BANNER,,Banner,
+FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.,
+FURNITURE.TRAINING_DUMMY,,Training dummy,
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.,
+FURNITURE.WAGON_PARKED,,Wagon,
+FURNITURE.WATERWHEEL,,Water Wheel,
+FURNITURE.WATERWHEEL.PLURAL,,Water Wheels,
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,
-FURNITURE.WATER_BARREL,,Water barrel,물 배럴
+FURNITURE.WATER_BARREL,,Water Barrel,물 배럴
 FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to get a thirst-quenching drink, rather than having to find a natural water source like the river.",물 배럴은 이주민들이 강과 같은 천연 수원을 찾지 않고 갈증을 식힐 수있는 장소입니다.
-FURNITURE.WATER_PUMP,,Water pump,
+FURNITURE.WATER_PUMP,,Water Pump,
+FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,
+FURNITURE.WEAPON_RACK,,Weapon Rack,
+FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,
 FURNITURE.WELL,,Well,
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.",
 FURNITURE.WINDMILL,,Windmill,
+FURNITURE.WINDMILL.PLURAL,,Windmills,
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,
-FURNITURE.WOODCUTTERS_BENCH,,Woodcutting bench,목판용 벤치
+FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench,목판용 벤치
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.,"{{전문 목재커터}} 이 (가) {{자원.로그, 복수형}} 을 (를) {{PROFESSION.WOODCUTTER}} 으로 전환하기 위해 여기서 작동합니다."
 
 GEM.AMETHYST.ADJECTIVE,,Amethyst,자수정
@@ -371,37 +442,68 @@ GOAL.EXTINGUISH_FIRE.DESCRIPTION,,Putting out a fire,
 GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}},
 GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}},운반 {{대상 설명}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle,유휴 상태
+GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp,
+GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map,
+GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles,
+GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat,
+GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position,
+GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training,
 GOAL.ON_FIRE.DESCRIPTION,,On fire!,
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin,
 GOAL.SLEEP.DESCRIPTION,,Going to sleep,잠자기
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}},{{대상 지역 소재}} 전송 중
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,타일 추가/제거
-GUI.ADD_TILES,This should be as short as possible,Add tiles,타일 추가
-GUI.BACK_LABEL,This should be as short as possible,Back,뒤로
+GUI.ADD_TILES,,Add tiles,타일 추가
+GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere,
+GUI.AVAILABLE_PROGRESS_BAR,,{{item}} Available:,
+GUI.BACK_LABEL,,Back,뒤로
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,다리
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,문
 GUI.BUILD.FLOOR,For building floorboards/stone slabs across the ground,Flooring,
+GUI.BUILD.PILLARS,,Pillars,
 GUI.BUILD.PIPING,,Pipes,
 GUI.BUILD.POWER,,Power,
 GUI.BUILD.ROOFING,,Roofing,
 GUI.BUILD.WALLS,,Walls,벽
-GUI.BUILD.WALLS.LSHAPE,For building two walls in an L-shape,L-shape,L자형
-GUI.BUILD.WALLS.ROOM,For building 4 walls and a roof at once,Room,
-GUI.BUILD.WALLS.SINGLE,For building a single wall,Single,싱글
-GUI.BUILD_FURNITURE,This should be as short as possible,Furniture,가구
-GUI.BUILD_LABEL,This should be as short as possible,Build,빌드
-GUI.CANCEL_LABEL,This should be as short as possible,Cancel,취소
-GUI.CHANGE_PROFESSION_LABEL,,Change profession,직업 변경
+GUI.BUILD_FURNITURE,,Furniture,가구
+GUI.BUILD_LABEL,,Build,빌드
+GUI.CANCEL_LABEL,,Cancel,취소
+GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession,직업 변경
 GUI.CHANGE_WEAPON_LABEL,,Select weapon,
+GUI.COMBAT_LABEL,,Combat,
+GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction,
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining,
+GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}}),
+GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With,
+GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item,
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),
+GUI.CREDITS.AND_YOU_TITLE,,And You! Thanks For Playing!,
+GUI.CREDITS.DEVELOPERS.CHARACTER_ART,,Character Artists,
+GUI.CREDITS.DEVELOPERS.CONCEPT_ART,,Concept Artwork,
+GUI.CREDITS.DEVELOPERS.ENVIRONMENT_ART,,Environment Artists,
+GUI.CREDITS.DEVELOPERS.LEAD_DESIGN,,Lead Design & Programming,
+GUI.CREDITS.DEVELOPERS.LEAD_UI,,Lead 2D & UI Artist,
+GUI.CREDITS.DEVELOPERS.MUSIC,,Music & Sound Effects,
+GUI.CREDITS.DEVELOPERS.MUSIC_ADDITIONAL,,Additional Music Tracks,
+GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,
+GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,
+GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,
+GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,
 GUI.CROP_SELECTION,,Crop:,자르기:
-GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}","{{timeOfDay}}, 일 {{일 번호}}, {{dayNumber}}"
-GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish,
+GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_1,,Plant in {{season1}},
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_2,,Plant in {{season1}} or {{season2}},
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_3,,"Plant in {{season1}}, {{season2}} or {{season3}}",
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_4,,Planted all year round,
+GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, Day 4, Year 2","{{timeOfDay}}, Day {{dayNumber}}, Year {{year}}","{{timeOfDay}}, 일 {{일 번호}}, {{dayNumber}}"
+GUI.DAY_LABEL,,Day {{dayNumber}},
+GUI.DECONSTRUCT_LABEL,,Demolish,
 GUI.DIALOG.CANCEL_BUTTON,,Cancel,
+GUI.DIALOG.CONFIRM,,Confirm,
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?,
 GUI.DIALOG.DISMISS,,Dismiss,해고
 GUI.DIALOG.ERROR_ROOM_NAME_ALREADY_EXISTS,Error message when the player attempts to rename a room to the same name as another room,A room with that name already exists.,해당 이름의 룸이 이미 있습니다.
@@ -409,33 +511,79 @@ GUI.DIALOG.ERROR_SAVE_INCOMPATIBLE,"Error loading a save as it is from an older,
 GUI.DIALOG.ERROR_TITLE,Shown as the title of an error dialog,An error has occurred,오류가 발생했습니다.
 GUI.DIALOG.ERROR_WHILE_LOADING,Unexpected error while loading a previous save,There was an unexpected error while loading the game.,게임을 로드하는 동안 예기치 않은 오류가 발생했습니다.
 GUI.DIALOG.ERROR_WHILE_SAVING,Unexpected error while saving the game,There was an unexpected error while saving the game.,게임을 저장하는 동안 예상치 못한 오류가 발생했습니다.
+GUI.DIALOG.HIDE_FURTHER_NOTIFICATIONS,Used to ask the player if they want to stop receiving this specific kind of notification,Hide These Notifications,
 GUI.DIALOG.INFO_TITLE,,Information,정보
-GUI.DIALOG.JUMP_TO,,Go to location,위치로 이동
+GUI.DIALOG.JUMP_TO,,Go to Location,위치로 이동
 GUI.DIALOG.LANGUAGE_TRANSLATION_INCOMPLETE,,The selected language translation is currently incomplete and will be missing some text. A fallback language will be used.,선택한 언어 번역이 현재 불완전하며 일부 텍스트가 누락됩니다. 대체 언어가 사용됩니다.
 GUI.DIALOG.MOD_CHANGES_OUTSTANDING,,You have selected a different set of mods to be applied to the game. These will be applied when the game is next restarted.,게임에 적용할 다른 모드 세트를 선택했습니다. 다음 번 게임이 다시 시작될 때 적용됩니다.
 GUI.DIALOG.MOD_INCOMPATIBLE,,One or more mods are incompatible with this version of the game and have been deactivated. You can check for updates in the mods menu.,하나 이상의 개조 게임이 버전과 호환되지 않는 및 비활성화되었습니다. 모드 메뉴에서 업데이트를 확인할 수 있습니다.
 GUI.DIALOG.OK_BUTTON,Single button shown to dismiss an error dialog,Ok,확인
-GUI.DIALOG.RENAME_ROOM_TITLE,,Rename room,룸 이름 바꾸기
-GUI.DIALOG.RENAME_SETTLER_TITLE,,Rename settler,
+GUI.DIALOG.RENAME_ROOM_TITLE,,Rename Room,룸 이름 바꾸기
+GUI.DIALOG.RENAME_SETTLER_TITLE,,Rename Settler,
 GUI.DIALOG.RESTART_REQUIRED,,You must restart the game for this change to take effect,이 변경 사항을 적용하려면 게임을 다시 시작해야 합니다.
 GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE,,You already have a saved game for the settlement {{name}}. Starting a new game will overwrite the existing save file. Are you sure you want to continue?,
 GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be specified.,
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,
-GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!",
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,
+GUI.EMBARK.MAP_SEED,,Random Seed,
+GUI.EMBARK.MAP_SIZE,,Map Size,
+GUI.EMBARK.MAP_SIZE.LARGE,,Large,
+GUI.EMBARK.MAP_SIZE.MEDIUM,,Medium,
+GUI.EMBARK.MAP_SIZE.SMALL,,Small,
+GUI.EMBARK.PEACEFUL_MODE,,Peaceful Mode,
+GUI.EMBARK.SETTLEMENT_NAME,,Name,
 GUI.EMBARK.START,,Begin!,
-GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,
+GUI.EMBARK.TITLE,,Choose Kingdom,
+GUI.EMPTY_CONTAINER_LABEL,,Empty,
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,
 GUI.FURNITURE_ASSIGNED_TO,Used to show who owns a piece of furniture,Assigned to {{name}},{{name}} 에 할당됨
 GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the process of being removed,Currently being removed,현재 제거 중입니다.
-GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.,이 가구는 {{재료 유형}} 에 배치해야 합니다.
+GUI.FURNITURE_REQUIREMENT.ALL_MATERIALS,,{{amount}} available,
+GUI.FURNITURE_REQUIREMENT.SPECIFIED_MATERIALS,,{{amount}} {{material}} available,
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen,전체 화면
 GUI.GRAPHICS.RESOLUTION,,Resolution,해결 방법
-GUI.LEAVE_CROP_FALLOW,,None (Leave fallow),없음 (휴지 남기기)
+GUI.INVASION_LABEL,,Invasion,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_0,,Debug frame buffer 0,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_1,,Debug frame buffer 1,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_2,,Debug frame buffer 2,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_3,,Debug frame buffer 3,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_4,,Debug frame buffer 4,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_5,,Debug frame buffer 5,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_6,,Debug frame buffer 6,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_7,,Debug frame buffer 7,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_8,,Debug frame buffer 8,
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_9,,Debug frame buffer 9,
+GUI.KEY_BINDING.DEBUG_GAME_SPEED_SLOW,,Debug game speed slow,
+GUI.KEY_BINDING.DEBUG_GAME_SPEED_ULTRA_FAST,,Debug game speed ultra fast,
+GUI.KEY_BINDING.DEBUG_HIDE_GUI,,Debug hide gui,
+GUI.KEY_BINDING.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS,,Debug show individual lighting buffers,
+GUI.KEY_BINDING.DEBUG_SHOW_JOB_STATUS,,Debug show job status,
+GUI.KEY_BINDING.DEBUG_SHOW_LIQUID_FLOW,,Debug show liquid flow,
+GUI.KEY_BINDING.DEBUG_SHOW_MENU,,Debug show menu,
+GUI.KEY_BINDING.DEBUG_SHOW_PATHFINDING_NODES,,Debug show pathfinding nodes,
+GUI.KEY_BINDING.DEBUG_SHOW_ZONES,,Debug show zones,
+GUI.KEY_BINDING.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING,,Debug toggle floor overlap rendering,
+GUI.KEY_BINDING.FAST_PAN,,Fast pan,
+GUI.KEY_BINDING.GAME_SPEED_FAST,,Game speed fast,
+GUI.KEY_BINDING.GAME_SPEED_FASTER,,Game speed faster,
+GUI.KEY_BINDING.GAME_SPEED_FASTEST,,Game speed fastest,
+GUI.KEY_BINDING.GAME_SPEED_NORMAL,,Game speed normal,
+GUI.KEY_BINDING.PAN_CAMERA_DOWN,,Pan camera down,
+GUI.KEY_BINDING.PAN_CAMERA_LEFT,,Pan camera left,
+GUI.KEY_BINDING.PAN_CAMERA_RIGHT,,Pan camera right,
+GUI.KEY_BINDING.PAN_CAMERA_UP,,Pan camera up,
+GUI.KEY_BINDING.PAUSE,,Pause,
+GUI.KEY_BINDING.QUICKLOAD,,Quickload,
+GUI.KEY_BINDING.QUICKSAVE,,Quicksave,
+GUI.KEY_BINDING.ROTATE,,Rotate,
+GUI.KEY_BINDING.ZOOM_IN,,Zoom in,
+GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,
+GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,없음 (휴지 남기기)
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,
+GUI.LOAD_GAME.TABLE.PLAY,,Play,
 GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME,,Name,
 GUI.LOAD_GAME.TABLE.VERSION,,Version,
 GUI.LOAD_GAME.TITLE,,Load Game,
@@ -443,13 +591,31 @@ GUI.MAP_SEED.COPY_TO_CLIPBOARD,,Copy to clipboard,
 GUI.MAP_SEED_DISPLAY,,"Current map seed: ",
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,
+GUI.MILITARY.DIALOG.ADD_SQUAD,,Name New Squad,
+GUI.MILITARY.DIALOG.CHOOSE_EMBLEM,,Choose Emblem For {{squadName}},
+GUI.MILITARY.DIALOG.RENAME_SQUAD,,Rename Squad,
+GUI.MILITARY.DIALOG.SELECT_SQUAD,,Assign to New Squad,
+GUI.MILITARY.NEW_SQUAD,,New Squad,
+GUI.MILITARY.ORDERS,,Orders,
+GUI.MILITARY.ORDERS.ATTACK,,Attack,
+GUI.MILITARY.ORDERS.CANCEL_ATTACK,,Cancel Attack,
+GUI.MILITARY.ORDERS.GUARD,,Guard,
+GUI.MILITARY.ORDERS.RETREAT,,Retreat,
+GUI.MILITARY.ORDERS.TRAIN,,Train,
+GUI.MILITARY.REMOVE_SQUAD,,Remove Squad,
+GUI.MILITARY.REMOVE_SQUAD.DIALOG,,Are you sure you want to remove this Squad?,
+GUI.MILITARY.SET_FORMATION,,Set Formation,
+GUI.MILITARY.SET_ORDERS,,Set Orders,
+GUI.MILITARY.TAB.DWARVES,,Military Dwarves,
+GUI.MILITARY.TAB.SQUADS,,Military Squads,
+GUI.MILITARY.TAB.TRAINED_CIVILIANS,,Trained Civilians,
 GUI.MINIMAP.LABEL,,Minimap,미니맵
-GUI.NEXT_LABEL,This should be as short as possible,Next,다음
+GUI.MUSIC_VOLUME,,Music,
+GUI.NEXT_LABEL,,Next,다음
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,이 가구는 게임의이 버전에서 회전 할 수 없습니다
-GUI.OK_LABEL,This should be as short as possible,Ok,좋아
+GUI.OK_LABEL,,Ok,좋아
 GUI.OPTIONS.AUDIO.TITLE,,Sound Options,사운드 옵션
 GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS,This is an option that makes trees partially transparent when a settler moves behind them,Make trees transparent when obscuring settlers,정착민을 가릴 때 나무를 투명하게 만듭니다.
-GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION,,Pause for notifications,알림을 위해 일시 중지
 GUI.OPTIONS.GAMEPLAY.TITLE,,"Gameplay Options ",게임플레이 옵션
 GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING,This is for a question to ask if the player would like the camera to scroll/pan by placing the mouse at the edge of the screen,Scroll when cursor is at the edge of the screen,커서가 화면 가장자리에있을 때 스크롤
 GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR,This is for a question to ask if the player would like the camera to scroll/pan based on where the mouse cursor is when they zoom in or out,Scroll to cursor when zooming,
@@ -457,9 +623,13 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ",그래픽 옵션
-GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,
-GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,
+GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,,Weather Effects,
+GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,Show weather effects like snow on furniture,
+GUI.OPTIONS.KEY_BINDINGS,,Key Bindings,
+GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports,
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,기타
+GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Start Game With Tutorial,
+GUI.OPTIONS.RESET,,Reset,
 GUI.OPTIONS.TAB.AUDIO,,Audio,
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,
@@ -472,35 +642,91 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,
+GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Link Twitch account,
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,
-GUI.ORDERS.CHOP_WOOD,This should be as short as possible,Chop,들어온다
-GUI.ORDERS.CLEAR_GROUND,This should be as short as possible,Clear,클리어
-GUI.ORDERS.DIG_CHANNELS,This should be as short as possible - used to dig channels in the ground for water to run through to irrigate crops,Irrigation,
+GUI.ORDERS.CHOP_WOOD,,Chop,들어온다
+GUI.ORDERS.CLEAR_GROUND,,Clear,클리어
+GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation,
 GUI.ORDERS.DIG_CHANNELS.TOOLTIP,,This order is used to dig channels in the ground.,
-GUI.ORDERS.EXTINGUISH_FLAMES,This should be as short as possible - used to put out fires by throwing buckets of water on them,Extinguish,
+GUI.ORDERS.EXTINGUISH_FLAMES," - used to put out fires by throwing buckets of water on them",Extinguish,
 GUI.ORDERS.EXTINGUISH_FLAMES.TOOLTIP,,This order is used to extinguish fires that are currently burning.,
-GUI.ORDERS.HARVEST_PLANTS,This should be as short as possible,Harvest,수확
-GUI.ORDERS.HUNT,This should be as short as possible - used to select animals to be hunted,Hunt,
+GUI.ORDERS.HARVEST_PLANTS,,Harvest,수확
+GUI.ORDERS.HUNT," - used to select animals to be hunted",Hunt,
 GUI.ORDERS.HUNT.TOOLTIP,,This order is used to select animals to be hunted.,
-GUI.ORDERS.MINE,This should be as short as possible,Mine,내
-GUI.ORDERS_LABEL,This should be as short as possible,Orders,주문
+GUI.ORDERS.MINE,,Mine,내
+GUI.ORDERS_LABEL,,Orders,주문
 GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge must cover both sides of the river and be at least 3x3 tiles in size,다리는 강 양쪽을 덮어야 하며 크기는 3x3 이상이어야 합니다.
-GUI.PRIORITY_LABEL,This should be as short as possible,Priority,
-GUI.REMOVE_LABEL,This should be as short as possible,Remove,제거
-GUI.REMOVE_TILES,This should be as short as possible,Remove tiles,타일 제거
+GUI.POWER_LABEL,,Power & Water,
+GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},
+GUI.PRIORITY_LABEL,,Priority,
+GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,
+GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,
+GUI.REMOVE_LABEL,,Remove,제거
+GUI.REMOVE_TILES,,Remove tiles,타일 제거
+GUI.RESOURCE_MANAGEMENT.ALL_OF,,All {{item}},
+GUI.RESOURCE_MANAGEMENT.AVAILABLE,,Available,
+GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL,,{{available}} / {{total}} Available,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.CONTENTS_TO_BE_DUMPED,,{{item}} is having it's contents dumped by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.CONTENTS_TO_BE_DUMPED.PLURAL,,{{item}} are having their contents dumped by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.DUE_TO_BE_HAULED,,{{item}} is due for hauling,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.DUE_TO_BE_HAULED.PLURAL,,{{item}} are due for hauling,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.EQUIPPED,,{{item}} is equipped by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.EQUIPPED.PLURAL,,{{item}} are equipped by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.FOOD_ALLOCATION,,{{item}} is allocated to,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.FOOD_ALLOCATION.PLURAL,,{{item}} are allocated to,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HAULING,,{{item}} is being hauled by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HAULING.PLURAL,,{{item}} are being hauled by,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HELD_IN_INVENTORY,,{{item}} is in the inventory of,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HELD_IN_INVENTORY.PLURAL,,{{item}} are in the inventory of,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE,,{{item}} is on fire,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE.PLURAL,,{{item}} are on fire,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}} is being placed for construction,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,
+GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},
+GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,
+GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,
 GUI.RESOURCE_MANAGEMENT.TITLE,,Resources,리소스
+GUI.RESOURCE_MANAGEMENT.TOTAL,,Total,
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}},사용 가능: {{count}}
 GUI.ROOFING.ADD,,Add,
+GUI.ROOMS_LABEL,,Rooms,
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,가구를 회전하려면 (R) 키를 누릅니다.
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,저장하는 중...
+GUI.SELECT_WEAPON.LABEL,,Select weapon,
 GUI.SETTINGS.LABEL,,Settings,
+GUI.SETTLER_MANAGEMENT.CHOOSE_ARMOUR,,Choose Armour,
+GUI.SETTLER_MANAGEMENT.CHOOSE_SHIELD,,Choose Shield,
+GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON,,Choose Weapon,
+GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}},
+GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration,
+GUI.SETTLER_MANAGEMENT.MAIN_HAND.STATUS,,The main hand cannot be used. {{status}},
+GUI.SETTLER_MANAGEMENT.OFF_HAND.STATUS,,The off hand cannot be used. {{status}},
+GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires two hands to use,
+GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},
+GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,
+GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,
+GUI.SETTLER_MANAGEMENT.SEARCH,,Search,
+GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,
+GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,
+GUI.SETTLER_MANAGEMENT.SORT.NAME,,Name,
+GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level,
+GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By,
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,정착민
-GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UI 배율:
+GUI.SOUND_EFFECT_VOLUME,,Sound Effects,
+GUI.UI_SCALE,Used to make the game interface larger or smaller,UI Scale,UI 배율:
+GUI.VIEW_MODE.DEFAULT,,Default view,
+GUI.VIEW_MODE.JOB_PRIORITY,,Priority view,
+GUI.VIEW_MODE.MECHANISMS,,Power view,
+GUI.VIEW_MODE.PIPING,,Piping view,
+GUI.VIEW_MODE.ROOFING_INFO,,Roof view,
 GUI.VIEW_ROADMAP,,View development roadmap,
-GUI.ZONES_LABEL,This should be as short as possible,Zones,영역
+GUI.YEAR_LABEL,,Year {{year}},
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober,
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal,멋지게 준비된 식사를 먹었다.
@@ -518,10 +744,7 @@ HAPPINESS_MODIFIER.POISONED,,Poisoned,중독
 HAPPINESS_MODIFIER.SAW_DEAD_BODY,,Saw a dead body,죽은 시체를 보았다
 HAPPINESS_MODIFIER.SLEEPING_IN_RAIN,,Slept in the rain,
 HAPPINESS_MODIFIER.SLEEPING_IN_SNOW,,Slept in the snow,
-HAPPINESS_MODIFIER.SLEPT_IN_ENCLOSED_BEDROOM,,Slept in an enclosed bedroom,
-HAPPINESS_MODIFIER.SLEPT_IN_LARGE_PRIVATE_BEDROOM,,"Slept in a spacious, private bedroom",넓은 개인 침실에서 잠을 자다.
-HAPPINESS_MODIFIER.SLEPT_IN_SHARED_BEDROOM,,Shared a bedroom with others,다른 사람들과 침실을 공유했습니다.
-HAPPINESS_MODIFIER.SLEPT_IN_SMALL_BEDROOM,,Slept in a cramped bedroom,비좁은 침실에서 잤다.
+HAPPINESS_MODIFIER.SLEPT_IN_BED,,Slept in a comfortable bed,
 HAPPINESS_MODIFIER.SLEPT_ON_GROUND,,Slept on rough ground,거친 땅에서 잤다.
 HAPPINESS_MODIFIER.SLEPT_OUTSIDE,,Slept under the stars,별 아래에서 잤다.
 HAPPINESS_MODIFIER.TITLE,,Happiness:,행복:
@@ -542,14 +765,13 @@ HINT.BUILD_POWER.3,,Constructions which require or produce power will display a 
 HINT.BUILD_ROOFING.1,,"This view allows you to see which tiles are outside with no roof above them (light blue), and those which have had a roof built overhead (dark brown).",
 HINT.BUILD_ROOFING.2,,"You can use the {{GUI.ROOFING.ADD}} and {{GUI.CANCEL_LABEL}} options to queue up roofing to be constructed, and {{GUI.DECONSTRUCT_LABEL}} to remove any existing roof tiles.",
 HINT.BUILD_ROOFING.3,,A roof can only be constructed within 3 tiles of a wall or {{FURNITURE.PILLAR}}.,
+HINT.BUTTON.BEGIN_TUTORIAL,,Begin Tutorial,
 HINT.BUTTON.DISABLE_ALL,,Disable all hints,모든 힌트 비활성화
 HINT.BUTTON.DISMISS,,Dismiss,
 HINT.BUTTON.HINTS_ONLY,,Hints only,힌트만
 HINT.BUTTON.NEXT,,Next,다음
-HINT.BUTTON.TUTORIAL,,Tutorial,자습서
 HINT.OPEN_PRIORITY_MENU.1,,"You can use this menu to change the priority of jobs and tasks, so that higher priority jobs will be assigned before lower priority jobs.",
 HINT.OPEN_PRIORITY_MENU.2,,"While the Priority menu is open, the priority icons are shown in the game world where there is a job or task to be performed, or where a room or item of furniture may create jobs in the future.",
-HINT.PROGRESS.HEADER,,Progress:,
 HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.,
 HINT.TOOL_DEPLETED.AXE2,,"More axes can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}}.",
 HINT.TOOL_DEPLETED.CHISEL1,,Your settlement no longer has a {{TOOL.CHISEL}} available. This is required to construct stone furniture.,
@@ -561,9 +783,8 @@ HINT.TOOL_DEPLETED.SAW2,,"More saws can be crafted at the {{FURNITURE.FORGE}}. I
 HINT.WEAPON_SELECTION.1,,Use this view to select a type of weapon that the settler will keep in their inventory in case of combat.,
 HINT.WEAPON_SELECTION.2,,It is strongly recommended you assign a ranged weapon such as a {{WEAPON.BOW}} or {{WEAPON.CROSSBOW}} to those settlers assigned as a {{PROFESSION.HUNTER}}.,
 HINT.WEAPON_SELECTION.3,,Weapons which you do not have available are displayed in red.,
-HINT.WELCOME.INTRO,,"Welcome to the world of King under the Mountain! This is an early alpha version of the game with many more features and gameplay elements still to be implemented. Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!","산 아래 왕의 세계에 오신 것을 환영합니다! 이것은 더 많은 기능과 게임 플레이 요소가 여전히 구현 될 게임의 초기 알파 버전입니다. 당신의 용맹 한 드워프 정착민들이 그들의 왕국의 새로운 식민지를 발견하기 위해이 위치를 선택했습니다. 음식, 피난처와 번영을 제공하고 누가 알고, 어쩌면 언젠가는 자신의 왕국의 수도가 될 것입니다!"
 HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, “Hints only” to skip the tutorial but be provided with info as you play, or “Disable all hints” to stop showing these messages.",텍스트를 입력합니다
-HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.",
+HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with open space near the river, and clicking the '{{GUI.EMBARK.START}}' button.",
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.adjective}} {{race.noun}}"
 HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
@@ -589,8 +810,10 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,인벤토리:
 
+ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available,
 ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}} {{항목 유형.명사_또는_복수형}}
 ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}} {{물질유형.명사_복수형}}
+ITEM.NONE_SELECTED,,None selected,
 ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
 ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
 ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
@@ -671,17 +894,21 @@ MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 
 MECHANISM.WOODEN.SHAFT.NOUN,,Shaft,
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.,
 
-MENU.CONTINUE_GAME,,Continue game,게임 계속
-MENU.LOAD_GAME,,Load game,
+MENU.CONTINUE_GAME,,Continue,게임 계속
+MENU.CREDITS,,Credits,
+MENU.JOIN_DISCORD,,Join Discord,
+MENU.LINK_TWITCH_ACCOUNT,,Link Twitch,
+MENU.LOAD_GAME,,Load,
 MENU.MODS,,Mods,개조물
-MENU.NEW_GAME,,Start new game,새 게임 시작
+MENU.NEW_GAME,,New Game,새 게임 시작
 MENU.OPTIONS,,Options,옵션
 MENU.QUIT,,Quit,그만둬
+MENU.SAVE_AND_QUIT,,Save & Quit,
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen,전체화면 전환
 
 METAL.BRONZE.ADJECTIVE,,Bronze,청동
 METAL.BRONZE.NOUN,,Bronze,청동
-METAL.BRONZE.TOOLTIP,,Bronze is an alloy of copper and tin. It is harder and much more durable than copper alone. (Alloys have not yet been implemented in King under the Mountain),청동은 구리와 주석의 합금입니다. 그것은 구리 단독보다 더 단단하고 훨씬 더 내구성이 있습니다. (합금은 아직 산 아래 킹에서 구현되지 않았습니다)
+METAL.BRONZE.TOOLTIP,,Bronze is an alloy of copper and tin. It is harder and much more durable than copper alone. (Alloys have not yet been implemented),청동은 구리와 주석의 합금입니다. 그것은 구리 단독보다 더 단단하고 훨씬 더 내구성이 있습니다. (합금은 아직 산 아래 킹에서 구현되지 않았습니다)
 METAL.COPPER.ADJECTIVE,,Copper,구리
 METAL.COPPER.NOUN,,Copper,구리
 METAL.COPPER.TOOLTIP,,"As well as occuring naturally as {{ORE.NATIVE_COPPER.NOUN}}, it is also easy to smelt from {{ORE.MALACHITE.NOUN}} ore. Copper has many uses, particularly in coinage, though it is not hard enough to create effective weapons.","{{ORE.NATIVE_COPPER.NOUN}} 처럼 자연적으로 발생하는 것뿐만 아니라, {{ORE.MALACHITE.NOUN}} 광석에서 쉽게 제련할 수 있습니다. 구리는 효과적인 무기를 만들기에 충분하지 않지만 특히 주화 분야에서 많은 용도를 가지고 있습니다."
@@ -708,15 +935,50 @@ METAL.STEEL.NOUN,,Steel,스틸
 METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for superior weapons and tools, only the dwarves know the secret of creating steel.","우수한 무기와 도구를 만드는 {{METAL.IRON.NOUN}} 보다 훨씬 강한, 오직 드워프만이 강철을 만드는 비밀을 알고 있습니다."
 METAL.TIN.ADJECTIVE,,Tin,주석
 METAL.TIN.NOUN,,Tin,주석
-METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented in King under the Mountain),"주석은 {{ORE.CASSITERITE.NOUN}} 에서 제련하고 {{{금속.구리, 명사}} 와 합금하여 {{METAL.COPPER.NOUN}} 를 생산할 수 있습니다. (합금은 아직 산 아래 킹에서 구현되지 않았습니다)"
+METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented),"주석은 {{ORE.CASSITERITE.NOUN}} 에서 제련하고 {{{금속.구리, 명사}} 와 합금하여 {{METAL.COPPER.NOUN}} 를 생산할 수 있습니다. (합금은 아직 산 아래 킹에서 구현되지 않았습니다)"
+
+MILITARY.FORMATION.COLUMN,,Column - Narrow,
+MILITARY.FORMATION.COLUMN_DOUBLE,,Column - Wide,
+MILITARY.FORMATION.COLUMN_SINGLE,,Column,
+MILITARY.FORMATION.GRID,,Grid - Narrow,
+MILITARY.FORMATION.GRID_DOUBLE,,Grid - Wide,
+MILITARY.FORMATION.GRID_SINGLE,,Grid,
+MILITARY.FORMATION.LINE,,Line - Narrow,
+MILITARY.FORMATION.LINE_DOUBLE,,Line - Wide,
+MILITARY.FORMATION.LINE_SINGLE,,Line,
+MILITARY.SQUAD.DEFAULT_NAME,,Squad,
+MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT,,In Combat,
+MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING,,Guarding,
+MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY,,Off Duty,
+MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating,
+MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training,
+MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift,
+MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift,
 
 MODS.APPLY,,Apply,적용
+MODS.BUTTON.BROWSE,,Browse Mods,
+MODS.BUTTON.REFRESH,,Refresh,
 MODS.COMPATIBILITY.COMPATIBLE,,Yes,"네, 네"
 MODS.COMPATIBILITY.INCOMPATIBLE,,No,"아뇨, 아뇨"
 MODS.COMPATIBILITY.UNKNOWN,,Unknown,알 수 없음
+MODS.EMAIL_LOGIN.CHECK_EMAIL,,"Check your email for an authentication code. If you do not receive an email, please check your spam folder.",
+MODS.EMAIL_LOGIN.CODE_LABEL,,6 Digit Code:,
+MODS.EMAIL_LOGIN.EMAIL,,Enter your email address to receive an authentication code.,
+MODS.EMAIL_LOGIN.EMAIL_LABEL,,Email:,
+MODS.EMAIL_LOGIN.ERROR,,"An error occurred while communicating to the server. Either the server is down, the email address is invalid, or you are not connected to the internet.",
+MODS.EMAIL_LOGIN.INFO,,"To download and update mods, you must connect to the Mod.io platform.",
+MODS.EMAIL_LOGIN.REQUEST_CODE,,Request Code,
+MODS.EMAIL_LOGIN.SUBMIT_CODE,,Submit,
+MODS.INCOMPATIBLE_VERSION_DESCRIPTION,,The mod's game version ({{modGameVersion}}) is incompatible with the current game version ({{gameVersion}}),
+MODS.MISSING_HOMEPAGE_URL,,The author(s) of this mod have not included a website to visit,
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.,이 저장 파일은 다음 모드가 활성화된 동안 마지막으로 사용되었습니다. 이 개조물은 이제 누락되거나 비활성화되어 저장이 올바르게로드되지 않을 수 있습니다.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:","저장 파일은이 버전의 게임과 호환되지 않기 때문에로드 할 수 없습니다, 또는이 저장이 마지막으로로드 된 이후 일부 모드가 비활성화 또는 제거 되었기 때문에. 다음 모드가 예상되었지만 더 이상 활성화되지 않습니다."
+MODS.SYNC_IN_PROGRESS,,Please wait while the mod list is being updated. This may take a few minutes.,
+MODS.TABLE.COMPATIBILITY,,Compatible,
+MODS.TABLE.ENABLED,,Enable,
+MODS.TABLE.NAME,,Name,
 MODS.TABLE.ORDERING,,Re-order,재주문
+MODS.TABLE.VERSION,,Version,
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.noun}}
 
@@ -727,26 +989,33 @@ NEEDS.SLEEP,,Sleep,수면
 NOTIFICATION.AREA_REVEALED.DESCRIPTION,,Your miners have discovered a new area!,광부들이 새로운 영역을 발견했습니다!
 NOTIFICATION.AREA_REVEALED.TITLE,,Exploration,탐사
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}.","{{character}}, {{reason}} (으) 로 인해 사망했습니다."
+NOTIFICATION.DEATH.KILLED_BY_DESCRIPTION,,Killed by {{killer}},
 NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}},{{reason}} (으) 로 인해 사망했습니다.
-NOTIFICATION.DEATH.TITLE,,Settler death,세틀러 죽음
+NOTIFICATION.DEATH.TITLE,,Settler Death,세틀러 죽음
 NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!,
 NOTIFICATION.FIRE_STARTED.TITLE,,Fire!,
 NOTIFICATION.FISH_EXHAUSTED.DESCRIPTION,,You have over-fished the river to such an extent that there are no more fish left. You will have to wait until the spawning season next spring for the fish to return.,
-NOTIFICATION.FISH_EXHAUSTED.TITLE,,Fish depopulated,
+NOTIFICATION.FISH_EXHAUSTED.TITLE,,Fish Depopulated,
 NOTIFICATION.GAME_OVER.DESCRIPTION,,All things must come to an end. Your settlement lies abandoned.,모든 것이 끝나야합니다. 당신의 정착은 버려진 거짓말.
 NOTIFICATION.GAME_OVER.TITLE,,Game Over,게임 오버
 NOTIFICATION.IMMIGRANTS_ARRIVED.DESCRIPTION,,The prosperity of your settlement has attracted a number of new immigrants to boost your population.,당신의 정착지의 번영은 당신의 인구를 높이기 위해 새로운 이민자의 숫자를 끌고있다.
 NOTIFICATION.IMMIGRANTS_ARRIVED.TITLE,,Immigration,이민
+NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.,
+NOTIFICATION.INVASION.TITLE,,You are being invaded!,
 NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of pillars and supports.,이 지역은 기둥과 지지대가 부족하여 동굴에 파견되었습니다.
-NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining collapse,분류: 광업 붕괴
+NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,분류: 광업 붕괴
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,
-NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted away,
+NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,
-NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof collapsed,
+NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,이 지저분한 어려움은 {{character}} 을 (를) 처리하기에는 너무 많은 것으로 입증되었습니다.
-NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental break,정신 휴식
+NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,정신 휴식
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,
+NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,
+NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!,
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,,You must construct a Trading Depot to buy and sell goods.,
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!,
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite,보크사이트
 ORE.BAUXITE.NOUN,,Bauxite,보크사이트
@@ -809,17 +1078,22 @@ OTHER.CLAY_SOIL.NOUN,,Clay soil,클레이 토양
 OTHER.GRASS.NOUN,,,
 
 PRIORITY.DISABLED,,Disabled,
-PRIORITY.HIGHER,,Higher,
-PRIORITY.HIGHEST,,Highest,
-PRIORITY.LOWER,,Lower,
-PRIORITY.LOWEST,,Lowest,
-PRIORITY.NORMAL,,Normal,
+PRIORITY.HIGHER,,Higher priority,
+PRIORITY.HIGHEST,,Highest priority,
+PRIORITY.LOWER,,Lower priority,
+PRIORITY.LOWEST,,Lowest priority,
+PRIORITY.NORMAL,,Normal priority,
 
-PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,나는 받아들인다.
-PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,보고 사용 안 함
+PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept,나는 받아들인다.
+PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client,
+PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings,
+PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash,
+PRIVACY.OPT_IN.DESCRIPTION,,"Mountaincore is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:",
+PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting,보고 사용 안 함
 
 PRODUCT.ANVIL,,Anvil,앤빌
-PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,가열 된 금속을 망치로 만드는 데 사용되는 큰 금속 블록. {{가구.포지}} 를 건설하는 데 필요합니다.
+PRODUCT.ANVIL.PLURAL,,Anvils,
+PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.,가열 된 금속을 망치로 만드는 데 사용되는 큰 금속 블록. {{가구.포지}} 를 건설하는 데 필요합니다.
 PRODUCT.BARREL.HOOPS,,Barrel hoops,배럴 농구
 PRODUCT.BARREL.HOOPS.TOOLTIP,,Metal hoops used to construct a {{PRODUCT.BARREL.NOUN}}. Also used in some machinery.,{{PRODUCT.BARREL.NOUN}} 를 만드는 데 사용되는 금속 고리. 또한 일부 기계에 사용됩니다.
 PRODUCT.BARREL.NOUN,,Barrel,배럴
@@ -829,6 +1103,7 @@ PRODUCT.BARREL.STAVES.TOOLTIP,,Curved wooden planks used to construct a {{PRODUC
 PRODUCT.BARREL.TOOLTIP,,A cylindrical container for liquids. The curved shape makes it easier to roll around.,액체 용 원통형 용기. 곡선 모양을 사용하면 쉽게 굴릴 수 있습니다.
 PRODUCT.BOWL,A bowl for eating from,Bowl,그릇
 PRODUCT.BOWL.DESCRIPTION,E.g. “Bowl of vegetable soup”,Bowl of {{cooking.soup.description}},{{요리.수프. 설명}} 의 그릇
+PRODUCT.BOWL.PLURAL,,Bowls,
 PRODUCT.BREAD.DOUGH.NOUN,,Dough,반죽
 PRODUCT.BREAD.DOUGH.PLURAL,,Dough,반죽
 PRODUCT.BREAD.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.BREAD.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.,{{PRODUCT.BREAD.LOAF.PLURAL}} 을 사용하여 {{FURNITURE.BAKING_OVEN}} 에 구울 수 있는 재료의 혼합입니다.
@@ -839,14 +1114,25 @@ PRODUCT.BUCKET.NOUN,,Bucket,버킷
 PRODUCT.BUCKET.PLURAL,,Buckets,버킷
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,액체를 손으로 옮기는 데 사용되는 작은 용기입니다.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,가마솥
+PRODUCT.CAULDRON.PLURAL,,Cauldrons,
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.","{{PROFESSION.CHEF}} 이 {{ROOMS.KITCHEN}} 에서 수프를 준비하는데 사용하며, 그 후 {{ROOMS.FEASTING_HALL}} 으로 옮깁니다."
-PRODUCT.LEATHER,,Leather,
+PRODUCT.CHEST.NOUN,,Chest,
+PRODUCT.CHEST.PLURAL,,Chests,
+PRODUCT.CHEST.TOOLTIP,,Used to store coins for trading.,
+PRODUCT.LEATHER.NOUN,,Leather,
+PRODUCT.LEATHER.PLURAL,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,
 PRODUCT.LINEN.PLURAL,,Linen,
+PRODUCT.LINEN.TOOLTIP,,"A roll of fabric, primarily used for bedding.",
 PRODUCT.LIQUID.TANK,,Tank,
+PRODUCT.LIQUID.TANK.PLURAL,,Tanks,
 PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}.",
 PRODUCT.MILLSTONE,,Millstone,밀스톤
+PRODUCT.MILLSTONE.PLURAL,,Millstones,
 PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mill harvested crops. Used to construct a {{FURNITURE.FLOUR_MILL}}.,수확 된 작물을 분쇄하기 위해 함께 분쇄 된 두 개의 큰 돌 디스크. {{FURNITURE.FLOUR_MILL}} 을 구성하는 데 사용됩니다.
+PRODUCT.RATION.DOUGH.NOUN,,Ration dough,
+PRODUCT.RATION.DOUGH.PLURAL,,Ration dough,
+PRODUCT.RATION.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.RATION.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.,
 PRODUCT.RATION.NOUN,,Ration,배급
 PRODUCT.RATION.PLURAL,,Rations,식량
 PRODUCT.RATION.TOOLTIP,,"These will last a long time to feed your settlers, but you will need other sources of food as a priority.","이것들은 당신의 정착민들에게 먹이를주기 위해 오랜 시간 동안 지속될 것이지만, 당신은 우선 순위로 다른 음식 공급원이 필요할 것입니다."
@@ -867,21 +1153,29 @@ PRODUCT.WOODEN.SHAFT.VERTICAL.NOUN,,Vertical shaft,
 PRODUCT.WOODEN.SHAFT.VERTICAL.PLURAL,,Vertical shafts,
 PRODUCT.WOODEN.SHAFT.VERTICAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,
 
+PROFESSION.ARTISAN.FEMALE_NOUN,,Artisan,
+PROFESSION.ARTISAN.MALE_NOUN,,Artisan,
+PROFESSION.ARTISAN.PLURAL,,Artisans,
+PROFESSION.ARTISAN.VERB,,Fabricating,
 PROFESSION.BAKER.VERB,,Baking,베이킹
 PROFESSION.BLACKSMITH.FEMALE_NOUN,,Blacksmith,대장장이
 PROFESSION.BLACKSMITH.MALE_NOUN,,Blacksmith,대장장이
+PROFESSION.BLACKSMITH.PLURAL,,Blacksmiths,
 PROFESSION.BLACKSMITH.TOOLTIP,,Crafts items using metal and also produces metal from ore.,금속을 사용하여 항목을 공예하고 또한 광석에서 금속을 생산합니다.
 PROFESSION.BLACKSMITH.VERB,,Forging,단조
 PROFESSION.BREWER.FEMALE_NOUN,,Brewer,
 PROFESSION.BREWER.MALE_NOUN,,Brewer,
+PROFESSION.BREWER.PLURAL,,Brewers,
 PROFESSION.BREWER.TOOLTIP,,Produces beer in a {{ROOMS.BREWERY}}.,
 PROFESSION.BREWER.VERB,,Brewing,
 PROFESSION.CARPENTER.FEMALE_NOUN,,Carpenter,목수
 PROFESSION.CARPENTER.MALE_NOUN,,Carpenter,목수
+PROFESSION.CARPENTER.PLURAL,,Carpenters,
 PROFESSION.CARPENTER.TOOLTIP,,Creates wooden furniture and items.,목재 가구 및 항목을 만듭니다.
 PROFESSION.CARPENTER.VERB,,Crafting,공예
 PROFESSION.CHEF.FEMALE_NOUN,,Chef,요리사
 PROFESSION.CHEF.MALE_NOUN,,Chef,요리사
+PROFESSION.CHEF.PLURAL,,Chefs,
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,당신의 정착민에 의해 소비되는 모든 음식을 준비합니다.
 PROFESSION.CHEF.VERB,,Cooking,요리
 PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
@@ -900,6 +1194,7 @@ PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelt
 PROFESSION.HUNTER.VERB,,Hunting,사냥
 PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
 PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.PLURAL,,Leatherworkers,
 PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
 PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,시장님
@@ -911,6 +1206,7 @@ PROFESSION.MERCHANT.VERB,,Trading,거래
 PROFESSION.MILLER.VERB,"Not a fully implemented profession, just used to describe “Milling flour”",Milling,밀링
 PROFESSION.MINER.FEMALE_NOUN,,Miner,광부
 PROFESSION.MINER.MALE_NOUN,,Miner,광부
+PROFESSION.MINER.PLURAL,,Miners,
 PROFESSION.MINER.TOOLTIP,,Excavates new areas using a {{TOOL.PICKAXE}}.,{{TOOL.PICKAXE}} 를 사용하여 새 영역을 발굴합니다.
 PROFESSION.MINER.VERB,,Mining,광업
 PROFESSION.NOBLE.FEMALE_NOUN,,Noble,노블
@@ -941,11 +1237,9 @@ PROFESSION.SKILL_LEVEL.9,,Grandmaster,
 PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,스톤메이슨
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,스톤메이슨
+PROFESSION.STONEMASON.PLURAL,,Stonemasons,
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,공예품 가구 및 돌에서 항목.
 PROFESSION.STONEMASON.VERB,,Sculpting,조각
-PROFESSION.TINKERER.FEMALE_NOUN,,Tinker,팅커
-PROFESSION.TINKERER.MALE_NOUN,,Tinker,팅커
-PROFESSION.TINKERER.VERB,,Tinkering,땜질
 PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,마을 주민
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,마을 주민
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,이 정착민은 특정 직업이 없으며 물품 운반과 같은 일상적인 작업을 수행합니다.
@@ -957,6 +1251,7 @@ PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
 PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,나무꾼
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,나무꾼
+PROFESSION.WOODCUTTER.PLURAL,,Woodcutters,
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,나무를 {{ROOMS.SAWMILL}} 에서 사용할 수 있는 목재로 자릅니다.
 PROFESSION.WOODCUTTER.VERB,,Chopping,도마
 
@@ -978,18 +1273,25 @@ RACE.DWARF.TOOLTIP,,Dwarves are short and stocky humanoids. They are masters of 
 RACE.ELEPHANT.NOUN,,Elephant,
 RACE.FOX.FEMALE_NOUN,,Vixen,
 RACE.FOX.MALE_NOUN,,Fox,
+RACE.FUNGOLEM,,Fungolem,
+RACE.HORSE.NOUN,,Horse,
+RACE.ORC.MALE_ADJECTIVE,,Orcish,
+RACE.ORC.MALE_NOUN,Orcs are only male,Orc,
 RACE.PERCH.NOUN,,Perch,
 RACE.PIKE.NOUN,,Pike,
+RACE.SPIDER,,Spider,
+RACE.UNDEAD_DWARF,,Undead dwarf,
+RACE.WURM,,Wurm,
 
-RESOURCE.CRUSHED.VITRIOL.NOUN,,Vitriol,비트리올
-RESOURCE.CRUSHED.VITRIOL.PLURAL,,Vitriol,비트리올
-RESOURCE.CRUSHED.VITRIOL.TOOLTIP,,A salt of sulphuric acid with many uses in industry. (Usages of vitriol are not yet implemented in King under the Mountain),산업에서 많은 용도를 가진 황산의 소금. (vitriol의 사용법은 아직 산 아래 킹에서 구현되지 않았습니다)
+RESOURCE.BONE.LARGE.NOUN,,Large Bone,
+RESOURCE.BONE.LARGE.PLURAL,,Large Bones,
+RESOURCE.BONE.MEDIUM.NOUN,,Medium Bone,
+RESOURCE.BONE.MEDIUM.PLURAL,,Medium Bones,
+RESOURCE.BONE.SMALL.NOUN,,Small Bone,
+RESOURCE.BONE.SMALL.PLURAL,,Small Bones,
 RESOURCE.FLOUR.SACK.NOUN,,Flour,밀가루
 RESOURCE.FLOUR.SACK.PLURAL,,Flour,밀가루
 RESOURCE.FLOUR.SACK.TOOLTIP,,Grain that has been milled into a fine powder ready to be used as an ingredient in the production of food.,미세한 분말로 가공한 곡물을 식품 생산의 성분으로 사용할 수 있습니다.
-RESOURCE.GEM.NOUN,,Gem,보석
-RESOURCE.GEM.PLURAL,,Gems,보석
-RESOURCE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.,그들의 아름다움을 향상시키기 위해 절단 및 광택 된 보석. 가장 일반적으로 장식품으로 사용됩니다.
 RESOURCE.GEMS.UNREFINED.NOUN,,Uncut gem,포경 보석
 RESOURCE.GEMS.UNREFINED.PLURAL,,Uncut gems,자르지 않은 보석
 RESOURCE.GEMS.UNREFINED.TOOLTIP,,A hunk of rock containing gems ready to be cut and polished.,절단 및 광택이 가능한 보석을 담고 있는 바위 덩어리.
@@ -1031,53 +1333,70 @@ RESOURCE.SHOCKED.MUSHROOM.LOG.PLURAL,,Mushroom logs,버섯 통나무
 RESOURCE.SHOCKED.MUSHROOM.LOG.TOOLTIP,,This mushroom-infused log has been “shocked” in water to encourage the mushrooms to develop and should produce a harvest soon.,버섯이 주입된 이 통나무들은 버섯이 자라도록 격려하기 위해 물에 “충격을 받으며” 곧 수확을 만들어야 합니다.
 RESOURCE.STONE.BLOCK.NOUN,,Block,블록
 RESOURCE.STONE.BLOCK.PLURAL,,Blocks,블록
-RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that is can be easily used in construction or crafting.,건축이나 공예에 쉽게 사용할 수 있도록 입방체로 된 돌.
+RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that it can be easily used in construction or crafting.,건축이나 공예에 쉽게 사용할 수 있도록 입방체로 된 돌.
 RESOURCE.STONE.UNREFINED.NOUN,,Rough stone boulder,러프 스톤 볼더
 RESOURCE.STONE.UNREFINED.PLURAL,,Rough stone boulders,거친 돌 바위
 RESOURCE.STONE.UNREFINED.TOOLTIP,,A huge piece of stone that must be chiselled into a more useful shape by a {{PROFESSION.STONEMASON}}.,{{PROFESSION.STONEMASON}} 이 (가) 더 유용한 모양으로 깎아야 하는 거대한 돌 조각입니다.
 RESOURCE.WHEAT.SACK.NOUN,,Wheat (sack),
 RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack),
+RESOURCE.WHEAT.SACK.TOOLTIP,,Sacks of wheat are harvested from farm plots sown with wheat seeds.,
 
 ROOMS.ARMOURY,,Armoury,
-ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here,
+ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here.,
+ROOMS.ARTISAN_WORKSHOP,,Artisan workshop,
+ROOMS.ARTISAN_WORKSHOP.TOOLTIP,,Intricate items are crafted here.,
+ROOMS.BAKERY,,Bakery,
+ROOMS.BAKERY.TOOLTIP,,Where bread dough is created and then baked into bread.,
+ROOMS.BARRACKS,,Barracks,
+ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train.,
 ROOMS.BEDROOM,,Bedroom,침실
-ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep. They prefer to have individual bedrooms that are at least 9 tiles in size, and preferably at least 13 tiles in size.","당신의 정착민을위한 장소. 그들은 크기가 최소 9 개의 타일, 바람직하게는 적어도 13 개의 타일 크기의 개별 침실을 선호합니다."
+ROOMS.BEDROOM.TOOLTIP,,A place for your settlers to sleep.,"당신의 정착민을위한 장소. 그들은 크기가 최소 9 개의 타일, 바람직하게는 적어도 13 개의 타일 크기의 개별 침실을 선호합니다."
 ROOMS.BREWERY,,Brewery,
-ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy! Other alcoholic beverages will be implemented in the future.,
+ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy!,
 ROOMS.BRIDGE,,Bridge,다리
 ROOMS.BRIDGE.TOOLTIP,,Placed across the river to allow access to the other side.,다른 측면에 액세스 할 수 있도록 강을 가로 질러 배치.
 ROOMS.CARPENTRY_WORKSHOP,,Carpentry workshop,목공 작업장
-ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items.,이 워크숍은 대부분의 목재 도구와 아이템을 생산합니다.
+ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items,이 워크숍은 대부분의 목재 도구와 아이템을 생산합니다.
 ROOMS.COMPONENT.STOCKPILE.DESCRIPTION,,{{allocated}} of {{total}} spaces currently in use,현재 사용 중인 {{allocated}} 개 공간의 {{total}} 개
-ROOMS.EARTHWORKS,,Earthworks,토공
-ROOMS.EARTHWORKS.TOOLTIP,,An outdoor area for large constructions.,대형 건축물을위한 야외 공간.
 ROOMS.FARM,,Farm plot,농장 플롯
 ROOMS.FARM.PLURAL,,Farm plots,농장 플롯
 ROOMS.FARM.TOOLTIP,,Grows crops using {{INGREDIENT.SEEDS.PLURAL}}. Must be placed on {{MATERIAL_TYPE.EARTH.NOUN}}.,{{INGREDIENT.SEEDS.PLURAL}} 을 사용하여 작물을 재배합니다. {{MATERIAL_TYPE.EARTH.NOUN}} 에 배치해야 합니다.
 ROOMS.FEASTING_HALL,,Feasting hall,잔치 홀
 ROOMS.FEASTING_HALL.TOOLTIP,,"A place for settlers to gather to eat, drink and be merry!",이주민들이 모여 먹고 마시고 즐거운 시간을 보내실 수 있는 장소!
+ROOMS.FUEL_REFINERY,,Fuel refinery,
+ROOMS.FUEL_REFINERY.TOOLTIP,,Produces fuel from {{RESOURCE.LOGS.PLURAL}} or {{ORE.BITUMINOUS_COAL.NOUN}}.,
 ROOMS.GRAVEYARD,,Graveyard,묘지
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,사망 한 정착민들은 여기에서 휴식을 취합니다.
+ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}},
 ROOMS.KITCHEN,,Kitchen,주방
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,대부분의 음식은 {{ROOMS.FEASTING_HALL}} 에서 제공되기 전에 여기에서 준비됩니다.
-ROOMS.LEATHER_WORKSHOP,,Leather workshop,
-ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
+ROOMS.LEATHER_WORKSHOP,,Leatherworks,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide.,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,석조 워크샵
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,이 워크숍은 대부분의 돌로 만든 아이템을 제작합니다.
-ROOMS.METALWORKS,,Metalworks,금속 세공
-ROOMS.METALWORKS.TOOLTIP,,Metal ore is refined and used in crafting here.,금속 광석은 정제되어 이곳의 공예에 사용됩니다.
 ROOMS.MUSHROOM_FARM,,Mushroom farm,버섯 농장
 ROOMS.MUSHROOM_FARM.TOOLTIP,,Mushrooms can be grown using {{INGREDIENT.MUSHROOM.SPAWN.NOUN}} and wooden {{RESOURCE.LOGS.PLURAL}}.,버섯은 {{INGREDIENT.MUSHROOM.SPAWN.NOUN}} 와 나무 {{RESOURCE.LOGS.PLURAL}} 를 사용하여 재배 할 수 있습니다.
 ROOMS.SAWMILL,,Sawmill,제재소
 ROOMS.SAWMILL.TOOLTIP,,Wooden {{RESOURCE.LOGS.PLURAL}} are refined into {{RESOURCE.PLANKS.PLURAL}} here.,나무 {{RESOURCE.LOGS.PLURAL}} 은 (는) 여기서 {{RESOURCE.PLANKS.PLURAL}} 으로 정제되어 있습니다.
+ROOMS.SMELTERY,,Smeltery,
+ROOMS.SMELTERY.TOOLTIP,,Metallic ore is refined into usable ingots here.,
+ROOMS.SMITHY,,Smithy,
+ROOMS.SMITHY.TOOLTIP,,Used to craft metal tools.,
 ROOMS.STOCKPILE,,Stockpile,
 ROOMS.STOCKPILE.TOOLTIP,,This area stores different kinds of items depending on settings.,
 ROOMS.STOCKPILES,,Stockpiles,비축
 ROOMS.STOCKPILES.TOOLTIP,,Unused items are placed in stockpiles for easy access.,사용하지 않은 품목은 쉽게 접근 할 수 있도록 비축 보관에 보관됩니다.
+ROOMS.STOCKPILE_WITH_GROUP_NAME,,{{stockpileGroupName}} {{roomTypeName}},
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop,
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.,
+ROOMS.TRADING_DEPOT,,Trading depot,
+ROOMS.TRADING_DEPOT.TOOLTIP,,Buy and sell items with visiting merchants.,
 
+ROPE.AGED_ROPE,,Aged,
+ROPE.BRONZED_ROPE,,Bronzed,
+ROPE.GRAY_ROPE,,Gray,
 ROPE.HEMP-ROPE,,Hemp,
+ROPE.TOBACCO_ROPE,Just to describe a light colour,Light,
 
 RUSTED_SCRAP.NOUN,,Scrap,
 RUSTED_SCRAP.TOOLTIP,,These are the remains of an item that has completed corroded due to rust.,
@@ -1149,6 +1468,7 @@ SKIN.BOAR_HIDE,,Boar,
 SKIN.DEER_HIDE,,Deer,
 SKIN.DWARF_HIDE,,Dwarf,
 SKIN.ELEPHANT_HIDE,,Elephant,
+SKIN.HORSE_HIDE,,Horse,
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,
 STATUS.BLEEDING,,Bleeding,
@@ -1160,6 +1480,8 @@ STATUS.DYING_OF_THIRST,,Dying of thirst,
 STATUS.EXHAUSTED,,Exhausted,
 STATUS.INTERNAL_BLEEDING,,Internal bleeding,
 STATUS.KNOCKED_UNCONSCIOUS,,Unconscious,
+STATUS.LOSS_MAIN_HAND,,Loss of main hand,
+STATUS.LOSS_OFF_HAND,,Loss of off hand,
 STATUS.MOVEMENT_IMPAIRED,,Impaired movement,
 STATUS.ON_FIRE,,On fire,
 STATUS.POISONED,,Poisoned,
@@ -1177,6 +1499,7 @@ STOCKPILE.GROUP.RAW_MATERIALS,,Raw materials,
 STOCKPILE.GROUP.SEEDS,,Seeds,
 STOCKPILE.GROUP.TOOLS,,Tools,
 STOCKPILE.GROUP.TOOLS.TOOLTIP,,Stores tools required for working on jobs.,
+STOCKPILE.GROUP.TREASURE,,Treasure,
 STOCKPILE.GROUP.WEAPONS,,Weapons,
 STOCKPILE.GROUP.WEAPONS.TOOLTIP,,Stores harvested fruit and vegetables which can expire.,
 
@@ -1209,67 +1532,129 @@ STONE.SLATE.NOUN,,Slate,슬레이트
 STONE.SLATE.TOOLTIP,,A metamorphic rock that is usually formed out of {{STONE.SHALE.NOUN}}. It is often made into tiles for roofing or writing.,일반적으로 {{STONE.SHALE.NOUN}} 에서 형성되는 변성암입니다. 그것은 종종 루핑이나 쓰기를 위해 타일로 만들어집니다.
 
 TOOL.AXE.NOUN,,Axe,도끼
+TOOL.AXE.PLURAL,,Axes,
 TOOL.AXE.TOOLTIP,,Used to chop down trees. The primary tool of a {{PROFESSION.WOODCUTTER}}.,나무를 자르는 데 사용됩니다. {{전문 나무꾼}} 의 기본 도구입니다.
 TOOL.CHISEL.NOUN,,Chisel,끌
+TOOL.CHISEL.PLURAL,,Chisels,
 TOOL.CHISEL.TOOLTIP,,Used to sculpt rock into shape. One of the tools used by a {{PROFESSION.STONEMASON}}.,바위를 모양으로 조각하는 데 사용됩니다. {{PROFESSION.STONEMASON}} 에서 사용하는 도구 중 하나입니다.
 TOOL.FISHING.ROD.NOUN,,Fishing rod,낚싯대
+TOOL.FISHING.ROD.PLURAL,,Fishing rods,
 TOOL.FISHING.ROD.TOOLTIP,,Used to catch fish from a body of water. The primary tool of a {{PROFESSION.FISHER}}.,물속에서 물고기를 잡는 데 사용됩니다. {{전문 피셔}} 의 기본 도구입니다.
 TOOL.KITCHEN.KNIFE.NOUN,,Kitchen knife,주방 나이프
+TOOL.KITCHEN.KNIFE.PLURAL,,Kitchen knives,
 TOOL.KITCHEN.KNIFE.TOOLTIP,,"Used to prepare food, particularly meat.","음식, 특히 고기를 준비하는 데 사용됩니다."
 TOOL.LARGE.HAMMER.NOUN,,Large hammer,대형 해머
+TOOL.LARGE.HAMMER.PLURAL,,Large hammers,
 TOOL.LARGE.HAMMER.TOOLTIP,,Used to bash large items of stone and metal into shape. The primary tool of a {{PROFESSION.BLACKSMITH}}.,돌과 금속의 큰 항목을 모양으로 강타하는 데 사용됩니다. {{PROFESSION.BLACKSMITH}} 의 기본 도구입니다.
 TOOL.PICKAXE.NOUN,,Pickaxe,곡괭이
+TOOL.PICKAXE.PLURAL,,Pickaxes,
 TOOL.PICKAXE.TOOLTIP,,Used to break stone into smaller pieces. The primary tool of a {{PROFESSION.MiNER}}.,돌을 작은 조각으로 나누는 데 사용됩니다. {{PROFESSION.MiNER}} 의 기본 도구입니다.
 TOOL.PLANE.NOUN,A carpenter's plane,Plane,비행기
+TOOL.PLANE.PLURAL,A carpenter's plane,Planes,
 TOOL.PLANE.TOOLTIP,,Used to shave wooden furniture and items into shape. The primary tool of a {{PROFESSION.CARPENTER}}.,목재 가구 및 품목을 모양으로 면도하는 데 사용됩니다. {{PROFESSION.CARPENTER}} 의 기본 도구입니다.
 TOOL.ROLLING.PIN.NOUN,,Rolling pin,롤링 핀
+TOOL.ROLLING.PIN.PLURAL,,Rolling pins,
 TOOL.ROLLING.PIN.TOOLTIP,,Used to prepare dough. One of the tools used by a {{PROFESSION.CHEF}}.,반죽을 준비하는 데 사용됩니다. {{PROFESSION.CHEF}} 에서 사용하는 도구 중 하나입니다.
 TOOL.SAW.NOUN,A carpenter's saw,Saw,톱
+TOOL.SAW.PLURAL,A carpenter's saw,Saws,
 TOOL.SAW.TOOLTIP,,Used to cut wood into shape. Required for cutting lumber in the {{ROOMS.SAWMILL}}.,나무를 모양으로 자르는 데 사용됩니다. {{ROOMS.SAWMILL}} 에서 목재를 절단하는 데 필요합니다.
 TOOL.SMALL.HAMMER.NOUN,,Hammer,망치
+TOOL.SMALL.HAMMER.PLURAL,,Hammers,
 TOOL.SMALL.HAMMER.TOOLTIP,,Used to bash small items of stone and metal into shape. One of the tools used by a {{PROFESSION.BLACKSMITH}}.,돌과 금속의 작은 항목을 모양으로 강타하는 데 사용됩니다. {{PROFESSION.BLACKSMITH}} 에서 사용하는 도구 중 하나입니다.
 TOOL.TONGS.NOUN,A blacksmith's tongs,Tongs,집게
+TOOL.TONGS.PLURAL,A blacksmith's tongs,Sets of tongs,
 TOOL.TONGS.TOOLTIP,,Used to hold extremely hot metal items. Used in the process of smelting metal ore.,매우 뜨거운 금속 품목을 보관하는 데 사용됩니다. 금속 광석을 제련하는 과정에서 사용됩니다.
+
+TREASURE.COIN.NOUN,,Coin,
+TREASURE.COIN.PLURAL,,Coins,
+TREASURE.COIN.TOOLTIP,,Minted coins used as a form of currency for trading.,
+TREASURE.GEM.NOUN,,Gem,
+TREASURE.GEM.PLURAL,,Gems,
+TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.,
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree,{{재료 유형.명사}} 나무
 
-TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with.","귀하의 정착민은 음식, 음료 및 수면 어딘가에 세 가지 기본 요구 사항을 충족해야합니다. 그들은 지금 그것에 대해 불평 할 것이지만, 그들은 근처의 강에서 마시고 지상에서 잠을 잘 수 있습니다. 그들이 할 수없는 것은 아무데도 음식을 마술 위로 올리는 것입니다 (적어도 마법사가 없으면!) 그래서 우리는 시작하는 음식에 초점을 맞출 것입니다."
-TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest.",봄마다 가장 먼저해야 할 일은 가을에 수확을 위해 충분한 작물이 심어 졌는지 확인하는 것입니다. 농업은 신뢰할 수 있고 지속 가능한 식량 공급원이지만 매년 수확할 때마다 인구를 먹일 수 있는 충분한 작물이 있는지 확인해야 합니다.
-TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click “{{GUI.ZONES_LABEL}}” > “{{ROOMS.FARM}}”, and designate / drag out several farm plots on a grassy area.",따라야 할 엄지 손가락의 좋은 법칙은 인구의 각 정착민에 대해 10개의 작물 타일이 뿌려져 있는지 확인하는 것입니다. 현재 7명의 정착민들이 밀집하고 있으므로 “{{GUI.ZONES_LABEL}}” > “{{ROOMS.FARM}}”을 클릭하고 풀밭의 여러 농장을 지정/끕니다.
-TUTORIAL.1.D,,Use right-click to cancel and go back in menus.,
-TUTORIAL.2.A,,"With nothing else to do, your settlers will start preparing these {{ROOMS.FARM.PLURAL}} by tilling the earth to be ready for seeds to be sown. This doesn’t require any special tools or knowledge so everyone should get involved.","할 일이 없으면, 당신의 정착민들은 씨를 뿌릴 준비를 위해 지구를 경작하여 {{ROOMS.FARM.PLURAL}} 을 준비하기 시작할 것입니다. 이것은 특별한 도구나 지식을 필요로하지 않으므로 모든 사람이 참여해야합니다."
-TUTORIAL.2.B,,"This prepares the plot to be sown, but you need to select which crop to grow on each farm plot before a farmer will come and plant the relevant seeds. Your settlers have brought with them a selection of different seeds. You can click “Resources” in the upper-right to get a breakdown of all the items in your settlement.",이렇게하면 뿌릴 음모가 준비되지만 농부가 와서 관련 씨앗을 심기 전에 각 농장 음모에서 자랄 작물을 선택해야합니다. 당신의 정착민들은 그들과 함께 다른 씨앗을 선택했습니다. 오른쪽 위에 있는 “리소스”를 클릭하여 정산 내 모든 아이템에 대한 분석을 확인할 수 있습니다.
-TUTORIAL.2.C,,"For the seeds to actually be available to your farmers, they need to be in a stockpile compared to being held in a dwarf’s inventory like they are currently. Click {{GUI.ZONES_LABEL}} > {{ROOMS.STOCKPILES}} > {{STOCKPILE.GROUP.SEEDS}} (you can right-click to go back up to a previous menu) and designate an area to be used for seeds to be stored.","씨앗을 농부들이 실제로 사용할 수 있게 하려면, 현재 드워프의 인벤토리에 보관하는 것과 비교해서 비축해야 합니다. {{GUI.ZONES_LABEL}} > {{ROOMS.STOCKPILES}} (마우스 오른쪽 버튼을 클릭하여 이전 메뉴로 돌아갈 수 있음) 을 클릭하고 {{STOCKPILE.GRANARY}} 으로 사용할 영역을 지정합니다. 여기서 씨앗과 곡물이 저장됩니다."
-TUTORIAL.2.D,,Your settlers have also brought a bunch of tools with them what will need moving around. From {{ROOMS.STOCKPILES}} also choose {{STOCKPILE.GROUP.TOOLS}} and designate another area to be used to store tools.,
-TUTORIAL.3.A,,"After some time your settlers should put items they are not using into stockpiles, like the seeds that are to be sown.",얼마 후 정착민들은 뿌려야 할 씨앗처럼 비축으로 사용하지 않는 물건을 넣어야 합니다.
-TUTORIAL.3.B,,"Left-click on each of the {{ROOMS.FARM.PLURAL}} and select a crop to be planted there. Don’t select {{VEGETABLE.BARLEY}} or {{VEGETABLE.HOPS}} for now, as these crops are used in the production of beer, not food.",각 {{ROOMS.FARM.PLURAL}} 을 마우스 왼쪽 버튼으로 클릭하고 그곳에 심을 작물을 선택합니다. 지금은 {{VEGETABLE.BARLEY}} 또는 {{VEGETABLE.HOPS}} 을 선택하지 마십시오. 이 작물은 음식이 아닌 맥주 생산에 사용됩니다.
-TUTORIAL.4.A,,Your {{PROFESSION.FARMER.PLURAL}} will now get to work sowing the seeds you have selected to these {{ROOMS.FARM.PLURAL}}. Sowing seeds does not require any special tools but you might want to assign more settlers as {{PROFESSION.FARMER.PLURAL}}. Left-click on a settler who is wandering around aimlessly.,귀하의 {{PROFESSION.FARMER.PLURAL}} 이 (가) {{ROOMS.FARM.PLURAL}} 에 선택한 씨앗을 뿌릴 수 있게 됩니다. 씨앗 파종에는 특별한 도구가 필요하지 않지만 {{PROFESSION.FARMER.PLURAL}} 으로 더 많은 정착민을 할당하고 싶을 수도 있습니다. 목적없이 돌아 다니는 정착민을 마우스 왼쪽 버튼으로 클릭하십시오.
-TUTORIAL.4.B,,"Clicking on a settler lets you see their name, professions, inventory, needs and happiness. Click on the blank square button next to their other professions to set a 3rd and final profession as a {{PROFESSION.FARMER.NOUN}}.","정착민을 클릭하면 자신의 이름, 직업, 재고, 필요와 행복을 볼 수 있습니다. 다른 직업 옆에 있는 빈 사각형 버튼을 클릭하여 세 번째 직업과 마지막 직업을 {{PROFESSION.FARMER.NOUN}} 으로 설정합니다."
-TUTORIAL.4.C,,"Note that some jobs require the settler to have a specific tool in their inventory, and if none are available in the settlement they won’t work on the jobs that require it. For example, you can assign more settlers as a {{PROFESSION.WOODCUTTER}}, but they can’t chop down trees without an available {{TOOL.AXE.NOUN}}.","일부 작업은 정산자에게 인벤토리에 특정 도구가 있어야 하며, 정산에서 사용할 수 있는 도구가 없는 경우 필요한 작업에서는 작동하지 않습니다. 예를 들어, 더 많은 정착민을 {{PROFESSION.WOODCUTTER}} 로 지정할 수 있지만 사용 가능한 {{TOOL.AXE.NOUN}} 이 없으면 나무를 잘라낼 수 없습니다."
-TUTORIAL.5.A,,"Your crops will now grow and eventually be harvested by your {{PROFESSION.FARMER.PLURAL}} in the {{SEASON.AUTUMN}}. Some crops can be planted again later in the year and survive through the {{SEASON.WINTER}}, but some do not. To get the most out of your crops, it is best to produce soup from the vegetables harvested, or bread from grain.",당신의 작물은 이제 {{PROFESSION.FARMER.PLURAL}} 에 당신의 {{SEASON.AUTUMN}} 에 의해 수확됩니다. 일부 작물은 올해 후반에 다시 심어 {{SEASON.WINTER}} 을 통해 생존할 수 있지만 일부는 그렇지 않습니다. 작물을 최대한 활용하려면 수확 한 채소에서 수프를 생산하거나 곡물에서 빵을 만드는 것이 가장 좋습니다.
-TUTORIAL.5.B,,"Let’s get a {{ROOMS.KITCHEN}} set up to produce soup once your crops are ready. Go to the top level menu then {{GUI.ZONES_LABEL}} > {{ROOMS.KITCHEN}} and drag out a {{ROOMS.KITCHEN}} area. For now you can build this outside, but you will eventually want to move the majority of your work areas inside for protection from the elements.","작물이 준비되면 {{ROOMS.KITCHEN}} 을 (를) 만들어 봅시다. 상위 레벨 메뉴로 이동한 다음 {{ZONES.LABEL}} > {{ROOMS.KITCHEN}} 을 (를) 클릭하고 {{ROOMS.KITCHEN}} 영역을 드래그합니다. 그것은 외부 또는 실내에있는 경우 산 아래 왕의 개발이 시점에서 그것은 중요하지 않습니다, 하지만 미래에 당신은 모든 객실 요소로부터 그들을 보호하기 위해 천장을 가지고 할 것입니다."
-TUTORIAL.5.C,,"Unlike farm plots, kitchens (and most other rooms) need furniture to function. Click “Furniture” when you have placed a kitchen zone and you’ll be presented with the furniture that can be added. To produce soup, you need to build a {{FURNITURE.WATER_BARREL}}, {{FURNITURE.KITCHEN_WORKTOP}} and {{FURNITURE.CAULDRON}} in the same kitchen zone. Also, designate a {{STOCKPILE.GROUP.FOOD}} {{ROOMS.STOCKPILE}} to store any harvested crops.","농장 플롯과 달리 부엌 (및 대부분의 다른 방) 은 기능하기 위해 가구가 필요합니다. 주방 구역을 배치하면 “가구”를 클릭하면 추가할 수 있는 가구가 표시됩니다. 수프를 생산하려면 같은 주방 구역에 {{FURNITURE.WATER_BARREL}}, {{FURNITURE.KITCHEN_WORKTOP}} 및 {{FURNITURE.CAULDRON}} 를 만들어야 합니다. 또한 수확한 작물을 저장할 {{STOCKPILE.PANTRY}} 영역을 지정합니다."
-TUTORIAL.6.A,,"When your crops have been harvested, cooks will bring vegetables to the {{FURNITURE.KITCHEN_WORKTOP}} before adding them to the {{FURNITURE.CAULDRON}} with water and producing soup! Making soup and baking bread means your food supplies will go much further - a single vegetable will feed a dwarf for a single meal, but 3 vegetables cooked into soup will provide 12 meals!","작물이 수확되면 요리사는 {{FURNITURE.KITCHEN_WORKTOP}} 에 야채를 가져와 물과 생산 수프로 {{FURNITURE.CHEFS_CAULDRON}} 에 야채를 넣습니다! 수프를 만들고 빵을 굽는 것은 식량이 훨씬 더 나아갈 것이라는 것을 의미합니다. 단 하나의 야채는 한 끼에 난쟁이를 먹일 것이지만, 수프에 조리 된 3 가지 야채는 12 가지 식사를 제공합니다!"
-TUTORIAL.6.B,,"Eventually this kitchen will produce a cauldron full of steaming hot soup, but the cooks don’t like other dwarves getting in the way in their kitchen, so instead you need to have the soup brought to a feasting hall for the whole settlement to enjoy. Designate a feasting hall by clicking on {{GUI.ZONES_LABEL}} > {{ROOMS.FEASTING_HALL}}, then add a {{FURNITURE.CAULDRON}} to it. Note that a feasting hall cauldron won’t be placed until a cauldron containing thick, delicious soup is available.",결국 이 주방은 김이 나는 뜨거운 국물이 가득 찬 가마솥을 만들지만 요리사들은 다른 드워프들이 부엌에 들어가는 것을 좋아하지 않으므로 대신 수프를 잔치 홀로 가져와 전체 정착을 즐기십시오. {{ZONES.LABEL}} > {{ROOMS.FEASTING_HALL}} 을 (를) 클릭하여 잔치 홀을 지정한 다음 {{FURNITURE.CAULDRON}} 을 (를) 추가합니다. 잔치 홀의 가마솥은 두껍고 맛있는 수프가 들어 있는 가마솥이 나올 때까지 놓지 않습니다.
-TUTORIAL.7.A,,Over time you will want to expand your food production but this will keep our small settlement nourished for the upcoming winter - your settlers have brought rations to sustain them while the first crops grow.,시간이 지남에 따라 식량 생산을 확대하고 싶을 것입니다. 그러나 이것은 다가오는 겨울 동안 우리의 작은 정착지를 계속 유지할 것입니다. 귀하의 정착민들은 첫 작물이 자라는 동안 식량을 유지할 수 있도록 식량을 가져왔습니다.
-TUTORIAL.7.B,,"Most items and furniture are produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} or {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}}. It’s important to maintain a large supply of these. {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} are produced in a {{ROOMS.SAWMILL}}, and {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}} are crafted by a {{PROFESSION.STONEMASON}} in a {{ROOMS.MASONRY_WORKSHOP}}. Place one of each of these zones, and build a {{FURNITURE.WOODCUTTERS_BENCH}} and {{FURNITURE.STONEMASON_WORKBENCH}} in them.","대부분의 아이템과 가구는 {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} 또는 {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}} 에서 생산됩니다. 이것들의 큰 공급을 유지하는 것이 중요합니다. {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} 은 {{ROOMS.SAWMILL}} 에서 생산되며, {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}} {{PROFESSION.STONEMASON}} 에 의해 {{ROOMS.MASONRY_WORKSHOP}} 에 있습니다. 각 구역 중 하나를 배치하고 {{FURNITURE.WOODCUTTERS_BENCH}} 과 {{FURNITURE.STONEMASON_WORKBENCH}} 를 만듭니다."
-TUTORIAL.8.A,,"Now you are ready to produce {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} and {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}}, but they require other resources to craft them - {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} and {{RESOURCE.STONE.UNREFINED.PLURAL}}. Fortunately these can usually be harvested from the game world quite easily.","이제 당신은 {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.PLANKS.PLURAL}} 및 {{MATERIAL_TYPE.STONE.ADJECTIVE}} {{RESOURCE.STONE.BLOCK.PLURAL}}, 하지만 그것들을 제작하려면 다른 자원이 필요합니다 - {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} 및 {{자원.돌.정제되지 않은.복수형}}. 다행히 이들은 일반적으로 아주 쉽게 게임 세계에서 수확 할 수 있습니다."
-TUTORIAL.8.B,,Select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} and click-and-drag over trees to let your woodcutters know to cut them down. Similarly you can select select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.MINE}} and click-and-drag an area of the mountain to designate to be mined. Select enough of both to build your stockpiles back up to 40 of each.,"{{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} 을 (를) 선택하고 나무 위에 클릭&드래그하면 목재절단기에 알려줄 수 있습니다. 마찬가지로, {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.MINE}} 를 선택하고 산의 영역을 클릭하여 끌어 채굴할 수 있습니다. 각각의 40까지 다시 비축을 구축하기 위해 둘 다 충분히 선택합니다."
-TUTORIAL.8.C,,"Be careful with mining! A mined-out area of 7 by 7 tiles without a {{FURNITURE.PILLAR}} built within that area will collapse! ",광업에 조심해! 그 지역 안에 {{FURNITURE.PILLAR}} 이 없는 7개 타로 이루어진 채굴된 구역은 무너질 것입니다!
-TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan the camera around. Moving the cursor to the edge of the screen also pans the camera, but this can be disabled in the options menu.",
-TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.,
-TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap.",
-TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.,
-TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in an {{ROOMS.EARTHWORKS}}. Good luck!","이 산 아래 왕을 재생의 기초를 다룹니다. 다음 챌린지를 위해, 연료와 정제된 금속 광석이 포함된 {{ROOMS.METALWORKS}} 을 (를) 사용하여 작동하는 {{FURNITURE.FORGE}} 에 설치하려고 합니다. 정제된 금속 광석은 {{FURNITURE.ORE_CRUSHING_STATION}} 에서 생산되며, 연료는 석탄에서 분쇄되거나 {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} {{FURNITURE.CHARCOAL_CLAMP}} {{ROOMS.EARTHWORKS}} 에 {{가구.숯불_클램프}}} 로 생산될 수 있습니다. 행운을 빕니다!"
+TUTORIAL.COMPLETED.A,,This covers the basics of playing.,
+TUTORIAL.COMPLETED.B,,"You should aim to set up a functioning {{ROOMS.SMITHY}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore, to produce metal items.",
+TUTORIAL.COMPLETED.C,,"Also, you should move your settlement underground or at least build a roof overhead to protect your Settlers and iron items from the weather.",
+TUTORIAL.COMPLETED.D,,Good luck!,
+TUTORIAL.CRAFTING.A,,Rooms with furniture that produce items are controlled using Import and Export Pallets.,
+TUTORIAL.CRAFTING.B,,Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop.,
+TUTORIAL.CRAFTING.C,,"Also, place a Products Stockpile which will hold the items that are produced.",
+TUTORIAL.CRAFTING_SELECTION.A,,Select each Import and Export Pallet and select the item to be imported or exported from the room.,
+TUTORIAL.CRAFTING_SELECTION.B,,"In the Sawmill, import Logs and export Planks.",
+TUTORIAL.CRAFTING_SELECTION.C,,"In the Masonry Workshop, import Rough stone boulders and export Blocks.",
+TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial,
+TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?,
+TUTORIAL.DISMISS_DIALOG.TITLE,,End Tutorial?,
+TUTORIAL.FARMING.A,,Click on Rooms and select Farm Plot. They are listed alphabetically.,
+TUTORIAL.FARMING.B,,Drag out 4 separate Farm Plots in a grassy area.,
+TUTORIAL.FARMING_2.A,,Click on each Farm Plot and select a Crop to be planted.,
+TUTORIAL.FARMING_2.A.STEAMDECK,,Press R2 on each Farm Plot and select a Crop to be planted.,
+TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used for Textiles and Brewing.",
+TUTORIAL.FEASTING_HALL.A,,Settlers eat in the Feasting Hall.,
+TUTORIAL.FEASTING_HALL.B,,The Cauldron furniture for the Feasting Hall is only completed when a Cauldron containing soup is available.,
+TUTORIAL.FEASTING_HALL.C,,Select Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later.,
+TUTORIAL.FOOD_COMPLETE.A,,This simple setup will ensure your Settlers have food once the crops are harvested later in the year.,
+TUTORIAL.FOOD_COMPLETE.B,,You can also fish from the river or hunt animals once you have set up a military to provide more food.,
+TUTORIAL.KITCHEN.A,,Crops are harvested in Autumn and should be stored in a Food Stockpile.,
+TUTORIAL.KITCHEN.B,,To get the most from your crops it is best to produce soup from vegetables or bake bread from grain.,
+TUTORIAL.KITCHEN.C,,"Select Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function.",
+TUTORIAL.MAIN_VIEW.A,,The controls in the lower-left corner of the screen are the main way of interacting with the game.,
+TUTORIAL.MAIN_VIEW.B,,"You can assign orders, queue rooms and furniture to be created, and also adjust the priority of tasks.",
+TUTORIAL.MAIN_VIEW.C,,You can right-click to go back to a previous menu or clear the current selection.,
+TUTORIAL.MAIN_VIEW.C.STEAMDECK,,You can press L2 to go back to a previous menu or clear the current selection.,
+TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION,,The icons to the left of the time and date are various management and overview screens.,
+TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT,,View the Resources management screen,
+TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT,,View the Settlers management screen,
+TUTORIAL.MINIMAP.DESCRIPTION,,This is the Minimap.,
+TUTORIAL.MINIMAP.PROGRESS,,Click on the Minimap to jump to a location,
+TUTORIAL.MINIMAP.PROGRESS.STEAMDECK,,Press R2 with the cursor on the Minimap to jump to a location,
+TUTORIAL.NEEDS.A,,"Settlers need Food, Drink and Sleep.",
+TUTORIAL.NEEDS.B,,For now they can drink from the river and sleep on the ground.,
+TUTORIAL.NEEDS.C,,However to eat they must grow crops.,
+TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do.",
+TUTORIAL.PROFESSIONS.B,,You can select a Settler to view or change their professions. This can also be done from the Settlers Management screen.,
+TUTORIAL.PROFESSIONS.C,,Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Haulers as they're responsible for moving items around.,
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned,농작물이 할당된 {{ROOMS.FARM.PLURAL}}
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned,{{professionPlural}} 이 (가) 할당되었습니다.
 TUTORIAL.PROGRESS_DESCRIPTION.TEXT,Used to show a progress indicator in the form: 2 of 10 stone blocks,{{currentQuantity}} of {{requiredQuantity}} {{targetDescription}},{{필수 수량}} {{대상 설명}} 의 {{현재 수량}}
 TUTORIAL.PROGRESS_DESCRIPTION.TILES,Used to show a progress indicator for a certain number of tiles e.g. 2 of 10 farm plot tiles,{{roomName}} tiles,{{룸 이름}} 타일
-TUTORIAL.SAVING.A,,"Your progress is saved automatically at midnight, and also whenever you exit the game. You can also quicksave by pressing the F5 key.",
-TUTORIAL.TIME.A,,"The upper-right section of the screen shows the current date and time, and has controls for the game speed.",
-TUTORIAL.TIME.B,,You can press the spacebar to pause or unpause the game.,
-TUTORIAL.TIME.C,,"The 1 key sets the game to run at normal speed, while the 2, 3 and 4 keys make the game run at an increasingly faster pace. The game will automatically jump to speed 4 while all your settlers are asleep.",
-TUTORIAL.TIME.D,,You can also click the speed icons to change the speed or pause the game.,
+TUTORIAL.RESOURCES.A,,Many items are crafted out of Wooden Planks and Stone Blocks. It's important to maintain a steady supply of these.,
+TUTORIAL.RESOURCES.B,,Select Orders > Mine. Drag a selection over the mountain area to order your Miners to start mining.,
+TUTORIAL.RESOURCES.C,,Also select Orders > Chop. Drag a selection over a forested area to order your Woodcutters to start chopping trees.,
+TUTORIAL.RESOURCE_COLLECTION.A,,"With all of this in place, your workshops will start producing Wooden Planks and Stone Blocks.",
+TUTORIAL.RESOURCE_COLLECTION.B,,Continue until you have a reasonable supply of Planks and Blocks.,
+TUTORIAL.SAVING.A,,Progress is saved automatically at midnight or when you exit the game.,
+TUTORIAL.SAVING.A.STEAMDECK,,Progress is saved automatically at midnight each day.,
+TUTORIAL.SAVING.B,,You can also press F5 to Quicksave.,
+TUTORIAL.SAVING.B.STEAMDECK,,The game is also saved when you quit from the main menu.,
+TUTORIAL.SAVING.C,,Press F5 to Quicksave now,
+TUTORIAL.SHOW_LABEL,,Show Tutorial,
+TUTORIAL.START.CAMERA_CONTROLS_1,,Press the WASD keys to move the camera around,
+TUTORIAL.START.CAMERA_CONTROLS_1.STEAMDECK,,Use the Left Stick or D-Pad to move the camera around,
+TUTORIAL.START.CAMERA_CONTROLS_2,,Press Q & E or scroll the mouse wheel to zoom,
+TUTORIAL.START.CAMERA_CONTROLS_2.STEAMDECK,,Press L1 and R1 to zoom in and out,
+TUTORIAL.START.INTRO_1,,Welcome to Mountaincore! This is an Early Access release with gameplay and features still in development.,
+TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!",
+TUTORIAL.STOCKPILES.A,,It is a good idea to place Stockpiles for your Settlers to place and share items.,
+TUTORIAL.STOCKPILES.B,,"Select Rooms and then select Stockpile, then Tools. Drag out a Tools Stockpile in a central location.",
+TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here.",
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds",
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP.STEAMDECK,,Press R2 on the icons for increasingly faster speeds,
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,Click the icon or press 1 for normal speed,
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP.STEAMDECK,,Press R2 over the icon for normal speed,
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,Press space to pause and unpause the game,
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP.STEAMDECK,,Press the A button to pause and unpause the game,
+TUTORIAL.VIEW_MODES.DEFAULT_STEP,,Click the left-most button to return to the default view mode,
+TUTORIAL.VIEW_MODES.DEFAULT_STEP.STEAMDECK,,Press R2 on the left-most icon to return to the default view mode,
+TUTORIAL.VIEW_MODES.DESCRIPTION,,Below the time and date are buttons to show different views overlaid onto the game world.,
+TUTORIAL.VIEW_MODES.OTHER_STEP,,Click one of the other view mode buttons,
+TUTORIAL.VIEW_MODES.OTHER_STEP.STEAMDECK,,Press R2 over one of the other view mode buttons,
+TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason.,
+TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.,
+TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.,
+TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.,
 
 VEGETABLE.BARLEY,,Barley,보리
 VEGETABLE.BARLEY.PLURAL,,Barley,보리
@@ -1294,17 +1679,20 @@ VEGETABLE.ELFSBANE_MUSHROOM.TOOLTIP,,"This mushroom has a simple, flavourless ta
 VEGETABLE.FIST_MUSHROOM,,Fist mushroom,주먹버섯
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,주먹 버섯
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,금속 맛을 지닌 검은 파란색 버섯. 그것은 어둠 시대의 바지선 그룹의 이름을 따서 명명되었습니다.
+VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,글로우 버섯
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,글로우 버섯
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,계절에 따라 빛을 발하고 색채를 바꾸는 마법이 주입된 버섯.
 VEGETABLE.HEMP,,Hemp,
 VEGETABLE.HEMP.PLURAL,,Hemp,
 VEGETABLE.HEMP.TOOLTIP,,This is processed at the {{ROOMS.TEXTILE_WORKSHOP}} to a useful material.,
+VEGETABLE.HEMP.USAGE,,a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}},
 VEGETABLE.HEMP_FIBRE,,Hemp fibre,
 VEGETABLE.HEMP_FIBRE.PLURAL,,Hemp fibre,
 VEGETABLE.HOPS,,Hops,홉
 VEGETABLE.HOPS.PLURAL,,Hops,홉
 VEGETABLE.HOPS.TOOLTIP,,A flower used for the flavouring of beer. Must be planted in {{SEASON.SPRING}}.,맥주의 맛을 내기 위해 사용되는 꽃입니다. {{SEASON.SPRING}} 에 심어야 합니다.
+VEGETABLE.INGREDIENT.USAGE,,"used in the cooking of soup, or can be eaten raw",
 VEGETABLE.LOQUAT,,Loquat,비루콰트
 VEGETABLE.LOQUAT.PLURAL,,Loquats,비루
 VEGETABLE.MILTONIA_MUSHROOM,,Miltonia mushroom,밀토니아 버섯
@@ -1335,10 +1723,9 @@ VEGETABLE.TOMATO.TOOLTIP,,A plant which grows large red berries often used as a 
 VEGETABLE.WHEAT,,Wheat,밀
 VEGETABLE.WHEAT.PLURAL,,Wheat,밀
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.",곡물 곡물은 일반적으로 빵 생산에 사용됩니다. 이 생기는 {{SEASON.WINTER}} 생존할 수 있지만 성장하는 데 시간이 걸리므로 {{SEASON.SPRING}} 또는 {{SEASON.AUTUMN}} 에 심습니다.
+VEGETABLE.WHEAT.USAGE,,used to bake bread,
 
-VITRIOL.GREEN_VITRIOL.ADJECTIVE,,Green,녹색
-VITRIOL.GREEN_VITRIOL.NOUN,,Green,녹색
-VITRIOL.GREEN_VITRIOL.TOOLTIP,,"Also known as iron sulfate, this salt has several uses, including as a soil additive to improve crop farming. (Usages of vitriol are not yet implemented in King under the Mountain)",황산철이라고도 불리는이 소금은 작물 농사를 개선하는 토양 첨가제를 포함하여 여러 가지 용도로 사용됩니다. (vitriol의 사용법은 아직 산 아래 킹에서 구현되지 않았습니다)
+VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}},
 
 WALL.DESCRIPTION,"E.g. “Granite rock wall”, “Granite smooth stone wall”",{{materialType.adjective}} {{wallType.noun}},{{materialType.adjective}} {{wallType.noun}}
 WALL.GEMS.NOUN,,Gems,보석
@@ -1349,16 +1736,25 @@ WALL.WOODEN.NOUN,,Wood wall,나무 벽
 
 WEAPON.BATTLE.AXE,,Battle axe,
 WEAPON.BATTLE.HAMMER,,Battle hammer,
+WEAPON.BONE.ARROW.HEADS.NOUN,,Bone arrow head,
+WEAPON.BONE.ARROW.HEADS.PLURAL,,Bone arrow heads,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,
 WEAPON.BOW,,Bow,
 WEAPON.CROSSBOW,,Crossbow,
+WEAPON.METAL.ARROW.HEADS.NOUN,,Arrow head,
+WEAPON.METAL.ARROW.HEADS.PLURAL,,Arrow heads,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,
 WEAPON.METAL.BOLTS.NOUN,,Bolt,
 WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.METAL.SHIELD,,Shield,
+WEAPON.NONE,Used to select no weapon from the selection list,None,
+WEAPON.NO_ARMOUR,,Unarmoured,
+WEAPON.NO_SHIELD,,Unshielded,
 WEAPON.SWORD,,Sword,
 WEAPON.UNARMED,,Unarmed,
+WEAPON.WOODEN.SHIELD,,Shield,
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,
 WEATHER.TYPE.COLD_WINDS,,Cold winds,

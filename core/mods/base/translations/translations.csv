@@ -36,10 +36,10 @@ ACTION.STUNNED,,Stunned
 
 ARMOUR.LEATHER,,Leather armour
 ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat
-ARMOUR.PLATE,,Plate armour
-ARMOUR.PLATE.TOOLTIP,,Thick and sturdy armour which offers a lot of protection in combat
 ARMOUR.ORC.HEAVY,,Orc armour
 ARMOUR.ORC.LIGHT,,Leather orc armour
+ARMOUR.PLATE,,Plate armour
+ARMOUR.PLATE.TOOLTIP,,Thick and sturdy armour which offers a lot of protection in combat
 
 ASHES.NOUN,,Ash
 
@@ -72,7 +72,6 @@ BODY_STRUCTURE.HOOF,,Hoof
 BODY_STRUCTURE.LEFT-ARM,,Left arm
 BODY_STRUCTURE.LEFT-HAND,,Left hand
 BODY_STRUCTURE.LEG,,Leg
-BODY_STRUCTURE.TRUNK,,Trunk
 BODY_STRUCTURE.ORGAN.BRAIN,,Brain
 BODY_STRUCTURE.ORGAN.EYE,,Eye
 BODY_STRUCTURE.ORGAN.HEART,,Heart
@@ -86,6 +85,7 @@ BODY_STRUCTURE.PAW,,Paw
 BODY_STRUCTURE.RIGHT-ARM,,Right arm
 BODY_STRUCTURE.RIGHT-HAND,,Right hand
 BODY_STRUCTURE.TORSO,,Chest
+BODY_STRUCTURE.TRUNK,,Trunk
 
 BONE.BONE,,Bone
 
@@ -113,8 +113,8 @@ COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}}
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}}
 CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned
-CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
 CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
+CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be removed from this furniture’s construction area before it can progress.
 CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available
@@ -134,8 +134,8 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry
 CRAFTING_TYPE.CARVING_VERB,,Carving
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking
 CRAFTING_TYPE.FERMENTING,,Fermenting
-CRAFTING_TYPE.FLETCHING,,Fletching
 CRAFTING_TYPE.FINE_DETAIL_CRAFTING,,Fine detailing
+CRAFTING_TYPE.FLETCHING,,Fletching
 CRAFTING_TYPE.LEATHERWORKING,,Leatherworking
 CRAFTING_TYPE.MALTING,,Malting
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing
@@ -175,10 +175,10 @@ DEATH_REASON.FOOD_POISONING,These are used in conjunction with the NOTIFICATION.
 DEATH_REASON.FROZEN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exposure to freezing weather
 DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life
 DEATH_REASON.INTERNAL_BLEEDING,,Internal bleeding
-DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation
-DEATH_REASON.SUFFOCATION,,Suffocation
 DEATH_REASON.KILLED_BY_ENTITY,,wounds suffered in combat
 DEATH_REASON.MURDERED.UNKNOWN_KILLER,,someone
+DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation
+DEATH_REASON.SUFFOCATION,,Suffocation
 DEATH_REASON.UNKNOWN,,Mysterious circumstances
 
 EARTH.DIRT,,Dirt
@@ -187,15 +187,15 @@ EARTH.GRASS,,Grass
 EFFECT.FIRE,When the player selects a fire by itself,Fire
 
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire
-ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat
+ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 
+FACTION.HOSTILE_INVASION,,Hostile Invader
+FACTION.MERCHANTS,,Merchant
+FACTION.MONSTERS,,Monster
 FACTION.SETTLEMENT,,Settler
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal
 FACTION.WILD_ANIMALS,,Wild Animal
-FACTION.MONSTERS,,Monster
-FACTION.HOSTILE_INVASION,,Hostile Invader
-FACTION.MERCHANTS,,Merchant
 
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}})
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.
@@ -227,10 +227,10 @@ FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{F
 
 FURNITURE.ARCHERY_TARGET,,Archery target
 FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.
-FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
-FURNITURE.ARTISAN_WORKSTATION.TOOLTIP,,A crafting station for intricate items produced by an {{PROFESSION.ARTISAN}}.
 FURNITURE.ARMOUR_STAND,,Armour stand
 FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.
+FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
+FURNITURE.ARTISAN_WORKSTATION.TOOLTIP,,A crafting station for intricate items produced by an {{PROFESSION.ARTISAN}}.
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven
@@ -268,6 +268,8 @@ FURNITURE.DESCRIPTION.WAITING_FOR_LIQUID,,Waiting to be filled
 FURNITURE.DESCRIPTION.WAITING_FOR_MUSHROOM_SPAWN,,Waiting to be injected with mushroom spawn
 FURNITURE.DOUGH_PROOFING_TABLE,,Dough proofing table
 FURNITURE.DOUGH_PROOFING_TABLE.TOOLTIP,,Dough can be taken from {{FURNITURE.BAKERS_WORKTOP}} to store here before entering the {{FURNITURE.BAKING_OVEN}}.
+FURNITURE.EXPORT_PALLET,,Export pallet
+FURNITURE.EXPORT_PALLET.TOOLTIP,,Use this to determine which items to export from the room.
 FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table
 FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your settlers will enjoy their meals at this table."
 FURNITURE.FERMENTATION_TANK,,Fermentation tank
@@ -284,6 +286,9 @@ FURNITURE.GRAVE,,Grave
 FURNITURE.GRAVE.TOOLTIP,,A hastily-dug grave for deceased settlers that can only be dug into {{MATERIAL_TYPE.EARTH}}.
 FURNITURE.HITCHING_POST,,Hitching post
 FURNITURE.HITCHING_POST.TOOLTIP,,Visiting merchants will park their wagons here.
+FURNITURE.IMPORT_PALLET,,Import pallet
+FURNITURE.IMPORT_PALLET.TOOLTIP,,Use this to determine which items to import to the room.
+FURNITURE.INVADER_CAMPFIRE,,Campfire
 FURNITURE.KITCHEN_WORKTOP,Simple piece of furniture in a kitchen used to hold ingredients on top of it,Kitchen worktop
 FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSION.CHEF}} to cook soup.
 FURNITURE.LANTERN,,Lantern
@@ -295,7 +300,7 @@ FURNITURE.LEDGER_TABLE.TOOLTIP,,A landmark for the {{ROOMS.TRADING_DEPOT}}. This
 FURNITURE.LOOM,,Loom
 FURNITURE.LOOM.TOOLTIP,,Used to craft textiles such as {{PRODUCT.LINEN.NOUN}} from {{RESOURCE.HEMP.FIBRE.BUNDLE.PLURAL}}.
 FURNITURE.MALTING_STATION,,Malting station
-FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt."
+FURNITURE.MALTING_STATION.TOOLTIP,,Here brewers steep barley and then dry it out using a kiln to produce malt.
 FURNITURE.MASH_TUN,,Mash tun
 FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.
 FURNITURE.MUSHROOM_LOG,,Mushroom log
@@ -313,7 +318,7 @@ FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resti
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.SINGLE_BED,,Bed
-FURNITURE.SINGLE_BED.TOOLTIP,,"A bed is the best place for a comfortable night’s rest."
+FURNITURE.SINGLE_BED.TOOLTIP,,A bed is the best place for a comfortable night’s rest.
 FURNITURE.SINGLE_DOOR,,Door
 FURNITURE.SINGLE_DOOR_FRAME,,Door frame
 FURNITURE.SLEEPING_SPOT,,Sleeping spot
@@ -322,10 +327,11 @@ FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.
 FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRODUCT.LEATHER.PLURAL}}.
-FURNITURE.TRAINING_DUMMY,,Training dummy
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.
 FURNITURE.TRADE_BANNER,,Banner
 FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.
+FURNITURE.TRAINING_DUMMY,,Training dummy
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.
+FURNITURE.WAGON_PARKED,,Wagon
 FURNITURE.WATERWHEEL,,Water Wheel
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
@@ -334,7 +340,6 @@ FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to 
 FURNITURE.WATER_PUMP,,Water Pump
 FURNITURE.WATER_PUMP.PLURAL,,Water Pumps
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.
-FURNITURE.WAGON_PARKED,,Wagon
 FURNITURE.WEAPON_RACK,,Weapon Rack
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.
 FURNITURE.WELL,,Well
@@ -344,11 +349,6 @@ FURNITURE.WINDMILL.PLURAL,,Windmills
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.
 FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.
-FURNITURE.INVADER_CAMPFIRE,,Campfire
-FURNITURE.IMPORT_PALLET,,Import pallet
-FURNITURE.IMPORT_PALLET.TOOLTIP,,Use this to determine which items to import to the room.
-FURNITURE.EXPORT_PALLET,,Export pallet
-FURNITURE.EXPORT_PALLET.TOOLTIP,,Use this to determine which items to export from the room.
 
 GEM.AMETHYST.ADJECTIVE,,Amethyst
 GEM.AMETHYST.NOUN,,Amethyst
@@ -442,16 +442,16 @@ GOAL.EXTINGUISH_FIRE.DESCRIPTION,,Putting out a fire
 GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}}
 GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle
+GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp
+GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
+GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles
+GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
+GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
+GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
 GOAL.ON_FIRE.DESCRIPTION,,On fire!
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin
 GOAL.SLEEP.DESCRIPTION,,Going to sleep
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}}
-GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
-GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
-GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
-GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp
-GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles
-GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,,Add tiles
@@ -461,19 +461,18 @@ GUI.BACK_LABEL,,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors
 GUI.BUILD.FLOOR,For building floorboards/stone slabs across the ground,Flooring
+GUI.BUILD.PILLARS,,Pillars
 GUI.BUILD.PIPING,,Pipes
 GUI.BUILD.POWER,,Power
 GUI.BUILD.ROOFING,,Roofing
 GUI.BUILD.WALLS,,Walls
-GUI.BUILD.PILLARS,,Pillars
 GUI.BUILD_FURNITURE,,Furniture
 GUI.BUILD_LABEL,,Build
 GUI.CANCEL_LABEL,,Cancel
-GUI.COMBAT_LABEL,,Combat
-GUI.INVASION_LABEL,,Invasion
-GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
 GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
+GUI.COMBAT_LABEL,,Combat
+GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
 GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}})
 GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With
@@ -494,7 +493,7 @@ GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers
 GUI.CROP_SELECTION,,Crop:
-GUI.CROP_SELECTION.DESCRIPTION,,"{{plantDescription}} - {{planting}} - {{usage}}"
+GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_1,,Plant in {{season1}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_2,,Plant in {{season1}} or {{season2}}
@@ -544,6 +543,7 @@ GUI.FURNITURE_REQUIREMENT.ALL_MATERIALS,,{{amount}} available
 GUI.FURNITURE_REQUIREMENT.SPECIFIED_MATERIALS,,{{amount}} {{material}} available
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen
 GUI.GRAPHICS.RESOLUTION,,Resolution
+GUI.INVASION_LABEL,,Invasion
 GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_0,,Debug frame buffer 0
 GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_1,,Debug frame buffer 1
 GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_2,,Debug frame buffer 2
@@ -591,17 +591,17 @@ GUI.MAP_SEED.COPY_TO_CLIPBOARD,,Copy to clipboard
 GUI.MAP_SEED_DISPLAY,,"Current map seed: "
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical
-GUI.MILITARY.DIALOG.CHOOSE_EMBLEM,,Choose Emblem For {{squadName}}
 GUI.MILITARY.DIALOG.ADD_SQUAD,,Name New Squad
+GUI.MILITARY.DIALOG.CHOOSE_EMBLEM,,Choose Emblem For {{squadName}}
 GUI.MILITARY.DIALOG.RENAME_SQUAD,,Rename Squad
 GUI.MILITARY.DIALOG.SELECT_SQUAD,,Assign to New Squad
 GUI.MILITARY.NEW_SQUAD,,New Squad
 GUI.MILITARY.ORDERS,,Orders
-GUI.MILITARY.ORDERS.TRAIN,,Train
-GUI.MILITARY.ORDERS.GUARD,,Guard
 GUI.MILITARY.ORDERS.ATTACK,,Attack
 GUI.MILITARY.ORDERS.CANCEL_ATTACK,,Cancel Attack
+GUI.MILITARY.ORDERS.GUARD,,Guard
 GUI.MILITARY.ORDERS.RETREAT,,Retreat
+GUI.MILITARY.ORDERS.TRAIN,,Train
 GUI.MILITARY.REMOVE_SQUAD,,Remove Squad
 GUI.MILITARY.REMOVE_SQUAD.DIALOG,,Are you sure you want to remove this Squad?
 GUI.MILITARY.SET_FORMATION,,Set Formation
@@ -624,7 +624,7 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options "
 GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,,Weather Effects
-GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,"Show weather effects like snow on furniture"
+GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,Show weather effects like snow on furniture
 GUI.OPTIONS.KEY_BINDINGS,,Key Bindings
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
@@ -651,10 +651,10 @@ GUI.ORDERS.CHOP_WOOD,,Chop
 GUI.ORDERS.CLEAR_GROUND,,Clear
 GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation
 GUI.ORDERS.DIG_CHANNELS.TOOLTIP,,This order is used to dig channels in the ground.
-GUI.ORDERS.EXTINGUISH_FLAMES, - used to put out fires by throwing buckets of water on them,Extinguish
+GUI.ORDERS.EXTINGUISH_FLAMES," - used to put out fires by throwing buckets of water on them",Extinguish
 GUI.ORDERS.EXTINGUISH_FLAMES.TOOLTIP,,This order is used to extinguish fires that are currently burning.
 GUI.ORDERS.HARVEST_PLANTS,,Harvest
-GUI.ORDERS.HUNT, - used to select animals to be hunted,Hunt
+GUI.ORDERS.HUNT," - used to select animals to be hunted",Hunt
 GUI.ORDERS.HUNT.TOOLTIP,,This order is used to select animals to be hunted.
 GUI.ORDERS.MINE,,Mine
 GUI.ORDERS_LABEL,,Orders
@@ -662,8 +662,8 @@ GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge mu
 GUI.POWER_LABEL,,Power & Water
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority
-GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export
+GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import
 GUI.REMOVE_LABEL,,Remove
 GUI.REMOVE_TILES,,Remove tiles
 GUI.RESOURCE_MANAGEMENT.ALL_OF,,All {{item}}
@@ -694,6 +694,7 @@ GUI.RESOURCE_MANAGEMENT.TITLE,,Resources
 GUI.RESOURCE_MANAGEMENT.TOTAL,,Total
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add
+GUI.ROOMS_LABEL,,Rooms
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
 GUI.SELECT_WEAPON.LABEL,,Select weapon
@@ -721,11 +722,10 @@ GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI Scale
 GUI.VIEW_MODE.DEFAULT,,Default view
 GUI.VIEW_MODE.JOB_PRIORITY,,Priority view
-GUI.VIEW_MODE.ROOFING_INFO,,Roof view
-GUI.VIEW_MODE.PIPING,,Piping view
 GUI.VIEW_MODE.MECHANISMS,,Power view
+GUI.VIEW_MODE.PIPING,,Piping view
+GUI.VIEW_MODE.ROOFING_INFO,,Roof view
 GUI.VIEW_ROADMAP,,View development roadmap
-GUI.ROOMS_LABEL,,Rooms
 GUI.YEAR_LABEL,,Year {{year}}
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober
@@ -765,11 +765,11 @@ HINT.BUILD_POWER.3,,Constructions which require or produce power will display a 
 HINT.BUILD_ROOFING.1,,"This view allows you to see which tiles are outside with no roof above them (light blue), and those which have had a roof built overhead (dark brown)."
 HINT.BUILD_ROOFING.2,,"You can use the {{GUI.ROOFING.ADD}} and {{GUI.CANCEL_LABEL}} options to queue up roofing to be constructed, and {{GUI.DECONSTRUCT_LABEL}} to remove any existing roof tiles."
 HINT.BUILD_ROOFING.3,,A roof can only be constructed within 3 tiles of a wall or {{FURNITURE.PILLAR}}.
+HINT.BUTTON.BEGIN_TUTORIAL,,Begin Tutorial
 HINT.BUTTON.DISABLE_ALL,,Disable all hints
 HINT.BUTTON.DISMISS,,Dismiss
 HINT.BUTTON.HINTS_ONLY,,Hints only
 HINT.BUTTON.NEXT,,Next
-HINT.BUTTON.BEGIN_TUTORIAL,,Begin Tutorial
 HINT.OPEN_PRIORITY_MENU.1,,"You can use this menu to change the priority of jobs and tasks, so that higher priority jobs will be assigned before lower priority jobs."
 HINT.OPEN_PRIORITY_MENU.2,,"While the Priority menu is open, the priority icons are shown in the game world where there is a job or task to be performed, or where a room or item of furniture may create jobs in the future."
 HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.
@@ -810,9 +810,10 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack)
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:
 
+ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available
 ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}}
 ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}}
-ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available
+ITEM.NONE_SELECTED,,None selected
 ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful
 ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much"
 ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork
@@ -821,7 +822,6 @@ ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor
 ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it
 ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior
 ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use"
-ITEM.NONE_SELECTED,,None selected
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel
 ITEM_GROUP.PRODUCT.PLURAL,,Products
@@ -895,13 +895,13 @@ MECHANISM.WOODEN.SHAFT.NOUN,,Shaft
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.
 
 MENU.CONTINUE_GAME,,Continue
+MENU.CREDITS,,Credits
 MENU.JOIN_DISCORD,,Join Discord
 MENU.LINK_TWITCH_ACCOUNT,,Link Twitch
 MENU.LOAD_GAME,,Load
 MENU.MODS,,Mods
 MENU.NEW_GAME,,New Game
 MENU.OPTIONS,,Options
-MENU.CREDITS,,Credits
 MENU.QUIT,,Quit
 MENU.SAVE_AND_QUIT,,Save & Quit
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen
@@ -947,13 +947,13 @@ MILITARY.FORMATION.LINE,,Line - Narrow
 MILITARY.FORMATION.LINE_DOUBLE,,Line - Wide
 MILITARY.FORMATION.LINE_SINGLE,,Line
 MILITARY.SQUAD.DEFAULT_NAME,,Squad
+MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT,,In Combat
+MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING,,Guarding
+MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY,,Off Duty
+MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating
+MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training
 MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift
 MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift
-MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY,,Off Duty
-MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING,,Guarding
-MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT,,In Combat
-MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training
-MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating
 
 MODS.APPLY,,Apply
 MODS.BUTTON.BROWSE,,Browse Mods
@@ -962,18 +962,18 @@ MODS.COMPATIBILITY.COMPATIBLE,,Yes
 MODS.COMPATIBILITY.INCOMPATIBLE,,No
 MODS.COMPATIBILITY.UNKNOWN,,Unknown
 MODS.EMAIL_LOGIN.CHECK_EMAIL,,"Check your email for an authentication code. If you do not receive an email, please check your spam folder."
-MODS.EMAIL_LOGIN.INFO,,"To download and update mods, you must connect to the Mod.io platform."
-MODS.EMAIL_LOGIN.EMAIL,,"Enter your email address to receive an authentication code."
-MODS.EMAIL_LOGIN.EMAIL_LABEL,,"Email:"
+MODS.EMAIL_LOGIN.CODE_LABEL,,6 Digit Code:
+MODS.EMAIL_LOGIN.EMAIL,,Enter your email address to receive an authentication code.
+MODS.EMAIL_LOGIN.EMAIL_LABEL,,Email:
 MODS.EMAIL_LOGIN.ERROR,,"An error occurred while communicating to the server. Either the server is down, the email address is invalid, or you are not connected to the internet."
-MODS.EMAIL_LOGIN.REQUEST_CODE,,"Request Code"
-MODS.EMAIL_LOGIN.CODE_LABEL,,"6 Digit Code:"
-MODS.EMAIL_LOGIN.SUBMIT_CODE,,"Submit"
+MODS.EMAIL_LOGIN.INFO,,"To download and update mods, you must connect to the Mod.io platform."
+MODS.EMAIL_LOGIN.REQUEST_CODE,,Request Code
+MODS.EMAIL_LOGIN.SUBMIT_CODE,,Submit
 MODS.INCOMPATIBLE_VERSION_DESCRIPTION,,The mod's game version ({{modGameVersion}}) is incompatible with the current game version ({{gameVersion}})
 MODS.MISSING_HOMEPAGE_URL,,The author(s) of this mod have not included a website to visit
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:"
-MODS.SYNC_IN_PROGRESS,,"Please wait while the mod list is being updated. This may take a few minutes."
+MODS.SYNC_IN_PROGRESS,,Please wait while the mod list is being updated. This may take a few minutes.
 MODS.TABLE.COMPATIBILITY,,Compatible
 MODS.TABLE.ENABLED,,Enable
 MODS.TABLE.NAME,,Name
@@ -989,8 +989,8 @@ NEEDS.SLEEP,,Sleep
 NOTIFICATION.AREA_REVEALED.DESCRIPTION,,Your miners have discovered a new area!
 NOTIFICATION.AREA_REVEALED.TITLE,,Exploration
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}."
-NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}}
 NOTIFICATION.DEATH.KILLED_BY_DESCRIPTION,,Killed by {{killer}}
+NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}}
 NOTIFICATION.DEATH.TITLE,,Settler Death
 NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!
 NOTIFICATION.FIRE_STARTED.TITLE,,Fire!
@@ -1000,6 +1000,8 @@ NOTIFICATION.GAME_OVER.DESCRIPTION,,All things must come to an end. Your settlem
 NOTIFICATION.GAME_OVER.TITLE,,Game Over
 NOTIFICATION.IMMIGRANTS_ARRIVED.DESCRIPTION,,The prosperity of your settlement has attracted a number of new immigrants to boost your population.
 NOTIFICATION.IMMIGRANTS_ARRIVED.TITLE,,Immigration
+NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
+NOTIFICATION.INVASION.TITLE,,You are being invaded!
 NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of pillars and supports.
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.
@@ -1010,12 +1012,10 @@ NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
-NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
-NOTIFICATION.INVASION.TITLE,,You are being invaded!
-NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.
-NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!
+NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!
 NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,,You must construct a Trading Depot to buy and sell goods.
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite
 ORE.BAUXITE.NOUN,,Bauxite
@@ -1085,11 +1085,11 @@ PRIORITY.LOWEST,,Lowest priority
 PRIORITY.NORMAL,,Normal priority
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept
-PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting
-PRIVACY.OPT_IN.DESCRIPTION,,"Mountaincore is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
 PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client
 PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
-PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash
+PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash
+PRIVACY.OPT_IN.DESCRIPTION,,"Mountaincore is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
+PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting
 
 PRODUCT.ANVIL,,Anvil
 PRODUCT.ANVIL.PLURAL,,Anvils
@@ -1130,12 +1130,12 @@ PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, w
 PRODUCT.MILLSTONE,,Millstone
 PRODUCT.MILLSTONE.PLURAL,,Millstones
 PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mill harvested crops. Used to construct a {{FURNITURE.FLOUR_MILL}}.
-PRODUCT.RATION.NOUN,,Ration
-PRODUCT.RATION.PLURAL,,Rations
-PRODUCT.RATION.TOOLTIP,,"These will last a long time to feed your settlers, but you will need other sources of food as a priority."
 PRODUCT.RATION.DOUGH.NOUN,,Ration dough
 PRODUCT.RATION.DOUGH.PLURAL,,Ration dough
 PRODUCT.RATION.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.RATION.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.
+PRODUCT.RATION.NOUN,,Ration
+PRODUCT.RATION.PLURAL,,Rations
+PRODUCT.RATION.TOOLTIP,,"These will last a long time to feed your settlers, but you will need other sources of food as a priority."
 PRODUCT.ROPE.NOUN,,Rope
 PRODUCT.ROPE.PLURAL,,Ropes
 PRODUCT.STONE.GEAR.NOUN,,Gear
@@ -1275,13 +1275,13 @@ RACE.FOX.FEMALE_NOUN,,Vixen
 RACE.FOX.MALE_NOUN,,Fox
 RACE.FUNGOLEM,,Fungolem
 RACE.HORSE.NOUN,,Horse
+RACE.ORC.MALE_ADJECTIVE,,Orcish
+RACE.ORC.MALE_NOUN,Orcs are only male,Orc
 RACE.PERCH.NOUN,,Perch
 RACE.PIKE.NOUN,,Pike
 RACE.SPIDER,,Spider
 RACE.UNDEAD_DWARF,,Undead dwarf
 RACE.WURM,,Wurm
-RACE.ORC.MALE_NOUN,Orcs are only male,Orc
-RACE.ORC.MALE_ADJECTIVE,,Orcish
 
 RESOURCE.BONE.LARGE.NOUN,,Large Bone
 RESOURCE.BONE.LARGE.PLURAL,,Large Bones
@@ -1350,7 +1350,7 @@ ROOMS.BAKERY.TOOLTIP,,Where bread dough is created and then baked into bread.
 ROOMS.BARRACKS,,Barracks
 ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train.
 ROOMS.BEDROOM,,Bedroom
-ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep."
+ROOMS.BEDROOM.TOOLTIP,,A place for your settlers to sleep.
 ROOMS.BREWERY,,Brewery
 ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy!
 ROOMS.BRIDGE,,Bridge
@@ -1367,36 +1367,36 @@ ROOMS.FUEL_REFINERY,,Fuel refinery
 ROOMS.FUEL_REFINERY.TOOLTIP,,Produces fuel from {{RESOURCE.LOGS.PLURAL}} or {{ORE.BITUMINOUS_COAL.NOUN}}.
 ROOMS.GRAVEYARD,,Graveyard
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.
+ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.KITCHEN,,Kitchen
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.
 ROOMS.LEATHER_WORKSHOP,,Leatherworks
 ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide.
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.
-ROOMS.SMELTERY,,Smeltery
-ROOMS.SMELTERY.TOOLTIP,,Metallic ore is refined into usable ingots here.
-ROOMS.SMITHY,,Smithy
-ROOMS.SMITHY.TOOLTIP,,Used to craft metal tools.
 ROOMS.MUSHROOM_FARM,,Mushroom farm
 ROOMS.MUSHROOM_FARM.TOOLTIP,,Mushrooms can be grown using {{INGREDIENT.MUSHROOM.SPAWN.NOUN}} and wooden {{RESOURCE.LOGS.PLURAL}}.
 ROOMS.SAWMILL,,Sawmill
 ROOMS.SAWMILL.TOOLTIP,,Wooden {{RESOURCE.LOGS.PLURAL}} are refined into {{RESOURCE.PLANKS.PLURAL}} here.
+ROOMS.SMELTERY,,Smeltery
+ROOMS.SMELTERY.TOOLTIP,,Metallic ore is refined into usable ingots here.
+ROOMS.SMITHY,,Smithy
+ROOMS.SMITHY.TOOLTIP,,Used to craft metal tools.
 ROOMS.STOCKPILE,,Stockpile
 ROOMS.STOCKPILE.TOOLTIP,,This area stores different kinds of items depending on settings.
 ROOMS.STOCKPILES,,Stockpiles
 ROOMS.STOCKPILES.TOOLTIP,,Unused items are placed in stockpiles for easy access.
 ROOMS.STOCKPILE_WITH_GROUP_NAME,,{{stockpileGroupName}} {{roomTypeName}}
-ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
 ROOMS.TRADING_DEPOT,,Trading depot
 ROOMS.TRADING_DEPOT.TOOLTIP,,Buy and sell items with visiting merchants.
 
-ROPE.HEMP-ROPE,,Hemp
 ROPE.AGED_ROPE,,Aged
-ROPE.TOBACCO_ROPE,Just to describe a light colour,Light
-ROPE.GRAY_ROPE,,Gray
 ROPE.BRONZED_ROPE,,Bronzed
+ROPE.GRAY_ROPE,,Gray
+ROPE.HEMP-ROPE,,Hemp
+ROPE.TOBACCO_ROPE,Just to describe a light colour,Light
 
 RUSTED_SCRAP.NOUN,,Scrap
 RUSTED_SCRAP.TOOLTIP,,These are the remains of an item that has completed corroded due to rust.
@@ -1499,9 +1499,9 @@ STOCKPILE.GROUP.RAW_MATERIALS,,Raw materials
 STOCKPILE.GROUP.SEEDS,,Seeds
 STOCKPILE.GROUP.TOOLS,,Tools
 STOCKPILE.GROUP.TOOLS.TOOLTIP,,Stores tools required for working on jobs.
+STOCKPILE.GROUP.TREASURE,,Treasure
 STOCKPILE.GROUP.WEAPONS,,Weapons
 STOCKPILE.GROUP.WEAPONS.TOOLTIP,,Stores harvested fruit and vegetables which can expire.
-STOCKPILE.GROUP.TREASURE,,Treasure
 
 STONE.BASALT.ADJECTIVE,,Basalt
 STONE.BASALT.NOUN,,Basalt
@@ -1574,122 +1574,97 @@ TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beau
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 
-TUTORIAL.DISMISS_DIALOG.TITLE,,End Tutorial?
-TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?
-TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial
-
-TUTORIAL.SHOW_LABEL,,Show Tutorial
-TUTORIAL.START.INTRO_1,,"Welcome to Mountaincore! This is an Early Access release with gameplay and features still in development."
-TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
-
-TUTORIAL.START.CAMERA_CONTROLS_1,,"Press the WASD keys to move the camera around"
-TUTORIAL.START.CAMERA_CONTROLS_1.STEAMDECK,,"Use the Left Stick or D-Pad to move the camera around"
-TUTORIAL.START.CAMERA_CONTROLS_2,,"Press Q & E or scroll the mouse wheel to zoom"
-TUTORIAL.START.CAMERA_CONTROLS_2.STEAMDECK,,"Press L1 and R1 to zoom in and out"
-
-TUTORIAL.MINIMAP.DESCRIPTION,,"This is the Minimap."
-TUTORIAL.MINIMAP.PROGRESS,,"Click on the Minimap to jump to a location"
-TUTORIAL.MINIMAP.PROGRESS.STEAMDECK,,"Press R2 with the cursor on the Minimap to jump to a location"
-
-TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here."
-TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,"Press space to pause and unpause the game"
-TUTORIAL.TIME_AND_DATE.PAUSE_STEP.STEAMDECK,,"Press the A button to pause and unpause the game"
-TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds"
-TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP.STEAMDECK,,"Press R2 on the icons for increasingly faster speeds"
-TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,"Click the icon or press 1 for normal speed"
-TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP.STEAMDECK,,"Press R2 over the icon for normal speed"
-
-TUTORIAL.VIEW_MODES.DESCRIPTION,,"Below the time and date are buttons to show different views overlaid onto the game world."
-TUTORIAL.VIEW_MODES.OTHER_STEP,,"Click one of the other view mode buttons"
-TUTORIAL.VIEW_MODES.OTHER_STEP.STEAMDECK,,"Press R2 over one of the other view mode buttons"
-TUTORIAL.VIEW_MODES.DEFAULT_STEP,,"Click the left-most button to return to the default view mode"
-TUTORIAL.VIEW_MODES.DEFAULT_STEP.STEAMDECK,,"Press R2 on the left-most icon to return to the default view mode"
-
-TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION,,"The icons to the left of the time and date are various management and overview screens."
-TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT,,"View the Settlers management screen"
-TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT,,"View the Resources management screen"
-
-TUTORIAL.SAVING.A,,"Progress is saved automatically at midnight or when you exit the game."
-TUTORIAL.SAVING.B,,"You can also press F5 to Quicksave."
-TUTORIAL.SAVING.A.STEAMDECK,,"Progress is saved automatically at midnight each day."
-TUTORIAL.SAVING.B.STEAMDECK,,"The game is also saved when you quit from the main menu."
-TUTORIAL.SAVING.C,,"Press F5 to Quicksave now"
-
-TUTORIAL.MAIN_VIEW.A,,"The controls in the lower-left corner of the screen are the main way of interacting with the game."
-TUTORIAL.MAIN_VIEW.B,,"You can assign orders, queue rooms and furniture to be created, and also adjust the priority of tasks."
-TUTORIAL.MAIN_VIEW.C,,"You can right-click to go back to a previous menu or clear the current selection."
-TUTORIAL.MAIN_VIEW.C.STEAMDECK,,"You can press L2 to go back to a previous menu or clear the current selection."
-
-TUTORIAL.NEEDS.A,,"Settlers need Food, Drink and Sleep."
-TUTORIAL.NEEDS.B,,"For now they can drink from the river and sleep on the ground."
-TUTORIAL.NEEDS.C,,"However to eat they must grow crops."
-
-TUTORIAL.FARMING.A,,"Click on Rooms and select Farm Plot. They are listed alphabetically."
-TUTORIAL.FARMING.B,,"Drag out 4 separate Farm Plots in a grassy area."
-
-TUTORIAL.FARMING_2.A,,"Click on each Farm Plot and select a Crop to be planted."
-TUTORIAL.FARMING_2.A.STEAMDECK,,"Press R2 on each Farm Plot and select a Crop to be planted."
-TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used for Textiles and Brewing."
-
-TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do."
-TUTORIAL.PROFESSIONS.B,,"You can select a Settler to view or change their professions. This can also be done from the Settlers Management screen."
-TUTORIAL.PROFESSIONS.C,,"Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Haulers as they're responsible for moving items around."
-
-TUTORIAL.STOCKPILES.A,,"It is a good idea to place Stockpiles for your Settlers to place and share items."
-TUTORIAL.STOCKPILES.B,,"Select Rooms and then select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."
-
-TUTORIAL.KITCHEN.A,,"Crops are harvested in Autumn and should be stored in a Food Stockpile."
-TUTORIAL.KITCHEN.B,,"To get the most from your crops it is best to produce soup from vegetables or bake bread from grain."
-TUTORIAL.KITCHEN.C,,"Select Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function."
-
-TUTORIAL.FEASTING_HALL.A,,"Settlers eat in the Feasting Hall."
-TUTORIAL.FEASTING_HALL.B,,"The Cauldron furniture for the Feasting Hall is only completed when a Cauldron containing soup is available."
-TUTORIAL.FEASTING_HALL.C,,"Select Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later."
-
-TUTORIAL.FOOD_COMPLETE.A,,"This simple setup will ensure your Settlers have food once the crops are harvested later in the year."
-TUTORIAL.FOOD_COMPLETE.B,,"You can also fish from the river or hunt animals once you have set up a military to provide more food."
-
-TUTORIAL.RESOURCES.A,,"Many items are crafted out of Wooden Planks and Stone Blocks. It's important to maintain a steady supply of these."
-TUTORIAL.RESOURCES.B,,"Select Orders > Mine. Drag a selection over the mountain area to order your Miners to start mining."
-TUTORIAL.RESOURCES.C,,"Also select Orders > Chop. Drag a selection over a forested area to order your Woodcutters to start chopping trees."
-
-TUTORIAL.WORKSHOPS.A,,"Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason."
-TUTORIAL.WORKSHOPS.B,,"Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed."
-TUTORIAL.WORKSHOPS.C,,"You can press the R key to Rotate most furniture."
-TUTORIAL.WORKSHOPS.C.STEAMDECK,,"You can press the X button to Rotate most furniture."
-
-TUTORIAL.CRAFTING.A,,"Rooms with furniture that produce items are controlled using Import and Export Pallets."
-TUTORIAL.CRAFTING.B,,"Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop."
-TUTORIAL.CRAFTING.C,,"Also, place a Products Stockpile which will hold the items that are produced."
-
-TUTORIAL.CRAFTING_SELECTION.A,,"Select each Import and Export Pallet and select the item to be imported or exported from the room."
-TUTORIAL.CRAFTING_SELECTION.B,,"In the Sawmill, import Logs and export Planks."
-TUTORIAL.CRAFTING_SELECTION.C,,"In the Masonry Workshop, import Rough stone boulders and export Blocks."
-
-TUTORIAL.RESOURCE_COLLECTION.A,,"With all of this in place, your workshops will start producing Wooden Planks and Stone Blocks."
-TUTORIAL.RESOURCE_COLLECTION.B,,"Continue until you have a reasonable supply of Planks and Blocks."
-
-TUTORIAL.COMPLETED.A,,"This covers the basics of playing."
+TUTORIAL.COMPLETED.A,,This covers the basics of playing.
 TUTORIAL.COMPLETED.B,,"You should aim to set up a functioning {{ROOMS.SMITHY}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore, to produce metal items."
 TUTORIAL.COMPLETED.C,,"Also, you should move your settlement underground or at least build a roof overhead to protect your Settlers and iron items from the weather."
-TUTORIAL.COMPLETED.D,,"Good luck!"
-
+TUTORIAL.COMPLETED.D,,Good luck!
+TUTORIAL.CRAFTING.A,,Rooms with furniture that produce items are controlled using Import and Export Pallets.
+TUTORIAL.CRAFTING.B,,Place at least one Import Pallet and Export Pallet in both the Sawmill and Masonry Workshop.
+TUTORIAL.CRAFTING.C,,"Also, place a Products Stockpile which will hold the items that are produced."
+TUTORIAL.CRAFTING_SELECTION.A,,Select each Import and Export Pallet and select the item to be imported or exported from the room.
+TUTORIAL.CRAFTING_SELECTION.B,,"In the Sawmill, import Logs and export Planks."
+TUTORIAL.CRAFTING_SELECTION.C,,"In the Masonry Workshop, import Rough stone boulders and export Blocks."
+TUTORIAL.DISMISS_DIALOG.CONFIRM_TEXT,,Dismiss Tutorial
+TUTORIAL.DISMISS_DIALOG.DESCRIPTION,,Are you sure you want to end the tutorial?
+TUTORIAL.DISMISS_DIALOG.TITLE,,End Tutorial?
+TUTORIAL.FARMING.A,,Click on Rooms and select Farm Plot. They are listed alphabetically.
+TUTORIAL.FARMING.B,,Drag out 4 separate Farm Plots in a grassy area.
+TUTORIAL.FARMING_2.A,,Click on each Farm Plot and select a Crop to be planted.
+TUTORIAL.FARMING_2.A.STEAMDECK,,Press R2 on each Farm Plot and select a Crop to be planted.
+TUTORIAL.FARMING_2.B,,"Skip Hemp, Barley and Hops for now as these are are used for Textiles and Brewing."
+TUTORIAL.FEASTING_HALL.A,,Settlers eat in the Feasting Hall.
+TUTORIAL.FEASTING_HALL.B,,The Cauldron furniture for the Feasting Hall is only completed when a Cauldron containing soup is available.
+TUTORIAL.FEASTING_HALL.C,,Select Rooms and place a Feasting Hall. Mark a Cauldron to be placed in the Feasting Hall later.
+TUTORIAL.FOOD_COMPLETE.A,,This simple setup will ensure your Settlers have food once the crops are harvested later in the year.
+TUTORIAL.FOOD_COMPLETE.B,,You can also fish from the river or hunt animals once you have set up a military to provide more food.
+TUTORIAL.KITCHEN.A,,Crops are harvested in Autumn and should be stored in a Food Stockpile.
+TUTORIAL.KITCHEN.B,,To get the most from your crops it is best to produce soup from vegetables or bake bread from grain.
+TUTORIAL.KITCHEN.C,,"Select Rooms and place a Kitchen. Unlike Farm Plots, most rooms need furniture to function."
+TUTORIAL.MAIN_VIEW.A,,The controls in the lower-left corner of the screen are the main way of interacting with the game.
+TUTORIAL.MAIN_VIEW.B,,"You can assign orders, queue rooms and furniture to be created, and also adjust the priority of tasks."
+TUTORIAL.MAIN_VIEW.C,,You can right-click to go back to a previous menu or clear the current selection.
+TUTORIAL.MAIN_VIEW.C.STEAMDECK,,You can press L2 to go back to a previous menu or clear the current selection.
+TUTORIAL.MANAGEMENT_BUTTONS.DESCRIPTION,,The icons to the left of the time and date are various management and overview screens.
+TUTORIAL.MANAGEMENT_BUTTONS.RESOURCE_MANAGEMENT,,View the Resources management screen
+TUTORIAL.MANAGEMENT_BUTTONS.SETTLER_MANAGEMENT,,View the Settlers management screen
+TUTORIAL.MINIMAP.DESCRIPTION,,This is the Minimap.
+TUTORIAL.MINIMAP.PROGRESS,,Click on the Minimap to jump to a location
+TUTORIAL.MINIMAP.PROGRESS.STEAMDECK,,Press R2 with the cursor on the Minimap to jump to a location
+TUTORIAL.NEEDS.A,,"Settlers need Food, Drink and Sleep."
+TUTORIAL.NEEDS.B,,For now they can drink from the river and sleep on the ground.
+TUTORIAL.NEEDS.C,,However to eat they must grow crops.
+TUTORIAL.PROFESSIONS.A,,"Each Settler can have up to 3 Professions assigned, which determines which jobs they will do."
+TUTORIAL.PROFESSIONS.B,,You can select a Settler to view or change their professions. This can also be done from the Settlers Management screen.
+TUTORIAL.PROFESSIONS.C,,Assign at least 3 Settlers as Farmers. Be sure to also keep some assigned as Haulers as they're responsible for moving items around.
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned
 TUTORIAL.PROGRESS_DESCRIPTION.TEXT,Used to show a progress indicator in the form: 2 of 10 stone blocks,{{currentQuantity}} of {{requiredQuantity}} {{targetDescription}}
 TUTORIAL.PROGRESS_DESCRIPTION.TILES,Used to show a progress indicator for a certain number of tiles e.g. 2 of 10 farm plot tiles,{{roomName}} tiles
+TUTORIAL.RESOURCES.A,,Many items are crafted out of Wooden Planks and Stone Blocks. It's important to maintain a steady supply of these.
+TUTORIAL.RESOURCES.B,,Select Orders > Mine. Drag a selection over the mountain area to order your Miners to start mining.
+TUTORIAL.RESOURCES.C,,Also select Orders > Chop. Drag a selection over a forested area to order your Woodcutters to start chopping trees.
+TUTORIAL.RESOURCE_COLLECTION.A,,"With all of this in place, your workshops will start producing Wooden Planks and Stone Blocks."
+TUTORIAL.RESOURCE_COLLECTION.B,,Continue until you have a reasonable supply of Planks and Blocks.
+TUTORIAL.SAVING.A,,Progress is saved automatically at midnight or when you exit the game.
+TUTORIAL.SAVING.A.STEAMDECK,,Progress is saved automatically at midnight each day.
+TUTORIAL.SAVING.B,,You can also press F5 to Quicksave.
+TUTORIAL.SAVING.B.STEAMDECK,,The game is also saved when you quit from the main menu.
+TUTORIAL.SAVING.C,,Press F5 to Quicksave now
+TUTORIAL.SHOW_LABEL,,Show Tutorial
+TUTORIAL.START.CAMERA_CONTROLS_1,,Press the WASD keys to move the camera around
+TUTORIAL.START.CAMERA_CONTROLS_1.STEAMDECK,,Use the Left Stick or D-Pad to move the camera around
+TUTORIAL.START.CAMERA_CONTROLS_2,,Press Q & E or scroll the mouse wheel to zoom
+TUTORIAL.START.CAMERA_CONTROLS_2.STEAMDECK,,Press L1 and R1 to zoom in and out
+TUTORIAL.START.INTRO_1,,Welcome to Mountaincore! This is an Early Access release with gameplay and features still in development.
+TUTORIAL.START.INTRO_2,,"Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
+TUTORIAL.STOCKPILES.A,,It is a good idea to place Stockpiles for your Settlers to place and share items.
+TUTORIAL.STOCKPILES.B,,"Select Rooms and then select Stockpile, then Tools. Drag out a Tools Stockpile in a central location."
+TUTORIAL.TIME_AND_DATE.DESCRIPTION,,"You can view the current time, date, weather and control the game's speed here."
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP,,"Click the icons or press buttons 2, 3 and 4 for increasingly faster speeds"
+TUTORIAL.TIME_AND_DATE.FAST_SPEED_STEP.STEAMDECK,,Press R2 on the icons for increasingly faster speeds
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP,,Click the icon or press 1 for normal speed
+TUTORIAL.TIME_AND_DATE.NORMAL_SPEED_STEP.STEAMDECK,,Press R2 over the icon for normal speed
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP,,Press space to pause and unpause the game
+TUTORIAL.TIME_AND_DATE.PAUSE_STEP.STEAMDECK,,Press the A button to pause and unpause the game
+TUTORIAL.VIEW_MODES.DEFAULT_STEP,,Click the left-most button to return to the default view mode
+TUTORIAL.VIEW_MODES.DEFAULT_STEP.STEAMDECK,,Press R2 on the left-most icon to return to the default view mode
+TUTORIAL.VIEW_MODES.DESCRIPTION,,Below the time and date are buttons to show different views overlaid onto the game world.
+TUTORIAL.VIEW_MODES.OTHER_STEP,,Click one of the other view mode buttons
+TUTORIAL.VIEW_MODES.OTHER_STEP.STEAMDECK,,Press R2 over one of the other view mode buttons
+TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. Stone Blocks are created in a Masonry Workshop by a Stonemason.
+TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.
+TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.
+TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.
 
 VEGETABLE.BARLEY,,Barley
 VEGETABLE.BARLEY.PLURAL,,Barley
 VEGETABLE.BARLEY.TOOLTIP,,"A grain used only in the production of beer. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}."
-VEGETABLE.FOR_BEER.USAGE,,"used in the brewing of {{LIQUID.BEER}}"
 VEGETABLE.BERSERKER_MUSHROOM,,Berserker mushroom
 VEGETABLE.BERSERKER_MUSHROOM.PLURAL,,Berserker mushrooms
 VEGETABLE.BERSERKER_MUSHROOM.TOOLTIP,,A mushroom with a pink-red cap bearing white spots. It has hallucinogenic properties which warriors sometimes use in preparation for battle.
 VEGETABLE.CARROT,,Carrot
 VEGETABLE.CARROT.PLURAL,,Carrots
 VEGETABLE.CARROT.TOOLTIP,,"A hardy root vegetable that survives the {{SEASON.WINTER}} frost. Carrots grow quickly but only produce a small crop. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}."
-VEGETABLE.INGREDIENT.USAGE,,"used in the cooking of soup, or can be eaten raw"
 VEGETABLE.CORN,,Sweetcorn
 VEGETABLE.CORN.PLURAL,,Sweetcorn
 VEGETABLE.CORN.TOOLTIP,,"A cereal grain also known as maize. It produces a bountiful crop but takes around 2 seasons to grow and can not survive {{SEASON.WINTER}}, so it requires planting in early {{SEASON.SPRING}}."
@@ -1704,18 +1679,20 @@ VEGETABLE.ELFSBANE_MUSHROOM.TOOLTIP,,"This mushroom has a simple, flavourless ta
 VEGETABLE.FIST_MUSHROOM,,Fist mushroom
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.
+VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}}
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.
 VEGETABLE.HEMP,,Hemp
 VEGETABLE.HEMP.PLURAL,,Hemp
 VEGETABLE.HEMP.TOOLTIP,,This is processed at the {{ROOMS.TEXTILE_WORKSHOP}} to a useful material.
-VEGETABLE.HEMP.USAGE,,"a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}}"
+VEGETABLE.HEMP.USAGE,,a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}}
 VEGETABLE.HEMP_FIBRE,,Hemp fibre
 VEGETABLE.HEMP_FIBRE.PLURAL,,Hemp fibre
 VEGETABLE.HOPS,,Hops
 VEGETABLE.HOPS.PLURAL,,Hops
 VEGETABLE.HOPS.TOOLTIP,,A flower used for the flavouring of beer. Must be planted in {{SEASON.SPRING}}.
+VEGETABLE.INGREDIENT.USAGE,,"used in the cooking of soup, or can be eaten raw"
 VEGETABLE.LOQUAT,,Loquat
 VEGETABLE.LOQUAT.PLURAL,,Loquats
 VEGETABLE.MILTONIA_MUSHROOM,,Miltonia mushroom
@@ -1745,8 +1722,8 @@ VEGETABLE.TOMATO.PLURAL,,Tomatoes
 VEGETABLE.TOMATO.TOOLTIP,,A plant which grows large red berries often used as a vegetable. Can only be planted in {{SEASON.SPRING}}.
 VEGETABLE.WHEAT,,Wheat
 VEGETABLE.WHEAT.PLURAL,,Wheat
-VEGETABLE.WHEAT.USAGE,,used to bake bread
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
+VEGETABLE.WHEAT.USAGE,,used to bake bread
 
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
 
@@ -1771,13 +1748,13 @@ WEAPON.METAL.ARROWS.NOUN,,Arrow
 WEAPON.METAL.ARROWS.PLURAL,,Arrows
 WEAPON.METAL.BOLTS.NOUN,,Bolt
 WEAPON.METAL.BOLTS.PLURAL,,Bolts
-WEAPON.SWORD,,Sword
-WEAPON.NONE,Used to select no weapon from the selection list,None
-WEAPON.UNARMED,,Unarmed
-WEAPON.NO_SHIELD,,Unshielded
-WEAPON.NO_ARMOUR,,Unarmoured
-WEAPON.WOODEN.SHIELD,,Shield
 WEAPON.METAL.SHIELD,,Shield
+WEAPON.NONE,Used to select no weapon from the selection list,None
+WEAPON.NO_ARMOUR,,Unarmoured
+WEAPON.NO_SHIELD,,Unshielded
+WEAPON.SWORD,,Sword
+WEAPON.UNARMED,,Unarmed
+WEAPON.WOODEN.SHIELD,,Shield
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey
 WEATHER.TYPE.COLD_WINDS,,Cold winds

@@ -1,10 +1,10 @@
-# Community Translations for King under the Mountain
+# Community Translations for Mountaincore
 
-This is the official community translations mod for [_King under the Mountain_](http://kingunderthemounta.in)
+This is the official community translations mod for [_Mountaincore_](http://rocketjump.technology/mountaincore/)
 
 ## Description
 
-As _King under the Mountain_ is in active development, the text in the game is 
+As _Mountaincore_ is in active development, the text in the game is 
 constantly being added to. Until release, it would not be feasible to produce 
 a complete translation into the main languages as they would quickly fall out of date 
 with each new release of the game.
@@ -37,10 +37,8 @@ of `Planting {{requiredItem}}` into German is `Pflanzt {{requiredItem}}`.
 
 ## How to Contribute
 
-Ideally, additions and modifications to the translations will be performed on Github
-via pull requests to the main project. If you'd like to contribute but aren't comfortable 
-using git and Github, you can download and edit the relevant .csv file from [/translations](./translations)
-and email your changes to ross@kingunderthemounta.in
+You can download and edit the relevant .csv file from [/translations](./translations)
+and email your changes to ross@rocketjump.technology
 
 Similarly if there is a language translation you would like to contribute to that does
 not yet have a CSV file, please get in touch via [Discord](https://discord.gg/qF2S3tf) or email and it will be added.

@@ -39,12 +39,12 @@ public class TranslationUpdater {
 	private void process(Path sourceDirectory, Path targetFilePath) throws IOException {
 		Path masterCsvPath = sourceDirectory.resolve("translations.csv");
 		if (!Files.exists(masterCsvPath)) {
-			throw new RuntimeException("Expecting to find " + masterCsvPath.toString());
+			throw new RuntimeException("Expecting to find " + masterCsvPath);
 		}
 
 		Path targetLanguagesJsonPath = targetFilePath.resolve("languages.json");
 		if (!Files.exists(targetLanguagesJsonPath)) {
-			throw new RuntimeException("Expecting to find " + targetLanguagesJsonPath.toString());
+			throw new RuntimeException("Expecting to find " + targetLanguagesJsonPath);
 		}
 
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -70,9 +70,7 @@ public class TranslationUpdater {
 				key = key.toUpperCase();
 
 				Map<String, String> languagesToValues = combinedKeysToLanguagesToValues.get(key);
-				if (languagesToValues == null) {
-					Logger.warn("No entry for key " + key + " while processing " + targetLanguage.getFilename());
-				} else {
+				if (languagesToValues != null) {
 					String value = csvRecord.get(targetLanguage.getLabelEn().toUpperCase());
 					if (value != null && !value.isEmpty()) {
 						languagesToValues.put(targetLanguage.getCode(), value);
@@ -93,7 +91,6 @@ public class TranslationUpdater {
 	private void parseMasterCsv(Path masterCsvPath, List<LanguageType> targetLanguages) throws IOException {
 		CSVParser masterCsv = CSVParser.parse(masterCsvPath.toFile(), StandardCharsets.UTF_8, CSVFormat.DEFAULT.withFirstRecordAsHeader());
 		Map<String, Integer> masterHeaderMap = masterCsv.getHeaderMap();
-
 
 		for (CSVRecord csvRecord : masterCsv.getRecords()) {
 			String key = csvRecord.get(masterHeaderMap.get("KEY"));
