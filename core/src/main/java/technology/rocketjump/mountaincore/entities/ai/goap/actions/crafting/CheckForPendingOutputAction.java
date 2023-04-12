@@ -18,6 +18,12 @@ public class CheckForPendingOutputAction extends Action {
 		super(parent);
 	}
 
+
+	@Override
+	public boolean isInterruptible() {
+		return false;
+	}
+
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
 		if (parent.getAssignedJob().getCraftingRecipe() != null) {
