@@ -96,7 +96,7 @@ public abstract class BannerMenu implements Menu {
 
         Table mainBannerComponents = new Table();
         addMainBannerComponents(mainBannerComponents);
-        mainBanner.add(getMainBannerLogo()).top().height(478f).width(576f).row();
+        mainBanner.add(getMainBannerLogo()).top().height(522f).width(576f).row();
         mainBanner.add(mainBannerComponents).top().expand().fillX();
 
         //secondary/side banner

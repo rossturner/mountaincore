@@ -2,8 +2,10 @@ package technology.rocketjump.mountaincore.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.google.inject.Inject;
@@ -28,6 +30,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
     private Container<TextButton> continueGameButton;
     private Container<TextButton> loadGameButton;
     protected boolean gameStarted = false;
+    private Texture logo;
 
     @Inject
     public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory,
@@ -37,10 +40,11 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
         this.savedGameStore = savedGameStore;
         this.widgetFactory = widgetFactory;
         this.modsMenu = modsMenu;
+        logo = new Texture("assets/main_menu/Mountaincore_Logo.png");
+        logo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         rebuild();
     }
-
 
     @Override
     protected void addMainBannerComponents(Table buttonsTable) {
@@ -147,9 +151,8 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
 
     @Override
     protected Actor getMainBannerLogo() {
-        return new Table();
+        return new Image(logo);
     }
-
 
     public boolean hasGameStarted() {
         return this.gameStarted;

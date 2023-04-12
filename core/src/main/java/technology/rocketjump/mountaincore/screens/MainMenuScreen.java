@@ -61,6 +61,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 
 	private Texture backgroundImage;
+	private Texture logo;
 	private float backgroundScale = 1f;
 	private GridPoint2 backgroundOffset = new GridPoint2();
 	private TextureRegion backgroundRegion;

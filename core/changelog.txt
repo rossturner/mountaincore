@@ -1,3 +1,10 @@
+Early Access 1.1.7 - 12th April 2023
+
+- Added logo
+- Updated Twitch integration to use the new/correct Twitch API
+- Fix for crashes due to overallocation of items
+- Corrected interruption of crafting jobs so that they are not left in a bad state
+
 Early Access 1.1.6 - 11th April 2023
 
 - Removed stockpile group from bread and dough so they won't be moved out of the bakery/feasting hall

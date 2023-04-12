@@ -24,7 +24,7 @@ public class GetTwitchAuthToken implements Callable<TwitchToken> {
 		OkHttpClient client = new OkHttpClient();
 
 		Request request = new Request.Builder()
-				.url("https://undermount-api.herokuapp.com/api/twitch/oauth/token?code=" + authCode)
+				.url("https://saul-api.herokuapp.com/api/twitch/oauth/token?code=" + authCode)
 				.post(emptyRequestBody)
 				.build();
 
@@ -33,7 +33,7 @@ public class GetTwitchAuthToken implements Callable<TwitchToken> {
 			if (response.isSuccessful()) {
 				return new ObjectMapper().readValue(response.body().string(), TwitchToken.class);
 			} else {
-				throw new Exception("Received status code " + response.code() + " from " + getClass().getSimpleName());
+				throw new Exception("Received status code " + response.code() + " from " + getClass().getSimpleName() + ", body\n" + response.body().string());
 			}
 		} finally {
 			IOUtils.closeQuietly(response);

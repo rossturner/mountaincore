@@ -30,7 +30,7 @@ import static technology.rocketjump.mountaincore.persistence.UserPreferences.Pre
 @Singleton
 public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
-	private static final String INTEGRATION_URL = "https://id.twitch.tv/oauth2/authorize?client_id=6gk8asspwcrt787lxge71kc418a3ng&redirect_uri=http://kingunderthemounta.in/twitch/&response_type=code&scope=channel:read:subscriptions&force_verify=true";
+	private static final String INTEGRATION_URL = "https://id.twitch.tv/oauth2/authorize?client_id=6gk8asspwcrt787lxge71kc418a3ng&redirect_uri=https://rocketjump.technology/mountaincore-twitch-integration/&response_type=code&scope=channel:read:subscriptions%20moderator:read:chatters&force_verify=true";
 
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;

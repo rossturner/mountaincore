@@ -1,22 +1,22 @@
 package technology.rocketjump.mountaincore.misc.twitch.tasks;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.io.IOUtils;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchDataStore;
+import technology.rocketjump.mountaincore.misc.twitch.TwitchRequestHandler;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchAccountInfo;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchViewer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 public class GetTwitchViewers implements Callable<List<TwitchViewer>> {
 
+	private final TwitchRequestHandler twitchRequestHandler = new TwitchRequestHandler();
 	private final TwitchDataStore twitchDataStore;
 
 	public GetTwitchViewers(TwitchDataStore twitchDataStore) {
@@ -30,30 +30,18 @@ public class GetTwitchViewers implements Callable<List<TwitchViewer>> {
 			throw new Exception("Account info is null");
 		}
 
-		OkHttpClient client = new OkHttpClient();
+		Response response = twitchRequestHandler.get("https://api.twitch.tv/helix/chat/chatters?first=1000&broadcaster_id="+accountInfo.getUser_id()+"&moderator_id="+accountInfo.getUser_id(), twitchDataStore);
 
-		Request request = new Request.Builder()
-				.url("https://tmi.twitch.tv/group/user/" + accountInfo.getLogin() + "/chatters")
-				.get()
-				.build();
-
-		Response response = client.newCall(request).execute();
 		try {
-//			if (GlobalSettings.DEV_MODE) {
-//				Logger.debug("Request to " + request.url().toString() + " returned " + response.code());
-//			}
-
 			if (response.isSuccessful()) {
 				List<TwitchViewer> viewers = new ArrayList<>();
 				JSONObject responseJson = JSON.parseObject(response.body().string());
-				JSONObject chatters = responseJson.getJSONObject("chatters");
+				JSONArray data = responseJson.getJSONArray("data");
 
-				for (String chatterType : Arrays.asList("vips", "moderators", "viewers")) {
-					for (Object nameObj : chatters.getJSONArray(chatterType)) {
-						String username = nameObj.toString();
-						if (!username.endsWith("bot")) {
-							viewers.add(new TwitchViewer(username));
-						}
+				for (int cursor = 0; cursor < data.size(); cursor++) {
+					String username = data.getJSONObject(cursor).getString("user_name");
+					if (!username.endsWith("bot")) {
+						viewers.add(new TwitchViewer(username));
 					}
 				}
 				return viewers;
