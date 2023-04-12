@@ -177,7 +177,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 						ItemAllocationComponent itemAllocationComponent = matchingEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
 						ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(addAsAllocationPurpose);
 						if (allocation != null) {
-							allocation.setAllocationAmount(matchingItemAttributes.getQuantity());
+							allocation.setAllocationAmount(itemAllocationComponent.getNumUnallocated() + allocation.getAllocationAmount());
 						} else {
 							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, addAsAllocationPurpose);
 						}
