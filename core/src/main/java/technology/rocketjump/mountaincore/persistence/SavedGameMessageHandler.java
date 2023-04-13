@@ -52,7 +52,10 @@ import java.io.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.mountaincore.persistence.SavedGameStore.ARCHIVE_HEADER_ENTRY_NAME;
@@ -74,8 +77,9 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 	private final I18nTranslator i18nTranslator;
 	private GameContext gameContext;
 
-	private boolean savingInProgress;
-	private boolean disposed;
+	private final ConcurrentLinkedQueue<CompletableFuture<?>> saveTasks = new ConcurrentLinkedQueue<>(); //should only ever be one
+
+	private final AtomicBoolean disposed = new AtomicBoolean(false);//atomic booleans to ensure correctness across threads
 
 	@Inject
 	public SavedGameMessageHandler(SavedGameDependentDictionaries savedGameDependentDictionaries,
@@ -101,7 +105,6 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		messageDispatcher.addListener(this, MessageType.PERFORM_LOAD);
 		messageDispatcher.addListener(this, MessageType.PERFORM_SAVE);
 		messageDispatcher.addListener(this, MessageType.TRIGGER_QUICKLOAD);
-		messageDispatcher.addListener(this, MessageType.SAVE_COMPLETED);
 		messageDispatcher.addListener(this, MessageType.DAY_ELAPSED);
 	}
 
@@ -123,7 +126,6 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 					try {
 						save(gameContext.getSettlementState().getSettlementName(), message.asynchronous);
 					} catch (Exception e) {
-						savingInProgress = false;
 						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_ERROR, ErrorType.WHILE_SAVING);
 						CrashHandler.logCrash(e);
 					}
@@ -183,10 +185,6 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 				}
 				return true;
 			}
-			case MessageType.SAVE_COMPLETED: {
-				savingInProgress = false;
-				return true;
-			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
@@ -198,20 +196,28 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		messageDispatcher.dispatchMessage(0.05f, MessageType.HIDE_AUTOSAVE_PROMPT);
 	}
 
-	public void save(String settlementName, boolean asynchronous) throws Exception {
-		if (savingInProgress && !asynchronous) {
+	private boolean isSaving() {
+		return !(saveTasks.stream().allMatch(CompletableFuture::isDone));
+	}
+
+	public synchronized void save(String settlementName, boolean asynchronous) throws Exception {
+		if (!asynchronous && isSaving()) {
 			// We are trying to quit while a background save is already in progress
-			while (savingInProgress) {
-				Logger.debug("Waiting for existing save process to finish");
-				Thread.sleep(50);
+			for (CompletableFuture<?> saveTask : saveTasks) {
+				saveTask.join(); //wait for save tasks to complete
 			}
+
 			return;
 		}
-		if (savingInProgress || disposed) {
+
+		if (isSaving()) { //save in progress, return immediately
 			return;
-		} else {
-			savingInProgress = true;
 		}
+
+		if (disposed.get()) {
+			return;
+		}
+
 		String saveFileName = toAlphanumeric(settlementName);
 		backgroundTaskManager.waitForOutstandingTasks();
 
@@ -266,8 +272,8 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 
 		JSONObject fileContents = stateHolder.toCombinedJson();
 
-		Callable<BackgroundTaskResult> writeToDisk = () -> {
-			Pixmap minimapPixmap = null;
+		Supplier<BackgroundTaskResult> writeToDisk = () -> {
+			SavedGameInfo justSavedInfo = null;
 			try {
 				JSONObject headerJson = produceHeaderFrom(fileContents);
 
@@ -279,7 +285,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 				writeJsonToFile(fileContents, tempMainFile);
 				writeJsonToFile(headerJson, tempHeaderFile);
 
-				minimapPixmap = MinimapPixmapGenerator.generateFrom(gameContext.getAreaMap());
+				Pixmap minimapPixmap = MinimapPixmapGenerator.generateFrom(gameContext.getAreaMap());
 				PixmapIO.writePNG(new FileHandle(tempMinimapTextureFile), minimapPixmap);
 
 				OutputStream archiveStream = new FileOutputStream(saveFile);
@@ -295,19 +301,22 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 				tempMainFile.delete();
 				tempHeaderFile.delete();
 				tempMinimapTextureFile.delete();
-				messageDispatcher.dispatchMessage(MessageType.SAVE_COMPLETED, new SavedGameInfo(saveFile, headerJson, i18nTranslator, minimapPixmap)); //do not dispose minimapPixmap, it will be handled elsewhere
+				justSavedInfo = new SavedGameInfo(saveFile, headerJson, i18nTranslator, minimapPixmap);//do not dispose minimapPixmap, it will be handled elsewhere
 				return BackgroundTaskResult.success();
 			} catch (Exception e) {
 				CrashHandler.logCrash(e);
-				messageDispatcher.dispatchMessage(MessageType.SAVE_COMPLETED);
 				return BackgroundTaskResult.error(ErrorType.WHILE_SAVING);
+			} finally {
+				messageDispatcher.dispatchMessage(MessageType.SAVE_COMPLETED, justSavedInfo);
 			}
 		};
 
-		if (asynchronous) {
-			backgroundTaskManager.runTask(writeToDisk);
-		} else {
-			writeToDisk.call();
+		final CompletableFuture<BackgroundTaskResult> saveFuture = backgroundTaskManager.runTask(writeToDisk);
+		saveTasks.add(saveFuture);
+		final CompletableFuture<?> onComplete = saveFuture.thenRun(() -> saveTasks.remove(saveFuture));
+
+		if (!asynchronous) {
+			onComplete.join();
 		}
 	}
 
@@ -354,7 +363,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 
 
 	public void load(SavedGameInfo savedGameInfo) throws IOException, InvalidSaveException, ArchiveException {
-		if (savingInProgress) {
+		if (isSaving()) {
 			return;
 		}
 		File saveFile = userFileManager.getSaveFile(savedGameInfo);
@@ -454,6 +463,6 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 
 	@Override
 	public void dispose() {
-		this.disposed = true;
+		disposed.set(true);
 	}
 }
