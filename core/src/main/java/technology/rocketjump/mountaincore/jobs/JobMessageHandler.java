@@ -213,6 +213,11 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				if (jobStore.getAllJobs().containsKey(cancelledJob.getJobId())) {
 					// FIXME Might need to remove more than just hauling and transfer liquid jobs
 					if (cancelledJob.getType().isRemoveJobWhenAssignmentCancelled()) {
+						if (cancelledJob.getHaulingAllocation() != null) {
+							messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, cancelledJob.getHaulingAllocation());
+							cancelledJob.setHaulingAllocation(null);
+						}
+
 						jobStore.remove(cancelledJob);
 					} else {
 						JobTarget targetOfJob = cancelledJob.getTargetOfJob(gameContext);
