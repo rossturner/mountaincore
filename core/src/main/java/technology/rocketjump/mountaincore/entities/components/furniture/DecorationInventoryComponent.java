@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.mountaincore.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.mountaincore.entities.components.EntityComponent;
 import technology.rocketjump.mountaincore.entities.components.InfrequentlyUpdatableComponent;
+import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
@@ -63,6 +64,11 @@ public class DecorationInventoryComponent implements InfrequentlyUpdatableCompon
 		entity.getLocationComponent().setWorldPosition(null, false, false);
 		entity.getLocationComponent().setContainerEntity(parentEntity);
 		entity.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
+		if (entity.getType().equals(EntityType.ITEM) && entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			ItemAllocationComponent itemAllocationComponent = entity.getOrCreateComponent(ItemAllocationComponent.class);
+			itemAllocationComponent.cancelAll();
+			itemAllocationComponent.createAllocation(attributes.getQuantity(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+		}
 	}
 
 	public Collection<Entity> getDecorationEntities() {
