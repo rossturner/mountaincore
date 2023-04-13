@@ -13,6 +13,7 @@ import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictiona
 import technology.rocketjump.mountaincore.persistence.model.ChildPersistable;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.mountaincore.settlement.notifications.Notification;
 
 public class PersistableTelegram extends Telegram implements ChildPersistable {
 
@@ -42,6 +43,10 @@ public class PersistableTelegram extends Telegram implements ChildPersistable {
 			} else if (extraInfo instanceof GridPoint2) {
 				GridPoint2 location = (GridPoint2) extraInfo;
 				extraInfoJson.put("location", JSONUtils.toJSON(location));
+			} else if (extraInfo instanceof Notification notification) {
+				JSONObject notificationJson = new JSONObject(true);
+				notification.writeTo(notificationJson, savedGameStateHolder);
+				extraInfoJson.put("notification", notificationJson);
 			} else {
 				throw new NotImplementedException("Not yet implemented: persisting telegram with extraInfo of " + extraInfo.getClass().getSimpleName());
 			}
@@ -72,6 +77,11 @@ public class PersistableTelegram extends Telegram implements ChildPersistable {
 				this.extraInfo = savedGameStateHolder.entities.get(entityId);
 			} else if (className.equals(GridPoint2.class.getSimpleName())) {
 				this.extraInfo = JSONUtils.gridPoint2(extraInfoJson.getJSONObject("location"));
+			} else if (className.equals(Notification.class.getSimpleName())) {
+				JSONObject notificationJson = extraInfoJson.getJSONObject("notification");
+				Notification notification = new Notification();
+				notification.readFrom(notificationJson, savedGameStateHolder, relatedStores);
+				this.extraInfo = notification;
 			} else {
 				throw new InvalidSaveException("Unrecognised telegram extrainfo class: " + className);
 			}

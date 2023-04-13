@@ -1,3 +1,7 @@
+Early Access 1.1.8
+
+- Fix for a crash when saving the game while a notification is pending
+
 Early Access 1.1.7 - 12th April 2023
 
 - Added logo
