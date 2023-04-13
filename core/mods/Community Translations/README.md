@@ -60,6 +60,7 @@ This project is licensed under the Creative Commons Legal Code License - see the
 ## Contributors
 
 ### German translation
+* Antafes
 * Katharina Schrempf
 * Ferdinand Niedermann
 * Mario Röder
