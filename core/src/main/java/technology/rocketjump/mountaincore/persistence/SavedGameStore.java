@@ -25,6 +25,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.Callable;
 
 @Singleton
 public class SavedGameStore implements Telegraph, DisplaysText, Disposable {
@@ -59,7 +60,7 @@ public class SavedGameStore implements Telegraph, DisplaysText, Disposable {
 				Logger.debug("Refreshing save file list");
 			}
 			refreshInProgress = true;
-			backgroundTaskManager.runTask(() -> {
+			backgroundTaskManager.runTask((Callable<BackgroundTaskResult>) () -> {
 				List<SavedGameInfo> results = new ArrayList<>();
 				for (File saveFile : userFileManager.getAllSaveFiles()) {
 					try {

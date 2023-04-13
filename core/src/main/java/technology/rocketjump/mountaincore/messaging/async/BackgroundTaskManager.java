@@ -13,6 +13,7 @@ import technology.rocketjump.mountaincore.messaging.types.PathfindingRequestMess
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 @Singleton
 public class BackgroundTaskManager implements Telegraph {
@@ -61,6 +62,12 @@ public class BackgroundTaskManager implements Telegraph {
 		Future<BackgroundTaskResult> task = executorService.submit(runnable);
 		outstandingTasks.add(task);
 		return task;
+	}
+
+	public CompletableFuture<BackgroundTaskResult> runTask(Supplier<BackgroundTaskResult> runnable) {
+		CompletableFuture<BackgroundTaskResult> future = CompletableFuture.supplyAsync(runnable, executorService);
+		outstandingTasks.add(future);
+		return future;
 	}
 
 	public void update(float deltaTime) {
