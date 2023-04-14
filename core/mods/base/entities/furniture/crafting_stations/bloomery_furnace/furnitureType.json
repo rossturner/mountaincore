@@ -1,28 +1,28 @@
 {
-  "name": "BLOOMERY_FURNACE",
-  "i18nKey": "FURNITURE.BLOOMERY_FURNACE",
-  "blocksMovement": true,
-  "defaultLayoutName": "2x2+SW with lower workspaces",
-  "requirements": {
-    "STONE": [
-      {
-        "itemTypeName": "Resource-Stone-Unrefined",
-        "quantity": 1
-      },
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 6
-      },
-      {
-        "itemTypeName": "Resource-Planks",
-        "quantity": 2
-      }
-    ]
+  "name" : "BLOOMERY_FURNACE",
+  "i18nKey" : "FURNITURE.BLOOMERY_FURNACE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x2+SW with lower workspaces",
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Unrefined",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 6
+    }, {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2
+    }, {
+      "itemTypeName" : "Tool-Tongs",
+      "quantity" : 1
+    } ]
   },
-  "tags": {
-    "CRAFTING_STATION_BEHAVIOUR": ["SMELTING", "CRAFT_ITEM", "HAULING"],
-    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2"],
-    "EXTRA_MATERIAL_TYPES": ["CLOTH", "METAL"],
-    "PARTICLE_EFFECTS_WHILE_PROCESSING": ["Smoking"]
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "CRAFT_ITEM", "HAULING" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
+    "EXTRA_MATERIAL_TYPES" : [ "CLOTH", "METAL" ],
+    "PARTICLE_EFFECTS_WHILE_PROCESSING" : [ "Smoking" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Tongs" ]
   }
 }

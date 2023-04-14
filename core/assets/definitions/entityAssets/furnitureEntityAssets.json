@@ -2524,6 +2524,141 @@
     }
   }
 }, {
+  "uniqueName" : "Bloomery-Furnace-A",
+  "type" : "FURNITURE_ABOVE_LAYER_5",
+  "furnitureTypeName" : "BLOOMERY_FURNACE",
+  "furnitureLayoutName" : "2x2+SW with lower workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furnace A.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 38.0,
+        "y" : -44.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Bloomery-Furnace-B",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "BLOOMERY_FURNACE",
+  "furnitureLayoutName" : "2x2+SW with lower workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furnace B.png",
+      "coloringLayer" : "MISC_COLOR_2",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 46.5,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Bloomery-Furnace-C",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "BLOOMERY_FURNACE",
+  "furnitureLayoutName" : "2x2+SW with lower workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furnace C.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -61.5,
+        "y" : -33.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Bloomery-Furnace-D",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "BLOOMERY_FURNACE",
+  "furnitureLayoutName" : "2x2+SW with lower workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furnace D.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -68.0,
+        "y" : -40.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Bloomery-Furnace-E",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "BLOOMERY_FURNACE",
+  "furnitureLayoutName" : "2x2+SW with lower workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Furnace E.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -46.5,
+        "y" : -27.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Bloomery-Furnace-F",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "BLOOMERY_FURNACE",
@@ -2586,141 +2721,6 @@
         },
         "inheritAnimations" : [ ]
       } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Bloomery-Furnace-E",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
-  "furnitureTypeName" : "BLOOMERY_FURNACE",
-  "furnitureLayoutName" : "2x2+SW with lower workspaces",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Furnace E.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -46.5,
-        "y" : -27.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Bloomery-Furnace-D",
-  "type" : "FURNITURE_ABOVE_LAYER_2",
-  "furnitureTypeName" : "BLOOMERY_FURNACE",
-  "furnitureLayoutName" : "2x2+SW with lower workspaces",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Furnace D.png",
-      "coloringLayer" : "CLOTH_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -68.0,
-        "y" : -40.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Bloomery-Furnace-C",
-  "type" : "FURNITURE_ABOVE_LAYER_3",
-  "furnitureTypeName" : "BLOOMERY_FURNACE",
-  "furnitureLayoutName" : "2x2+SW with lower workspaces",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Furnace C.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -61.5,
-        "y" : -33.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Bloomery-Furnace-B",
-  "type" : "FURNITURE_ABOVE_LAYER_4",
-  "furnitureTypeName" : "BLOOMERY_FURNACE",
-  "furnitureLayoutName" : "2x2+SW with lower workspaces",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Furnace B.png",
-      "coloringLayer" : "MISC_COLOR_2",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 46.5,
-        "y" : 2.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Bloomery-Furnace-A",
-  "type" : "FURNITURE_ABOVE_LAYER_5",
-  "furnitureTypeName" : "BLOOMERY_FURNACE",
-  "furnitureLayoutName" : "2x2+SW with lower workspaces",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Furnace A.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "animationScripts" : { },
-      "templatedAnimationScripts" : { },
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 38.0,
-        "y" : -44.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
