@@ -32,13 +32,12 @@ import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
 import technology.rocketjump.mountaincore.screens.menus.*;
 import technology.rocketjump.mountaincore.screens.menus.options.OptionsTabName;
 import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
+import technology.rocketjump.mountaincore.ui.i18n.I18nText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
+import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 import static technology.rocketjump.mountaincore.rendering.camera.GlobalSettings.VERSION;
 
@@ -69,6 +68,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	private final Table containerTable;
 	private final Table versionTable;
+	private boolean isDisplayed;
 
 	private Stack<Menu> traversedMenus = new Stack<>();
 
@@ -169,7 +169,9 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 				return true;
 			}
 			case MessageType.TWITCH_ACCOUNT_INFO_UPDATED: {
-				resetVersionTable();
+				if (isDisplayed) {
+					resetVersionTable();
+				}
 				return false;
 			}
 			case MessageType.PREFERENCE_CHANGED: {
@@ -226,6 +228,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	@Override
 	public void show() {
+		this.isDisplayed = true;
 		backgroundImage = new Texture("assets/main_menu/Dwarven Settlement.png");
 
 		setupBackgroundRegion();
@@ -304,6 +307,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	@Override
 	public void hide() {
+		this.isDisplayed = false;
 		backgroundImage.dispose();
 		backgroundImage = null;
 	}
@@ -368,6 +372,12 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 				twitchLabel = new Label(twitchLabelText, uiSkin.get("white_text", Label.LabelStyle.class));
 			}
 			versionTable.add(twitchLabel).colspan(3).left().pad(5).row();
+			int viewers = twitchDataStore.getCurrentViewers().size();
+			if (accountInfo != null) {
+				I18nText viewersText = i18nTranslator.getTranslatedWordWithReplacements("GUI.OPTIONS.TWITCH.VIEWERS_LABEL", Map.of("numViewers", new I18nWord(String.valueOf(viewers))));
+				Label viewersLabel = new Label(viewersText.toString(), uiSkin.get("white_text", Label.LabelStyle.class));
+				versionTable.add(viewersLabel).colspan(3).left().pad(5).row();
+			}
 		}
 
 	}

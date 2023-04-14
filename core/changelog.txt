@@ -1,3 +1,9 @@
+Early Access 1.1.9 - 14th April 2023
+
+- Displaying number of Twitch viewers watching on main menu (when connected to Twitch)
+- Made bloomery furnace require Tongs to construct, rather than be in the inventory of the smelter, to avoid confusion when the job isn't being done. This may cause existing furnaces to stop working or crash.
+- Fix for an issue with tools on crafting stations filling up tools stockpiles
+
 Early Access 1.1.8 - 13th April 2023
 
 - Updated German translation, provided by Antafes, thank you!

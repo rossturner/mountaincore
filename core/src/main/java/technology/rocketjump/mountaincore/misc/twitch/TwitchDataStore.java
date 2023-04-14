@@ -76,7 +76,7 @@ public class TwitchDataStore {
 	}
 
 	public List<TwitchViewer> getCurrentViewers() {
-		return null;
+		return this.currentViewers;
 	}
 
 	public TwitchToken getCurrentToken() {

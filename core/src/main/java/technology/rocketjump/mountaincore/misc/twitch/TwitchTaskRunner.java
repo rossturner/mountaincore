@@ -116,6 +116,7 @@ public class TwitchTaskRunner {
 			if (getViewers.isDone()) {
 				try {
 					twitchDataStore.setCurrentViewers(getViewers.get());
+					messageDispatcher.dispatchMessage(MessageType.TWITCH_ACCOUNT_INFO_UPDATED, twitchDataStore.getAccountInfo());
 				} catch (InterruptedException | ExecutionException e) {
 					Logger.error(e.getMessage());
 				}
