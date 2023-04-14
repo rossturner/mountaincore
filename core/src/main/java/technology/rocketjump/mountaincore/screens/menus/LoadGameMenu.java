@@ -348,7 +348,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 					dialog.getContentTable().add(new Label(dialogText.toString(), skin, "white_text_default-font-23")).growY();
 
 					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CONFIRM"), (Runnable) () -> {
-						savedGameStore.delete(selectedSavedGame);
+						if (selectedSavedGame != null) {
+							savedGameStore.delete(selectedSavedGame);
+						}
 						carouselIndex = 0;
 						selectedSavedGame = null;
 						disablePlayAndDeleteButtons();
