@@ -64,6 +64,7 @@
     "i18nKey": "CRAFTING_TYPE.SMELTING",
     "professionRequiredName": "BLACKSMITH",
     "defaultItemTypeName": "Tool-Tongs",
+    "usesWorkstationTool": true,
     "mightStartFire": 0.02,
     "workOnJobAnimation": "work_on_job_generic_wiggle"
   },

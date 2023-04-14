@@ -109,6 +109,7 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
         }
 
         DecorationInventoryComponent decorationComponent = currentEntity.getOrCreateComponent(DecorationInventoryComponent.class);
+        decorationComponent.init(currentEntity, messageDispatcher, fakeContext);
         ItemType[] decorations = new ItemType[3];
         decorations[0] = NULL_ITEM_TYPE;
         decorations[1] = NULL_ITEM_TYPE;
