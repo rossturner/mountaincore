@@ -1497,10 +1497,10 @@ STOCKPILE.GROUP.GRANARY.TOOLTIP,,Stores grains and seeds which will not expire.,
 STOCKPILE.GROUP.PRODUCTS,,Products,Produkte
 STOCKPILE.GROUP.RAW_MATERIALS,,Raw materials,Rohmaterial
 STOCKPILE.GROUP.SEEDS,,Seeds,Samen
-STOCKPILE.GROUP.TOOLS,,Tools,Werkzeuglager
+STOCKPILE.GROUP.TOOLS,,Tools,Werkzeuge
 STOCKPILE.GROUP.TOOLS.TOOLTIP,,Stores tools required for working on jobs.,"Speichert Werkzeuge, die für die Arbeit an Jobs erforderlich sind."
 STOCKPILE.GROUP.TREASURE,,Treasure,Schatz
-STOCKPILE.GROUP.WEAPONS,,Weapons,"Waffen, die nicht zur Verfügung stehen, werden rot angezeigt."
+STOCKPILE.GROUP.WEAPONS,,Weapons,Waffen
 STOCKPILE.GROUP.WEAPONS.TOOLTIP,,Stores harvested fruit and vegetables which can expire.,"Lagert geerntetes Obst und Gemüse, das verfallen kann."
 ,,,
 STONE.BASALT.ADJECTIVE,,Basalt,Basalt
