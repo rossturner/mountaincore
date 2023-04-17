@@ -6,19 +6,19 @@ Type in the following to command prompt:
 launch-from-command-prompt
 and press enter
 If that doesn't work, try the following command instead
-jre\bin\java -jar project-saul.jar -Xms1200m -Dfile.encoding=UTF-8
+jre\bin\java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8
 
 Mac:
 Open Terminal and navigate to the location of this file, which should be something like the following:
-~/Library/Application Support/Steam/SteamApps/common/King under the Mountain/
+~/Library/Application Support/Steam/steamapps/common/Mountaincore/
 Then execute the following command:
-./jre/bin/java -jar project-saul.jar -Xms1200m -Dfile.encoding=UTF-8
+./jre/bin/java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8
 
 Linux:
 Open Console and navigate to the location of this file, which should be something like the following:
-~/.local/share/Steam/SteamApps/common/King under the Mountain/
+~/.local/share/Steam/steamapps/common/Mountaincore/
 Then execute the following command:
-./jre/bin/java -jar project-saul.jar -Xms1200m -Dfile.encoding=UTF-8
+./jre/bin/java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8
 
 
 All platforms:
