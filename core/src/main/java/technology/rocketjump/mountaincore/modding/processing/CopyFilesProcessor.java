@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class CopyFilesProcessor extends ModArtifactProcessor {
 
@@ -66,13 +67,15 @@ public class CopyFilesProcessor extends ModArtifactProcessor {
 					throw new RuntimeException("Need to rearrange assets so files of this artifact are in their own directory");
 				}
 
-				Files.list(outputDir).forEach(file -> {
-					try {
-						Files.delete(file);
-					} catch (IOException e) {
-						Logger.error(e, "Could not delete existing file");
-					}
-				});
+				try (Stream<Path> fileList = Files.list(outputDir)) {
+					fileList.forEach(file -> {
+						try {
+							Files.delete(file);
+						} catch (IOException e) {
+							Logger.error(e, "Could not delete existing file");
+						}
+					});
+				}
 
 				for (Path inputFile : combined.values()) {
 					Path outputFile = outputDir.resolve(inputFile.getFileName());
@@ -103,7 +106,9 @@ public class CopyFilesProcessor extends ModArtifactProcessor {
 	}
 
 	private boolean containsDir(Path outputDir) throws IOException {
-		return Files.list(outputDir).anyMatch(file -> Files.isDirectory(file));
+		try (Stream<Path> fileList = Files.list(outputDir)) {
+			return fileList.anyMatch(Files::isDirectory);
+		}
 	}
 
 }

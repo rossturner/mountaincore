@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Stream;
 
 @Singleton
 public class NameGenerator {
@@ -28,17 +29,19 @@ public class NameGenerator {
 	public NameGenerator(NameGenerationDescriptorDictionary nameGenerationDescriptorDictionary) throws IOException {
 		this.nameGenerationDescriptorDictionary = nameGenerationDescriptorDictionary;
 
-		for (Path csvFile : Files.list(Path.of("assets/text/csv")).toList()) {
-			if (csvFile.toString().endsWith(".csv")) {
-				if (csvFile.toString().endsWith("adjectives.csv")) {
-					adjectiveDictionary = new NameWordDictionary(csvFile.toFile());
-				} else if (csvFile.toString().endsWith("nouns.csv")) {
-					nounDictionary = new NameWordDictionary(csvFile.toFile());
-				} else if (csvFile.toString().endsWith("given_names.csv")) {
-					GivenNameList givenNameList = new GivenNameList(csvFile.toFile());
-					givenNamesMapping.put(FilenameUtils.removeExtension(csvFile.getFileName().toString()), givenNameList);
-				} else {
-					Logger.error(String.format("Unrecognised file of %s in %s", csvFile, csvFile.getParent().toAbsolutePath()));
+		try (Stream<Path> fileList = Files.list(Path.of("assets/text/csv"))) {
+			for (Path csvFile : fileList.toList()) {
+				if (csvFile.toString().endsWith(".csv")) {
+					if (csvFile.toString().endsWith("adjectives.csv")) {
+						adjectiveDictionary = new NameWordDictionary(csvFile.toFile());
+					} else if (csvFile.toString().endsWith("nouns.csv")) {
+						nounDictionary = new NameWordDictionary(csvFile.toFile());
+					} else if (csvFile.toString().endsWith("given_names.csv")) {
+						GivenNameList givenNameList = new GivenNameList(csvFile.toFile());
+						givenNamesMapping.put(FilenameUtils.removeExtension(csvFile.getFileName().toString()), givenNameList);
+					} else {
+						Logger.error(String.format("Unrecognised file of %s in %s", csvFile, csvFile.getParent().toAbsolutePath()));
+					}
 				}
 			}
 		}

@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static technology.rocketjump.mountaincore.persistence.UserPreferences.PreferenceKey.ACTIVE_MODS;
 
@@ -72,8 +73,8 @@ public class LocalModRepository {
 		incompatibleMods.clear();
 		byModioId.clear();
 
-		try {
-			Files.list(modsDir()).forEach(modDirFile -> {
+		try (Stream<Path> fileList = Files.list(modsDir())) {
+			fileList.forEach(modDirFile -> {
 				try {
 					if (modDirFile.getFileName().toString().endsWith(".zip")) {
 						Path unzippedMod = attemptUnzip(modDirFile);
@@ -144,9 +145,11 @@ public class LocalModRepository {
 
 
 				Path modBasePath = tempDir;
-				List<Path> basePathEntries = Files.list(modBasePath).toList();
-				if (basePathEntries.size() == 1 && Files.isDirectory(basePathEntries.get(0))) {
-					modBasePath = basePathEntries.get(0);
+				try (Stream<Path> fileList = Files.list(modBasePath)) {
+					List<Path> basePathEntries = fileList.toList();
+					if (basePathEntries.size() == 1 && Files.isDirectory(basePathEntries.get(0))) {
+						modBasePath = basePathEntries.get(0);
+					}
 				}
 
 				if (Files.exists(modBasePath.resolve("modInfo.json"))) {

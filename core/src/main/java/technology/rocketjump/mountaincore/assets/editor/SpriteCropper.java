@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SpriteCropper {
     private static final int ALPHA_BAND = 3;
@@ -25,16 +25,18 @@ public class SpriteCropper {
         Path descriptorsFilePath = null;
         JSONArray descriptorsJson = null;
 
-        for (Path path : Files.list(filePath).collect(Collectors.toList())) {
-            if (Files.isDirectory(path)) {
-                processDirectory(path);
-            } else if (path.getFileName().toString().endsWith("_NORMALS.png") || path.getFileName().toString().endsWith("-swatch.png")) {
-                // Ignore normals and swatches
-            } else if (path.getFileName().toString().endsWith(".png")) {
-                spriteFiles.put(path.getFileName().toString(), path);
-            } else if (path.getFileName().toString().equalsIgnoreCase("descriptors.json")) {
-                descriptorsFilePath = path;
-                descriptorsJson = JSON.parseArray(FileUtils.readFileToString(path.toFile()));
+        try (Stream<Path> fileList = Files.list(filePath)) {
+            for (Path path : fileList.toList()) {
+                if (Files.isDirectory(path)) {
+                    processDirectory(path);
+                } else if (path.getFileName().toString().endsWith("_NORMALS.png") || path.getFileName().toString().endsWith("-swatch.png")) {
+                    // Ignore normals and swatches
+                } else if (path.getFileName().toString().endsWith(".png")) {
+                    spriteFiles.put(path.getFileName().toString(), path);
+                } else if (path.getFileName().toString().equalsIgnoreCase("descriptors.json")) {
+                    descriptorsFilePath = path;
+                    descriptorsJson = JSON.parseArray(FileUtils.readFileToString(path.toFile()));
+                }
             }
         }
 
