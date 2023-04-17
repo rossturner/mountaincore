@@ -8,9 +8,11 @@ public class PotentialJob {
 
 	public final Job job;
 	public final float distance;
+	public final int skillPriority;
 
-	public PotentialJob(Job job, float distance) {
+	public PotentialJob(Job job, float distance, int skillPriority) {
 		this.job = job;
 		this.distance = distance;
+		this.skillPriority = skillPriority;
 	}
 }

@@ -257,6 +257,8 @@ public class ConstructionManager implements Updatable {
 						placedAllocations.add(haulingAllocation.getItemAllocation());
 					}
 				}
+				gameContext.getJobs().values().stream().filter(job -> haulingAllocation.equals(job.getHaulingAllocation()))
+						.forEach(job -> job.setJobPriority(construction.getPriority()));
 			}
 
 			for (ItemAllocation placedAllocation : placedAllocations) {
