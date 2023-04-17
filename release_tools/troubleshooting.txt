@@ -10,7 +10,7 @@ jre\bin\java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8
 
 Mac:
 Open Terminal and navigate to the location of this file, which should be something like the following:
-~/Library/Application Support/Steam/steamapps/common/Mountaincore/
+~/Library/Application Support/Steam/steamapps/common/Mountaincore/Contents/Resources/
 Then execute the following command:
 ./jre/bin/java -jar mountaincore.jar -Xms1200m -Dfile.encoding=UTF-8
 
