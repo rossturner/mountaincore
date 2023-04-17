@@ -155,9 +155,9 @@ public class CustomShaderSpriteBatch implements Batch {
 
 		Gdx.gl.glDepthMask(false);
 		if (customShader != null)
-			customShader.begin();
+			customShader.bind();
 		else
-			shader.begin();
+			shader.bind();
 		setupMatrices();
 
 		drawing = true;
@@ -173,11 +173,6 @@ public class CustomShaderSpriteBatch implements Batch {
 		GL20 gl = Gdx.gl;
 		gl.glDepthMask(true);
 		if (isBlendingEnabled()) gl.glDisable(GL20.GL_BLEND);
-
-		if (customShader != null)
-			customShader.end();
-		else
-			shader.end();
 	}
 
 	@Override
@@ -1087,17 +1082,13 @@ public class CustomShaderSpriteBatch implements Batch {
 	public void setShader(ShaderProgram shader) {
 		if (drawing) {
 			flush();
-			if (customShader != null)
-				customShader.end();
-			else
-				this.shader.end();
 		}
 		customShader = shader;
 		if (drawing) {
 			if (customShader != null)
-				customShader.begin();
+				customShader.bind();
 			else
-				this.shader.begin();
+				this.shader.bind();
 			setupMatrices();
 		}
 	}

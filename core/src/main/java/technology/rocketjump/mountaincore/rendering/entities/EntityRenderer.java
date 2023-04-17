@@ -233,7 +233,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			float originalRotation = otherEntityLocation.getRotation();
 			Vector2 otherEntityLocationOriginalPosition = otherEntityLocation.getWorldPosition();
 			if (entity.getLocationComponent().getRotation() != 0) {
-				offset.cpy().rotate(entity.getLocationComponent().getRotation());
+				offset.cpy().rotateDeg(entity.getLocationComponent().getRotation());
 				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent().getRotation());
 			}
 			otherEntityLocation.setWorldPosition(worldPosition.cpy().add(offset), false, false);
@@ -323,7 +323,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			affine.translate(locationComponent.getWorldPosition())
 					.translate(renderStep.getOffsetFromEntity());
 		} else {
-			Vector2 offsetFromEntity = renderStep.getOffsetFromEntity().cpy().rotate(locationComponent.getRotation());
+			Vector2 offsetFromEntity = renderStep.getOffsetFromEntity().cpy().rotateDeg(locationComponent.getRotation());
 			affine.translate(locationComponent.getWorldPosition())
 					.translate(offsetFromEntity)
 					.rotate(locationComponent.getRotation());

@@ -77,7 +77,7 @@ public class RollAroundAction extends Action {
 			// This is so the roll happens in a realistic direction
 			rotation = 360 - rotation;
 		}
-		newFacing.rotate(rotation);
+		newFacing.rotateDeg(rotation);
 
 		parent.parentEntity.getLocationComponent().setFacing(newFacing);
 

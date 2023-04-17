@@ -134,7 +134,7 @@ public class AlphaMaskSpriteBatch implements Disposable {
 		renderCalls = 0;
 
 		Gdx.gl.glDepthMask(false);
-		shader.begin();
+		shader.bind();
 		setupMatrices();
 
 		drawing = true;
@@ -148,7 +148,6 @@ public class AlphaMaskSpriteBatch implements Disposable {
 		GL20 gl = Gdx.gl;
 		gl.glDepthMask(true);
 		gl.glDisable(GL20.GL_BLEND);
-		shader.end();
 	}
 
 	public void setColor(Color tint) {
@@ -454,8 +453,7 @@ public class AlphaMaskSpriteBatch implements Disposable {
 	public void setShader(ShaderProgram shader) {
 		if (drawing) {
 			flush();
-			this.shader.end();
-			this.shader.begin();
+			this.shader.bind();
 			setupMatrices();
 		}
 	}

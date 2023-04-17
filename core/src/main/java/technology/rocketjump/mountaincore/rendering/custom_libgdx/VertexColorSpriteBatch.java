@@ -138,9 +138,9 @@ public class VertexColorSpriteBatch implements Disposable {
 
 		Gdx.gl.glDepthMask(false);
 		if (customShader != null)
-			customShader.begin();
+			customShader.bind();
 		else
-			shader.begin();
+			shader.bind();
 		setupMatrices();
 
 		drawing = true;
@@ -155,11 +155,6 @@ public class VertexColorSpriteBatch implements Disposable {
 		GL20 gl = Gdx.gl;
 		gl.glDepthMask(true);
 		if (isBlendingEnabled()) gl.glDisable(GL20.GL_BLEND);
-
-		if (customShader != null)
-			customShader.end();
-		else
-			shader.end();
 	}
 
 	public void setColor(Color color) {
@@ -1036,17 +1031,13 @@ public class VertexColorSpriteBatch implements Disposable {
 	public void setShader(ShaderProgram shader) {
 		if (drawing) {
 			flush();
-			if (customShader != null)
-				customShader.end();
-			else
-				this.shader.end();
 		}
 		customShader = shader;
 		if (drawing) {
 			if (customShader != null)
-				customShader.begin();
+				customShader.bind();
 			else
-				this.shader.begin();
+				this.shader.bind();
 			setupMatrices();
 		}
 	}

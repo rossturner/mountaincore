@@ -89,6 +89,6 @@ public class AnimatedSpriteEffect implements ParticleEffect {
 
 	@Override
 	public void adjustForParentOrientation(EntityAssetOrientation effectDefaultOrientation, EntityAssetOrientation parentOrientation) {
-		rotation = effectDefaultOrientation.toVector2().angle(parentOrientation.toVector2());
+		rotation = effectDefaultOrientation.toVector2().angleDeg(parentOrientation.toVector2());
 	}
 }

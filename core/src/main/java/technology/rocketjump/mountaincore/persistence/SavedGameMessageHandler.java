@@ -330,12 +330,13 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		return result.toString();
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	private void writeJsonToFile(JSONObject json, File targetFile) throws IOException {
-		targetFile.delete();
+		FileUtils.deleteQuietly(targetFile);
 		targetFile.createNewFile();
 		BufferedWriter tempFileWriter = new BufferedWriter(new FileWriter(targetFile));
 		try {
-			JSON.writeJSONStringTo(json, tempFileWriter,
+			JSON.writeJSONString(tempFileWriter, json,
 					SerializerFeature.DisableCircularReferenceDetect);
 		} finally {
 			IOUtils.closeQuietly(tempFileWriter);

@@ -31,7 +31,6 @@ public class HaulingAllocation implements Persistable {
 	private LiquidAllocation liquidAllocation; // When item contains liquid, the liquid allocation
 
 	// Use HaulingAllocationBuilder to create
-	@Deprecated
 	public HaulingAllocation() {
 		this.haulingAllocationId = SequentialIdGenerator.nextId();
 	}

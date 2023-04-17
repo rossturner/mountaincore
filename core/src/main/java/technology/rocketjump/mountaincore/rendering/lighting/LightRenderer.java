@@ -19,17 +19,13 @@ public class LightRenderer implements Disposable {
 	}
 
 	public void begin(TextureRegion bumpMapTextureRegion) {
-		lightShader.begin();
+		lightShader.bind();
 		bumpMapTextureRegion.getTexture().bind(0);
 		lightShader.setUniformi("u_texture", 0);
 	}
 
 	public void render(PointLight light, Camera camera) {
 		light.render(camera, lightShader);
-	}
-
-	public void end() {
-		lightShader.end();
 	}
 
 	@Override

@@ -69,7 +69,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		} else {
 			Vector2 newPosition = parentPosition.cpy().add(targetVector);
 			parentEntity.getLocationComponent().setWorldPosition(newPosition, false);
-			parentEntity.getLocationComponent().setRotation(targetVector.angle());
+			parentEntity.getLocationComponent().setRotation(targetVector.angleDeg());
 
 			MapTile tile = gameContext.getAreaMap().getTile(newPosition);
 			if (tile != null) {

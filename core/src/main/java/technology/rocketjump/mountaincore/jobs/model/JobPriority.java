@@ -15,7 +15,6 @@ public enum JobPriority {
 
 	@Deprecated
 	public final Color color;
-	@Deprecated
 	public final String iconName;
 	public final String i18nKey;
 	public final String craftingDrawableName;

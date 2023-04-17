@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ArtifactParser {
 
@@ -47,21 +48,23 @@ public class ArtifactParser {
 	}
 
 	private void parseDir(Path directory, ModArtifact artifact, String filenameMatcher, boolean recursive) throws IOException {
-		Files.list(directory).forEach(file -> {
-			try {
-				if (Files.isDirectory(file)) {
-					if (recursive) {
-						parseDir(file, artifact, filenameMatcher, recursive);
+		try (Stream<Path> fileList = Files.list(directory)) {
+			fileList.forEach(file -> {
+				try {
+					if (Files.isDirectory(file)) {
+						if (recursive) {
+							parseDir(file, artifact, filenameMatcher, recursive);
+						}
+					} else {
+						if (matches(file, filenameMatcher)) {
+							artifact.sourceFiles.add(file);
+						}
 					}
-				} else {
-					if (matches(file, filenameMatcher)) {
-						artifact.sourceFiles.add(file);
-					}
+				} catch (IOException e) {
+					System.err.println("Error while parsing " + directory.toString() + ", " + e.getMessage());
 				}
-			} catch (IOException e) {
-				System.err.println("Error while parsing " + directory.toString() + ", " + e.getMessage());
-			}
-		});
+			});
+		}
 	}
 
 	private boolean matches(Path file, String filenameMatcher) {

@@ -66,9 +66,6 @@ public class WorldLightingRenderer implements GameContextAware, AssetDisposable 
 		for (PointLight pointLight : lightList) {
 			lightRenderer.render(pointLight, camera);
 		}
-		lightRenderer.end();
-
-
 
 		// Reset blend equation
 		Gdx.gl.glBlendEquation(GL20.GL_FUNC_ADD);

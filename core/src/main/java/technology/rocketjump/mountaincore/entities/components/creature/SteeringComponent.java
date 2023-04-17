@@ -210,8 +210,8 @@ public class SteeringComponent implements ChildPersistable {
 	}
 
 	private void rotateFacingAndApplyVelocity(float deltaTime, Vector2 currentVelocity, Vector2 target) {
-		float angleToWaypoint = target.angle();
-		float angleToVelocity = currentVelocity.angle();
+		float angleToWaypoint = target.angleDeg();
+		float angleToVelocity = currentVelocity.angleDeg();
 		float difference = Math.abs(angleToVelocity - angleToWaypoint);
 		// Don't try to apply very small rotations
 		if (difference > 3f) {
@@ -229,7 +229,7 @@ public class SteeringComponent implements ChildPersistable {
 			if (!positiveRotation) {
 				difference = -difference;
 			}
-			currentVelocity.rotate(difference * deltaTime * ROTATION_MULTIPLIER);
+			currentVelocity.rotateDeg(difference * deltaTime * ROTATION_MULTIPLIER);
 		}
 	}
 

@@ -68,7 +68,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 	public void renderFinal(TextureRegion diffuseTextureRegion, TextureRegion lightingTextureRegion, float fadeAmount) {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
-		combinedShader.begin();
+		combinedShader.bind();
 		combinedShader.setUniformi("u_textureLighting", 1);
 		lightingTextureRegion.getTexture().bind(1);
 		combinedShader.setUniformi("u_textureDiffuse", 0);
@@ -76,20 +76,18 @@ public class CombinedLightingResultRenderer implements Disposable {
 		combinedShader.setUniformf("u_alpha", 1 - fadeAmount);
 
 		fullScreenMesh.render(combinedShader, GL20.GL_TRIANGLES);
-		combinedShader.end();
 	}
 
 	public void renderOverlay(TextureRegion overlay, TextureRegion toSubtract) {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 
-		overlayShader.begin();
+		overlayShader.bind();
 		overlayShader.setUniformi("u_textureToSubtract", 1);
 		toSubtract.getTexture().bind(1);
 		overlayShader.setUniformi("u_textureOverlay", 0);
 		overlay.getTexture().bind(0);
 
 		fullScreenMesh.render(overlayShader, GL20.GL_TRIANGLES);
-		overlayShader.end();
 	}
 
 	@Override
@@ -101,12 +99,11 @@ public class CombinedLightingResultRenderer implements Disposable {
 		float alpha = 0.45f;
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 
-		transparentOverlayShader.begin();
+		transparentOverlayShader.bind();
 		transparentOverlayShader.setUniformi("u_textureOverlay", 0);
 		overlay.getTexture().bind(0);
 		transparentOverlayShader.setUniformf("u_alpha", alpha);
 
 		fullScreenMesh.render(transparentOverlayShader, GL20.GL_TRIANGLES);
-		transparentOverlayShader.end();
 	}
 }

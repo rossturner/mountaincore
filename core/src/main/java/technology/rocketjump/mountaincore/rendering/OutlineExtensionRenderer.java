@@ -75,14 +75,13 @@ public class OutlineExtensionRenderer implements Disposable {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shader.begin();
+        shader.bind();
         shader.setUniformi("u_texture", 0);
         input.getTexture().bind(0);
         shader.setUniform2fv("u_viewportResolution", new float[] {width, height}, 0, 2);
 
         fullScreenMesh.render(shader, GL20.GL_TRIANGLES);
 
-        shader.end();
         frameBuffer.end();
 
         return textureRegion;

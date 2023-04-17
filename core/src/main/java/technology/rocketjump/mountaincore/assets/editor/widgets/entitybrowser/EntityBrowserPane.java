@@ -181,7 +181,7 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 	}
 
 	private EntityBrowserTreeNode findSubDirNode(Path targetDirectory) {
-		Array<EntityBrowserTreeNode> nodes = assetTree.getNodes();
+		Array<EntityBrowserTreeNode> nodes = assetTree.getRootNodes();
 		Deque<EntityBrowserTreeNode> frontier = new ArrayDeque<>();
 		for (EntityBrowserTreeNode node : nodes) {
 			frontier.add(node);

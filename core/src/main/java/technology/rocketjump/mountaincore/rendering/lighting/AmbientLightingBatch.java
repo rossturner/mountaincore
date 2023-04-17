@@ -106,7 +106,7 @@ public class AmbientLightingBatch implements Disposable {
 		renderCalls = 0;
 
 		Gdx.gl.glDepthMask(false);
-		shader.begin();
+		shader.bind();
 		shader.setUniformf("u_lightColor", new Vector3(color.r, color.g, color.b));
 		setupMatrices();
 
@@ -120,8 +120,6 @@ public class AmbientLightingBatch implements Disposable {
 
 		GL20 gl = Gdx.gl;
 		gl.glDepthMask(true);
-
-		shader.end();
 	}
 
 	public void setColor(Color tint) {
