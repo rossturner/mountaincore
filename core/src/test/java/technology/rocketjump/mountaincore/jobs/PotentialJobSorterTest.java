@@ -6,23 +6,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import technology.rocketjump.mountaincore.jobs.model.*;
+import technology.rocketjump.mountaincore.jobs.model.Job;
+import technology.rocketjump.mountaincore.jobs.model.JobPriority;
+import technology.rocketjump.mountaincore.jobs.model.JobType;
+import technology.rocketjump.mountaincore.jobs.model.PotentialJob;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.when;
-import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PotentialJobSorterTest {
 
 	@Mock
 	private JobType noProfessionJobType;
-	@Mock
-	private JobType requiredProfessionJobType;
-	@Mock
-	private Skill mockProfession;
 
 	private PotentialJobSorter potentialJobSorter;
 
@@ -30,16 +26,14 @@ public class PotentialJobSorterTest {
 	public void setup() {
 		potentialJobSorter = new PotentialJobSorter();
 
-		when(requiredProfessionJobType.getRequiredProfession()).thenReturn(mockProfession);
-		when(noProfessionJobType.getRequiredProfession()).thenReturn(NULL_PROFESSION);
 	}
 
 	@Test
 	public void sortsJobsByHighestPriorityFirst() {
 		List<PotentialJob> potentialJobs = new ArrayList<>(List.of(
-				priority(JobPriority.NORMAL),
-				priority(JobPriority.HIGHEST),
-				priority(JobPriority.LOWER)
+				job(JobPriority.LOWER),
+				job(JobPriority.HIGHEST),
+				job(JobPriority.NORMAL)
 		));
 
 		potentialJobs.sort(potentialJobSorter);
@@ -50,33 +44,50 @@ public class PotentialJobSorterTest {
 	}
 
 	@Test
-	public void sortsJobsByHavingProfessionOverDistance() {
-		List<PotentialJob> potentialJobs = new ArrayList<>(List.of(
-				job(noProfessionJobType, 1f),
-				job(requiredProfessionJobType, 3f),
-				priority(JobPriority.HIGHER),
-				job(noProfessionJobType, 2f)
-		));
+	public void sortsJobsByPriorityThenProfessionOrder() {
+		PotentialJob last = job(JobPriority.LOWER, 0);
+		PotentialJob first = job(JobPriority.HIGHEST, 1);
+		PotentialJob second = job(JobPriority.HIGHEST, 2);
 
+		List<PotentialJob> potentialJobs = new ArrayList<>(List.of(
+				last,
+				second,
+				first
+		));
 
 		potentialJobs.sort(potentialJobSorter);
 
-		Assertions.assertThat(potentialJobs.get(0).job.getJobPriority().equals(JobPriority.HIGHER));
-		Assertions.assertThat(potentialJobs.get(1).job.getType().equals(requiredProfessionJobType));
-		Assertions.assertThat(potentialJobs.get(2).job.getType().equals(noProfessionJobType));
-		Assertions.assertThat(potentialJobs.get(3).job.getType().equals(noProfessionJobType));
+		Assertions.assertThat(potentialJobs).containsExactly(first, second, last);
+	}
+	@Test
+	public void sortsJobsByPriorityThenProfessionThenDistanceOrder() {
+		PotentialJob last = job(JobPriority.LOWER, 0);
+		PotentialJob first = job(JobPriority.HIGHEST, 0, 50f);
+		PotentialJob second = job(JobPriority.HIGHEST, 0, 60f);
 
-		Assertions.assertThat(potentialJobs.get(2).distance).isEqualTo(1f);
-		Assertions.assertThat(potentialJobs.get(3).distance).isEqualTo(2f);
+		List<PotentialJob> potentialJobs = new ArrayList<>(List.of(
+				last,
+				second,
+				first
+		));
+
+		potentialJobs.sort(potentialJobSorter);
+
+		Assertions.assertThat(potentialJobs).containsExactly(first, second, last);
 	}
 
-	private PotentialJob priority(JobPriority jobPriority) {
+	private PotentialJob job(JobPriority jobPriority) {
+		return job(jobPriority, 0);
+	}
+
+	private PotentialJob job(JobPriority jobPriority, int skillPriority) {
+		return job(jobPriority, skillPriority, 0f);
+	}
+
+	private PotentialJob job(JobPriority jobPriority, int skillPriority, float distance) {
 		Job job = new Job(noProfessionJobType);
-		return new PotentialJob(job, 1f);
-	}
-
-	private PotentialJob job(JobType jobType, float distance) {
-		return new PotentialJob(new Job(jobType), distance);
+		job.setJobPriority(jobPriority);
+		return new PotentialJob(job, distance, skillPriority);
 	}
 
 }
