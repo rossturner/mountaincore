@@ -49,6 +49,8 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 
 import java.util.*;
 
+import static technology.rocketjump.mountaincore.jobs.model.JobPriority.DISABLED;
+
 public class CraftingStationBehaviour extends FurnitureBehaviour
 		implements SelectableDescription,
 		Destructible,
@@ -184,9 +186,11 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					.filter(e -> e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
 					.map(e -> (ProductionExportFurnitureBehaviour) e.getBehaviourComponent())
 					.findFirst().orElse(null);
+			JobPriority targetPriority = targetExportFurniture != null ? targetExportFurniture.getPriority() : JobPriority.NORMAL;
 
 			if (!outputMatches(craftingAssignment.getTargetRecipe().getOutput(), targetExportFurniture) ||
-					!inventoryMatches(craftingAssignment.getTargetRecipe())) {
+					!inventoryMatches(craftingAssignment.getTargetRecipe()) ||
+					DISABLED.equals(targetPriority)) {
 				cancelAssignment();
 				return;
 			}
@@ -439,10 +443,16 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				.flatMap(t -> t.getEntities().stream())
 				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
 				.map(furniture -> furniture.getComponent(ProductionExportFurnitureBehaviour.class))
-				.filter(e -> e.getSelectedItemType() != null)
-				.sorted(Comparator.comparingInt(e -> e.getPriority().ordinal()))
+				.filter(e -> e.getSelectedItemType() != null && !DISABLED.equals(e.getPriority()))
+				.sorted(this::exportFurnitureSort)
 				.toList();
 		return exportFurniture;
+	}
+
+	private int exportFurnitureSort(ProductionExportFurnitureBehaviour a, ProductionExportFurnitureBehaviour b) {
+		// Furniture of higher priority should come first, but then random for furniture of same priority
+		return ((a.getPriority().ordinal() * 1000) + gameContext.getRandom().nextInt(1000)) -
+				((b.getPriority().ordinal() * 1000) + gameContext.getRandom().nextInt(1000));
 	}
 
 	private void addInputToAssignment(QuantifiedItemTypeWithMaterial inputRequirement, ProductionImportFurnitureBehaviour matchedInputFurniture) {

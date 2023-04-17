@@ -1,3 +1,10 @@
+Early Access 1.1.10
+
+- Made crafting stations randomly pick between potential export pallet assignments of the same priority
+- Crafting stations will no longer produce items for export pallets set to disabled priority
+- Furniture/plants next to other furniture/plants should no longer flicker between the two
+- Fix for a crash that can happen when loading a saved game that no longer exists
+
 Early Access 1.1.9 - 14th April 2023
 
 - Displaying number of Twitch viewers watching on main menu (when connected to Twitch)
