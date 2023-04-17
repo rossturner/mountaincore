@@ -36,7 +36,7 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 	private final JobStore jobStore;
 
 	private GameContext gameContext;
-	private Comparator<? super PotentialJob> potentialJobSorter = new PotentialJobSorter();
+	private final Comparator<? super PotentialJob> potentialJobSorter = new PotentialJobSorter();
 
 	@Inject
 	public JobRequestHandler(MessageDispatcher messageDispatcher, JobStore jobStore) {
@@ -88,8 +88,8 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 
 		List<PotentialJob> allPotentialJobs = new ArrayList<>();
 
+		int skillPriority = 0;
 		for (SkillsComponent.QuantifiedSkill professionToFindJobFor : skillsComponent.getActiveProfessions()) {
-			List<PotentialJob> potentialJobsThisProfession = new ArrayList<>();
 			Collection<Job> byProfession = jobStore.getCollectionByState(JobState.ASSIGNABLE).getByProfession(professionToFindJobFor.getSkill()).values();
 			if (byProfession.isEmpty()) {
 				continue;
@@ -98,12 +98,12 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 			for (Job job : byProfession) {
 				if (job.getAssignedToEntityId() == null && !job.getJobPriority().equals(JobPriority.DISABLED)) {
 					float distanceToJob = job.getJobLocation().dst(requesterLocation);
-					potentialJobsThisProfession.add(new PotentialJob(job, distanceToJob));
+					allPotentialJobs.add(new PotentialJob(job, distanceToJob, skillPriority));
 				}
 			}
-			potentialJobsThisProfession.sort(potentialJobSorter);
-			allPotentialJobs.addAll(potentialJobsThisProfession);
+			skillPriority++;
 		}
+		allPotentialJobs.sort(potentialJobSorter);
 
 		// FIXME Should maybe prioritise jobs that need equipment so they are worked on when a settler has the item,
 		// rather than picking up the item and then going and working on something else

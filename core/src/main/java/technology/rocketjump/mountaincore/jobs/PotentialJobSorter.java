@@ -1,32 +1,23 @@
 package technology.rocketjump.mountaincore.jobs;
 
-import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.PotentialJob;
 
 import java.util.Comparator;
-
-import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 
 /**
  * This comparator sorts by priority, then having or not having a required profession, then distance
  */
 public class PotentialJobSorter implements Comparator<PotentialJob> {
 
+	private static final Comparator<PotentialJob> JOB_PRIORITY = Comparator.comparing(potentialJob -> potentialJob.job.getJobPriority());
+	private static final Comparator<PotentialJob> PROFESSION_PRIORITY = Comparator.comparing(potentialJob -> potentialJob.skillPriority);
+	private static final Comparator<PotentialJob> DISTANCE_PRIORITY = Comparator.comparing(potentialJob -> potentialJob.distance);
+	private static final Comparator<PotentialJob> PRIORITY_CHAIN = JOB_PRIORITY.thenComparing(PROFESSION_PRIORITY).thenComparing(DISTANCE_PRIORITY);
+
+
 	@Override
 	public int compare(PotentialJob o1, PotentialJob o2) {
-		if (!o1.job.getJobPriority().equals(o2.job.getJobPriority())) {
-			return o1.job.getJobPriority().compareTo(o2.job.getJobPriority());
-		} else if (isNullProfession(o1.job) && !isNullProfession(o2.job)) {
-			return 1;
-		} else if (!isNullProfession(o1.job) && isNullProfession(o2.job)) {
-			return -1;
-		} else {
-			return (int)((o1.distance - o2.distance) * 1000f);
-		}
-	}
-
-	private boolean isNullProfession(Job job) {
-		return job.getRequiredProfession() == null || job.getRequiredProfession().equals(NULL_PROFESSION);
+		return PRIORITY_CHAIN.compare(o1, o2);
 	}
 
 }
