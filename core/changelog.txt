@@ -1,5 +1,8 @@
-Early Access 1.1.10
+Early Access 1.1.10 - 17th April 2023
 
+- Reworked the order in which jobs are selected so high priority is more important than which skill is involved
+- Fix for the game not launching on Mac
+- Adjusted innate damage reduction on undead dwarves to not be quite so invulnerable to slashing and stabbing weapons, maybe
 - Made crafting stations randomly pick between potential export pallet assignments of the same priority
 - Crafting stations will no longer produce items for export pallets set to disabled priority
 - Furniture/plants next to other furniture/plants should no longer flicker between the two

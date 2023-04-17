@@ -24,7 +24,7 @@ allprojects {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    version = 'Early Access 1.1.9'
+    version = 'Early Access 1.1.10'
     ext {
         appName = 'mountaincore'
         gdxVersion = '1.11.0'

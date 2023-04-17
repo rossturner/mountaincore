@@ -797,9 +797,9 @@
       "maxDefensePoints" : 10,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : {
-        "STABBING" : 8,
-        "SLASHING" : 8,
-        "CRUSHING" : -7
+        "STABBING" : 6,
+        "SLASHING" : 6,
+        "CRUSHING" : -3
       },
       "restrictedToRaceNames" : [ ]
     },
