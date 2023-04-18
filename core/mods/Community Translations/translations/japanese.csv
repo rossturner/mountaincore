@@ -647,6 +647,7 @@ GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,サブ�
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,送信
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Twitchとの連携機能
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,入植者の名前として視聴者名を使用
+GUI.OPTIONS.TWITCH.VIEWERS_LABEL,,{{numViewers}} viewers,
 GUI.ORDERS.CHOP_WOOD,,Chop,伐採
 GUI.ORDERS.CLEAR_GROUND,,Clear,整地
 GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation,水路掘削

@@ -647,6 +647,7 @@ GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,Dare la 
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Invia
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Integrazione Twitch
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,Usare gli spettatori come nomi di coloni
+GUI.OPTIONS.TWITCH.VIEWERS_LABEL,,{{numViewers}} viewers,
 GUI.ORDERS.CHOP_WOOD,,Chop,Taglia
 GUI.ORDERS.CLEAR_GROUND,,Clear,Rimuovi
 GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation,Irrigazione
