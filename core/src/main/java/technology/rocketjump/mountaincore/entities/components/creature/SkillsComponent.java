@@ -43,8 +43,10 @@ public class SkillsComponent implements EntityComponent {
 		int indexToReplace = activeProfessions.indexOf(professionToReplace);
 		if (indexToReplace == -1 && activeProfessions.size() < MAX_PROFESSIONS) {
 			activeProfessions.add(newProfession);
-		} else {
+		} else if (indexToReplace != -1) {
 			activeProfessions.set(indexToReplace, newProfession);
+		} else {
+			Logger.error("Attempting to replace a profession that is not in the list and max professions reached");
 		}
 	}
 

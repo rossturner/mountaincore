@@ -46,9 +46,13 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 			}
 		} else {
 			CreatureCombat combatStats = new CreatureCombat(parentEntity);
+			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+			if (combatStateComponent.getTargetedOpponentId() == null) {
+				throw new ExitingCombatException();
+			}
+
 			if (combatStats.getEquippedWeapon().isRanged()) {
 				Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
-				CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 				Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
 				if (opponentEntity != null) {
 					Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();

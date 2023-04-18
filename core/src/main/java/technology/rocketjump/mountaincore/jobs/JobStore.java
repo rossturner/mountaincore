@@ -76,7 +76,7 @@ public class JobStore implements Updatable {
 		byState.get(jobToRemove.getJobState()).remove(jobToRemove);
 		byType.get(jobToRemove.getType()).remove(jobToRemove);
 		getJobsAtLocation(jobToRemove.getJobLocation()).remove(jobToRemove);
-		if (byLocation.get(jobToRemove.getJobLocation()) != null && byLocation.get(jobToRemove.getJobLocation()).isEmpty()) {
+		if (jobToRemove.getJobLocation() != null && byLocation.get(jobToRemove.getJobLocation()) != null && byLocation.get(jobToRemove.getJobLocation()).isEmpty()) {
 			byLocation.remove(jobToRemove.getJobLocation());
 		}
 		jobToRemove.setJobState(JobState.REMOVED);

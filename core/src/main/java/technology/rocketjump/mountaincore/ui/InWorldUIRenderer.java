@@ -448,7 +448,8 @@ public class InWorldUIRenderer {
 						renderExistingDesignation(x, y, mapTile);
 					}
 
-					if (mapTile.hasRoom() && mapTile.getRoomTile().getRoom().getRoomType().getRoomName().equals(VIRTUAL_PLACING_ROOM.getRoomName())) {
+					if (mapTile.getRoomTile() != null && mapTile.getRoomTile().getRoom() != null &&
+							mapTile.getRoomTile().getRoom().getRoomType().getRoomName().equals(VIRTUAL_PLACING_ROOM.getRoomName())) {
 						roomRenderer.render(mapTile, spriteBatch, diffuseSpriteCache);
 					}
 

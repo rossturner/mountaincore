@@ -1,3 +1,12 @@
+Early Access 1.1.11
+
+- Fix for a crash when removing a job with no location
+- Fix for a crash when rendering a room tile with no room
+- Fix for a crash when moving to shoot an opponent but no longer in combat with anyone
+- Fix for a crash when a long-running crafting process finishes with nothing left in inventory
+- Fix for a crash when rendering an entity that no longer has a world position
+- Fix for a crash when attempting to replace a profession the settler does not have
+
 Early Access 1.1.10 - 17th April 2023
 
 - Reworked the order in which jobs are selected so high priority is more important than which skill is involved

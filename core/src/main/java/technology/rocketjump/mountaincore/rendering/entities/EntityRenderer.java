@@ -314,6 +314,10 @@ public class EntityRenderer implements GameContextAware, Disposable {
 				return;
 			}
 		}
+		if (locationComponent.getWorldPosition() == null) {
+			Logger.error("Rendering non-contained entity with a world position of null");
+			return;
+		}
 		spriteWorldSize.set(
 				(sprite.getWidth() * spriteScale) / PIXELS_PER_TILE,
 				(sprite.getHeight() * spriteScale) / PIXELS_PER_TILE

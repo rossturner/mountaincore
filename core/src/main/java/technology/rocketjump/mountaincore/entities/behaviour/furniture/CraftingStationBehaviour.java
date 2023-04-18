@@ -143,20 +143,22 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				}
 				if (exportFurnitureBehaviour != null) {
 					InventoryComponent.InventoryEntry outputEntry = inventoryComponent.findByItemTypeAndMaterial(exportFurnitureBehaviour.getSelectedItemType(), exportFurnitureBehaviour.getSelectedMaterial(), gameContext.getGameClock());
-					ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
-					int quantityToHaul = Math.min(attributes.getQuantity(), attributes.getItemType().getMaxHauledAtOnce());
+					if (outputEntry != null) {
+						ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
+						int quantityToHaul = Math.min(attributes.getQuantity(), attributes.getItemType().getMaxHauledAtOnce());
 
-					Job haulingJob = new Job(haulingJobType);
-					HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaul, outputEntry.entity, parentEntity)
-							.toEntity(exportFurnitureBehaviour.getParentEntity());
-					haulingJob.setHaulingAllocation(haulingAllocation);
-					haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
-					haulingJob.setJobPriority(getPriority());
-					haulingJob.setJobState(JobState.ASSIGNABLE);
-					haulingJob.setTargetId(outputEntry.entity.getId());
-					haulingJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
-					updateJobLocationIfNotNavigable(haulingJob);
-					messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
+						Job haulingJob = new Job(haulingJobType);
+						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaul, outputEntry.entity, parentEntity)
+								.toEntity(exportFurnitureBehaviour.getParentEntity());
+						haulingJob.setHaulingAllocation(haulingAllocation);
+						haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
+						haulingJob.setJobPriority(getPriority());
+						haulingJob.setJobState(JobState.ASSIGNABLE);
+						haulingJob.setTargetId(outputEntry.entity.getId());
+						haulingJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+						updateJobLocationIfNotNavigable(haulingJob);
+						messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
+					} // else can't find what needs to hauled away in inventory, hope the station resolves its state
 				}
 
 				assignmentCompleted();
