@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
@@ -39,6 +40,7 @@ import javax.inject.Singleton;
 import java.util.List;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.mountaincore.ui.i18n.I18nWordClass.NOUN;
 import static technology.rocketjump.mountaincore.ui.i18n.I18nWordClass.PLURAL;
@@ -62,7 +64,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
     private TreeNode rootNode;
     private final Map<StockpileGroup, Label> stockpileGroupLabels = new HashMap<>();
     private final Map<ItemType, Label> itemTypeLabels = new HashMap<>();
-    private GameContext gameContext;
     private boolean currentlyVisible = false;
 
     @Inject
@@ -100,7 +101,6 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
     @Override
     public void onContextChange(GameContext gameContext) {
-        this.gameContext = gameContext;
         stockpileGroupLabels.clear();
         itemTypeLabels.clear();
         rebuildTree();
@@ -207,6 +207,8 @@ public class ResourceOverview implements GuiView, GameContextAware {
 
         if (byStockpile.isEmpty() && rootNode.hasChildren()) {
             rootNode.clearChildren();
+            itemTypeLabels.clear();
+            stockpileGroupLabels.clear();
         }
 
         //hideous code to figure out inserting/removing nodes in the stockpile level of tree, without rebuilding whole tree
@@ -246,6 +248,7 @@ public class ResourceOverview implements GuiView, GameContextAware {
                     i--; //to compare again
                 } else { //else delete tree node
                     rootNode.remove(existingTreeNode);
+                    itemTypeLabels.keySet().removeIf(itemType -> Objects.equals(itemType.getStockpileGroup(), existingValue.stockpileGroup()));
                     i--; //to compare again
                 }
             } else { //append to end
@@ -257,12 +260,34 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 updateItemTypeLabels(stockpileGroup, stockpileImage, stockpileNode, byItemType);
             }
         }
+        //trim tail of tree
+        for (TreeNode child : new Array<>(rootNode.getChildren())) {
+            TreeNodeValue value = child.getValue().get(0);
+            if (byStockpile.stream().noneMatch(tnv -> Objects.equals(tnv.stockpileGroup, value.stockpileGroup))) {
+                rootNode.remove(child);
+                itemTypeLabels.keySet().removeIf(itemType -> Objects.equals(itemType.getStockpileGroup(), value.stockpileGroup()));
+            }
+        }
+
+        //something gone wrong so rebuild tree, shouldn't be called
+        if (byStockpile.size() != rootNode.getChildren().size) {
+            stockpileGroupLabels.clear();
+            itemTypeLabels.clear();
+            rebuildTree();
+        }
 
     }
 
     private void updateItemTypeLabels(StockpileGroup stockpileGroup, Image stockpileImage, TreeNode stockpileNode, List<TreeNodeValue> allItemTypeValues) {
         List<TreeNodeValue> itemTypeValuesForStockpile = allItemTypeValues.stream().filter(itemTypeValue -> itemTypeValue.stockpileGroup == stockpileGroup).toList();
-        if (itemTypeLabels.keySet().containsAll(itemTypeValuesForStockpile.stream().map(TreeNodeValue::itemType).toList())) {
+        List<ItemType> itemTypes = itemTypeValuesForStockpile.stream().map(TreeNodeValue::itemType).toList();
+        Set<ItemType> existingItemTypes = itemTypeLabels.keySet()
+                .stream()
+                .filter(itemType -> Objects.equals(stockpileGroup, itemType.getStockpileGroup()))
+                .collect(Collectors.toSet());
+
+
+        if (existingItemTypes.equals(new HashSet<>(itemTypes))) {
             for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {
                 itemTypeLabels.get(itemTypeValue.itemType()).setText(getItemTypeText(itemTypeValue).toString());
             }
