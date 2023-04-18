@@ -96,6 +96,9 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		this.i18nTranslator = i18nTranslator;
 		this.creditsMenu = creditsMenu;
 
+		backgroundImage = new Texture("assets/main_menu/Dwarven Settlement.png");
+		setupBackgroundRegion();
+
 		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
 		containerTable.center();
@@ -229,9 +232,6 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	@Override
 	public void show() {
 		this.isDisplayed = true;
-		backgroundImage = new Texture("assets/main_menu/Dwarven Settlement.png");
-
-		setupBackgroundRegion();
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
@@ -308,8 +308,8 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	@Override
 	public void hide() {
 		this.isDisplayed = false;
-		backgroundImage.dispose();
-		backgroundImage = null;
+//		backgroundImage.dispose();
+//		backgroundImage = null;
 	}
 
 	@Override

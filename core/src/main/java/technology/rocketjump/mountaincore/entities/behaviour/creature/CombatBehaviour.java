@@ -64,7 +64,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		ParticleRequestMessage.ParticleCreationCallback, Destructible,
 		SelectableDescription {
 
-	private static final Double SERIOUSLY_LOW_NEED_VALUE = 10.0;
+	private static final Double LOW_NEED_VALUE = 25.0;
 	private static final float MAX_DISTANCE_FROM_COMBAT_START = 18f;
 	private static final float MAX_DISTANCE_FROM_COMBAT_START_SQUARED = MAX_DISTANCE_FROM_COMBAT_START * MAX_DISTANCE_FROM_COMBAT_START;
 	private Entity parentEntity;
@@ -271,7 +271,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			combatStateComponent.setHeldLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
 		}
 
-		if (seriouslyInjured() || needsSeriouslyLow()) {
+		if (seriouslyInjured() || needsTooLow()) {
 			return new FleeFromCombatAction(parentEntity);
 		}
 
@@ -398,11 +398,11 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
-	private boolean needsSeriouslyLow() {
+	private boolean needsTooLow() {
 		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
 		if (needsComponent != null) {
 			for (Map.Entry<EntityNeed, Double> needEntry : needsComponent.getAll()) {
-				if (needEntry.getValue() <= SERIOUSLY_LOW_NEED_VALUE) {
+				if (needEntry.getValue() <= LOW_NEED_VALUE) {
 					return true;
 				}
 			}

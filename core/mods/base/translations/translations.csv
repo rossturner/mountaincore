@@ -226,7 +226,7 @@ FUEL.SACK,,Fuel
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}."
 
 FURNITURE.ARCHERY_TARGET,,Archery target
-FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here up to level 50.
 FURNITURE.ARMOUR_STAND,,Armour stand
 FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.
 FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
@@ -330,7 +330,7 @@ FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRO
 FURNITURE.TRADE_BANNER,,Banner
 FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.
 FURNITURE.TRAINING_DUMMY,,Training dummy
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here up to level 50.
 FURNITURE.WAGON_PARKED,,Wagon
 FURNITURE.WATERWHEEL,,Water Wheel
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels

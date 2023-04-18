@@ -22,7 +22,7 @@
       "minSize" : 2,
       "maxSize" : 12
     },
-    "aggressionResponse" : "FLEE"
+    "aggressionResponse" : "MIXED"
   },
   "genders" : {
     "FEMALE" : {

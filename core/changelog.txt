@@ -1,5 +1,9 @@
-Early Access 1.1.11
+Early Access 1.1.11 - 18th April 2023
 
+- Increased the threshold for a creature to retreat from combat due to a need (food/drink/sleep) running low
+- Fungolems will either attack or flee rather than always fleeing so they aren't quite so annoying to deal with
+- Keeping main menu background in memory so there is no delay when pressing escape to return to the main menu
+- Fix for resources overview to not show duplicate groups
 - Fix for a crash when removing a job with no location
 - Fix for a crash when rendering a room tile with no room
 - Fix for a crash when moving to shoot an opponent but no longer in combat with anyone
