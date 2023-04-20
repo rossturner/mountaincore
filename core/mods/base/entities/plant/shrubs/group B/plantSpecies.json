@@ -25,7 +25,7 @@
     {
       "name": "Initial",
       "nextGrowthStage": 1,
-      "seasonsUntilComplete": 2,
+      "seasonsUntilComplete": 3,
       "initialPlantScale": 0.35,
       "completionPlantScale": 1,
       "tileHeight": 1
@@ -33,7 +33,7 @@
     {
       "name": "Fully grown",
       "nextGrowthStage": 1,
-      "seasonsUntilComplete": 2.5,
+      "seasonsUntilComplete": 4.5,
       "tileHeight": 1,
       "harvestType": "FORAGING",
       "harvestedItems": [
