@@ -170,7 +170,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		if (message.material() != null) {
 			items = settlementItemTracker.getItemsByTypeAndMaterial(message.itemType(), message.material(), false);
 		} else {
-			items = settlementItemTracker.getItemsByType(message.itemType(), true);
+			items = settlementItemTracker.getItemsByType(message.itemType(), false);
 		}
 		message.callback().accept(items);
 		return true;

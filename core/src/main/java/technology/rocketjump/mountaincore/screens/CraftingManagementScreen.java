@@ -310,6 +310,8 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 				buttonFactory.disable(decrementButton);
 				buttonFactory.disable(quantityLabel);
 				buttonFactory.disable(incrementButton);
+			} else {
+				assignClickListeners(quota, incrementButton, decrementButton, quantityLabel);
 			}
 
 			limitToggle.addListener(new ChangeListener() {
@@ -322,42 +324,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 						buttonFactory.enable(incrementButton);
 
 						CraftingQuota newQuota = settlementState.newCraftingQuota(output.getItemType(), output.getMaterial(), 0);
-						incrementButton.clearListeners();
-						decrementButton.clearListeners();
-						buttonFactory.attachClickCursor(incrementButton, GameCursor.SELECT);
-						buttonFactory.attachClickCursor(decrementButton, GameCursor.SELECT);
-						incrementButton.addListener(new InputListener() {
-							private Action currentAction;
-							@Override
-							public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-								currentAction = numberSpinnerAction(newQuota, quantityLabel, +1, +10, +100);
-								incrementButton.addAction(currentAction);
-								return true;
-							}
-
-							@Override
-							public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-								incrementButton.removeAction(currentAction);
-								super.touchUp(event, x, y, pointer, button);
-							}
-						});
-
-
-						decrementButton.addListener(new InputListener() {
-							private Action currentAction;
-							@Override
-							public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-								currentAction = numberSpinnerAction(newQuota, quantityLabel, -1, -10, -100);
-								decrementButton.addAction(currentAction);
-								return true;
-							}
-
-							@Override
-							public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-								decrementButton.removeAction(currentAction);
-								super.touchUp(event, x, y, pointer, button);
-							}
-						});
+						assignClickListeners(newQuota, incrementButton, decrementButton, quantityLabel);
 
 					} else {
 						settlementState.removeCraftingQuota(output.getItemType(), output.getMaterial());
@@ -384,6 +351,45 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		}
 
 		return itemsTable;
+	}
+
+	private void assignClickListeners(CraftingQuota newQuota, Button incrementButton, Button decrementButton, Label quantityLabel) {
+		incrementButton.clearListeners();
+		decrementButton.clearListeners();
+		buttonFactory.attachClickCursor(incrementButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(decrementButton, GameCursor.SELECT);
+		incrementButton.addListener(new InputListener() {
+			private Action currentAction;
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				currentAction = numberSpinnerAction(newQuota, quantityLabel, +1, +10, +100);
+				incrementButton.addAction(currentAction);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				incrementButton.removeAction(currentAction);
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+
+
+		decrementButton.addListener(new InputListener() {
+			private Action currentAction;
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				currentAction = numberSpinnerAction(newQuota, quantityLabel, -1, -10, -100);
+				decrementButton.addAction(currentAction);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				decrementButton.removeAction(currentAction);
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 	}
 
 	private static SequenceAction numberSpinnerAction(CraftingQuota newQuota, Label quantityLabel, int firstStep, int secondStep, int thirdStep) {
