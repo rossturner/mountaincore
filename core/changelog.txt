@@ -1,4 +1,4 @@
-Early Access 1.1.12
+Early Access 1.1.12 - 20th April 2023
 
 - You can now set a limit on the number of items to be produced via the crafting screen
 - Fire will no longer spread to furniture and items that contain water
