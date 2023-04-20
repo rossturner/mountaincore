@@ -1,5 +1,10 @@
 Early Access 1.1.12
 
+- You can now set a limit on the number of items to be produced via the crafting screen
+- Fire will no longer spread to furniture and items that contain water
+- Walls with no material set should no longer be able to be constructed
+- Merchants will now actually pay for goods with no payment chest available, rather than just taking stuff and leaving
+- Fixed a few issues around payment for goods and placing coins
 - Fix for a crash when transferring liquids where the target liquid has been forgotten
 - Corrected items bought from merchants to change faction to settlement upon placement
 - Made shrubs grow slower

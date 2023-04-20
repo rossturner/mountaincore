@@ -94,7 +94,6 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.ADD_FIRE_TO_ENTITY);
 		messageDispatcher.addListener(this, MessageType.FIRE_REMOVED);
 		messageDispatcher.addListener(this, MessageType.START_FIRE_IN_TILE);
-
 	}
 
 	@Override
@@ -220,6 +219,17 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 							.filter(e -> !entityIdsToIgnore.contains(e.getId()))
 							.filter(e -> e.getPhysicalEntityComponent().getAttributes()
 									.getMaterials().values().stream().anyMatch(GameMaterial::isCombustible))
+							.filter(e -> {
+								boolean containsFireExtinguishingLiquid = false;
+								LiquidContainerComponent liquidContainerComponent = e.getComponent(LiquidContainerComponent.class);
+								if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null &&
+									liquidContainerComponent.getLiquidQuantity() > 0) {
+									if (liquidContainerComponent.getTargetLiquidMaterial().isQuenchesThirst()) {
+										containsFireExtinguishingLiquid = true;
+									}
+								}
+								return !containsFireExtinguishingLiquid;
+							})
 							.findFirst();
 
 					if (combustibleEntity.isPresent()) {

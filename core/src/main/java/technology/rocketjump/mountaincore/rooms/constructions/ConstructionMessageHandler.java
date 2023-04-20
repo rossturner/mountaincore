@@ -309,6 +309,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 			}
 		} else {
 			Logger.error("Could not find item to construct wall out of at " + tileAtLocation);
+			return;
 		}
 		SoundAsset soundAsset = completionSoundMapping.get(materialConstructed.getMaterialType());
 		if (soundAsset != null) {

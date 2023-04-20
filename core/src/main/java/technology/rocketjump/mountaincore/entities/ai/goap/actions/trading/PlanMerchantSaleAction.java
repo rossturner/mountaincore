@@ -56,6 +56,7 @@ public class PlanMerchantSaleAction extends Action {
 				Set<Entity> myFactionVehiclesInRoom = tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 						.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 						.filter(e -> e.getType().equals(EntityType.VEHICLE) && e.getOrCreateComponent(FactionComponent.class).getFaction().equals(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction()))
+						.filter(e -> traderCreatureGroup.getMemberIds().contains(e.getId()))
 						.collect(Collectors.toSet());
 
 				for (Entity tradeImportFurniture : tile.getRoomTile().getRoom().getRoomTiles().values().stream()

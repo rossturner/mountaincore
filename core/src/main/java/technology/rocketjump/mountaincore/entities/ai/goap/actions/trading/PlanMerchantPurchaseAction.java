@@ -49,6 +49,7 @@ public class PlanMerchantPurchaseAction extends Action {
 				List<Entity> availableWagons = tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 						.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 						.filter(e -> e.getType().equals(EntityType.VEHICLE) && e.getOrCreateComponent(FactionComponent.class).getFaction().equals(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction()))
+						.filter(e -> traderCreatureGroup.getMemberIds().contains(e.getId()))
 						// filter out any vehicles that have a trade in progress going to them
 						.filter(e -> traderCreatureGroup.getPlannedTrades().stream().noneMatch(trade -> trade.getHaulingAllocation().getTargetId() == e.getId()))
 						// filter to vehicles that still have inventory space available

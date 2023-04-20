@@ -129,7 +129,7 @@ public class PlaceEntityAction extends Action {
 
 	@Override
 	public boolean isApplicable(GameContext gameContext) {
-		return pickContainerComponent(parent.getAssignedHaulingAllocation()) != null;
+		return pickContainerComponent(parent.getAssignedHaulingAllocation()) != null || parent.getPlannedTrade() != null;
 	}
 
 	@Override
@@ -217,6 +217,7 @@ public class PlaceEntityAction extends Action {
 					removeTargetFrom(containerComponent);
 					entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
 					entityToPlace.getLocationComponent().setFacing(EntityAssetOrientation.DOWN.toVector2());
+					entityToPlace.getLocationComponent().setContainerEntity(null);
 
 					itemToPlaceAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 
@@ -242,6 +243,7 @@ public class PlaceEntityAction extends Action {
 			removeTargetFrom(containerComponent);
 			entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
 			entityToPlace.getLocationComponent().setFacing(EntityAssetOrientation.DOWN.toVector2());
+			entityToPlace.getLocationComponent().setContainerEntity(null);
 			parent.parentEntity.removeComponent(HaulingComponent.class);
 			completionType = CompletionType.SUCCESS;
 

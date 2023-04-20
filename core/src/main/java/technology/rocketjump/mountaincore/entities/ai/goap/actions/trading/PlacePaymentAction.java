@@ -2,8 +2,7 @@ package technology.rocketjump.mountaincore.entities.ai.goap.actions.trading;
 
 import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.PlaceEntityAction;
-import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
-import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
+import technology.rocketjump.mountaincore.entities.components.*;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
@@ -36,6 +35,9 @@ public class PlacePaymentAction extends PlaceEntityAction {
 				parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, originalItem);
 			} else {
 				parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, originalItem);
+				ItemAllocationComponent originalItemAllocationComponent = originalItem.getComponent(ItemAllocationComponent.class);
+				originalItemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
+				originalItemAllocationComponent.createAllocation(originalAttributes.getQuantity(), originalItem, ItemAllocation.Purpose.HELD_IN_INVENTORY);
 			}
 
 			ItemEntityAttributes clonedAttributes = (ItemEntityAttributes) clonedItem.getPhysicalEntityComponent().getAttributes();
@@ -44,11 +46,9 @@ public class PlacePaymentAction extends PlaceEntityAction {
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, clonedItem);
 
 			HaulingAllocation haulingAllocation = parent.getAssignedHaulingAllocation();
-			if (haulingAllocation == null) {
+			if (haulingAllocation == null || haulingAllocation.getItemAllocation().isCancelled()) {
 				placeEntityIntoTile(clonedItem, parentInventory, currentTile);
 			} else {
-				originalItem.getComponent(ItemAllocationComponent.class).cancel(haulingAllocation.getItemAllocation());
-
 				Entity targetFurniture = gameContext.getEntity(haulingAllocation.getTargetId());
 				if (adjacentTo(targetFurniture)) {
 					placeEntityInFurniture(clonedItem, gameContext.getEntity(haulingAllocation.getTargetId()), gameContext, haulingAllocation);
@@ -65,6 +65,9 @@ public class PlacePaymentAction extends PlaceEntityAction {
 						));
 					}
 				}
+				clonedItem.getOrCreateComponent(FactionComponent.class).setFaction(Faction.SETTLEMENT);
+			} else {
+				parentInventory.add(clonedItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 			}
 		}
 	}
