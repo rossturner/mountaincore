@@ -83,6 +83,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.CANCEL_ITEM_ALLOCATION);
 		messageDispatcher.addListener(this, MessageType.LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP);
 		messageDispatcher.addListener(this, MessageType.CHECK_ITEM_AVAILABILITY);
+		messageDispatcher.addListener(this, MessageType.GET_ITEMS);
 	}
 
 	@Override
@@ -116,6 +117,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.CHECK_ITEM_AVAILABILITY: {
 				return handle((MessageType.CheckItemAvailabilityMessage)msg.extraInfo);
+			}
+			case MessageType.GET_ITEMS: {
+				return handle((MessageType.GetItemsMessage)msg.extraInfo);
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -158,6 +162,17 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			ItemType itemType = itemTypeDictionary.getByName(itemTypeLookupItemTypeMessage.typeName);
 			itemTypeLookupItemTypeMessage.callback.itemTypeFound(Optional.ofNullable(itemType));
 		}
+		return true;
+	}
+
+	private boolean handle(MessageType.GetItemsMessage message) {
+		final List<Entity> items;
+		if (message.material() != null) {
+			items = settlementItemTracker.getItemsByTypeAndMaterial(message.itemType(), message.material(), false);
+		} else {
+			items = settlementItemTracker.getItemsByType(message.itemType(), false);
+		}
+		message.callback().accept(items);
 		return true;
 	}
 

@@ -7,10 +7,12 @@ import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.EnumUtils;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Race;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.gamecontext.GameState;
 import technology.rocketjump.mountaincore.invasions.model.InvasionDefinition;
 import technology.rocketjump.mountaincore.mapping.model.ImpendingMiningCollapse;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
+import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchViewer;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.JSONUtils;
@@ -19,6 +21,7 @@ import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException
 import technology.rocketjump.mountaincore.persistence.model.Persistable;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.mountaincore.settlement.notifications.NotificationType;
+import technology.rocketjump.mountaincore.settlement.production.CraftingQuota;
 import technology.rocketjump.mountaincore.settlement.trading.model.TraderInfo;
 
 import java.util.*;
@@ -39,6 +42,7 @@ public class SettlementState implements Persistable {
 	public final Set<TwitchViewer> usedTwitchViewers = new HashSet<>();
 	public final Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck = new HashMap<>();
 	public final Set<NotificationType> suppressedNotificationTypes = new HashSet<>();
+	private final List<CraftingQuota> craftingQuotas = new ArrayList<>();
 
 	private boolean allowImmigration = true;
 	private int immigrantsDue;
@@ -176,6 +180,27 @@ public class SettlementState implements Persistable {
 		return traderInfo;
 	}
 
+	public CraftingQuota getCraftingQuota(ItemType itemType, GameMaterial material) {
+		return craftingQuotas.stream()
+				.filter(q -> Objects.equals(itemType, q.getItemType()) && Objects.equals(material, q.getGameMaterial()))
+				.findAny()
+				.orElse(CraftingQuota.UNLIMITED);
+	}
+
+	public CraftingQuota newCraftingQuota(ItemType itemType, GameMaterial material, int quantity) {
+		removeCraftingQuota(itemType, material);
+		CraftingQuota quota = new CraftingQuota();
+		quota.setItemType(itemType);
+		quota.setGameMaterial(material);
+		quota.setQuantity(quantity);
+		craftingQuotas.add(quota);
+		return quota;
+	}
+
+	public void removeCraftingQuota(ItemType itemType, GameMaterial material) {
+		craftingQuotas.removeIf(q -> Objects.equals(itemType, q.getItemType()) && Objects.equals(material, q.getGameMaterial()));
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		JSONObject asJson = savedGameStateHolder.settlementStateJson;
@@ -277,6 +302,20 @@ public class SettlementState implements Persistable {
 		JSONObject traderInfoJson = new JSONObject(true);
 		traderInfo.writeTo(traderInfoJson, savedGameStateHolder);
 		asJson.put("traderInfo", traderInfoJson);
+
+		JSONArray craftingQuotasJson = new JSONArray();
+		for (CraftingQuota craftingQuota : craftingQuotas) {
+			JSONObject quotaJson = new JSONObject();
+			quotaJson.put("quantity", craftingQuota.getQuantity());
+			if (craftingQuota.getGameMaterial() != null) {
+				quotaJson.put("gameMaterial", craftingQuota.getGameMaterial().getMaterialName());
+			}
+			if (craftingQuota.getItemType() != null) {
+				quotaJson.put("itemType", craftingQuota.getItemType().getItemTypeName());
+			}
+			craftingQuotasJson.add(quotaJson);
+		}
+		asJson.put("craftingQuotas", craftingQuotasJson);
 
 		savedGameStateHolder.setSettlementState(this);
 	}
@@ -395,6 +434,25 @@ public class SettlementState implements Persistable {
 
 		JSONObject traderInfoJson = asJson.getJSONObject("traderInfo");
 		traderInfo.readFrom(traderInfoJson, savedGameStateHolder, relatedStores);
+
+		JSONArray craftingQuotasJson = asJson.getJSONArray("craftingQuotas");
+		if (craftingQuotasJson != null) {
+			for (int i = 0; i < craftingQuotasJson.size(); i++) {
+				JSONObject quotaJson = craftingQuotasJson.getJSONObject(i);
+				CraftingQuota craftingQuota = new CraftingQuota();
+				craftingQuota.setQuantity(quotaJson.getIntValue("quantity"));
+				if (quotaJson.getString("gameMaterial") != null) {
+					GameMaterial gameMaterial = relatedStores.gameMaterialDictionary.getByName(quotaJson.getString("gameMaterial"));
+					craftingQuota.setGameMaterial(gameMaterial);
+				}
+				if (quotaJson.getString("itemType") != null) {
+					ItemType itemType = relatedStores.itemTypeDictionary.getByName(quotaJson.getString("itemType"));
+					craftingQuota.setItemType(itemType);
+				}
+				craftingQuotas.add(craftingQuota);
+			}
+		}
+
 	}
 
 }
