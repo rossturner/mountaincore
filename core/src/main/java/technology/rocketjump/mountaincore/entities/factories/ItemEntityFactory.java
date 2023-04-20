@@ -92,7 +92,7 @@ public class ItemEntityFactory {
 				});
 
 		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
-		if (faction.equals(Faction.MERCHANTS)) {
+		if (faction.equals(Faction.MERCHANTS) && !attributes.getItemType().isValueFixedToMaterial()) {
 			attributes.setValuePerItem((Math.round(attributes.getValuePerItem() * MERCHANT_VALUE_MULTIPLIER)));
 		}
 

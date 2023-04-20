@@ -53,7 +53,6 @@
       "itemTypeName": "Treasure-Coin",
       "quantity": 10
     },
-    "valueConversion": "USE_OUTPUT_BASE_VALUE",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 3.5,
     "maximumTimeToCompleteCrafting": 7.5

@@ -73,6 +73,7 @@ public class ItemType {
 
 	private boolean tradeExportable;
 	private boolean tradeImportable;
+	private boolean valueFixedToMaterial;
 
 	private boolean describeAsMaterialOnly;
 
@@ -344,6 +345,14 @@ public class ItemType {
 
 	public void setTradeImportable(boolean tradeImportable) {
 		this.tradeImportable = tradeImportable;
+	}
+
+	public boolean isValueFixedToMaterial() {
+		return valueFixedToMaterial;
+	}
+
+	public void setValueFixedToMaterial(boolean valueFixedToMaterial) {
+		this.valueFixedToMaterial = valueFixedToMaterial;
 	}
 
 	@JsonIgnore

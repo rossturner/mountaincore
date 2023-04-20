@@ -11,7 +11,6 @@
     "itemTypeName" : "Armour-Leather",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "SKIN" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -27,7 +26,6 @@
     "itemTypeName" : "Armour-Plate",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 3.5,
   "maximumTimeToCompleteCrafting" : 16.5
@@ -44,7 +42,6 @@
     "itemTypeName" : "Weapon-Bone-Arrow-Heads",
     "quantity" : 10
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 3.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -61,7 +58,6 @@
     "itemTypeName" : "Weapon-Bone-Arrow-Heads",
     "quantity" : 10
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 3.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -77,7 +73,6 @@
     "itemTypeName" : "Treasure-Coin",
     "quantity" : 10
   },
-  "valueConversion" : "USE_OUTPUT_BASE_VALUE",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 3.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -92,7 +87,6 @@
     "itemTypeName" : "Product-Stone-Gear",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "STONE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 6.5
@@ -109,7 +103,6 @@
     "itemTypeName" : "Ingredient-Malt-Sack",
     "quantity" : 3
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "VEGETABLE" ],
   "extraGameHoursToComplete" : 4.0,
   "minimumTimeToCompleteCrafting" : 1.5,
@@ -126,7 +119,6 @@
     "itemTypeName" : "Ingredient-Milled-Malt-Sack",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "VEGETABLE" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -146,7 +138,6 @@
     "materialName" : "Wort",
     "liquid" : true
   },
-  "valueConversion" : "DEFAULT",
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
@@ -166,7 +157,6 @@
     "materialName" : "Hopped Wort",
     "liquid" : true
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 1.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -184,7 +174,6 @@
     "materialName" : "Beer",
     "liquid" : true
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 72.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -202,7 +191,6 @@
     "itemTypeName" : "Product-Barrel",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD", "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -220,7 +208,6 @@
     "itemTypeName" : "Product-Chest",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD", "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -239,7 +226,6 @@
     "itemTypeName" : "Product-Bucket",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD", "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -254,7 +240,6 @@
     "itemTypeName" : "Tool-Fishing-Rod",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -270,7 +255,6 @@
     "itemTypeName" : "Tool-Plane",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -286,7 +270,6 @@
     "itemTypeName" : "Tool-Rolling-Pin",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -301,7 +284,6 @@
     "itemTypeName" : "Resource-Planks",
     "quantity" : 2
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 5.5
@@ -317,7 +299,6 @@
     "itemTypeName" : "Resource-Planks",
     "quantity" : 2
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.0,
   "maximumTimeToCompleteCrafting" : 3.0
@@ -332,7 +313,6 @@
     "itemTypeName" : "Product-Barrel-Staves",
     "quantity" : 3
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -347,7 +327,6 @@
     "itemTypeName" : "Product-Barrel-Hoops",
     "quantity" : 3
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -362,7 +341,6 @@
     "itemTypeName" : "Product-Liquid-Tank",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -380,7 +358,6 @@
     "itemTypeName" : "Product-Cauldron",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 10.5
@@ -395,7 +372,6 @@
     "itemTypeName" : "Product-Anvil",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -413,7 +389,6 @@
     "itemTypeName" : "Tool-Axe",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -431,7 +406,6 @@
     "itemTypeName" : "Tool-Chisel",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -446,7 +420,6 @@
     "itemTypeName" : "Tool-Kitchen-Knife",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -464,7 +437,6 @@
     "itemTypeName" : "Tool-Large-Hammer",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -482,7 +454,6 @@
     "itemTypeName" : "Tool-Pickaxe",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -500,7 +471,6 @@
     "itemTypeName" : "Tool-Saw",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -515,7 +485,6 @@
     "itemTypeName" : "Tool-Small-Hammer",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -530,7 +499,6 @@
     "itemTypeName" : "Tool-Tongs",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -546,7 +514,6 @@
     "itemTypeName" : "Resource-Flour-Sack",
     "quantity" : 3
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "VEGETABLE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -562,7 +529,6 @@
     "itemTypeName" : "Product-Bread-Dough",
     "quantity" : 7
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "VEGETABLE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -581,7 +547,6 @@
     "itemTypeName" : "Product-Ration-Dough",
     "quantity" : 4
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "VEGETABLE", "STONE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -598,7 +563,6 @@
     "quantity" : 15,
     "materialName" : "Coke"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 28.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -616,7 +580,6 @@
     "quantity" : 1,
     "materialName" : "Hemp-Rope"
   },
-  "valueConversion" : "DEFAULT",
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
@@ -633,7 +596,6 @@
     "quantity" : 1,
     "materialName" : "Hemp-Linen"
   },
-  "valueConversion" : "DEFAULT",
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
@@ -647,7 +609,6 @@
     "itemTypeName" : "Product-Leather",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "SKIN" ],
   "extraGameHoursToComplete" : 48.0,
   "minimumTimeToCompleteCrafting" : 1.5,
@@ -664,7 +625,6 @@
     "itemTypeName" : "Product-Waterskin",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "SKIN" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.0
@@ -680,7 +640,6 @@
     "itemTypeName" : "Weapon-Metal-Arrow-Heads",
     "quantity" : 10
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -701,7 +660,6 @@
     "quantity" : 6,
     "materialName" : "Iron"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -722,7 +680,6 @@
     "quantity" : 6,
     "materialName" : "Tin"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -743,7 +700,6 @@
     "quantity" : 6,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -764,7 +720,6 @@
     "quantity" : 6,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -785,7 +740,6 @@
     "quantity" : 6,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -806,7 +760,6 @@
     "quantity" : 6,
     "materialName" : "Gold"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -827,7 +780,6 @@
     "quantity" : 6,
     "materialName" : "Silver"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -848,7 +800,6 @@
     "quantity" : 6,
     "materialName" : "Silver"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 4.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
@@ -869,7 +820,6 @@
     "quantity" : 3,
     "materialName" : "Iron"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -890,7 +840,6 @@
     "quantity" : 3,
     "materialName" : "Tin"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -911,7 +860,6 @@
     "quantity" : 3,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -932,7 +880,6 @@
     "quantity" : 3,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -953,7 +900,6 @@
     "quantity" : 3,
     "materialName" : "Copper"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -974,7 +920,6 @@
     "quantity" : 3,
     "materialName" : "Gold"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -995,7 +940,6 @@
     "quantity" : 3,
     "materialName" : "Silver"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -1016,7 +960,6 @@
     "quantity" : 3,
     "materialName" : "Silver"
   },
-  "valueConversion" : "DEFAULT",
   "extraGameHoursToComplete" : 3.0,
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
@@ -1032,7 +975,6 @@
     "itemTypeName" : "Resource-Stone-Block",
     "quantity" : 2
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "STONE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 6.5
@@ -1047,7 +989,6 @@
     "itemTypeName" : "Treasure-Gem",
     "quantity" : 4
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "GEM" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1062,7 +1003,6 @@
     "itemTypeName" : "Product-Millstone",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "STONE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1077,7 +1017,6 @@
     "itemTypeName" : "Product-Stone-Pipe",
     "quantity" : 2
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "STONE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1092,7 +1031,6 @@
     "itemTypeName" : "Resource-Ore-Crushed",
     "quantity" : 3
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "ORE" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 6.5
@@ -1111,7 +1049,6 @@
     "itemTypeName" : "Weapon-Metal-Arrows",
     "quantity" : 10
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1130,7 +1067,6 @@
     "itemTypeName" : "Weapon-Bone-Arrows",
     "quantity" : 10
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1146,7 +1082,6 @@
     "itemTypeName" : "Weapon-Metal-Bolts",
     "quantity" : 15
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
@@ -1161,7 +1096,6 @@
     "itemTypeName" : "Weapon-Bow",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1180,7 +1114,6 @@
     "itemTypeName" : "Weapon-Battle-Axe",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD", "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1196,7 +1129,6 @@
     "itemTypeName" : "Weapon-Battle-Hammer",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "CLOTH", "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1212,7 +1144,6 @@
     "itemTypeName" : "Weapon-Sword",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1231,7 +1162,6 @@
     "itemTypeName" : "Weapon-Crossbow",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1246,7 +1176,6 @@
     "itemTypeName" : "Weapon-Wooden-Shield",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
@@ -1261,7 +1190,6 @@
     "itemTypeName" : "Weapon-Metal-Shield",
     "quantity" : 1
   },
-  "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5

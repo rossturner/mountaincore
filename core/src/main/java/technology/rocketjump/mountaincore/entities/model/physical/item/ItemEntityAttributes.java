@@ -193,7 +193,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		if (itemType != null) {
 			GameMaterial primaryMaterial = getPrimaryMaterial();
 			if (primaryMaterial != null) {
-				this.valuePerItem = Math.max(1, Math.round(primaryMaterial.getValueMultiplier() * itemQuality.valueMultiplier * itemType.getBaseValuePerItem()));
+ 				this.valuePerItem = Math.max(1, Math.round(primaryMaterial.getValueMultiplier() * itemQuality.valueMultiplier * itemType.getBaseValuePerItem()));
 			}
 		}
 	}

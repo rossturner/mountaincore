@@ -29,6 +29,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {
@@ -62,6 +63,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.PLATE"
 }, {
@@ -95,6 +97,7 @@
   },
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.HEAVY"
 }, {
@@ -128,6 +131,7 @@
   },
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.LIGHT"
 }, {
@@ -148,6 +152,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.CARP.PREPARED"
 }, {
@@ -168,6 +173,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.LARGE"
 }, {
@@ -188,6 +194,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.MEDIUM"
 }, {
@@ -208,6 +215,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.SMALL"
 }, {
@@ -228,6 +236,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PERCH.PREPARED"
 }, {
@@ -248,6 +257,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PIKE.PREPARED"
 }, {
@@ -268,6 +278,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "CARCASS.HIDE"
 }, {
@@ -288,6 +299,7 @@
   "specificMaterialNames" : [ "Coke", "Charcoal" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "FUEL.SACK"
 }, {
@@ -308,6 +320,7 @@
   "specificMaterialNames" : [ "Barley" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MALT.SACK"
 }, {
@@ -328,6 +341,7 @@
   "specificMaterialNames" : [ "Barley" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MILLED.MALT.SACK"
 }, {
@@ -348,6 +362,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.SOUP.BOWL"
 }, {
@@ -368,6 +383,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.TANKARD"
 }, {
@@ -389,6 +405,7 @@
   "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom", "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom", "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.CRATE"
 }, {
@@ -410,6 +427,7 @@
   "specificMaterialNames" : [ "Hops", "Corn", "Potato" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.SACK"
 }, {
@@ -429,6 +447,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ASHES"
 }, {
@@ -448,6 +467,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RUSTED_SCRAP"
 }, {
@@ -468,6 +488,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ANVIL"
 }, {
@@ -490,6 +511,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL"
 }, {
@@ -510,6 +532,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.HOOPS"
 }, {
@@ -530,6 +553,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.STAVES"
 }, {
@@ -549,6 +573,7 @@
   "specificMaterialNames" : [ "Wheat" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.DOUGH"
 }, {
@@ -569,6 +594,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.LOAF"
 }, {
@@ -592,6 +618,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BUCKET"
 }, {
@@ -614,6 +641,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.CAULDRON"
 }, {
@@ -634,6 +662,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.GEAR"
 }, {
@@ -654,6 +683,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LINEN"
 }, {
@@ -674,6 +704,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LIQUID.TANK"
 }, {
@@ -694,6 +725,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.MILLSTONE"
 }, {
@@ -714,6 +746,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.PIPE"
 }, {
@@ -734,6 +767,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.CHEST"
 }, {
@@ -754,6 +788,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LEATHER"
 }, {
@@ -778,6 +813,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
 }, {
@@ -798,6 +834,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
@@ -817,6 +854,7 @@
   "specificMaterialNames" : [ "Wheat" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION.DOUGH"
 }, {
@@ -837,6 +875,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
@@ -857,6 +896,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.LARGE"
 }, {
@@ -877,6 +917,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.MEDIUM"
 }, {
@@ -897,6 +938,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.SMALL"
 }, {
@@ -917,6 +959,7 @@
   "specificMaterialNames" : [ "Wheat" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
@@ -937,6 +980,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
@@ -957,6 +1001,7 @@
   "specificMaterialNames" : [ "Barley" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK"
 }, {
@@ -977,6 +1022,7 @@
   "specificMaterialNames" : [ "Hemp" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE"
 }, {
@@ -997,6 +1043,7 @@
   "specificMaterialNames" : [ "Hemp_Fibre" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
 }, {
@@ -1017,6 +1064,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
@@ -1036,6 +1084,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
@@ -1056,6 +1105,7 @@
   "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
   "tradeExportable" : true,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LOG"
 }, {
@@ -1076,6 +1126,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
 }, {
@@ -1097,6 +1148,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
@@ -1117,6 +1169,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
@@ -1138,6 +1191,7 @@
   "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
@@ -1158,6 +1212,7 @@
   "specificMaterialNames" : [ "Purple Helmet Spawn", "Death Cap Spawn", "Fist Spawn", "Berserker Mushroom Spawn", "Rociomycota Mushroom Spawn", "Miltonia Spawn", "Elfsbane Spawn", "Sunglow Spawn", "Glow Spawn", "Syrup Powder Spawn" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }, {
@@ -1178,6 +1233,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
@@ -1198,6 +1254,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.UNREFINED"
 }, {
@@ -1219,6 +1276,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
@@ -1239,6 +1297,7 @@
   "specificMaterialNames" : [ "Wheat Seed", "Hemp Seed", "Barley Seed", "Tomato Seed", "Potato Seed", "Carrot Seed", "Hops Seed", "Corn Seed" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
@@ -1259,6 +1318,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
 }, {
@@ -1280,6 +1340,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
@@ -1300,6 +1361,7 @@
   "specificMaterialNames" : [ "Wheat" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK"
 }, {
@@ -1333,6 +1395,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
@@ -1355,6 +1418,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.CHISEL"
 }, {
@@ -1375,6 +1439,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.FISHING.ROD"
 }, {
@@ -1408,6 +1473,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {
@@ -1441,6 +1507,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
 }, {
@@ -1474,6 +1541,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
@@ -1494,6 +1562,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"
 }, {
@@ -1514,6 +1583,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.ROLLING.PIN"
 }, {
@@ -1536,6 +1606,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SAW"
 }, {
@@ -1556,6 +1627,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SMALL.HAMMER"
 }, {
@@ -1576,6 +1648,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.TONGS"
 }, {
@@ -1597,6 +1670,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.COIN"
 }, {
@@ -1617,6 +1691,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.GEM"
 }, {
@@ -1638,6 +1713,7 @@
   "isAmmoType" : "ARROWS",
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
 }, {
@@ -1658,6 +1734,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROW.HEADS"
 }, {
@@ -1678,6 +1755,7 @@
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
 }, {
@@ -1699,6 +1777,7 @@
   "isAmmoType" : "ARROWS",
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
@@ -1720,6 +1799,7 @@
   "isAmmoType" : "BOLTS",
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.BOLTS"
 }, {
@@ -1755,6 +1835,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
 }, {
@@ -1788,6 +1869,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }, {
@@ -1823,6 +1905,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
@@ -1858,6 +1941,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
@@ -1889,6 +1973,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.SHIELD"
 }, {
@@ -1922,6 +2007,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
 }, {
@@ -1953,6 +2039,7 @@
   },
   "tradeExportable" : false,
   "tradeImportable" : false,
+  "valueFixedToMaterial" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.WOODEN.SHIELD"
 } ]

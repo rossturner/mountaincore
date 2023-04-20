@@ -10,7 +10,6 @@ import technology.rocketjump.mountaincore.crafting.CraftingOutputQualityDictiona
 import technology.rocketjump.mountaincore.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.mountaincore.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.mountaincore.crafting.model.CraftingRecipe;
-import technology.rocketjump.mountaincore.crafting.model.CraftingRecipeValueConversion;
 import technology.rocketjump.mountaincore.entities.components.*;
 import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.SteeringComponent;
@@ -661,7 +660,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			// Unallocate from inventory
 			outputEntity.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
 
-			setItemValue(inputItemsTotalValue / output.size(), outputEntity, craftingAssignment.getTargetRecipe().getValueConversion());
+			setItemValue(inputItemsTotalValue / output.size(), outputEntity);
 		}
 
 		this.requiresExtraTime = false;
@@ -670,18 +669,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		infrequentUpdate(gameContext);
 	}
 
-	private void setItemValue(int inputItemsValue, Entity outputEntity, CraftingRecipeValueConversion valueConversion) {
-		switch (valueConversion) {
-			case DEFAULT -> {
-				ItemEntityAttributes outputAttributes = (ItemEntityAttributes) outputEntity.getPhysicalEntityComponent().getAttributes();
-				float totalValue = (float) inputItemsValue * CRAFTING_BONUS_VALUE * outputAttributes.getItemQuality().valueMultiplier;
-				int valuePerItem = Math.max(1, Math.round(totalValue / (float) outputAttributes.getQuantity()));
-				outputAttributes.setValuePerItem(valuePerItem);
-			}
-			case USE_OUTPUT_BASE_VALUE -> {
-				// Do nothing, value should have been set when item was created
-			}
-			default -> Logger.error("Not yet implemented: " + valueConversion);
+	private void setItemValue(int inputItemsValue, Entity outputEntity) {
+		ItemEntityAttributes outputAttributes = (ItemEntityAttributes) outputEntity.getPhysicalEntityComponent().getAttributes();
+		if (!outputAttributes.getItemType().isValueFixedToMaterial()) {
+			float totalValue = (float) inputItemsValue * CRAFTING_BONUS_VALUE * outputAttributes.getItemQuality().valueMultiplier;
+			int valuePerItem = Math.max(1, Math.round(totalValue / (float) outputAttributes.getQuantity()));
+			outputAttributes.setValuePerItem(valuePerItem);
 		}
 	}
 
