@@ -30,7 +30,7 @@ import java.util.*;
 import static technology.rocketjump.mountaincore.assets.entities.model.EntityAssetOrientation.DOWN;
 import static technology.rocketjump.mountaincore.entities.model.EntityType.ITEM;
 
-public class InventoryComponent implements EntityComponent, Destructible {
+public class InventoryComponent implements ParentDependentEntityComponent, Destructible {
 
 	private Map<Long, InventoryEntry> inventoryEntries = new HashMap<>();
 
@@ -40,6 +40,16 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	 * or not allocated when added so they can be re-allocated elsewhere (null value)
 	 */
 	private ItemAllocation.Purpose addAsAllocationPurpose = ItemAllocation.Purpose.HELD_IN_INVENTORY;
+
+
+	@Override
+	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		for (Map.Entry<Long, InventoryEntry> entry : inventoryEntries.entrySet()) {
+			Long entityId = entry.getKey();
+			Entity entity = gameContext.getEntity(entityId);
+			entry.getValue().initialise(entity);
+		}
+	}
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -310,22 +320,29 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		if (inventoryEntries != null) {
 			for (int cursor = 0; cursor < inventoryEntries.size(); cursor++) {
 				JSONObject entryJson = inventoryEntries.getJSONObject(cursor);
-				Entity entity = savedGameStateHolder.entities.get(entryJson.getLongValue("entity"));
-				InventoryEntry inventoryEntry = new InventoryEntry(entity, entryJson.getDoubleValue("lastUpdate"),
-						EnumParser.getEnumValue(entryJson, "position", ItemHoldPosition.class, null));
-				this.inventoryEntries.put(entity.getId(), inventoryEntry);
+				long entityId = entryJson.getLongValue("entity");
+				double lastUpdate = entryJson.getDoubleValue("lastUpdate");
+				ItemHoldPosition position = EnumParser.getEnumValue(entryJson, "position", ItemHoldPosition.class, null);
+				InventoryEntry inventoryEntry = new InventoryEntry(lastUpdate, position);
+				this.inventoryEntries.put(entityId, inventoryEntry);
 			}
 		}
 
 		this.addAsAllocationPurpose = EnumParser.getEnumValue(asJson, "addAsAllocationPurpose", ItemAllocation.Purpose.class, null);
 	}
 
-    public static class InventoryEntry {
+	public static class InventoryEntry {
 
+		private boolean initialised = true;
 		private double lastUpdateGameTime;
-		public final Entity entity;
+		public Entity entity;
 		private ItemHoldPosition preferredPosition; // Usually null, can be set to specify a preferred workspace position
 
+		public InventoryEntry(double lastUpdateGameTime, ItemHoldPosition preferredPosition) {
+			this.lastUpdateGameTime = lastUpdateGameTime;
+			this.preferredPosition = preferredPosition;
+			initialised = false;
+		}
 		public InventoryEntry(Entity entity, GameClock gameClock, ItemHoldPosition preferredPosition) {
 			this.entity = entity;
 			this.lastUpdateGameTime = gameClock.getCurrentGameTime();
@@ -354,6 +371,11 @@ public class InventoryComponent implements EntityComponent, Destructible {
 			if (gameClock != null) {
 				this.lastUpdateGameTime = gameClock.getCurrentGameTime();
 			}
+		}
+
+		public void initialise(Entity entity) {
+			this.entity = entity;
+			initialised = true;
 		}
 	}
 }
