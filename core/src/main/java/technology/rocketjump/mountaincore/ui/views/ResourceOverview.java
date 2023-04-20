@@ -286,6 +286,10 @@ public class ResourceOverview implements GuiView, GameContextAware {
                 .filter(itemType -> Objects.equals(stockpileGroup, itemType.getStockpileGroup()))
                 .collect(Collectors.toSet());
 
+        if (!stockpileNode.hasChildren()) {
+            itemTypeLabels.keySet().removeAll(existingItemTypes);
+            existingItemTypes = Collections.emptySet();
+        }
 
         if (existingItemTypes.equals(new HashSet<>(itemTypes))) {
             for (TreeNodeValue itemTypeValue : itemTypeValuesForStockpile) {

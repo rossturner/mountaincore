@@ -2,11 +2,13 @@ package technology.rocketjump.mountaincore.messaging;
 
 import technology.rocketjump.mountaincore.entities.components.BehaviourComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.military.model.Squad;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -126,6 +128,7 @@ public class MessageType {
 	public static final int DESTROY_ENTITY = 350;
 	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
 	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
+	public static final int GET_LIQUID_AMOUNT = 353; public record GetLiquidAmountMessage(GameMaterial material, Consumer<Float> callback) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
@@ -174,6 +177,8 @@ public class MessageType {
 	public static final int CANCEL_ITEM_ALLOCATION = 708;
 	public static final int CHECK_ITEM_AVAILABILITY = 709; public record CheckItemAvailabilityMessage(
 			ItemTypeWithMaterial requirement, Consumer<Integer> callback) {}
+
+	public static final int GET_ITEMS = 710; public record GetItemsMessage(ItemType itemType, GameMaterial material, Consumer<List<Entity>> callback){}
 
 	// Furniture & doorway specific messages
 	public static final int CREATE_DOORWAY = 801;

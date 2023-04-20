@@ -43,11 +43,13 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.mountaincore.settlement.production.CraftingAssignment;
+import technology.rocketjump.mountaincore.settlement.production.CraftingQuota;
 import technology.rocketjump.mountaincore.ui.i18n.I18nText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static technology.rocketjump.mountaincore.jobs.model.JobPriority.DISABLED;
 
@@ -311,6 +313,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		// Randomly sort the recipes so that different recipes with the same output are tried in different updates
 		Collections.shuffle(recipesForCraftingType, gameContext.getRandom());
 
+		recipesForCraftingType.removeIf(this::craftingLimitExceeded);
+
 		List<ProductionImportFurnitureBehaviour> importFurniture = allImportFurniture();
 		List<LiquidContainerComponent> liquidContainers = allLiquidContainers();
 		List<ProductionExportFurnitureBehaviour> exportFurniture = allExportFurniture();
@@ -349,6 +353,28 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			}
 		}
 
+	}
+
+	private boolean craftingLimitExceeded(CraftingRecipe craftingRecipe) {
+		QuantifiedItemTypeWithMaterial output = craftingRecipe.getOutput();
+		CraftingQuota craftingQuota = gameContext.getSettlementState().getCraftingQuota(output.getItemType(), output.getMaterial());
+		boolean limitReached = craftingQuota.getQuantity() < getCurrentAmount(output.getItemType(), output.getMaterial(), output.isLiquid());
+		return craftingQuota.isLimited() && limitReached;
+	}
+
+	private int getCurrentAmount(ItemType itemType, GameMaterial material, boolean liquid) {
+		AtomicInteger currentAmount = new AtomicInteger(); //feels dirty
+		if (liquid) {
+			messageDispatcher.dispatchMessage(MessageType.GET_LIQUID_AMOUNT, new MessageType.GetLiquidAmountMessage(material, floatAmount -> currentAmount.set((int) Math.floor(floatAmount))));
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.GET_ITEMS, new MessageType.GetItemsMessage(itemType, material, items -> {
+				for (Entity item : items) {
+					int quantity = ((ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes()).getQuantity();
+					currentAmount.addAndGet(quantity);
+				}
+			}));
+		}
+		return currentAmount.get();
 	}
 
 	private void createCraftingAssignment(CraftingRecipe craftingRecipe, List<ProductionImportFurnitureBehaviour> importFurniture, List<LiquidContainerComponent> liquidContainers, ProductionExportFurnitureBehaviour exportFurnitureBehaviour,

@@ -30,6 +30,7 @@ public class LiquidTracker implements GameContextAware, Telegraph {
 	@Inject
 	public LiquidTracker(MessageDispatcher messageDispatcher) {
 		messageDispatcher.addListener(this, MessageType.LIQUID_AMOUNT_CHANGED);
+		messageDispatcher.addListener(this, MessageType.GET_LIQUID_AMOUNT);
 	}
 
 	@Override
@@ -37,6 +38,9 @@ public class LiquidTracker implements GameContextAware, Telegraph {
 		switch (msg.message) {
 			case MessageType.LIQUID_AMOUNT_CHANGED: {
 				return handle((LiquidAmountChangedMessage)msg.extraInfo);
+			}
+			case MessageType.GET_LIQUID_AMOUNT: {
+				return handle((MessageType.GetLiquidAmountMessage)msg.extraInfo);
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -58,6 +62,12 @@ public class LiquidTracker implements GameContextAware, Telegraph {
 			currentTotal += amountChangedMessage.newQuantity;
 			liquidMaterialAmounts.put(amountChangedMessage.liquidMaterial, currentTotal);
 		}
+		return true;
+	}
+
+	private boolean handle(MessageType.GetLiquidAmountMessage message) {
+		float amount = getCurrentLiquidAmount(message.material());
+		message.callback().accept(amount);
 		return true;
 	}
 

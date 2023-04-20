@@ -251,6 +251,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: primary_font_colour_red
 		background: asset_bg_military_squad
 	}
+	default-font-23-label: {
+		font: default-font-23
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
