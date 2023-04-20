@@ -3,8 +3,13 @@ package technology.rocketjump.mountaincore.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -31,6 +36,8 @@ import technology.rocketjump.mountaincore.persistence.UserPreferences;
 import technology.rocketjump.mountaincore.rendering.entities.EntityRenderer;
 import technology.rocketjump.mountaincore.rooms.constructions.Construction;
 import technology.rocketjump.mountaincore.rooms.constructions.FurnitureConstruction;
+import technology.rocketjump.mountaincore.settlement.SettlementState;
+import technology.rocketjump.mountaincore.settlement.production.CraftingQuota;
 import technology.rocketjump.mountaincore.ui.GameInteractionStateContainer;
 import technology.rocketjump.mountaincore.ui.Selectable;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
@@ -41,10 +48,7 @@ import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.skins.ManagementSkin;
 import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.views.RoomEditorItemMap;
-import technology.rocketjump.mountaincore.ui.widgets.ButtonFactory;
-import technology.rocketjump.mountaincore.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.mountaincore.ui.widgets.EntityDrawable;
-import technology.rocketjump.mountaincore.ui.widgets.LabelFactory;
+import technology.rocketjump.mountaincore.ui.widgets.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -70,6 +74,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 	private final ButtonFactory buttonFactory;
 	private final RoomEditorItemMap roomEditorItemMap;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
+	private final WidgetFactory widgetFactory;
 
 	private Stack stack;
 	private Label titleLabel;
@@ -80,7 +85,8 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 									I18nTranslator i18nTranslator,
 									EntityRenderer entityRenderer, CraftingRecipeDictionary craftingRecipeDictionary,
 									LabelFactory labelFactory, ButtonFactory buttonFactory, RoomEditorItemMap roomEditorItemMap,
-									GameInteractionStateContainer gameInteractionStateContainer, UserPreferences userPreferences, CraftingTypeDictionary craftingTypeDictionary) {
+									GameInteractionStateContainer gameInteractionStateContainer, UserPreferences userPreferences,
+									CraftingTypeDictionary craftingTypeDictionary, WidgetFactory widgetFactory) {
 		super(userPreferences, messageDispatcher);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
@@ -93,6 +99,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		this.roomEditorItemMap = roomEditorItemMap;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		this.craftingTypeDictionary = craftingTypeDictionary;
+		this.widgetFactory = widgetFactory;
 
 		scrollPane = new EnhancedScrollPane(null, menuSkin);
 
@@ -187,6 +194,8 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		itemHeaderLabel.setAlignment(Align.center);
 		Label craftedWithHeaderLabel = new Label(i18nTranslator.translate("GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH"), managementSkin, "military_subtitle_ribbon");
 		craftedWithHeaderLabel.setAlignment(Align.center);
+		Label managementHeaderLabel = new Label(i18nTranslator.translate("GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT"), managementSkin, "military_subtitle_ribbon");
+		managementHeaderLabel.setAlignment(Align.center);
 
 		rebuildCraftingComponents();
 		scrollPane.setFadeScrollBars(false);
@@ -195,11 +204,11 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 
 		Table headerRow = new Table();
 		headerRow.add(itemHeaderLabel).left().padLeft(16).spaceTop(50).spaceBottom(40);
-		headerRow.add(craftedWithHeaderLabel).left().padLeft(690).spaceTop(50).spaceBottom(40).row();
-
+		headerRow.add(craftedWithHeaderLabel).expandX().spaceTop(50).spaceBottom(40);
+		headerRow.add(managementHeaderLabel).right().padRight(16).spaceTop(50).spaceBottom(40).row();
 
 		Table mainTable = new Table();
-		mainTable.add(headerRow).left().padBottom(40).row();
+		mainTable.add(headerRow).growX().left().padBottom(40).row();
 		mainTable.add(scrollPane).grow();
 
 		Table table = new Table();
@@ -273,18 +282,160 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 				}
 			}
 
+			SettlementState settlementState = gameContext.getSettlementState();
+			CraftingQuota quota = settlementState.getCraftingQuota(output.getItemType(), output.getMaterial());
+
+			Table productionManagementColumn = new Table();
+			productionManagementColumn.defaults().right();
+			ImageTextButton limitToggle = widgetFactory.createLeftLabelledToggle("GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT", managementSkin, null);
+			productionManagementColumn.add(limitToggle).row();
+
+			Table quantityTable = new Table();
+			Label quantityTitleLabel = new Label(i18nTranslator.translate("GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY"), managementSkin, "default-font-23-label");
+			Label quantityLabel = new Label(Integer.toString(quota.getQuantity()), managementSkin, "default-font-23-label");
+			quantityLabel.setAlignment(Align.center);
+			Button decrementButton = buttonFactory.buildDrawableButton("btn_remove_tile", "GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT", () -> { });
+			Button incrementButton = buttonFactory.buildDrawableButton("btn_add_tile", "GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT", () -> { });
+
+			quantityTable.add(quantityTitleLabel).padRight(9f);
+			quantityTable.add(decrementButton).padRight(9f);
+			quantityTable.add(quantityLabel).width(100).padRight(9f);
+			quantityTable.add(incrementButton).padRight(9f);
+
+			buttonFactory.attachClickCursor(limitToggle, GameCursor.SELECT);
+
+			limitToggle.setChecked(quota.isLimited());
+			if (!quota.isLimited()) {
+				buttonFactory.disable(quantityTitleLabel);
+				buttonFactory.disable(decrementButton);
+				buttonFactory.disable(quantityLabel);
+				buttonFactory.disable(incrementButton);
+			} else {
+				assignClickListeners(quota, incrementButton, decrementButton, quantityLabel);
+			}
+
+			limitToggle.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (limitToggle.isChecked()) {
+						buttonFactory.enable(quantityTitleLabel);
+						buttonFactory.enable(decrementButton);
+						buttonFactory.enable(quantityLabel);
+						buttonFactory.enable(incrementButton);
+
+						CraftingQuota newQuota = settlementState.newCraftingQuota(output.getItemType(), output.getMaterial(), 0);
+						assignClickListeners(newQuota, incrementButton, decrementButton, quantityLabel);
+
+					} else {
+						settlementState.removeCraftingQuota(output.getItemType(), output.getMaterial());
+						quantityLabel.setText("0");
+						buttonFactory.disable(quantityTitleLabel);
+						buttonFactory.disable(decrementButton);
+						buttonFactory.disable(quantityLabel);
+						buttonFactory.disable(incrementButton);
+					}
+				}
+			});
+
+			productionManagementColumn.add(quantityTable);
 
 			itemsTable.add(dividerLine()).width(2842).row();
 			Table row = new Table();
 			row.add(entityColumn(output)).padRight(154);
 			row.add(new Image(managementSkin.getDrawable("asset_equals"))).padRight(154);
-			row.add(inputsColumn);
-			itemsTable.add(row).left();
+			row.add(inputsColumn).padRight(154);
+			row.add(productionManagementColumn).expandX().padRight(16).right();
+			itemsTable.add(row).growX().left();
 
 			itemsTable.row();
 		}
 
 		return itemsTable;
+	}
+
+	private void assignClickListeners(CraftingQuota newQuota, Button incrementButton, Button decrementButton, Label quantityLabel) {
+		incrementButton.clearListeners();
+		decrementButton.clearListeners();
+		buttonFactory.attachClickCursor(incrementButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(decrementButton, GameCursor.SELECT);
+		incrementButton.addListener(new InputListener() {
+			private Action currentAction;
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				currentAction = numberSpinnerAction(newQuota, quantityLabel, +1, +10, +100);
+				incrementButton.addAction(currentAction);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				incrementButton.removeAction(currentAction);
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+
+
+		decrementButton.addListener(new InputListener() {
+			private Action currentAction;
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				currentAction = numberSpinnerAction(newQuota, quantityLabel, -1, -10, -100);
+				decrementButton.addAction(currentAction);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				decrementButton.removeAction(currentAction);
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+	}
+
+	private static SequenceAction numberSpinnerAction(CraftingQuota newQuota, Label quantityLabel, int firstStep, int secondStep, int thirdStep) {
+		return Actions.sequence(
+				new ModifyQuantityAction(newQuota, quantityLabel, firstStep),
+				Actions.delay(0.5f),
+				Actions.repeat((10 - newQuota.getQuantity() % 10) - 1,
+						Actions.sequence(
+								new ModifyQuantityAction(newQuota, quantityLabel, firstStep),
+								Actions.delay(0.15f)
+						)
+				),
+				Actions.repeat(9,
+						Actions.sequence(
+								new ModifyQuantityAction(newQuota, quantityLabel, secondStep),
+								Actions.delay(0.15f)
+						)
+				),
+				Actions.repeat(1000,
+						Actions.sequence(
+								new ModifyQuantityAction(newQuota, quantityLabel, thirdStep),
+								Actions.delay(0.15f)
+						)
+				)
+		);
+	}
+
+	private static class ModifyQuantityAction extends Action {
+		private final CraftingQuota craftingQuota;
+		private final Label quantityLabel;
+		private final int modifier;
+
+		private ModifyQuantityAction(CraftingQuota craftingQuota, Label quantityLabel, int modifier) {
+			this.craftingQuota = craftingQuota;
+			this.quantityLabel = quantityLabel;
+			this.modifier = modifier;
+		}
+
+		@Override
+		public boolean act(float delta) {
+			int nextQuantity = craftingQuota.getQuantity() + modifier;
+			craftingQuota.setQuantity(nextQuantity);
+			quantityLabel.setText(Integer.toString(craftingQuota.getQuantity()));
+			return true;
+		}
+
 	}
 
 	private Actor dividerLine() {

@@ -332,7 +332,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		if (plannedTrade != null) {
 			JSONObject plannedTradeJson = new JSONObject(true);
 			plannedTrade.writeTo(plannedTradeJson, savedGameStateHolder);
-			asJson.put("plannedTrade", plannedTrade);
+			asJson.put("plannedTrade", plannedTradeJson);
 		}
 
 		if (interrupted) {
