@@ -455,7 +455,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							Entity targetEntity = entityStore.getById(completedJob.getTargetId());
 							if (targetEntity != null) {
 								LiquidContainerComponent targetLiquidContainer = targetEntity.getComponent(LiquidContainerComponent.class);
-								if (targetLiquidContainer != null) {
+								if (targetLiquidContainer != null && targetLiquidContainer.getTargetLiquidMaterial() != null) {
 									if (targetLiquidContainer.getTargetLiquidMaterial().equals(sourceLiquidContainer.getTargetLiquidMaterial())) {
 										float availableSpace = targetLiquidContainer.getMaxLiquidCapacity() - targetLiquidContainer.getLiquidQuantity();
 										float quantityToTransfer = Math.min(availableSpace, sourceLiquidContainer.getLiquidQuantity());
