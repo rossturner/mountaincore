@@ -309,6 +309,7 @@ public class Job implements Persistable {
 		if (savedGameStateHolder.jobs.containsKey(this.jobId)) {
 			return;
 		}
+		savedGameStateHolder.jobs.put(jobId, this);
 
 		JSONObject jobJson = new JSONObject(true);
 
@@ -364,7 +365,6 @@ public class Job implements Persistable {
 			jobJson.put("cookingRecipe", cookingRecipe.getRecipeName());
 		}
 
-		savedGameStateHolder.jobs.put(jobId, this);
 		savedGameStateHolder.jobsJson.add(jobJson);
 	}
 

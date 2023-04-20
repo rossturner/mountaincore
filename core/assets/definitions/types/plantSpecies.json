@@ -2159,7 +2159,7 @@
   "growthStages" : [ {
     "name" : "Initial",
     "nextGrowthStage" : 1,
-    "seasonsUntilComplete" : 2.0,
+    "seasonsUntilComplete" : 3.0,
     "initialPlantScale" : 0.35,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -2172,7 +2172,7 @@
   }, {
     "name" : "Fully grown",
     "nextGrowthStage" : 1,
-    "seasonsUntilComplete" : 2.5,
+    "seasonsUntilComplete" : 4.5,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,

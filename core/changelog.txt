@@ -1,3 +1,11 @@
+Early Access 1.1.12
+
+- Fix for a crash when transferring liquids where the target liquid has been forgotten
+- Corrected items bought from merchants to change faction to settlement upon placement
+- Made shrubs grow slower
+- Added a note to the tutorial about the crafting recipes screen available from crafting stations
+- Hopefully fixed a crash when writing a save file with trading export furniture behaviour that could contain a circular reference
+
 Early Access 1.1.11 - 18th April 2023
 
 - Increased the threshold for a creature to retreat from combat due to a need (food/drink/sleep) running low

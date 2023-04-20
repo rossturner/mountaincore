@@ -19,7 +19,6 @@ import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
-import technology.rocketjump.mountaincore.messaging.types.FactionChangedMessage;
 import technology.rocketjump.mountaincore.misc.Destructible;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
@@ -259,11 +258,9 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		entityToAdd.getLocationComponent().setContainerEntity(parentEntity);
 		entityToAdd.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
 
-		FactionComponent itemFactionComponent = entityToAdd.getOrCreateComponent(FactionComponent.class);
-		if (!itemFactionComponent.getFaction().equals(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
-			messageDispatcher.dispatchMessage(MessageType.ENTITY_FACTION_CHANGED, new FactionChangedMessage(
-					entityToAdd, itemFactionComponent.getFaction(), parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())
-			);
+		if (entityToAdd.getType().equals(ITEM)) {
+			FactionComponent itemFactionComponent = entityToAdd.getOrCreateComponent(FactionComponent.class);
+			itemFactionComponent.setFaction(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 		}
 
 		InventoryEntry entry = new InventoryEntry(entityToAdd, gameClock, preferredPosition);
