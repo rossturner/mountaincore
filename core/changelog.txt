@@ -1,3 +1,8 @@
+Early Access 1.1.13 - 21st April 2023
+
+- Fix for a crash happening with bad item allocations and merchant trading payments
+- Fix for a crash for where an item that has been lost is trying to assign itself to a stockpile
+
 Early Access 1.1.12 - 20th April 2023
 
 - You can now set a limit on the number of items to be produced via the crafting screen

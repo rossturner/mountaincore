@@ -28,16 +28,16 @@ public class PlacePaymentAction extends PlaceEntityAction {
 		if (originalItem != null) {
 			Entity clonedItem = originalItem.clone(parent.messageDispatcher, gameContext);
 			int amountToPlace = parent.getPlannedTrade().getPaymentItemAllocation().getAllocationAmount();
+			ItemAllocationComponent originalItemAllocationComponent = originalItem.getComponent(ItemAllocationComponent.class);
+			originalItemAllocationComponent.cancel(parent.getPlannedTrade().getPaymentItemAllocation());
 
 			ItemEntityAttributes originalAttributes = (ItemEntityAttributes) originalItem.getPhysicalEntityComponent().getAttributes();
-			originalAttributes.setQuantity(originalAttributes.getQuantity() - amountToPlace);
-			if (originalAttributes.getQuantity() <= 0) {
+			int remainder = originalAttributes.getQuantity() - amountToPlace;
+			originalAttributes.setQuantity(remainder);
+			if (remainder <= 0) {
 				parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, originalItem);
 			} else {
 				parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, originalItem);
-				ItemAllocationComponent originalItemAllocationComponent = originalItem.getComponent(ItemAllocationComponent.class);
-				originalItemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
-				originalItemAllocationComponent.createAllocation(originalAttributes.getQuantity(), originalItem, ItemAllocation.Purpose.HELD_IN_INVENTORY);
 			}
 
 			ItemEntityAttributes clonedAttributes = (ItemEntityAttributes) clonedItem.getPhysicalEntityComponent().getAttributes();
@@ -67,7 +67,15 @@ public class PlacePaymentAction extends PlaceEntityAction {
 				}
 				clonedItem.getOrCreateComponent(FactionComponent.class).setFaction(Faction.SETTLEMENT);
 			} else {
-				parentInventory.add(clonedItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+				InventoryComponent.InventoryEntry entry = parentInventory.add(clonedItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+
+				ItemAllocationComponent itemAllocationComponent = entry.entity.getComponent(ItemAllocationComponent.class);
+				itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
+				if (remainder > 0) {
+					itemAllocationComponent.createAllocation(remainder, parent.parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+				}
+				ItemAllocation recreatedPaymentAllocation = itemAllocationComponent.createAllocation(amountToPlace, parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
+				parent.getPlannedTrade().setPaymentItemAllocation(recreatedPaymentAllocation);
 			}
 		}
 	}
