@@ -4,16 +4,16 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.apache.commons.io.FileUtils;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchAccountInfo;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchToken;
 import technology.rocketjump.mountaincore.misc.twitch.model.TwitchViewer;
 import technology.rocketjump.mountaincore.persistence.UserPreferences;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -27,6 +27,7 @@ public class TwitchDataStore {
 
 	private List<TwitchViewer> currentSubscribers = new ArrayList<>();
 	private List<TwitchViewer> currentViewers = new ArrayList<>();
+	private Set<String> botAccountNames = new HashSet<>();
 
 	private final MessageDispatcher messageDispatcher;
 	private final UserPreferences userPreferences;
@@ -40,6 +41,8 @@ public class TwitchDataStore {
 		if (tokenAsString != null) {
 			currentToken.set(new ObjectMapper().readValue(tokenAsString, TwitchToken.class));
 		}
+
+		botAccountNames.addAll(FileUtils.readLines(new File("assets/metadata/twitch_bots.txt")));
 	}
 
 	public List<TwitchViewer> getPrioritisedViewers() {
@@ -107,5 +110,9 @@ public class TwitchDataStore {
 
 	public void setCurrentViewers(List<TwitchViewer> currentViewers) {
 		this.currentViewers = currentViewers;
+	}
+
+	public boolean isBotAccount(String accountName) {
+		return botAccountNames.contains(accountName);
 	}
 }

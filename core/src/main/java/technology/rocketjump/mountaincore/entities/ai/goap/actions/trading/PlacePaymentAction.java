@@ -55,6 +55,7 @@ public class PlacePaymentAction extends PlaceEntityAction {
 				} else {
 					placeEntityIntoTile(clonedItem, parentInventory, currentTile);
 				}
+				originalItemAllocationComponent.cancel(parent.getAssignedHaulingAllocation().getItemAllocation());
 			}
 
 			if (completionType == SUCCESS) {

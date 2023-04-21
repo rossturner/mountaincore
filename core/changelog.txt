@@ -1,3 +1,8 @@
+Early Access 1.1.14 - 21st April 2023
+
+- Further fix for crashes during merchant payment for goods
+- Filtering Twitch bots out of automatic settler names
+
 Early Access 1.1.13 - 21st April 2023
 
 - Fix for a crash happening with bad item allocations and merchant trading payments

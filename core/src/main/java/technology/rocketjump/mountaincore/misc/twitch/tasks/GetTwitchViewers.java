@@ -40,7 +40,7 @@ public class GetTwitchViewers implements Callable<List<TwitchViewer>> {
 
 				for (int cursor = 0; cursor < data.size(); cursor++) {
 					String username = data.getJSONObject(cursor).getString("user_name");
-					if (!username.endsWith("bot")) {
+					if (!twitchDataStore.isBotAccount(username.toLowerCase()) && !username.endsWith("bot")) {
 						viewers.add(new TwitchViewer(username));
 					}
 				}
