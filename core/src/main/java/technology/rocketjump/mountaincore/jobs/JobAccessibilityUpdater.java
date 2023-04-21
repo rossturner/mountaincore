@@ -1,9 +1,11 @@
 package technology.rocketjump.mountaincore.jobs;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.EntityStore;
 import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -14,6 +16,7 @@ import technology.rocketjump.mountaincore.jobs.model.JobState;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.TileNeighbours;
+import technology.rocketjump.mountaincore.messaging.MessageType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,14 +32,16 @@ public class JobAccessibilityUpdater implements Updatable {
 
 	private final JobStore jobStore;
 	private final EntityStore entityStore;
+	private final MessageDispatcher messageDispatcher;
 
 	private GameContext gameContext;
 	private float timeSinceLastInaccessibleUpdate = 0f;
 
 	@Inject
-	public JobAccessibilityUpdater(JobStore jobStore, EntityStore entityStore) {
+	public JobAccessibilityUpdater(JobStore jobStore, EntityStore entityStore, MessageDispatcher messageDispatcher) {
 		this.jobStore = jobStore;
 		this.entityStore = entityStore;
+		this.messageDispatcher = messageDispatcher;
 	}
 
 	/**
@@ -94,6 +99,11 @@ public class JobAccessibilityUpdater implements Updatable {
 				Collections.shuffle(jobLocations);
 			}
 		} else {
+			if (potentiallyAccessibleJob.getJobLocation() == null) {
+				Logger.error("Job location is null for job {}, will cancel", potentiallyAccessibleJob);
+				messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, potentiallyAccessibleJob);
+				return;
+			}
 			jobLocations.add(potentiallyAccessibleJob.getJobLocation());
 		}
 
