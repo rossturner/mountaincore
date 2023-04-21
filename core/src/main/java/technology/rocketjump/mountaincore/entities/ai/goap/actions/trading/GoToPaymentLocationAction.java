@@ -6,6 +6,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.actions.location.GoTo
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.TraderCreatureGroup;
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingExportFurnitureBehaviour;
+import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -32,7 +33,8 @@ public class GoToPaymentLocationAction  extends GoToLocationAction {
 
 				Entity paymentItemEntity = gameContext.getEntity(parent.getPlannedTrade().getPaymentItemAllocation().getTargetItemEntityId());
 				// need to cancel item allocation so items are unallocated so they can find a stockpile
-				paymentItemEntity.getComponent(ItemAllocationComponent.class).cancel(parent.getPlannedTrade().getPaymentItemAllocation());
+				ItemAllocationComponent paymentItemAllocationComponent = paymentItemEntity.getComponent(ItemAllocationComponent.class);
+				paymentItemAllocationComponent.cancel(parent.getPlannedTrade().getPaymentItemAllocation());
 
 				if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
 					creatureBehaviour.getCreatureGroup() instanceof TraderCreatureGroup traderCreatureGroup) {
@@ -51,6 +53,11 @@ public class GoToPaymentLocationAction  extends GoToLocationAction {
 						}
 					}
 				}
+
+				// Could not find a chest/stockpile to place the payment into, need to re-create the payment allocation
+				ItemAllocation recreatedPaymentAllocation = paymentItemAllocationComponent.createAllocation(parent.getPlannedTrade().getPaymentItemAllocation().getAllocationAmount(),
+						parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
+				parent.getPlannedTrade().setPaymentItemAllocation(recreatedPaymentAllocation);
 			} else {
 				// This is a trade import so payment location is the chest containing the payment
 				Entity itemEntity = gameContext.getEntity(parent.getPlannedTrade().getPaymentItemAllocation().getTargetItemEntityId());

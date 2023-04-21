@@ -311,6 +311,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	public static HaulingAllocation findStockpileAllocation(TiledMap areaMap, Entity entity, Entity requestingEntity, MessageDispatcher messageDispatcher) {
 		Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
+		if (entityPosition == null) {
+			return null;
+		}
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
 		Map<JobPriority, Map<Float, AbstractStockpile>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
 		for (JobPriority jobPriority : JobPriority.values()) {
