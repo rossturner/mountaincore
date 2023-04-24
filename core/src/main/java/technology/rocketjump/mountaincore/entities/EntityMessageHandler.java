@@ -1109,6 +1109,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				continue;
 			}
 
+			if (deadCreatureEntity.getLocationComponent().getContainerEntity() != null && deadCreatureEntity.getLocationComponent().getContainerEntity().getType() != FURNITURE) {
+				continue;
+			}
+
 			ItemAllocationComponent itemAllocationComponent = deadCreatureEntity.getComponent(ItemAllocationComponent.class);
 			if (itemAllocationComponent == null || itemAllocationComponent.getNumUnallocated() <= 0) {
 				continue;

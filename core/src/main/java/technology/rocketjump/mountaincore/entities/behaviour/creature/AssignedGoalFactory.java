@@ -19,6 +19,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.Hauli
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Race;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
@@ -101,8 +102,12 @@ public class AssignedGoalFactory {
 
 			double currentGameTime = gameContext.getGameClock().getCurrentGameTime();
 			for (InventoryComponent.InventoryEntry entry : inventory.getInventoryEntries()) {
+				final double hoursInInventoryUntilUnused;
+				final int quantity;
 				if (entry.entity.getType().equals(EntityType.ITEM)) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
+					hoursInInventoryUntilUnused = attributes.getItemType().getHoursInInventoryUntilUnused();
+					quantity = attributes.getQuantity();
 
 					if (assignedMilitaryItems.contains(entry.entity.getId())) {
 						// This is one of our assigned items of military equipment
@@ -122,26 +127,31 @@ public class AssignedGoalFactory {
 							}
 						}
 					}
+				} else {
+					hoursInInventoryUntilUnused = ItemType.DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED;
+					quantity = 1;
+				}
 
-					if (entry.getLastUpdateGameTime() + attributes.getItemType().getHoursInInventoryUntilUnused() < currentGameTime) {
-						// Temp un-requestAllocation
-						ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-						itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
+				if (entry.getLastUpdateGameTime() + hoursInInventoryUntilUnused < currentGameTime) {
 
-						HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
+					// Temp un-requestAllocation
+					ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
+					itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
 
-						if (stockpileAllocation == null) {
-							itemAllocationComponent.createAllocation(attributes.getQuantity(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
-						} else {
-							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
-							stockpileAllocation.setItemAllocation(newAllocation);
+					HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
 
-							if (itemAllocationComponent.getNumUnallocated() > 0) {
-								itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
-							}
+					if (stockpileAllocation == null) {
+						//todo: consider dumping random if no stockpile available
+						itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+					} else {
+						ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
+						stockpileAllocation.setItemAllocation(newAllocation);
 
-							return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, gameContext, stockpileAllocation);
+						if (itemAllocationComponent.getNumUnallocated() > 0) {
+							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
 						}
+
+						return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, gameContext, stockpileAllocation);
 					}
 				}
 			}
@@ -213,13 +223,14 @@ public class AssignedGoalFactory {
 	public static AssignedGoal placeItemIntoStockpileGoal(Entity itemEntity, Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext, HaulingAllocation stockpileAllocation) {
 		AssignedGoal assignedGoal = new AssignedGoal(SpecialGoal.PLACE_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
 		assignedGoal.setAssignedHaulingAllocation(stockpileAllocation);
-		ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
-		if (attributes.getItemType().isEquippedWhileWorkingOnJob()) {
-			// Switch to hauling component
-			HaulingComponent haulingComponent = parentEntity.getOrCreateComponent(HaulingComponent.class);
-			InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-			inventoryComponent.remove(itemEntity.getId());
-			haulingComponent.setHauledEntity(itemEntity, messageDispatcher, parentEntity);
+		if (itemEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			if (attributes.getItemType().isEquippedWhileWorkingOnJob()) {
+				// Switch to hauling component
+				HaulingComponent haulingComponent = parentEntity.getOrCreateComponent(HaulingComponent.class);
+				InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
+				inventoryComponent.remove(itemEntity.getId());
+				haulingComponent.setHauledEntity(itemEntity, messageDispatcher, parentEntity);
+			}
 		}
 		return assignedGoal;
 	}
