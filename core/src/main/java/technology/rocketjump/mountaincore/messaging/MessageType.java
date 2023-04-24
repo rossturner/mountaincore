@@ -130,6 +130,7 @@ public class MessageType {
 	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
 	public static final int GET_LIQUID_AMOUNT = 353; public record GetLiquidAmountMessage(GameMaterial material, Consumer<Float> callback) {}
 	public static final int ENTITY_CREATED_AND_REGISTERED = 354;
+	public static final int ENTITY_DESTROYED_AND_UNREGISTERED = 355;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

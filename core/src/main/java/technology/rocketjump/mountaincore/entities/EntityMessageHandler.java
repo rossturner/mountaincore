@@ -350,6 +350,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						parentTile.getUnderTile().setPipeEntity(null);
 					}
 				}
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_DESTROYED_AND_UNREGISTERED, removedEntity);
 				return true;
 			}
 			case MessageType.ENTITY_DO_NOT_TRACK: {

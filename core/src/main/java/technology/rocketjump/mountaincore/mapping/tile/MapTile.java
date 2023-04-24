@@ -522,7 +522,7 @@ public class MapTile implements Persistable {
 		this.zones.remove(zone);
 	}
 
-	private boolean hasMovementBlockingEntity() {
+	public boolean hasMovementBlockingEntity() {
 		for (Entity entity : entities.values()) {
 			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes
 					&& attributes.getFurnitureType().isBlocksMovement()) {

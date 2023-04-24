@@ -23,7 +23,6 @@ import technology.rocketjump.mountaincore.entities.factories.MechanismEntityAttr
 import technology.rocketjump.mountaincore.entities.factories.MechanismEntityFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
-import technology.rocketjump.mountaincore.entities.model.physical.LocationComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
@@ -156,6 +155,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.ADD_PIPE);
 		messageDispatcher.addListener(this, MessageType.REMOVE_PIPE);
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED_AND_REGISTERED);
+		messageDispatcher.addListener(this, MessageType.ENTITY_DESTROYED_AND_UNREGISTERED);
 	}
 
 	@Override
@@ -194,10 +194,10 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				GridPoint2 location = (GridPoint2) msg.extraInfo;
 				return handleRemovePipe(location);
 			}
-			case MessageType.ENTITY_CREATED_AND_REGISTERED: {
+			case MessageType.ENTITY_CREATED_AND_REGISTERED, MessageType.ENTITY_DESTROYED_AND_UNREGISTERED: {
 				Entity entity = (Entity) msg.extraInfo;
 				if (entity != null) {
-					handleEntityCreated(entity);
+					updateRegions(entity);
 				}
 				return true;
 			}
@@ -278,26 +278,31 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		return true;
 	}
 
-	private void handleEntityCreated(Entity entity) {
-		LocationComponent locationComponent = entity.getLocationComponent();
-		Vector2 worldPosition = locationComponent.getWorldPosition();
+	private void updateRegions(Entity entity) {
 		TiledMap areaMap = gameContext.getAreaMap();
+		Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 		MapTile tile = areaMap.getTile(worldPosition);
 		if (tile == null) {
 			return;
 		}
 
+		final Set<MapTile> tiles;
 		PhysicalEntityComponent physicalEntityComponent = entity.getPhysicalEntityComponent();
 		if (EntityType.FURNITURE == entity.getType() &&
 				physicalEntityComponent.getAttributes() instanceof FurnitureEntityAttributes attributes) {
-			//todo: do i check if blocking entity?
-
 			List<GridPoint2> gridPoints = absoluteExtraTiles(tile.getTilePosition(), attributes.getCurrentLayout().getExtraTiles());
-			Set<MapTile> tiles = gridPoints.stream().map(areaMap::getTile).filter(Objects::nonNull).collect(toSet());
+			tiles = gridPoints.stream().map(areaMap::getTile).filter(Objects::nonNull).collect(toSet());
+			//todo: test without movement blocking furniture like pallet
+
+			//todo: plant/tree
+		} else {
+			tiles = Collections.emptySet();
+		}
+
+		if (!tiles.isEmpty()) {
 			updateRegions(tiles);
 		}
 
-		//todo: plant/tree
 	}
 
 	//todo: this is duplicated in few places
