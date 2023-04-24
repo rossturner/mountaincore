@@ -522,6 +522,17 @@ public class MapTile implements Persistable {
 		this.zones.remove(zone);
 	}
 
+	private boolean hasMovementBlockingEntity() {
+		for (Entity entity : entities.values()) {
+			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes
+					&& attributes.getFurnitureType().isBlocksMovement()) {
+				return true;
+			}
+			//todo : trees
+		}
+		return false;
+	}
+
 	public RegionType getRegionType() {
 		if (getFloor().isRiverTile()) {
 			return RegionType.RIVER;
@@ -529,6 +540,8 @@ public class MapTile implements Persistable {
 			return RegionType.WALL;
 		} else if (hasChannel()) {
 			return RegionType.CHANNEL;
+		} else if (hasMovementBlockingEntity()) {
+			return RegionType.MOVEMENT_BLOCKING_ENTITY;
 		} else {
 			return RegionType.GENERIC;
 		}
@@ -796,6 +809,6 @@ public class MapTile implements Persistable {
 	}
 	
 	public enum RegionType {
-		RIVER, WALL, CHANNEL, GENERIC
+		RIVER, WALL, CHANNEL, MOVEMENT_BLOCKING_ENTITY, GENERIC
 	}
 }

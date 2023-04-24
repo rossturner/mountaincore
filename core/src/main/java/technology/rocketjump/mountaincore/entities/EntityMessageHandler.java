@@ -214,6 +214,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				} else if (createdEntity.getType().equals(VEHICLE)) {
 					vehicleTracker.vehicleAdded(createdEntity);
 				}
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED_AND_REGISTERED, createdEntity);
 
 				return true;
 			}
