@@ -1,3 +1,13 @@
+Early Access 1.1.15 - 24th April 2023
+
+- Showing resource overview when tutorial is completed
+- Fix for jobs without a location (fishing being weird)
+- Fix for a crash that can happen when there are multiple hauling jobs on a tile with a dead dwarf
+- Fix for a crash when facing towards food when inside a container/vehicle
+- Fix for a crash when going to a job location but the job does not exist
+- Fix for a crash when trying to start crafting but the input ingredients have disappeared
+- Fix for a crash for trying to dump a corpse that is already allocated somewhere
+
 Early Access 1.1.14 - 21st April 2023
 
 - Further fix for crashes during merchant payment for goods

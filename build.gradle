@@ -24,7 +24,7 @@ allprojects {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    version = 'Early Access 1.1.14'
+    version = 'Early Access 1.1.15'
     ext {
         appName = 'mountaincore'
         gdxVersion = '1.11.0'
@@ -123,6 +123,19 @@ project(":desktop") {
         from "../release_tools/linux64_release"
     }
 
+    task('butlerWin', type: Exec, dependsOn: 'iconWin') {
+        workingDir '../release_tools'
+        commandLine 'butler', 'push', 'win64_release', 'rocketjumptechnology/mountaincore:win', '--userversion', "$project.version"
+    }
+    task('butlerMac', type: Exec, dependsOn: 'packrMac') {
+        workingDir '../release_tools'
+        commandLine 'butler', 'push', 'macosx_release', 'rocketjumptechnology/mountaincore:osx', '--userversion', "$project.version"
+    }
+    task('butlerLinux', type: Exec, dependsOn: 'packrLinux') {
+        workingDir '../release_tools'
+        commandLine 'butler', 'push', 'linux64_release', 'rocketjumptechnology/mountaincore:linux', '--userversion', "$project.version"
+    }
+
     task('zipAll') {
         dependsOn 'zipLinux'
         dependsOn 'zipMac'
@@ -133,6 +146,12 @@ project(":desktop") {
         dependsOn 'packrLinux'
         dependsOn 'packrMac'
         dependsOn 'moveToolWin'
+    }
+
+    task('release') {
+        dependsOn 'butlerLinux'
+        dependsOn 'butlerMac'
+        dependsOn 'butlerWin'
     }
 }
 

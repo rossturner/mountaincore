@@ -60,11 +60,15 @@ public class MoveInputToCraftingStationAction extends Action implements Initiali
 				&& craftingStationBehaviour.getCurrentCraftingAssignment() != null) {
 
 			List<HaulingAllocation> inputAllocations = craftingStationBehaviour.getCurrentCraftingAssignment().getInputAllocations();
-			HaulingAllocation haulingAllocation = inputAllocations.remove(0);
+			if (!inputAllocations.isEmpty()) {
+				HaulingAllocation haulingAllocation = inputAllocations.remove(0);
 
-			subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
-			subGoal.setAssignedHaulingAllocation(haulingAllocation);
-			subGoal.setParentGoal(this.parent);
+				subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
+				subGoal.setAssignedHaulingAllocation(haulingAllocation);
+				subGoal.setParentGoal(this.parent);
+			} else {
+				completionType = CompletionType.FAILURE;
+			}
 		} else {
 			completionType = CompletionType.FAILURE;
 		}

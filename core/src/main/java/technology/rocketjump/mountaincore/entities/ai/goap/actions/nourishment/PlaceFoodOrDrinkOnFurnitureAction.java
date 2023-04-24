@@ -64,11 +64,13 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 
 							InventoryComponent furnitureInventory = furnitureEntity.getOrCreateComponent(InventoryComponent.class);
 							// Face towards location
-							parent.parentEntity.getLocationComponent().setFacing(
-									VectorUtils.toVector(workspace.getLocation().cpy().add(VectorUtils.toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition()))).sub(
-											parent.parentEntity.getLocationComponent().getWorldPosition()
-									)
-							);
+							if (parent.parentEntity.getLocationComponent().getWorldPosition() != null) {
+								parent.parentEntity.getLocationComponent().setFacing(
+										VectorUtils.toVector(workspace.getLocation().cpy().add(VectorUtils.toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition()))).sub(
+												parent.parentEntity.getLocationComponent().getWorldPosition()
+										)
+								);
+							}
 
 							Entity item = equippedItemComponent.clearMainHandItem(); // FIXME Maybe this should always remove the component from its parent
 							furnitureInventory.add(item, furnitureEntity, parent.messageDispatcher,

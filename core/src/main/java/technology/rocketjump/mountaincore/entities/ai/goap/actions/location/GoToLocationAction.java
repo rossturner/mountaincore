@@ -251,7 +251,9 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 
 	protected Vector2 getJobLocation(GameContext gameContext) {
 		Job assignedJob = parent.getAssignedJob();
-		if (assignedJob.getType().isAccessedFromAdjacentTile()) {
+		if (assignedJob == null) {
+			return null;
+		} else if (assignedJob.getType().isAccessedFromAdjacentTile()) {
 			Array<GridPoint2> navigableTiles = new Array<>();
 
 			for (MapTile neighbourTile : gameContext.getAreaMap().getOrthogonalNeighbours(assignedJob.getJobLocation().x, assignedJob.getJobLocation().y).values()) {

@@ -136,22 +136,26 @@ public class AssignedGoalFactory {
 
 					// Temp un-requestAllocation
 					ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-					itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
 
-					HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
+					if (itemAllocationComponent.getNumUnallocated() > 0 ||
+							(itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.HELD_IN_INVENTORY) != null && itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.HELD_IN_INVENTORY).getAllocationAmount() > 0)) {
+						itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
 
-					if (stockpileAllocation == null) {
-						//todo: consider dumping random if no stockpile available
-						itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
-					} else {
-						ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
-						stockpileAllocation.setItemAllocation(newAllocation);
+						HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
 
-						if (itemAllocationComponent.getNumUnallocated() > 0) {
-							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+						if (stockpileAllocation == null) {
+							//todo: consider dumping random if no stockpile available
+							itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+						} else {
+							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
+							stockpileAllocation.setItemAllocation(newAllocation);
+
+							if (itemAllocationComponent.getNumUnallocated() > 0) {
+								itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+							}
+
+							return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, gameContext, stockpileAllocation);
 						}
-
-						return placeItemIntoStockpileGoal(entry.entity, parentEntity, messageDispatcher, gameContext, stockpileAllocation);
 					}
 				}
 			}

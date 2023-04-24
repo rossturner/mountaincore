@@ -179,6 +179,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 						userPreferences.setPreference(ENABLE_TUTORIAL, "false");
 						messageDispatcher.dispatchMessage(MessageType.PREFERENCE_CHANGED, ENABLE_TUTORIAL);
 						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, GuiArea.MILITARY_MANAGEMENT_BUTTON);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_AREA, GuiArea.RESOURCE_OVERVIEW);
 						break;
 					case DISMISS:
 						// Do nothing, but don't hit default handler

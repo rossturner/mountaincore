@@ -101,7 +101,8 @@ public class GraveManager implements Updatable {
 		}
 
 		for (Job jobAtLocation : jobStore.getJobsAtLocation(location)) {
-			if (jobAtLocation.getType().equals(haulingJobType) && jobAtLocation.getHaulingAllocation().getHauledEntityType().equals(CREATURE)) {
+			if (jobAtLocation.getType().equals(haulingJobType) && jobAtLocation.getHaulingAllocation() != null &&
+					jobAtLocation.getHaulingAllocation().getHauledEntityType().equals(CREATURE)) {
 				return true;
 			}
 		}
