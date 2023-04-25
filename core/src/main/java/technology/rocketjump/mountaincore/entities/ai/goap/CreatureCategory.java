@@ -16,7 +16,7 @@ public enum CreatureCategory {
 		FactionComponent factionComponent = entity.getOrCreateComponent(FactionComponent.class);
 		if (factionComponent.getFaction().equals(Faction.MERCHANTS)) {
 			return MERCHANT;
-		} else if (factionComponent.getFaction().equals(Faction.HOSTILE_INVASION)) {
+		} else if (factionComponent.getFaction().equals(Faction.HOSTILE_INVASION) || factionComponent.getFaction().equals(Faction.PIRATES)) {
 			return INVADER;
 		} else {
 			MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);

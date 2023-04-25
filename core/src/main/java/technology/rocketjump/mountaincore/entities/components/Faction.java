@@ -12,6 +12,7 @@ public enum Faction {
 	WILD_ANIMALS("#c2c285", "#cfcf5a"),
 	MONSTERS("#857ab8", "#6549e4"),
 	HOSTILE_INVASION("#e69e66", "#f0c566"),
+	PIRATES("#3b3a3a", "#7a7a7a"),
 	MERCHANTS("#ffcbd7", "#b87a99");
 
 	public final Color defensePoolShieldColor;

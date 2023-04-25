@@ -196,6 +196,7 @@ FACTION.MONSTERS,,Monster
 FACTION.SETTLEMENT,,Settler
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal
 FACTION.WILD_ANIMALS,,Wild Animal
+FACTION.PIRATES,,Pirate
 
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}})
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.
@@ -1008,6 +1009,8 @@ NOTIFICATION.IMMIGRANTS_ARRIVED.DESCRIPTION,,The prosperity of your settlement h
 NOTIFICATION.IMMIGRANTS_ARRIVED.TITLE,,Immigration
 NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
 NOTIFICATION.INVASION.TITLE,,You are being invaded!
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!
 NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of pillars and supports.
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.
@@ -1209,6 +1212,9 @@ PROFESSION.MAYOR.VERB,,Governing
 PROFESSION.MERCHANT.FEMALE_NOUN,,Merchant
 PROFESSION.MERCHANT.MALE_NOUN,,Merchant
 PROFESSION.MERCHANT.VERB,,Trading
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate
+PROFESSION.PIRATE.MALE_NOUN,,Pirate
+PROFESSION.PIRATE.VERB,,Pilfering
 PROFESSION.MILLER.VERB,"Not a fully implemented profession, just used to describe “Milling flour”",Milling
 PROFESSION.MINER.FEMALE_NOUN,,Miner
 PROFESSION.MINER.MALE_NOUN,,Miner

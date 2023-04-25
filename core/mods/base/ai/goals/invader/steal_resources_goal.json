@@ -11,7 +11,7 @@
         }
       ],
       "priority": "JOB_NORMAL",
-      "scheduleCategory": "MILITARY_DUTY"
+      "scheduleCategory": "ANY"
     }
   ],
   "initialActions": ["SelectItemToSteal"],

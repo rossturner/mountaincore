@@ -31,6 +31,9 @@ import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.invasions.model.InvasionDefinition;
 import technology.rocketjump.mountaincore.invasions.model.InvasionEquipmentDescriptor;
 import technology.rocketjump.mountaincore.invasions.model.InvasionParticipant;
+import technology.rocketjump.mountaincore.invasions.model.InvasionTrigger;
+import technology.rocketjump.mountaincore.jobs.SkillDictionary;
+import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
@@ -51,10 +54,13 @@ public class InvasionGenerator implements GameContextAware {
 	private final CreatureEntityFactory creatureEntityFactory;
 	private final GameMaterialDictionary materialDictionary;
 	private GameContext gameContext;
+	private Skill pirateSkill;
 
 	@Inject
 	public InvasionGenerator(MessageDispatcher messageDispatcher, ItemEntityAttributesFactory itemEntityAttributesFactory,
-							 ItemEntityFactory itemEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory, CreatureEntityFactory creatureEntityFactory, GameMaterialDictionary materialDictionary) {
+							 ItemEntityFactory itemEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory,
+							 CreatureEntityFactory creatureEntityFactory, GameMaterialDictionary materialDictionary,
+							 SkillDictionary skillDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
 
@@ -62,12 +68,17 @@ public class InvasionGenerator implements GameContextAware {
 		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
 		this.creatureEntityFactory = creatureEntityFactory;
 		this.materialDictionary = materialDictionary;
+		this.pirateSkill = skillDictionary.getByName("PIRATE");
 	}
 
 	public List<Entity> generateInvasionParticipants(InvasionDefinition definition, Vector2 invasionLocation, int pointsBudget) {
 		List<Entity> participants = new ArrayList<>();
 		Random random = gameContext.getRandom();
 		Map<GameMaterialType, GameMaterial> invasionMaterials = new HashMap();
+		Faction faction = Faction.HOSTILE_INVASION;
+		if (definition.getTriggeredBy().equals(InvasionTrigger.SPECIAL)) {
+			faction = Faction.PIRATES;
+		}
 
 
 		InvasionCreatureGroup group = new InvasionCreatureGroup();
@@ -82,15 +93,19 @@ public class InvasionGenerator implements GameContextAware {
 
 			CreatureEntityAttributes creatureAttributes = creatureEntityAttributesFactory.create(participant.getRace());
 			pointsSpent += participant.getBasePointsCost();
-			Entity invader = creatureEntityFactory.create(creatureAttributes, invasionLocation, EntityAssetOrientation.DOWN.toVector2(), gameContext, Faction.HOSTILE_INVASION);
+			Entity invader = creatureEntityFactory.create(creatureAttributes, invasionLocation, EntityAssetOrientation.DOWN.toVector2(), gameContext, faction);
 			if (invader.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				creatureBehaviour.setCreatureGroup(group);
 			}
 
 			InventoryComponent inventoryComponent = invader.getOrCreateComponent(InventoryComponent.class);
-			MilitaryComponent militaryComponent = new MilitaryComponent();
-			militaryComponent.init(invader, messageDispatcher, gameContext);
-			invader.addComponent(militaryComponent);
+
+			MilitaryComponent militaryComponent = null;
+			if (!definition.getTriggeredBy().equals(InvasionTrigger.SPECIAL)) {
+				militaryComponent = new MilitaryComponent();
+				militaryComponent.init(invader, messageDispatcher, gameContext);
+				invader.addComponent(militaryComponent);
+			}
 			EquippedItemComponent equippedItemComponent = invader.getOrCreateComponent(EquippedItemComponent.class);
 			SkillsComponent skillsComponent = invader.getOrCreateComponent(SkillsComponent.class);
 			NeedsComponent needsComponent = new NeedsComponent(List.of(EntityNeed.SLEEP, EntityNeed.FOOD), gameContext.getRandom());
@@ -101,7 +116,7 @@ public class InvasionGenerator implements GameContextAware {
 				if (!inventoryEntry.getItemType().isStackable()) {
 					inventoryItemAttributes.setItemQuality(pickQuality(participant.getItemQualities()));
 				}
-				Entity inventoryEntity = itemEntityFactory.create(inventoryItemAttributes, null, true, gameContext, Faction.HOSTILE_INVASION);
+				Entity inventoryEntity = itemEntityFactory.create(inventoryItemAttributes, null, true, gameContext, faction);
 				inventoryComponent.add(inventoryEntity, invader, messageDispatcher, gameContext.getGameClock());
 			}
 
@@ -113,7 +128,9 @@ public class InvasionGenerator implements GameContextAware {
 				pointsSpent += itemPointCost;
 				weaponEntity = buildEquipment(weaponOption, quality, invasionMaterials);
 				if (weaponEntity != null) {
-					militaryComponent.setAssignedWeaponId(weaponEntity.getId());
+					if (militaryComponent != null) {
+						militaryComponent.setAssignedWeaponId(weaponEntity.getId());
+					}
 					inventoryComponent.add(weaponEntity, invader, messageDispatcher, gameContext.getGameClock());
 					skillsComponent.setSkillLevel(weaponOption.getItemType().getWeaponInfo().getCombatSkill(),
 							MIN_WEAPON_SKILL + gameContext.getRandom().nextInt(MAX_WEAPON_SKILL - MIN_WEAPON_SKILL));
@@ -135,7 +152,9 @@ public class InvasionGenerator implements GameContextAware {
 				pointsSpent += itemPointCost;
 				Entity shieldEntity = buildEquipment(shieldOption, quality, invasionMaterials);
 				if (shieldEntity != null) {
-					militaryComponent.setAssignedShieldId(shieldEntity.getId());
+					if (militaryComponent != null) {
+						militaryComponent.setAssignedShieldId(shieldEntity.getId());
+					}
 					inventoryComponent.add(shieldEntity, invader, messageDispatcher, gameContext.getGameClock());
 				}
 			}
@@ -147,9 +166,15 @@ public class InvasionGenerator implements GameContextAware {
 				pointsSpent += itemPointCost;
 				Entity armorEntity = buildEquipment(armorOption, quality, invasionMaterials);
 				if (armorEntity != null) {
-					militaryComponent.setAssignedShieldId(armorEntity.getId());
+					if (militaryComponent != null) {
+						militaryComponent.setAssignedArmorId(armorEntity.getId());
+					}
 					equippedItemComponent.setEquippedClothing(armorEntity, invader, messageDispatcher);
 				}
+			}
+
+			if (faction.equals(Faction.PIRATES)) {
+				skillsComponent.setSkillLevel(pirateSkill, 30 + gameContext.getRandom().nextInt(50));
 			}
 
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, invader);

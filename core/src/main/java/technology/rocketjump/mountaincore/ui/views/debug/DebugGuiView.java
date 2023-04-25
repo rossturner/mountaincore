@@ -478,7 +478,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				break;
 			}
 			case TRIGGER_INVASION: {
-				InvasionDefinition invasionDefinition = new ArrayList<>(invasionDefinitionDictionary.getAll()).get(gameContext.getRandom().nextInt(invasionDefinitionDictionary.getAll().size()));
+				InvasionDefinition invasionDefinition = new ArrayList<>(invasionDefinitionDictionary.getAll()).get(0);
 				messageDispatcher.dispatchMessage(MessageType.TRIGGER_INVASION, invasionDefinition);
 				break;
 			}

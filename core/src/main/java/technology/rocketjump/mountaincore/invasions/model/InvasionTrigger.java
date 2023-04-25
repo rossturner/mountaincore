@@ -5,6 +5,7 @@ package technology.rocketjump.mountaincore.invasions.model;
  */
 public enum InvasionTrigger {
 
-	POPULATION;
+	POPULATION,
+	SPECIAL;
 
 }

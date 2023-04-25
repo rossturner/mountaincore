@@ -1,0 +1,60 @@
+[ {
+  "uniqueName" : "Pirate-Hat",
+  "type" : "CREATURE_HELMET",
+  "raceName" : "Dwarf",
+  "gender" : "ANY",
+  "profession" : "PIRATE",
+  "tags" : {
+    "REMOVES_HAIR" : [ ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Pirate Hat Front.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -3.0
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Pirate Hat Side Front.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : -4.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Pirate Hat Side Front.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Pirate Hat Side Back.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -4.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Pirate Hat Side Back.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -4.0
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Pirate Hat Back.png",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -3.0
+      }
+    }
+  }
+} ]

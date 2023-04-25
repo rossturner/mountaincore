@@ -523,7 +523,8 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 	public static boolean isAttackableCreature(Entity entity) {
 		if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
 			return !creatureEntityAttributes.getConsciousness().equals(Consciousness.DEAD) &&
-					!entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
+					!entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT) &&
+					!entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.PIRATES);
 		} else {
 			return false;
 		}

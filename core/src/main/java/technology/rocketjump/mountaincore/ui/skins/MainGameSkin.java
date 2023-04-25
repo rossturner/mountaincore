@@ -33,6 +33,7 @@ public class MainGameSkin extends Skin {
 			Faction faction = factionComponent.getFaction();
 			drawableName = switch (faction) {
 				case SETTLEMENT -> attributes.getRace().getBehaviour().getIsSapient() ? INJURED : ANIMAL_INJURED;
+				case PIRATES -> INVADER_INJURED;
 				case WILD_ANIMALS -> ANIMAL_INJURED;
 				case MONSTERS -> MONSTER_INJURED;
 				case HOSTILE_INVASION -> INVADER_INJURED;
@@ -48,6 +49,7 @@ public class MainGameSkin extends Skin {
 			Faction faction = factionComponent.getFaction();
 			drawableName = switch (faction) {
 				case SETTLEMENT -> attributes.getRace().getBehaviour().getIsSapient() ? NOT_INJURED : ANIMAL_NOT_INJURED;
+				case PIRATES -> INVADER_NOT_INJURED;
 				case WILD_ANIMALS -> ANIMAL_NOT_INJURED;
 				case MONSTERS -> MONSTER_NOT_INJURED;
 				case HOSTILE_INVASION -> INVADER_NOT_INJURED;

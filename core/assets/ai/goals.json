@@ -457,7 +457,7 @@
     }
   },
   "selectors" : [ {
-    "scheduleCategory" : "MILITARY_DUTY",
+    "scheduleCategory" : "ANY",
     "conditions" : [ {
       "invasionStage" : "RAIDING",
       "type" : "INVASION_IN_STAGE"

@@ -88,7 +88,11 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 
 		invasionGenerator.generateInvasionParticipants(invasionDefinition, invasionLocation, calculatePointsBudget(invasionDefinition.getTriggeredBy()));
 
-		messageDispatcher.dispatchMessage(4.5f, MessageType.POST_NOTIFICATION, new Notification(NotificationType.INVASION, invasionLocation, null));
+		if (invasionDefinition.getTriggeredBy() == InvasionTrigger.SPECIAL) {
+			messageDispatcher.dispatchMessage(4.5f, MessageType.POST_NOTIFICATION, new Notification(NotificationType.PIRATE_INVASION, invasionLocation, null));
+		} else {
+			messageDispatcher.dispatchMessage(4.5f, MessageType.POST_NOTIFICATION, new Notification(NotificationType.INVASION, invasionLocation, null));
+		}
 	}
 
 	private void onDayElapsed() {
@@ -127,19 +131,19 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private boolean shouldTrigger(InvasionDefinition invasionDefinition) {
-		if (invasionDefinition.getTriggeredBy().equals(InvasionTrigger.POPULATION)) {
-			return settlerTracker.getLiving().size() >= MIN_SETTLERS_TO_TRIGGER_POPULATION_INVASION;
-		} else {
-			throw new NotImplementedException(invasionDefinition.getTriggeredBy().name());
-		}
+		return switch (invasionDefinition.getTriggeredBy()) {
+			case POPULATION -> settlerTracker.getLiving().size() >= MIN_SETTLERS_TO_TRIGGER_POPULATION_INVASION;
+			case SPECIAL -> true;
+			default -> throw new NotImplementedException(invasionDefinition.getTriggeredBy().name());
+		};
 	}
 
 	private int calculatePointsBudget(InvasionTrigger invasionTrigger) {
-		if (invasionTrigger.equals(InvasionTrigger.POPULATION)) {
-			return settlerTracker.getLiving().size() * 10;
-		} else {
-			throw new NotImplementedException(invasionTrigger.name());
-		}
+		return switch (invasionTrigger) {
+			case POPULATION -> settlerTracker.getLiving().size() * 10;
+			case SPECIAL -> settlerTracker.getLiving().size() * (15 + gameContext.getRandom().nextInt(10));
+			default -> throw new NotImplementedException(invasionTrigger.name());
+		};
 	}
 
 	public static Vector2 selectInvasionWorldPosition(GameContext gameContext, SettlerTracker settlerTracker) {

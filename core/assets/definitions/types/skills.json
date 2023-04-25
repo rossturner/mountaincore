@@ -88,6 +88,11 @@
   "type" : "PROFESSION",
   "selectableByPlayer" : false
 }, {
+  "name" : "PIRATE",
+  "i18nKey" : "PROFESSION.PIRATE",
+  "type" : "PROFESSION",
+  "selectableByPlayer" : false
+}, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
   "type" : "COMBAT_SKILL",

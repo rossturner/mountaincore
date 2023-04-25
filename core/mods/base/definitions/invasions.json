@@ -74,5 +74,57 @@
         }
       }
     ]
+  },
+  {
+    "name": "Pirate invasion",
+    "triggeredBy": "SPECIAL",
+    "objective": "PILLAGE",
+    "minDaysUntilFirstInvasion": 25,
+    "minDaysBetweenInvasions": 20,
+    "invasionHappensWithinDays": 4,
+    "participants": [
+      {
+        "raceName": "Dwarf",
+        "basePointsCost": 10,
+        "itemQualities": {
+          "AWFUL": 0.2,
+          "POOR": 0.3,
+          "STANDARD": 0.5
+        },
+        "fixedInventory": [
+          {
+            "itemTypeName": "Product-Ration",
+            "materialName": "Rockbread",
+            "quantity": 10
+          }
+        ],
+        "equipmentOptions": {
+          "weapons": [
+            {
+              "itemTypeName": "Weapon-Sword",
+              "standardPointsCost": 0
+            },
+            {
+              "itemTypeName": "Tool-Kitchen-Knife",
+              "standardPointsCost": 0
+            }
+          ],
+          "shield": [
+            {
+              "none": true
+            },
+            {
+              "itemTypeName": "Weapon-Wooden-Shield",
+              "standardPointsCost": 0
+            }
+          ],
+          "armor": [
+            {
+              "none": true
+            }
+          ]
+        }
+      }
+    ]
   }
 ]

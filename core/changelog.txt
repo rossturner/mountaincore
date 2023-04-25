@@ -1,3 +1,7 @@
+Early Access 1.1.16 - 25th April 2023
+
+- Fix for an issue where items are being stolen
+
 Early Access 1.1.15 - 24th April 2023
 
 - Showing resource overview when tutorial is completed
