@@ -31,6 +31,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismTypeDictionary;
+import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.jobs.JobStore;
@@ -292,9 +293,10 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				physicalEntityComponent.getAttributes() instanceof FurnitureEntityAttributes attributes) {
 			List<GridPoint2> gridPoints = absoluteExtraTiles(tile.getTilePosition(), attributes.getCurrentLayout().getExtraTiles());
 			tiles = gridPoints.stream().map(areaMap::getTile).filter(Objects::nonNull).collect(toSet());
-			//todo: test without movement blocking furniture like pallet
-
-			//todo: plant/tree
+		} else if (EntityType.PLANT == entity.getType() &&
+				physicalEntityComponent.getAttributes() instanceof PlantEntityAttributes attributes &&
+				attributes.isTree()) {
+			tiles = Set.of(tile);
 		} else {
 			tiles = Collections.emptySet();
 		}

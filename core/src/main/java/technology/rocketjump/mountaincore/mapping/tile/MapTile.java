@@ -349,7 +349,7 @@ public class MapTile implements Persistable {
 		for (Entity entity : entities.values()) {
 			if (entity.getType().equals(EntityType.PLANT)) {
 				PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getSpecies().getPlantType().equals(PlantSpeciesType.TREE) || attributes.getSpecies().getPlantType().equals(PlantSpeciesType.MUSHROOM_TREE)) {
+				if (attributes.isTree()) {
 					return true;
 				}
 			}
@@ -527,8 +527,9 @@ public class MapTile implements Persistable {
 			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes
 					&& attributes.getFurnitureType().isBlocksMovement()) {
 				return true;
+			} else if (hasTree()) {
+				return true;
 			}
-			//todo : trees
 		}
 		return false;
 	}
