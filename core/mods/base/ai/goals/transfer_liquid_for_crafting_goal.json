@@ -24,9 +24,9 @@
       "fail": []
     },
     "DropHauledItem": {
-      "fail": ["GoToRandomLocation"]
+      "fail": ["GoToRandomEmptyLocation"]
     },
-    "GoToRandomLocation": {
+    "GoToRandomEmptyLocation": {
       "pass": ["DropHauledItem"],
       "fail": ["DropHauledItem"]
     },

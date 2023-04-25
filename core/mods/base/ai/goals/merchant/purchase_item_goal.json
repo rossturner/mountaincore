@@ -37,15 +37,15 @@
     },
     "GoToPaymentLocation": {
       "pass": ["PlacePayment"],
-      "fail": ["GoToRandomLocation"]
+      "fail": ["GoToRandomEmptyLocation"]
     },
-    "GoToRandomLocation": {
+    "GoToRandomEmptyLocation": {
       "pass": ["PlacePayment"],
       "fail": ["PlacePayment"]
     },
     "PlacePayment": {
       "pass": ["TradeCompleted", "RequeueThisGoal"],
-      "fail": ["GoToRandomLocation"]
+      "fail": ["GoToRandomEmptyLocation"]
     },
     "TradeCompleted": {},
     "RequeueThisGoal": {},

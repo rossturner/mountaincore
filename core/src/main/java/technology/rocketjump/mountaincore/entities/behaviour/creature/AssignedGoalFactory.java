@@ -27,6 +27,7 @@ import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.RequestLiquidAllocationMessage;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
+import technology.rocketjump.mountaincore.rooms.HaulingAllocationBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -144,8 +145,15 @@ public class AssignedGoalFactory {
 						HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
 
 						if (stockpileAllocation == null) {
-							//todo: consider dumping random if no stockpile available
-							itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HELD_IN_INVENTORY);
+
+							AssignedGoal dumpItemGoal = new AssignedGoal(SpecialGoal.DUMP_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
+							dumpItemGoal.setAssignedHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(quantity, entry.entity, parentEntity).toUnspecifiedLocation());
+
+//							itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HAULING);
+//							inventory.remove(entry.entity.getId());
+//							HaulingComponent haulingComponent = parentEntity.getOrCreateComponent(HaulingComponent.class);
+//							haulingComponent.setHauledEntity(entry.entity, messageDispatcher, parentEntity);
+							return dumpItemGoal;
 						} else {
 							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
 							stockpileAllocation.setItemAllocation(newAllocation);
