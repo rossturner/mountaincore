@@ -527,7 +527,8 @@ public class MapTile implements Persistable {
 			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes
 					&& attributes.getFurnitureType().isBlocksMovement()) {
 				return true;
-			} else if (hasTree()) {
+			} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof  PlantEntityAttributes attributes
+					&& attributes.isTree()) {
 				return true;
 			}
 		}
