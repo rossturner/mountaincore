@@ -53,9 +53,10 @@ public class PlaceEntityAction extends Action {
 		}
 
 		if (haulingAllocation != null) {
+			GridPoint2 targetPosition = haulingAllocation.getTargetPosition();
 			if (HaulingAllocation.AllocationPositionType.FURNITURE.equals(haulingAllocation.getTargetPositionType()) || HaulingAllocation.AllocationPositionType.VEHICLE.equals(haulingAllocation.getTargetPositionType())) {
 				// Target position should be a workspace of furniture
-				Entity targetFurniture = gameContext.getAreaMap().getTile(haulingAllocation.getTargetPosition()).getEntity(haulingAllocation.getTargetId());
+				Entity targetFurniture = gameContext.getAreaMap().getTile(targetPosition).getEntity(haulingAllocation.getTargetId());
 				if (targetFurniture == null) {
 					Logger.warn("Furniture not found for hauling allocation");
 					completionType = CompletionType.FAILURE;
@@ -85,7 +86,8 @@ public class PlaceEntityAction extends Action {
 					// Not adjacent or not in workspace
 					completionType = CompletionType.FAILURE;
 				}
-			} else if (currentTile == null || !currentTile.getTilePosition().equals(haulingAllocation.getTargetPosition())) {
+			} else if (currentTile == null ||
+					(targetPosition != null && !currentTile.getTilePosition().equals(targetPosition))) {
 				Logger.error("Not in correct tile to place item into");
 				completionType = CompletionType.FAILURE;
 			} else {

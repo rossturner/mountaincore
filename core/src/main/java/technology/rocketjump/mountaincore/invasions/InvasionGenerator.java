@@ -147,7 +147,7 @@ public class InvasionGenerator implements GameContextAware {
 				pointsSpent += itemPointCost;
 				Entity armorEntity = buildEquipment(armorOption, quality, invasionMaterials);
 				if (armorEntity != null) {
-					militaryComponent.setAssignedShieldId(armorEntity.getId());
+					militaryComponent.setAssignedArmorId(armorEntity.getId());
 					equippedItemComponent.setEquippedClothing(armorEntity, invader, messageDispatcher);
 				}
 			}

@@ -2,9 +2,9 @@
   "name": "Dump item goal",
   "i18nDescription": "GOAL.HAULING.DESCRIPTION",
   "selectors": [],
-  "initialActions": ["GoToRandomLocation", "PlaceEntity"],
+  "initialActions": ["GoToRandomEmptyLocation", "PlaceEntity"],
   "actionRelationships": {
-    "GoToRandomLocation": {},
+    "GoToRandomEmptyLocation": {},
     "PlaceEntity": {}
   }
 }

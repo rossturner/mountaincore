@@ -217,10 +217,10 @@
   "name" : "Dump item goal",
   "actionRelationships" : {
     "PlaceEntity" : { },
-    "GoToRandomLocation" : { }
+    "GoToRandomEmptyLocation" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "GoToRandomLocation", "PlaceEntity" ]
+  "initialActions" : [ "GoToRandomEmptyLocation", "PlaceEntity" ]
 }, {
   "i18nDescription" : "GOAL.DUMP_LIQUID.DESCRIPTION",
   "name" : "Dump liquid goal",
@@ -592,18 +592,18 @@
       "fail" : [ "CancelTrade" ],
       "pass" : [ "GoToPaymentLocation" ]
     },
-    "GoToRandomLocation" : {
+    "GoToRandomEmptyLocation" : {
       "fail" : [ "PlacePayment" ],
       "pass" : [ "PlacePayment" ]
     },
     "TradeCompleted" : { },
     "GoToPaymentLocation" : {
-      "fail" : [ "GoToRandomLocation" ],
+      "fail" : [ "GoToRandomEmptyLocation" ],
       "pass" : [ "PlacePayment" ]
     },
     "RequeueThisGoal" : { },
     "PlacePayment" : {
-      "fail" : [ "GoToRandomLocation" ],
+      "fail" : [ "GoToRandomEmptyLocation" ],
       "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
     },
     "CancelTrade" : { },
@@ -1042,7 +1042,7 @@
       "pass" : [ "CancelHaulingAllocation" ]
     },
     "DropHauledItem" : {
-      "fail" : [ "GoToRandomLocation" ]
+      "fail" : [ "GoToRandomEmptyLocation" ]
     },
     "GoToLocation" : {
       "fail" : [ "CancelLiquidAllocation" ]
@@ -1051,7 +1051,7 @@
       "fail" : [ "CancelLiquidAllocation" ],
       "pass" : [ "GoToParentJobLocation", "FaceTowardsLocation", "PourIntoTarget" ]
     },
-    "GoToRandomLocation" : {
+    "GoToRandomEmptyLocation" : {
       "fail" : [ "DropHauledItem" ],
       "pass" : [ "DropHauledItem" ]
     },
