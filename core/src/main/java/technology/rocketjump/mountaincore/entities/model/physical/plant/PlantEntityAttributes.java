@@ -235,6 +235,10 @@ public class PlantEntityAttributes implements EntityAttributes {
 		}
 	}
 
+	public boolean isTree() {
+		return getSpecies().getPlantType().equals(PlantSpeciesType.TREE) || getSpecies().getPlantType().equals(PlantSpeciesType.MUSHROOM_TREE);
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("seed", seed);

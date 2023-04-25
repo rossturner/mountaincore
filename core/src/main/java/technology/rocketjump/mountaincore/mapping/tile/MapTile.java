@@ -349,7 +349,7 @@ public class MapTile implements Persistable {
 		for (Entity entity : entities.values()) {
 			if (entity.getType().equals(EntityType.PLANT)) {
 				PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getSpecies().getPlantType().equals(PlantSpeciesType.TREE) || attributes.getSpecies().getPlantType().equals(PlantSpeciesType.MUSHROOM_TREE)) {
+				if (attributes.isTree()) {
 					return true;
 				}
 			}
@@ -522,6 +522,19 @@ public class MapTile implements Persistable {
 		this.zones.remove(zone);
 	}
 
+	public boolean hasMovementBlockingEntity() {
+		for (Entity entity : entities.values()) {
+			if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes
+					&& attributes.getFurnitureType().isBlocksMovement()) {
+				return true;
+			} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof  PlantEntityAttributes attributes
+					&& attributes.isTree()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public RegionType getRegionType() {
 		if (getFloor().isRiverTile()) {
 			return RegionType.RIVER;
@@ -529,6 +542,8 @@ public class MapTile implements Persistable {
 			return RegionType.WALL;
 		} else if (hasChannel()) {
 			return RegionType.CHANNEL;
+		} else if (hasMovementBlockingEntity()) {
+			return RegionType.MOVEMENT_BLOCKING_ENTITY;
 		} else {
 			return RegionType.GENERIC;
 		}
@@ -796,6 +811,6 @@ public class MapTile implements Persistable {
 	}
 	
 	public enum RegionType {
-		RIVER, WALL, CHANNEL, GENERIC
+		RIVER, WALL, CHANNEL, MOVEMENT_BLOCKING_ENTITY, GENERIC
 	}
 }

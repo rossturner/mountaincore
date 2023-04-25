@@ -214,6 +214,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				} else if (createdEntity.getType().equals(VEHICLE)) {
 					vehicleTracker.vehicleAdded(createdEntity);
 				}
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED_AND_REGISTERED, createdEntity);
 
 				return true;
 			}
@@ -349,6 +350,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						parentTile.getUnderTile().setPipeEntity(null);
 					}
 				}
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_DESTROYED_AND_UNREGISTERED, removedEntity);
 				return true;
 			}
 			case MessageType.ENTITY_DO_NOT_TRACK: {

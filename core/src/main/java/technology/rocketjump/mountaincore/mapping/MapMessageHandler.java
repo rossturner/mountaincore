@@ -22,18 +22,23 @@ import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.factories.MechanismEntityAttributesFactory;
 import technology.rocketjump.mountaincore.entities.factories.MechanismEntityFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.EntityType;
+import technology.rocketjump.mountaincore.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.mountaincore.entities.model.physical.mechanism.MechanismTypeDictionary;
+import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.jobs.JobStore;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.jobs.model.JobTarget;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.*;
 import technology.rocketjump.mountaincore.mapping.tile.designation.Designation;
 import technology.rocketjump.mountaincore.mapping.tile.designation.DesignationDictionary;
@@ -66,6 +71,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.zones.Zone;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toSet;
 import static technology.rocketjump.mountaincore.entities.model.EntityType.FURNITURE;
@@ -149,6 +155,8 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.REMOVE_CHANNEL);
 		messageDispatcher.addListener(this, MessageType.ADD_PIPE);
 		messageDispatcher.addListener(this, MessageType.REMOVE_PIPE);
+		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED_AND_REGISTERED);
+		messageDispatcher.addListener(this, MessageType.ENTITY_DESTROYED_AND_UNREGISTERED);
 	}
 
 	@Override
@@ -186,6 +194,13 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			case MessageType.REMOVE_PIPE: {
 				GridPoint2 location = (GridPoint2) msg.extraInfo;
 				return handleRemovePipe(location);
+			}
+			case MessageType.ENTITY_CREATED_AND_REGISTERED, MessageType.ENTITY_DESTROYED_AND_UNREGISTERED: {
+				Entity entity = (Entity) msg.extraInfo;
+				if (entity != null) {
+					updateRegions(entity);
+				}
+				return true;
 			}
 			case MessageType.REMOVE_ROOM: {
 				Room roomToRemove = (Room) msg.extraInfo;
@@ -262,6 +277,45 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			updateTile(tile, gameContext, messageDispatcher);
 		}
 		return true;
+	}
+
+	private void updateRegions(Entity entity) {
+		TiledMap areaMap = gameContext.getAreaMap();
+		Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+		MapTile tile = areaMap.getTile(worldPosition);
+		if (tile == null) {
+			return;
+		}
+
+		final Set<MapTile> tiles;
+		PhysicalEntityComponent physicalEntityComponent = entity.getPhysicalEntityComponent();
+		if (EntityType.FURNITURE == entity.getType() &&
+				physicalEntityComponent.getAttributes() instanceof FurnitureEntityAttributes attributes) {
+			List<GridPoint2> gridPoints = absoluteExtraTiles(tile.getTilePosition(), attributes.getCurrentLayout().getExtraTiles());
+			tiles = gridPoints.stream().map(areaMap::getTile).filter(Objects::nonNull).collect(toSet());
+		} else if (EntityType.PLANT == entity.getType() &&
+				physicalEntityComponent.getAttributes() instanceof PlantEntityAttributes attributes &&
+				attributes.isTree()) {
+			tiles = Set.of(tile);
+		} else {
+			tiles = Collections.emptySet();
+		}
+
+		if (!tiles.isEmpty()) {
+			updateRegions(tiles);
+		}
+
+	}
+
+	//todo: this is duplicated in few places
+	private List<GridPoint2> absoluteExtraTiles(GridPoint2 position, List<GridPoint2> relativePositions) {
+		List<GridPoint2> positions = new ArrayList<>();
+		positions.add(position);
+
+		for (GridPoint2 relative : relativePositions) {
+			positions.add(position.cpy().add(relative));
+		}
+		return positions;
 	}
 
 	private boolean handle(RoomPlacementMessage roomPlacementMessage) {
@@ -700,6 +754,64 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		return true;
 	}
 
+	private void updateRegions(Set<MapTile> modifiedTiles) {
+		TiledMap areaMap = gameContext.getAreaMap();
+		MapTile.RegionType regionType = modifiedTiles.stream()
+				.map(MapTile::getRegionType)
+				.distinct()
+				.reduce((a, b) -> {
+					throw new IllegalArgumentException(String.format("Should only have one region type in the modified tile set: %s, %s", a, b));
+				})
+				.orElseThrow(() -> {
+					throw new IllegalArgumentException("Should be one region type");
+				});
+
+		Set<MapTile> neighbourTiles = modifiedTiles.stream()
+				.flatMap(t -> areaMap.getOrthogonalNeighbours(t.getTileX(), t.getTileY()).values().stream())
+				.filter(Objects::nonNull)
+				.filter(Predicate.not(modifiedTiles::contains))
+				.collect(toSet());
+
+		Integer regionIdToUse = null;
+		for (MapTile neighbourTile : neighbourTiles) {
+			if (neighbourTile.getRegionType() == regionType) {
+				if (regionIdToUse == null) {
+					regionIdToUse = neighbourTile.getRegionId();
+				} else if (neighbourTile.getRegionId() != regionIdToUse) {
+					replaceRegion(neighbourTile, regionIdToUse); //replace an existing neighbouring region with this
+				}
+			}
+		}
+
+		if (regionIdToUse == null) {
+			regionIdToUse = areaMap.createNewRegionId();
+		}
+
+		for (MapTile modifiedTile : modifiedTiles) {
+			modifiedTile.setRegionId(regionIdToUse);
+		}
+
+		//now check if this divides an already existing region
+		MapTile[] neighbourTileArray = neighbourTiles.toArray(MapTile[]::new);
+		for (int i = 0; i < neighbourTileArray.length; i++) {
+			for (int j = i + 1; j < neighbourTileArray.length; j++) {
+				MapTile left = neighbourTileArray[i];
+				MapTile right = neighbourTileArray[j];
+
+				if (left != right &&
+					left.getRegionType() == right.getRegionType() &&
+					left.getRegionId() == right.getRegionId() &&
+					left.getRegionType() != regionType) {
+
+					if (!canTraverseForSameRegionType(left, right)) {
+						int newRegionId = gameContext.getAreaMap().createNewRegionId();
+						replaceRegion(left, newRegionId);
+					}
+				}
+			}
+		}
+	}
+
 	private void updateRegions(MapTile modifiedTile, TileNeighbours tileNeighbours) {
 		MapTile north = tileNeighbours.get(CompassDirection.NORTH);
 		MapTile south = tileNeighbours.get(CompassDirection.SOUTH);
@@ -742,6 +854,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				Arrays.asList(south, west)
 		);
 
+
 		for (List<MapTile> pair : pairings) {
 			if (pair.get(0) != null && !pair.get(0).getRegionType().equals(myRegionType) && pair.get(1) != null && !pair.get(1).getRegionType().equals(myRegionType) &&
 					pair.get(0).getRegionType().equals(pair.get(1).getRegionType())) {
@@ -753,38 +866,42 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		}
 
 		if (emptyEitherSide) {
-			// Flood fill from one side until the other side is found, otherwise set all area of flood fill to new region
-			Set<MapTile> explored = new HashSet<>();
-			Deque<MapTile> frontier = new ArrayDeque<>();
-			frontier.add(sideA);
-
-			boolean otherSideFound = false;
-
-			while (!frontier.isEmpty()) {
-				MapTile current = frontier.pop();
-
-				if (current.equals(sideB)) {
-					otherSideFound = true;
-					break;
-				}
-
-				explored.add(current);
-
-				for (MapTile orthogonalNeighbour : gameContext.getAreaMap().getOrthogonalNeighbours(current.getTileX(), current.getTileY()).values()) {
-					if (!explored.contains(orthogonalNeighbour) && !frontier.contains(orthogonalNeighbour)) {
-						if (orthogonalNeighbour.getRegionType().equals(sideA.getRegionType())) {
-							frontier.add(orthogonalNeighbour);
-						}
-					}
-				}
-
-			}
+			boolean otherSideFound = canTraverseForSameRegionType(sideA, sideB);
 
 			if (!otherSideFound) {
 				int newRegionId = gameContext.getAreaMap().createNewRegionId();
 				replaceRegion(sideA, newRegionId);
 			}
 		}
+	}
+
+	private boolean canTraverseForSameRegionType(MapTile start, MapTile end) {
+		// Flood fill from one side until the other side is found, otherwise set all area of flood fill to new region
+		Set<MapTile> explored = new HashSet<>();
+		Deque<MapTile> frontier = new ArrayDeque<>();
+		frontier.add(start);
+
+		boolean otherSideFound = false;
+
+		while (!frontier.isEmpty()) {
+			MapTile current = frontier.pop();
+
+			if (current.equals(end)) {
+				otherSideFound = true;
+				break;
+			}
+
+			explored.add(current);
+
+			for (MapTile orthogonalNeighbour : gameContext.getAreaMap().getOrthogonalNeighbours(current.getTileX(), current.getTileY()).values()) {
+				if (!explored.contains(orthogonalNeighbour) && !frontier.contains(orthogonalNeighbour)) {
+					if (orthogonalNeighbour.getRegionType().equals(start.getRegionType())) {
+						frontier.add(orthogonalNeighbour);
+					}
+				}
+			}
+		}
+		return otherSideFound;
 	}
 
 	public static void propagateDarknessFromTile(MapTile tile, GameContext gameContext, OutdoorLightProcessor outdoorLightProcessor) {
