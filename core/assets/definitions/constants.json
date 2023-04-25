@@ -21,6 +21,7 @@
   "fishingJobType" : "FISHING",
   "constructRoofingJobType" : "CONSTRUCT_ROOFING",
   "headerFont" : "GermaniaOne-Regular.ttf",
+  "cameraPanningSpeed" : 4.0,
   "defaultFont" : "Roboto-Bold.ttf",
   "attachedLightSourceTogglePoint" : 0.75,
   "backgroundColor" : "#666666FF",

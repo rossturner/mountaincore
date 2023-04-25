@@ -14,6 +14,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.mountaincore.constants.ConstantsRepo;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
@@ -31,7 +32,6 @@ import java.io.IOException;
 
 @Singleton
 public class PrimaryCameraWrapper implements GameContextAware, Persistable, Telegraph {
-	private static final float XY_MOVEMENT_SPEED = 4.0f;
 
 	public static final float ZOOM_SPEED = 10.0f;
 	private final OrthographicCamera camera;
@@ -64,11 +64,13 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 
 	private Vector2 storedCameraPosition = null;
 	private float storedCameraZoom = 0f;
+	private float cameraPanningSpeed;
 
 	@Inject
-	public PrimaryCameraWrapper(ScreenWriter screenWriter, MessageDispatcher messageDispatcher) throws IOException {
+	public PrimaryCameraWrapper(ScreenWriter screenWriter, MessageDispatcher messageDispatcher, ConstantsRepo constantsRepo) throws IOException {
 		this.screenWriter = screenWriter;
 		this.messageDispatcher = messageDispatcher;
+		this.cameraPanningSpeed = constantsRepo.getUiConstants().getCameraPanningSpeed();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth() / 100.0f, Gdx.graphics.getHeight() / 100.0f);
 		camera.zoom = 2.0f;
@@ -161,14 +163,14 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 	}
 
 	public void update(float deltaSeconds) {
-		camera.position.x += (xyzVelocity.x * deltaSeconds * XY_MOVEMENT_SPEED * camera.zoom);
+		camera.position.x += (xyzVelocity.x * deltaSeconds * cameraPanningSpeed * camera.zoom);
 		if (camera.position.x < 0) {
 			camera.position.x = 0;
 		} else if (camera.position.x > worldWidth) {
 			camera.position.x = worldWidth;
 		}
 
-		camera.position.y += (xyzVelocity.y * deltaSeconds * XY_MOVEMENT_SPEED * camera.zoom);
+		camera.position.y += (xyzVelocity.y * deltaSeconds * cameraPanningSpeed * camera.zoom);
 		if (camera.position.y < 0) {
 			camera.position.y = 0;
 		} else if (camera.position.y > worldHeight) {
@@ -190,7 +192,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 
 		if (xyzVelocity.z != 0) {
 			// Zooming by key
-			camera.zoom += (xyzVelocity.z * deltaSeconds * XY_MOVEMENT_SPEED * camera.zoom);
+			camera.zoom += (xyzVelocity.z * deltaSeconds * cameraPanningSpeed * camera.zoom);
 			camera.zoom = Math.min(camera.zoom, maxZoom);
 			camera.zoom = Math.max(camera.zoom, minZoom);
 			targetZoom = camera.zoom;

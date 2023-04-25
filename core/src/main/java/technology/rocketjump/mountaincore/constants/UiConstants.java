@@ -7,6 +7,7 @@ public class UiConstants {
 
 	private String defaultFont;
 	private String headerFont;
+	private float cameraPanningSpeed;
 
 	public String getDefaultFont() {
 		return defaultFont;
@@ -24,4 +25,11 @@ public class UiConstants {
 		this.headerFont = headerFont;
 	}
 
+	public float getCameraPanningSpeed() {
+		return cameraPanningSpeed;
+	}
+
+	public void setCameraPanningSpeed(float cameraPanningSpeed) {
+		this.cameraPanningSpeed = cameraPanningSpeed;
+	}
 }
