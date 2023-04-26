@@ -471,15 +471,21 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
 				.map(furniture -> furniture.getComponent(ProductionExportFurnitureBehaviour.class))
 				.filter(e -> e.getSelectedItemType() != null && !DISABLED.equals(e.getPriority()))
-				.sorted(this::exportFurnitureSort)
+				.sorted((a, b) -> exportFurnitureSort(a, b, gameContext.getRandom()))
 				.toList();
 		return exportFurniture;
 	}
 
-	private int exportFurnitureSort(ProductionExportFurnitureBehaviour a, ProductionExportFurnitureBehaviour b) {
+	public static int exportFurnitureSort(ProductionExportFurnitureBehaviour a, ProductionExportFurnitureBehaviour b, Random random) {
 		// Furniture of higher priority should come first, but then random for furniture of same priority
-		return ((a.getPriority().ordinal() * 1000) + gameContext.getRandom().nextInt(1000)) -
-				((b.getPriority().ordinal() * 1000) + gameContext.getRandom().nextInt(1000));
+		return ((a.getPriority().ordinal() * 1000) + random.nextInt(1000)) -
+				((b.getPriority().ordinal() * 1000) + random.nextInt(1000));
+	}
+
+	public static int importFurnitureSort(ProductionImportFurnitureBehaviour a, ProductionImportFurnitureBehaviour b, Random random) {
+		// Furniture of higher priority should come first, but then random for furniture of same priority
+		return ((a.getPriority().ordinal() * 1000) + random.nextInt(1000)) -
+				((b.getPriority().ordinal() * 1000) + random.nextInt(1000));
 	}
 
 	private void addInputToAssignment(QuantifiedItemTypeWithMaterial inputRequirement, ProductionImportFurnitureBehaviour matchedInputFurniture) {

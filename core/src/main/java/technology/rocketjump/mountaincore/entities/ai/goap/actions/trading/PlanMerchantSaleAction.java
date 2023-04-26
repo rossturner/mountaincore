@@ -11,6 +11,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.TraderCreatureGroup;
+import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingExportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingImportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
@@ -21,6 +22,7 @@ import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -39,6 +41,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour.exportFurnitureSort;
 
 public class PlanMerchantSaleAction extends Action {
 
@@ -62,7 +66,15 @@ public class PlanMerchantSaleAction extends Action {
 				for (Entity tradeImportFurniture : tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 						.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 						.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour)
-						.collect(Collectors.toSet())) {
+						.filter(e -> !((TradingExportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
+						.collect(Collectors.toSet())
+						.stream()
+						.sorted((a, b) -> {
+							TradingImportFurnitureBehaviour aBehaviour = (TradingImportFurnitureBehaviour) a.getBehaviourComponent();
+							TradingImportFurnitureBehaviour bBehaviour = (TradingImportFurnitureBehaviour) b.getBehaviourComponent();
+							return exportFurnitureSort(aBehaviour, bBehaviour, gameContext.getRandom());
+						})
+						.toList()) {
 
 					// Removing trades in progress removes any issues with multiple items going to or from a pallet at the same time
 					if (currentTradeInProgress(tradeImportFurniture, traderCreatureGroup)) {

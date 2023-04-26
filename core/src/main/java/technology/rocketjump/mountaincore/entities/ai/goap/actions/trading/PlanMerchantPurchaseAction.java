@@ -18,6 +18,7 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
@@ -32,6 +33,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour.importFurnitureSort;
 
 public class PlanMerchantPurchaseAction extends Action {
 
@@ -54,13 +57,21 @@ public class PlanMerchantPurchaseAction extends Action {
 						.filter(e -> traderCreatureGroup.getPlannedTrades().stream().noneMatch(trade -> trade.getHaulingAllocation().getTargetId() == e.getId()))
 						// filter to vehicles that still have inventory space available
 						.filter(e -> e.getComponent(InventoryComponent.class).getInventoryEntries().size() < traderCreatureGroup.getCaravanDefinition().getVehicles().getMaxInventoryPerVehicle())
-						.collect(Collectors.toList());
+						.toList();
 
 				if (!availableWagons.isEmpty()) {
 					for (Entity tradeExportFurniture : tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 							.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 							.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour)
-							.collect(Collectors.toSet())) {
+							.filter(e -> !((TradingExportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
+							.collect(Collectors.toSet())
+							.stream()
+							.sorted((a, b) -> {
+								TradingExportFurnitureBehaviour aBehaviour = (TradingExportFurnitureBehaviour) a.getBehaviourComponent();
+								TradingExportFurnitureBehaviour bBehaviour = (TradingExportFurnitureBehaviour) b.getBehaviourComponent();
+								return importFurnitureSort(aBehaviour, bBehaviour, gameContext.getRandom());
+							})
+							.toList()) {
 
 						TradingExportFurnitureBehaviour tradingExportFurnitureBehaviour = (TradingExportFurnitureBehaviour) tradeExportFurniture.getBehaviourComponent();
 						InventoryComponent exportFurnitureInventory = tradeExportFurniture.getOrCreateComponent(InventoryComponent.class);
