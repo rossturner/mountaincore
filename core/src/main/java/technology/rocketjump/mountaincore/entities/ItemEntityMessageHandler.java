@@ -177,7 +177,10 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(RequestHaulingAllocationMessage message) {
-		int requesterRegionId = gameContext.getAreaMap().getTile(message.requesterPosition).getRegionId();
+		TiledMap areaMap = gameContext.getAreaMap();
+
+		final int requesterRegionId = areaMap.getNavigableRegionId(message.requestingEntity, message.requesterPosition);
+
 		List<Entity> unallocatedItems = new ArrayList<>();
 		Set<ItemType> requiredItemTypes = new HashSet<>();
 		if (message.requiredItemType != null) {
@@ -200,7 +203,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		unallocatedItems.sort(new NearestDistanceSorter(message.requesterPosition));
 
 		for (Entity unallocatedItem : unallocatedItems) {
-			MapTile itemTile = gameContext.getAreaMap().getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
+			MapTile itemTile = areaMap.getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
 			if (itemTile == null || itemTile.getRegionId() != requesterRegionId) {
 				// Item not found or in different region
 				continue;
@@ -314,7 +317,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		if (entityPosition == null) {
 			return null;
 		}
-		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
+		int sourceRegionId = areaMap.getNavigableRegionId(requestingEntity, entityPosition);
 		Map<JobPriority, Map<Float, AbstractStockpile>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
 		for (JobPriority jobPriority : JobPriority.values()) {
 			stockpilesByDistanceByPriority.put(jobPriority, new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));

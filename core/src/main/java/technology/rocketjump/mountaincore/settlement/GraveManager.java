@@ -121,14 +121,16 @@ public class GraveManager implements Updatable {
 		for (Entity deceasedContainer : settlementFurnitureTracker.findByTag(DeceasedContainerTag.class, true)) {
 			DeceasedContainerTag deceasedContainerTag = deceasedContainer.getTag(DeceasedContainerTag.class);
 			ConstructedEntityComponent constructedEntityComponent = deceasedContainer.getComponent(ConstructedEntityComponent.class);
-			MapTile containerTile = gameContext.getAreaMap().getTile(deceasedContainer.getLocationComponent().getWorldPosition());
+
+			int regionId = gameContext.getAreaMap().getNavigableRegionId(deceasedContainer, deceasedContainer.getLocationComponent().getWorldPosition());
+
 			if (constructedEntityComponent != null && constructedEntityComponent.isBeingDeconstructed()) {
 				continue;
 			}
 			if (!deceasedContainerTag.matchesRace(deceasedRace, settlerRace)) {
 				continue;
 			}
-			if (deceasedTile == null || deceasedTile.getRegionId() != containerTile.getRegionId()) {
+			if (deceasedTile == null || deceasedTile.getRegionId() != regionId) {
 				continue;
 			}
 

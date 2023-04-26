@@ -194,15 +194,13 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 		Set<Entity> furnitureEntities = new HashSet<>();
 		for (GridPoint2 roomTileLocation : feastingHall.getRoomTiles().keySet()) {
 			MapTile roomMapTile = gameContext.getAreaMap().getTile(roomTileLocation);
-			if (roomMapTile.getRegionId() != requesterRegionId) {
-				// Room is in a different region
-				return null;
-			}
 
 
 			for (Entity entity : roomMapTile.getEntities()) {
 				if (entity.getType().equals(EntityType.FURNITURE)) {
-					furnitureEntities.add(entity);
+					if (requesterRegionId == gameContext.getAreaMap().getNavigableRegionId(entity, entity.getLocationComponent().getWorldPosition())) {
+						furnitureEntities.add(entity);
+					}
 				}
 			}
 		}

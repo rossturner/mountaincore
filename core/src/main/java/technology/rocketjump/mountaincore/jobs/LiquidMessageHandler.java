@@ -116,9 +116,9 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		// TODO This does not currently respect liquid quantities as transferring is currently always from an infinite source i.e. river
-		MapTile requesterTile = gameContext.getAreaMap().getTile(message.requesterPosition);
-		if (requesterTile == null) {
-			Logger.error(this.getClass().getSimpleName() + " received request for off-map tile");
+		TiledMap areaMap = gameContext.getAreaMap();
+		int requesterRegionId = areaMap.getNavigableRegionId(message.requesterEntity, message.requesterPosition);
+		if (requesterRegionId == -1) { //icky
 			message.jobCreatedCallback.jobCreated(null);
 			return false;
 		}
@@ -139,14 +139,14 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 
 		// Pick source zone for filling
 		final Optional<Zone> nearestApplicableZone = findNearestZonesOfCorrectType(gameContext,
-				applicableMaterials, requesterTile.getRegionId(), message.requesterPosition, message.useSmallCapacityZones, amountRequired).findFirst();
+				applicableMaterials, requesterRegionId, message.requesterPosition, message.useSmallCapacityZones, amountRequired).findFirst();
 
 
 		Job transferLiquidJob = new Job(transferLiquidJobType);
 		if (nearestApplicableZone.isPresent()) {
-			ZoneTile zoneTile = pickTileInZone(nearestApplicableZone.get(), gameContext.getRandom(), gameContext.getAreaMap());
+			ZoneTile zoneTile = pickTileInZone(nearestApplicableZone.get(), gameContext.getRandom(), areaMap);
 			if (zoneTile != null) {
-				MapTile accessTile = gameContext.getAreaMap().getTile(zoneTile.getAccessLocation());
+				MapTile accessTile = areaMap.getTile(zoneTile.getAccessLocation());
 
 				// Try to assign bucket for filling
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
@@ -160,17 +160,17 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 								allocation.setTargetPosition(accessTile.getTilePosition());
 
 								transferLiquidJob.setJobPriority(message.jobPriority);
-								transferLiquidJob.setJobLocation(requesterTile.getTilePosition());
+								transferLiquidJob.setJobLocation(areaMap.getTile(message.requesterPosition).getTilePosition());
 								transferLiquidJob.setTargetId(message.requesterEntity.getId());
 								transferLiquidJob.setHaulingAllocation(allocation);
 
 								if (nearestApplicableZone.get().getClassification().isConstructed()) {
-									LiquidContainerComponent furnitureLiquidContainer = getLiquidContainerFromFurnitureInTile(gameContext.getAreaMap().getTile(zoneTile.getTargetTile()));
+									LiquidContainerComponent furnitureLiquidContainer = getLiquidContainerFromFurnitureInTile(areaMap.getTile(zoneTile.getTargetTile()));
 									if (furnitureLiquidContainer != null) {
 										transferLiquidJob.setLiquidAllocation(furnitureLiquidContainer.createAllocation(finalAmountRequired, message.requesterEntity));
 									}
 								} else {
-									transferLiquidJob.setLiquidAllocation(LiquidAllocation.fromRiver(zoneTile, gameContext.getAreaMap()));
+									transferLiquidJob.setLiquidAllocation(LiquidAllocation.fromRiver(zoneTile, areaMap));
 								}
 
 							} // else could not find a suitable container
