@@ -125,7 +125,7 @@ public class HappinessComponent implements InfrequentlyUpdatableComponent {
 		NEW_SETTLEMENT_OPTIMISM(40, 24.0 * 15),
 		WORKED_IN_ENCLOSED_ROOM(20, 16.0),
 
-		SAW_DEAD_BODY(-50, 24.0 * 3.0),
+		SAW_DEAD_BODY(-40, 24.0 * 3.0),
 		CARRIED_DEAD_BODY(-55, 24.0 * 1.0),
 
 		ON_FIRE(-40, 16.0),
