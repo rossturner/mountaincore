@@ -30,6 +30,7 @@ import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.messaging.types.ReplaceRegionMessage;
 import technology.rocketjump.mountaincore.production.StockpileComponentUpdater;
 import technology.rocketjump.mountaincore.rooms.RoomTypeDictionary;
 
@@ -201,16 +202,25 @@ public class TiledMapFactory {
 		if (tile.hasWall()) {
 			messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, tile.getTilePosition());
 		}
-		List<Long> entitiesToRemove = new LinkedList<>();
+		List<Entity> entitiesToRemove = new LinkedList<>();
 		for (Entity entity : tile.getEntities()) {
 			if (!entity.getType().equals(EntityType.CREATURE)) {
-				entitiesToRemove.add(entity.getId());
+				entitiesToRemove.add(entity);
 			}
 		}
 		// Separate loop to avoid ConcurrentModificationException
-		for (Long entityId : entitiesToRemove) {
-			entityStore.remove(entityId);
-			tile.removeEntity(entityId);
+		for (Entity entity : entitiesToRemove) {
+			entityStore.remove(entity.getId());
+			tile.removeEntity(entity.getId());
+
+			Integer neighbourRegionId = gameContext.getAreaMap().getNeighbours(tileX, tileY).values().stream()
+					.filter(t -> t.getRegionType().equals(MapTile.RegionType.GENERIC))
+					.findAny()
+					.map(MapTile::getRegionId)
+					.orElse(tile.getRegionId());
+			if (tile.getRegionId() != neighbourRegionId) {
+				messageDispatcher.dispatchMessage(MessageType.REPLACE_REGION, new ReplaceRegionMessage(tile, neighbourRegionId));
+			}
 		}
 
 		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);

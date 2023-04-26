@@ -1,3 +1,12 @@
+Early Access 1.1.17 - 26th April 2023
+
+- Big improvement to pathfinding so that inaccessible jobs should no longer cause problems
+- Improved dumping of unused items, the player should no longer require stockpiles except for neatness
+
+Early Access 1.1.16 - 25th April 2023
+
+- This update was not released publicly
+
 Early Access 1.1.15 - 24th April 2023
 
 - Showing resource overview when tutorial is completed

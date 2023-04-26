@@ -129,6 +129,9 @@ public class CreaturePopulator {
 		int maxDifficulty = monsterDifficulty(monsterRaces.get(monsterRaces.size() - 1));
 
 		Predicate<RegionInformation> allRoofsAreCavern = regionInformation -> {
+			if (regionInformation == null) {
+				return false;
+			}
 			boolean allCavern = true;
 			for (MapTile mapTile : regionInformation.tilesInRegion) {
 				allCavern &= mapTile.getRoof() != null && CAVERN == mapTile.getRoof().getState();
@@ -202,6 +205,7 @@ public class CreaturePopulator {
 	}
 
 	private RegionInformation[] findRegionsFromEmbarkPoint(TiledMap areaMap, GridPoint2 embarkPoint) {
+		// TODO aim to get rid of numRegions as this changes over time
 		RegionInformation[] regions = new RegionInformation[areaMap.getNumRegions()];
 		int mapWidth = areaMap.getWidth();
 		int mapHeight = areaMap.getHeight();
