@@ -76,11 +76,7 @@ public class GraveManager implements Updatable {
 			for (Entity deceased : allDead) {
 				if (deceased.getLocationComponent().getContainerEntity() == null && !hasCorpseHaulingJob(deceased) && isUnallocated(deceased)) {
 					Entity deceasedContainer = findAvailableDeceasedContainer(deceased);
-
-					if (deceasedContainer == null) {
-						// No graves/sarcophagi available, try again next update
-						break;
-					} else {
+					if (deceasedContainer != null) {
 						assignAndCreateHaulingJob(deceased, deceasedContainer);
 					}
 				}

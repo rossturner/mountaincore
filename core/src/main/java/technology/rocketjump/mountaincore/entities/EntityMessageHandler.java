@@ -497,7 +497,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						if (targetFurniture == null) {
 							Logger.error("Could not find target furniture of cancelled hauling allocation for type " + CREATURE);
 						} else {
-							((FurnitureEntityAttributes) targetFurniture.getPhysicalEntityComponent().getAttributes()).setAssignedToEntityId(null);
+							FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) targetFurniture.getPhysicalEntityComponent().getAttributes();
+							if (Objects.equals(attributes.getAssignedToEntityId(), allocation.getHauledEntityId())) {
+								attributes.setAssignedToEntityId(null);
+							}
 						}
 					}
 					return true;
