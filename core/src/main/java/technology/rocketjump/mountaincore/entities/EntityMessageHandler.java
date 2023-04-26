@@ -48,6 +48,7 @@ import technology.rocketjump.mountaincore.jobs.JobStore;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobState;
 import technology.rocketjump.mountaincore.jobs.model.JobTarget;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.designation.Designation;
 import technology.rocketjump.mountaincore.mapping.tile.designation.DesignationDictionary;
@@ -1097,16 +1098,13 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private void handleFindButcherableCorpse(RequestCorpseMessage requestCorpseMessage) {
-		MapTile requesterTile = gameContext.getAreaMap().getTile(requestCorpseMessage.requesterPosition);
-		if (requesterTile == null) {
-			return;
-		}
-		int requesterRegionId = requesterTile.getRegionId();
+		TiledMap areaMap = gameContext.getAreaMap();
+		int requesterRegionId = areaMap.getNavigableRegionId(requestCorpseMessage.requestingEntity, requestCorpseMessage.requesterPosition);
 
 		Map<Float, Entity> eligibleCorpsesByDistance = new TreeMap<>();
 
 		for (Entity deadCreatureEntity : creatureTracker.getDead()) {
-			MapTile corpseTile = gameContext.getAreaMap().getTile(deadCreatureEntity.getLocationComponent().getWorldOrParentPosition());
+			MapTile corpseTile = areaMap.getTile(deadCreatureEntity.getLocationComponent().getWorldOrParentPosition());
 			if (corpseTile == null || corpseTile.getRegionId() != requesterRegionId) {
 				continue;
 			}

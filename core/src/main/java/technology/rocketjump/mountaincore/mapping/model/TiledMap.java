@@ -6,6 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
+import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.EntityType;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.mountaincore.mapping.tile.*;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.zones.Zone;
@@ -24,7 +27,7 @@ public class TiledMap {
 	private final int width;
 	private final int height;
 
-	public int getWidth() {
+    public int getWidth() {
 		return width;
 	}
 
@@ -296,4 +299,20 @@ public class TiledMap {
 		return tilesByPercentile.getOrDefault(percentile, emptyList());
 	}
 
+	public int getNavigableRegionId(Entity requestingEntity, Vector2 requesterPosition) {
+		MapTile tile = getTile(requesterPosition);
+		if (tile == null) {
+			return -1;//ick
+		}
+		int requesterRegionId = tile.getRegionId();
+
+		if (tile.getRegionType() == MapTile.RegionType.MOVEMENT_BLOCKING_ENTITY &&
+				requestingEntity.getType() == EntityType.FURNITURE) {
+			FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(requestingEntity, this);
+			if (workspace != null) {
+				requesterRegionId = getTile(workspace.getAccessedFrom()).getRegionId();
+			}
+		}
+		return requesterRegionId;
+	}
 }
