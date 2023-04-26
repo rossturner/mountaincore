@@ -114,7 +114,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 	}
 
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		if (actionQueue.isEmpty()) {
+ 		if (actionQueue.isEmpty()) {
 			return;
 		}
 

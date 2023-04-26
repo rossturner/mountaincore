@@ -54,6 +54,8 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			updateForFoodAllocation(gameContext);
 		} else if (parent.getAssignedHaulingAllocation() != null) {
 			updateForHaulingAllocation(gameContext);
+		} else {
+			completionType = CompletionType.FAILURE;
 		}
 	}
 
