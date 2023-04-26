@@ -82,9 +82,19 @@ public class FurnitureBehaviour implements BehaviourComponent {
 
 		ConstructedEntityComponent constructedEntityComponent = parentEntity.getComponent(ConstructedEntityComponent.class);
 		if (constructedEntityComponent != null) {
-			if (constructedEntityComponent.getDeconstructionJob() != null && constructedEntityComponent.getDeconstructionJob().getJobState().equals(JobState.INACCESSIBLE)) {
-				List<GridPoint2> furnitureLocations = getFurnitureLocations();
-				constructedEntityComponent.getDeconstructionJob().setJobLocation(furnitureLocations.get(gameContext.getRandom().nextInt(furnitureLocations.size())));
+			if (constructedEntityComponent.getDeconstructionJob() != null) {
+				if (constructedEntityComponent.getDeconstructionJob().getJobState().equals(JobState.INACCESSIBLE)) {
+					List<GridPoint2> furnitureLocations = getFurnitureLocations();
+					constructedEntityComponent.getDeconstructionJob().setJobLocation(furnitureLocations.get(gameContext.getRandom().nextInt(furnitureLocations.size())));
+				} else if (constructedEntityComponent.getDeconstructionJob().getJobState().equals(JobState.REMOVED)) {
+					// job was removed, retry deconstruction job
+					messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, constructedEntityComponent.getDeconstructionJob());
+					constructedEntityComponent.setDeconstructionJob(null);
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, parentEntity);
+					if (constructedEntityComponent.getDeconstructionJob() != null) {
+						constructedEntityComponent.getDeconstructionJob().setJobPriority(this.priority);
+					}
+				}
 			} else if (!constructedEntityComponent.isBeingDeconstructed() && constructedEntityComponent.canBeDeconstructed()) {
 				// Check to see if this furniture is in an illegal placement
 
