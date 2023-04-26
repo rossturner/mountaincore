@@ -105,9 +105,9 @@ public class GameContextFactory {
 	}
 
 	private void initialise(SettlementState settlementState, Random random) {
-		if (!settlementState.isPeacefulMode()) {
+//		if (!settlementState.isPeacefulMode()) {
 			initialise(settlementState.daysUntilNextInvasionCheck, random);
-		}
+//		}
 	}
 
 	private void initialise(Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck, Random random) {
