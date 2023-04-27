@@ -11,7 +11,6 @@ import technology.rocketjump.mountaincore.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.TraderCreatureGroup;
-import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingExportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingImportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
@@ -66,7 +65,7 @@ public class PlanMerchantSaleAction extends Action {
 				for (Entity tradeImportFurniture : tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 						.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 						.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour)
-						.filter(e -> !((TradingExportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
+						.filter(e -> !((TradingImportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
 						.collect(Collectors.toSet())
 						.stream()
 						.sorted((a, b) -> {
