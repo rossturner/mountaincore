@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Singleton
@@ -232,7 +231,6 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 					availableMaterials.add(0, null);
 				}
 			} else {
-				// specific materials only
 				availableMaterials.addAll(specifiedMaterials);
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
 				if (availableMaterials.size() > 1) {
@@ -330,7 +328,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 									.filter(Objects::nonNull),
 							itemTypeDictionary.getTradeExports().stream()
 					)
-					.collect(Collectors.toSet()).stream()
+					.distinct()
 					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
 					.toList();
 		} else {
@@ -344,7 +342,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 					.flatMap(r -> r.getInput().stream())
 					.map(QuantifiedItemTypeWithMaterial::getItemType)
 					.filter(Objects::nonNull)
-					.collect(Collectors.toSet()).stream()
+					.distinct()
 					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
 					.toList();
 		}

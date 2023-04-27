@@ -1,7 +1,9 @@
-Early Access 1.1.17 - 26th April 2023
+Early Access 1.1.17 - 27th April 2023
 
 - Big improvement to pathfinding so that inaccessible jobs should no longer cause problems
+- Fix for immigration not working when the embark point becomes inaccessible
 - Improved dumping of unused items, the player should no longer require stockpiles except for neatness
+- Improved assignment of corpses to graves
 - Merchants will now respect the priority of import and export pallets
 - Fix for when a dwarf could get stuck trying to pick up an item
 

@@ -32,12 +32,12 @@ public class HappinessComponentTest {
 	public void add_modifier_replaces_other() {
 		happinessComponent.add(SAW_DEAD_BODY);
 
-		assertThat(happinessComponent.getNetModifier()).isEqualTo(-50);
+		assertThat(happinessComponent.getNetModifier()).isEqualTo(-40);
 		assertThat(happinessComponent.currentModifiers()).contains(SAW_DEAD_BODY);
 
 		happinessComponent.add(CARRIED_DEAD_BODY);
 
-		assertThat(happinessComponent.getNetModifier()).isEqualTo(-55);
+		assertThat(happinessComponent.getNetModifier()).isEqualTo(-45);
 		assertThat(happinessComponent.currentModifiers()).hasSize(1);
 	}
 
@@ -45,11 +45,11 @@ public class HappinessComponentTest {
 	public void replaceBy_blocks_addition() {
 		happinessComponent.add(CARRIED_DEAD_BODY);
 
-		assertThat(happinessComponent.getNetModifier()).isEqualTo(-55);
+		assertThat(happinessComponent.getNetModifier()).isEqualTo(-45);
 
 		happinessComponent.add(SAW_DEAD_BODY);
 
-		assertThat(happinessComponent.getNetModifier()).isEqualTo(-55);
+		assertThat(happinessComponent.getNetModifier()).isEqualTo(-45);
 		assertThat(happinessComponent.currentModifiers()).hasSize(1);
 	}
 

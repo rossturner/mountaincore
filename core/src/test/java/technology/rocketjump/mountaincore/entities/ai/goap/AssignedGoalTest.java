@@ -24,6 +24,7 @@ import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
+import technology.rocketjump.mountaincore.mapping.tile.TileNeighbours;
 import technology.rocketjump.mountaincore.mapping.tile.floor.TileFloor;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.rooms.RoomStore;
@@ -31,8 +32,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.mountaincore.assets.model.FloorType.NULL_FLOOR;
 import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
@@ -68,6 +68,7 @@ public class AssignedGoalTest {
 	public void setUp() throws Exception {
 		when(mockMap.getNearestTiles(any(Vector2.class))).thenReturn(new Array<>());
 		when(mockMap.getTile(any(Vector2.class))).thenReturn(mockTile);
+		when(mockMap.getNeighbours(anyInt(), anyInt())).thenReturn(new TileNeighbours());
 
 		when(mockTile.getFloor()).thenReturn(new TileFloor(NULL_FLOOR, GameMaterial.NULL_MATERIAL));
 		stubRace = new Race();
