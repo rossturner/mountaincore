@@ -148,11 +148,6 @@ public class AssignedGoalFactory {
 
 							AssignedGoal dumpItemGoal = new AssignedGoal(SpecialGoal.DUMP_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
 							dumpItemGoal.setAssignedHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(quantity, entry.entity, parentEntity).toUnspecifiedLocation());
-
-//							itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HAULING);
-//							inventory.remove(entry.entity.getId());
-//							HaulingComponent haulingComponent = parentEntity.getOrCreateComponent(HaulingComponent.class);
-//							haulingComponent.setHauledEntity(entry.entity, messageDispatcher, parentEntity);
 							return dumpItemGoal;
 						} else {
 							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
