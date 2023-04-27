@@ -25,6 +25,7 @@ import technology.rocketjump.mountaincore.gamecontext.Updatable;
 import technology.rocketjump.mountaincore.jobs.SkillDictionary;
 import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.mapping.factories.CreaturePopulator;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -34,6 +35,10 @@ import technology.rocketjump.mountaincore.settlement.notifications.NotificationT
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Singleton
 public class ImmigrationManager implements Updatable, Telegraph {
@@ -206,27 +211,39 @@ public class ImmigrationManager implements Updatable, Telegraph {
 
 	private Vector2 pickImmigrationPoint() {
 		// Must be map edge in region where settlers currently are
-		MapTile embarkTile = gameContext.getAreaMap().getTile(gameContext.getAreaMap().getEmbarkPoint());
-		int regionId = embarkTile.getRegionId();
+
+		TiledMap areaMap = gameContext.getAreaMap();
+		Map<Integer, Long> regionIdFrequency = gameContext.getEntities().values().stream()
+				.filter(Entity::isSettler)
+				.map(settler -> settler.getLocationComponent().getWorldPosition())
+				.map(areaMap::getTile)
+				.filter(Objects::nonNull)
+				.map(MapTile::getRegionId)
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+		int regionId = regionIdFrequency.entrySet()
+				.stream()
+				.max(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).orElse(gameContext.getAreaMap().getTile(gameContext.getAreaMap().getEmbarkPoint()).getRegionId());
 
 		List<MapTile> potentialImmigrationPoints = new ArrayList<>();
-		for (int x = 0; x < gameContext.getAreaMap().getWidth(); x++) {
-			MapTile bottomEdgeTile = gameContext.getAreaMap().getTile(x, 0);
+		for (int x = 0; x < areaMap.getWidth(); x++) {
+			MapTile bottomEdgeTile = areaMap.getTile(x, 0);
 			if (bottomEdgeTile.getRegionId() == regionId && bottomEdgeTile.getRoof().getState().equals(TileRoofState.OPEN)) {
 				potentialImmigrationPoints.add(bottomEdgeTile);
 			}
 
-			MapTile topEdgeTile = gameContext.getAreaMap().getTile(x, gameContext.getAreaMap().getHeight() - 1);
+			MapTile topEdgeTile = areaMap.getTile(x, areaMap.getHeight() - 1);
 			if (topEdgeTile.getRegionId() == regionId && topEdgeTile.getRoof().getState().equals(TileRoofState.OPEN)) {
 				potentialImmigrationPoints.add(topEdgeTile);
 			}
 		}
-		for (int y = 1; y < gameContext.getAreaMap().getHeight() - 1; y++) {
-			MapTile leftEdgeTile = gameContext.getAreaMap().getTile(0, y);
+		for (int y = 1; y < areaMap.getHeight() - 1; y++) {
+			MapTile leftEdgeTile = areaMap.getTile(0, y);
 			if (leftEdgeTile.getRegionId() == regionId && leftEdgeTile.getRoof().getState().equals(TileRoofState.OPEN)) {
 				potentialImmigrationPoints.add(leftEdgeTile);
 			}
-			MapTile rightEdgeTile = gameContext.getAreaMap().getTile(gameContext.getAreaMap().getWidth() -1, y);
+			MapTile rightEdgeTile = areaMap.getTile(areaMap.getWidth() -1, y);
 			if (rightEdgeTile.getRegionId() ==  regionId && rightEdgeTile.getRoof().getState().equals(TileRoofState.OPEN)) {
 				potentialImmigrationPoints.add(rightEdgeTile);
 			}
@@ -238,8 +255,8 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		MapTile immigrationTile = potentialImmigrationPoints.get(gameContext.getRandom().nextInt(potentialImmigrationPoints.size()));
 		GridPoint2 tilePosition = immigrationTile.getTilePosition();
 		boolean leftEdge = tilePosition.x == 0;
-		boolean rightEdge = tilePosition.x == gameContext.getAreaMap().getWidth() - 1;
-		boolean topEdge = tilePosition.y == gameContext.getAreaMap().getHeight() - 1;
+		boolean rightEdge = tilePosition.x == areaMap.getWidth() - 1;
+		boolean topEdge = tilePosition.y == areaMap.getHeight() - 1;
 		boolean bottomEdge = tilePosition.y == 0;
 
 		Vector2 immigrationPoint = immigrationTile.getWorldPositionOfCenter();
