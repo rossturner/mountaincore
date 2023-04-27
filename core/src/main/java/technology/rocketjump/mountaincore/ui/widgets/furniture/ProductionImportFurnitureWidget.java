@@ -46,10 +46,9 @@ import technology.rocketjump.mountaincore.ui.widgets.EntityDrawable;
 import technology.rocketjump.mountaincore.ui.widgets.SelectItemDialog;
 import technology.rocketjump.mountaincore.ui.widgets.crafting.CraftingHintWidgetFactory;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Singleton
@@ -216,29 +215,41 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	}
 
 	private void determineAvailableMaterials(ItemType selectedItemType) {
+		RoomType roomType = getRoomType();
 		availableMaterials = new ArrayList<>();
-		if (selectedItemType == null) {
+		if (selectedItemType == null || roomType == null) {
 			availableMaterials.add(0, null);
 		} else {
-			List<GameMaterial> specifiedMaterials = selectedItemType.getSpecificallyAllowedMaterials(craftingRecipeDictionary);
+			List<CraftingRecipe> craftingRecipes = getCraftingRecipes(roomType);
 
-			if (specifiedMaterials.isEmpty() || specifiedMaterials.contains(null)) {
+			Set<GameMaterial> recipeMaterials = craftingRecipes.stream()
+					.map(CraftingRecipe::getInput)
+					.flatMap(inputs -> inputs.stream().filter(i -> selectedItemType.equals(i.getItemType())))
+					.map(QuantifiedItemTypeWithMaterial::getMaterial)
+					.collect(Collectors.toSet());
+
+			boolean includeAny = false;
+			if (recipeMaterials.isEmpty() || recipeMaterials.contains(null)) {
 				// at least one recipe for this item type allows any input
-				availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()).stream()
-						.filter(m -> !m.isHiddenFromUI()).toList());
-				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				if (availableMaterials.size() > 1) {
-					availableMaterials.add(0, null);
+				if (selectedItemType.getSpecificMaterials().isEmpty()) {
+					availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()).stream()
+							.filter(m -> !m.isHiddenFromUI()).toList());
+				} else {
+					availableMaterials.addAll(selectedItemType.getSpecificMaterials());
 				}
+				includeAny = availableMaterials.size() > 1;
 			} else {
-				availableMaterials.addAll(specifiedMaterials);
-				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				if (availableMaterials.size() > 1) {
-					availableMaterials.add(0, null);
-				}
-				if (!availableMaterials.contains(productionImportBehaviour.getSelectedMaterial())) {
-					productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
-				}
+				// specific materials only
+				availableMaterials.addAll(recipeMaterials);
+			}
+
+
+			availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
+			if (includeAny || availableMaterials.isEmpty()) {
+				availableMaterials.add(0, null);
+			}
+			if (!availableMaterials.contains(productionImportBehaviour.getSelectedMaterial())) {
+				productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
 			}
 		}
 	}
@@ -268,12 +279,10 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	}
 
 	private void onClickItemType() {
-		MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
-		if (tile == null || tile.getRoomTile() == null) {
-			Logger.error("No room tile found under furniture entity {}", furnitureEntity);
+		RoomType currentRoomType = getRoomType();
+		if (currentRoomType == null) {
 			return;
 		}
-		RoomType currentRoomType = tile.getRoomTile().getRoom().getRoomType();
 
 		List<ItemType> craftingInputItems = getSelectableItemTypes(currentRoomType);
 
@@ -332,13 +341,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
 					.toList();
 		} else {
-			return currentRoomType.getFurnitureNames().stream()
-					.map(furnitureTypeDictionary::getByName)
-					.flatMap(f -> f.getProcessedTags().stream())
-					.filter(t -> t instanceof CraftingStationBehaviourTag)
-					.map(t -> (CraftingStationBehaviourTag) t)
-					.map(c -> c.getCraftingType(craftingTypeDictionary))
-					.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
+			return getCraftingRecipes(currentRoomType).stream()
 					.flatMap(r -> r.getInput().stream())
 					.map(QuantifiedItemTypeWithMaterial::getItemType)
 					.filter(Objects::nonNull)
@@ -347,6 +350,27 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 					.toList();
 		}
 	}
+
+	private RoomType getRoomType() {
+		MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
+		if (tile == null || tile.getRoomTile() == null) {
+			Logger.error("No room tile found under furniture entity {}", furnitureEntity);
+			return null;
+		}
+		return tile.getRoomTile().getRoom().getRoomType();
+	}
+
+	private List<CraftingRecipe> getCraftingRecipes(RoomType roomType) {
+		return roomType.getFurnitureNames().stream()
+				.map(furnitureTypeDictionary::getByName)
+				.flatMap(f -> f.getProcessedTags().stream())
+				.filter(t -> t instanceof CraftingStationBehaviourTag)
+				.map(t -> (CraftingStationBehaviourTag) t)
+				.map(c -> c.getCraftingType(craftingTypeDictionary))
+				.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
+				.toList();
+	}
+
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
