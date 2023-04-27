@@ -6,6 +6,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 
 import java.util.Comparator;
@@ -36,19 +37,25 @@ public class GoToCombatOpponentAction extends GoToLocationAction {
 		Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
 		GridPoint2 opponentTile = VectorUtils.toGridPoint(opponentPosition);
 
-		return gameContext.getAreaMap().getNeighbours(opponentTile)
-				.values().stream()
-				.filter(neighbour -> neighbour.isNavigable(parent.parentEntity))
-				.filter(neighbour -> neighbour.getEntities()
-						.stream().noneMatch(entity -> {
-							CombatStateComponent neighbourTileEntityCombatState = entity.getComponent(CombatStateComponent.class);
-							return neighbourTileEntityCombatState != null && neighbour.getTilePosition().equals(neighbourTileEntityCombatState.getHeldLocation());
-						})
-				)
-				.sorted(Comparator.comparingInt(o -> (int) (o.getTilePosition().dst2(parentTile) * 1000)))
-				.map(tile -> VectorUtils.toVector(tile.getTilePosition()))
-				.findFirst()
-				.orElse(null);
+		TiledMap areaMap = gameContext.getAreaMap();
+		if (areaMap.getTile(opponentTile).getRegionId() == areaMap.getTile(parentTile).getRegionId()) {
+			return areaMap.getNeighbours(opponentTile)
+					.values().stream()
+					.filter(neighbour -> neighbour.isNavigable(parent.parentEntity))
+					.filter(neighbour -> neighbour.getEntities()
+							.stream().noneMatch(entity -> {
+								CombatStateComponent neighbourTileEntityCombatState = entity.getComponent(CombatStateComponent.class);
+								return neighbourTileEntityCombatState != null && neighbour.getTilePosition().equals(neighbourTileEntityCombatState.getHeldLocation());
+							})
+					)
+					.sorted(Comparator.comparingInt(o -> (int) (o.getTilePosition().dst2(parentTile) * 1000)))
+					.map(tile -> VectorUtils.toVector(tile.getTilePosition()))
+					.findFirst()
+					.orElse(null);
+
+		} else {
+			return null;
+		}
 	}
 
 }

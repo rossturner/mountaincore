@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.mountaincore.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
+import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.persistence.JSONUtils;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
@@ -28,6 +30,13 @@ public class KnockBackCombatAction extends DefensiveCombatAction {
 	@Override
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		super.update(deltaTime, gameContext, messageDispatcher);
+		TiledMap areaMap = gameContext.getAreaMap();
+		MapTile startTile = areaMap.getTile(startLocation);
+		MapTile targetTile = areaMap.getTile(targetLocation);
+		if (startTile.getRegionId() != targetTile.getRegionId()) {
+			completed = true;
+			return;
+		}
 
 		parentEntity.getBehaviourComponent().getSteeringComponent().destinationReached();
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
