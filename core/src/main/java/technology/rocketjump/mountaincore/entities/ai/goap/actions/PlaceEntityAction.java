@@ -11,6 +11,7 @@ import technology.rocketjump.mountaincore.entities.behaviour.furniture.MushroomS
 import technology.rocketjump.mountaincore.entities.components.CopyGameMaterialsFromInventoryComponent;
 import technology.rocketjump.mountaincore.entities.components.EntityComponent;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
+import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
@@ -205,7 +206,8 @@ public class PlaceEntityAction extends Action {
 						parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entityToPlace);
 					} else if (parent.getAssignedHaulingAllocation() != null) {
 						// decrement allocation amount
-						parent.getAssignedHaulingAllocation().getItemAllocation().setAllocationAmount(itemToPlaceAttributes.getQuantity());
+						ItemAllocation itemAllocation = parent.getAssignedHaulingAllocation().getItemAllocation();
+						itemAllocation.setAllocationAmount(itemAllocation.getAllocationAmount() - quantityToPlace);
 					}
 					completionType = CompletionType.SUCCESS;
 				}
