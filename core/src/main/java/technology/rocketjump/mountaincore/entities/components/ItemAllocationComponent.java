@@ -15,6 +15,8 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ItemAllocationComponent implements ParentDependentEntityComponent, Destructible {
@@ -90,25 +92,38 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 		}
 	}
 
-	public ItemAllocation swapAllocationPurpose(ItemAllocation.Purpose existingPurpose, ItemAllocation.Purpose newPurpose, int quantity) {
-		for (ItemAllocation existingAllocation : new ArrayList<>(this.allocations)) {
-			if (existingAllocation.getPurpose().equals(existingPurpose) && existingAllocation.getAllocationAmount() >= quantity) {
+	public ItemAllocation swapAllocationPurpose(ItemAllocation.Purpose existingPurpose, ItemAllocation.Purpose newPurpose, ItemAllocation itemAllocation) {
+		int quantity = itemAllocation.getAllocationAmount();
 
-				ItemAllocation newAllocation = existingAllocation.clone();
-				newAllocation.setPurpose(newPurpose);
-				newAllocation.setAllocationAmount(quantity);
+		Optional<ItemAllocation> byId = this.allocations.stream()
+				.filter(a -> Objects.equals(a.getItemAllocationId(), itemAllocation.getItemAllocationId()))
+				.findAny();
+		Optional<ItemAllocation> byPurposeAndQuantity = this.allocations.stream()
+				.filter(a -> a.getPurpose().equals(existingPurpose) && a.getAllocationAmount() >= quantity)
+				.findFirst();
 
-				existingAllocation.setAllocationAmount(existingAllocation.getAllocationAmount() - quantity);
-				if (existingAllocation.getAllocationAmount() == 0) {
-					cancel(existingAllocation);
-				}
-
-				return newAllocation;
-			}
+		final ItemAllocation existingAllocation;
+		if (byId.isPresent()) {
+			existingAllocation = byId.get();
+		} else if (byPurposeAndQuantity.isPresent()) {
+			existingAllocation = byPurposeAndQuantity.get();
+		} else {
+			Logger.error("Could not swap allocation purpose");
+			return null;
 		}
 
-		Logger.error("Could not swap allocation purpose");
-		return null;
+		ItemAllocation newAllocation = existingAllocation.clone();
+		newAllocation.setPurpose(newPurpose);
+		newAllocation.setAllocationAmount(quantity);
+
+		existingAllocation.setAllocationAmount(existingAllocation.getAllocationAmount() - quantity);
+		if (existingAllocation.getAllocationAmount() == 0) {
+			cancel(existingAllocation);
+		}
+		allocations.add(newAllocation);
+
+		return newAllocation;
+
 	}
 
 	public ItemAllocation getAllocationForPurpose(ItemAllocation.Purpose requiredPurpose) {

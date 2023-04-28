@@ -29,10 +29,7 @@ import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocationBuilder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static technology.rocketjump.mountaincore.entities.ItemEntityMessageHandler.findStockpileAllocation;
@@ -71,7 +68,7 @@ public class AssignedGoalFactory {
 
 			if (stockpileAllocation != null && stockpileAllocation.getItemAllocation() != null) {
 				// Stockpile allocation found, swap from DUE_TO_BE_HAULED
-				ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HAULING, stockpileAllocation.getItemAllocation().getAllocationAmount());
+				ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HAULING, stockpileAllocation.getItemAllocation());
 				stockpileAllocation.setItemAllocation(newAllocation);
 			}
 
@@ -138,6 +135,18 @@ public class AssignedGoalFactory {
 					// Temp un-requestAllocation
 					ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
 
+					ItemAllocation dueToHaulPurpose = itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED);
+					if (dueToHaulPurpose != null) {
+						boolean haulingJobExists = gameContext.getJobs().values().stream()
+								.filter(j -> j.getHaulingAllocation() != null)
+								.anyMatch(j -> Objects.equals(j.getHaulingAllocation().getHaulingAllocationId(), dueToHaulPurpose.getRelatedHaulingAllocationId()));
+						if (!haulingJobExists) {
+							//something has gone wrong, cannot find hauling job
+							itemAllocationComponent.cancelAll(ItemAllocation.Purpose.DUE_TO_BE_HAULED);
+						}
+					}
+
+
 					if (itemAllocationComponent.getNumUnallocated() > 0 ||
 							(itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.HELD_IN_INVENTORY) != null && itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.HELD_IN_INVENTORY).getAllocationAmount() > 0)) {
 						itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
@@ -150,7 +159,8 @@ public class AssignedGoalFactory {
 							dumpItemGoal.setAssignedHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(quantity, entry.entity, parentEntity).toUnspecifiedLocation());
 							return dumpItemGoal;
 						} else {
-							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation().getAllocationAmount());
+
+							ItemAllocation newAllocation = itemAllocationComponent.swapAllocationPurpose(ItemAllocation.Purpose.DUE_TO_BE_HAULED, ItemAllocation.Purpose.HELD_IN_INVENTORY, stockpileAllocation.getItemAllocation());
 							stockpileAllocation.setItemAllocation(newAllocation);
 
 							if (itemAllocationComponent.getNumUnallocated() > 0) {
