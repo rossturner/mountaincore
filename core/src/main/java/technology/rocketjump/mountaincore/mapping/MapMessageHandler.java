@@ -302,7 +302,14 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		}
 
 		if (!tiles.isEmpty()) {
-			updateRegions(tiles);
+			// The set of tiles can potentially be in different regions e.g. a piece of furniture destroyed as part of a mining collapse
+			Map<MapTile.RegionType, Set<MapTile>> byRegionType = new HashMap<>();
+			for (MapTile mapTile : tiles) {
+				MapTile.RegionType regionType = mapTile.getRegionType();
+				byRegionType.computeIfAbsent(regionType, a -> new HashSet<>()).add(mapTile);
+			}
+
+			byRegionType.values().forEach(this::updateRegions);
 		}
 
 	}

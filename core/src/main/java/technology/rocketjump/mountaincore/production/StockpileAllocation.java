@@ -40,7 +40,7 @@ public class StockpileAllocation implements ChildPersistable {
 		for (Entity entity : mapTile.getEntities()) {
 			if (entity.getType().equals(EntityType.ITEM)) {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getItemType().equals(itemType) && attributes.getMaterial(attributes.getItemType().getPrimaryMaterialType()).equals(gameMaterial)) {
+				if (attributes.getItemType().equals(itemType) && gameMaterial.equals(attributes.getPrimaryMaterial())) {
 					quantityInTile += attributes.getQuantity();
 				}
 			} else if (entity.getType().equals(EntityType.CREATURE) && entity.getBehaviourComponent() instanceof CorpseBehaviour) {

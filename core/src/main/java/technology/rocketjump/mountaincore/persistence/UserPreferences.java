@@ -202,11 +202,15 @@ public class UserPreferences {
 		keyBindings.clear();
 
 		for (CommandName commandName : CommandName.values()) {
-			boolean isPrimary = true;
-			for (Set<Integer> keybinding : commandName.defaultKeys) {
-				assignInput(commandName, keybinding, isPrimary);
-				isPrimary = false;
-			}
+			loadDefaultKeybindingsFor(commandName);
+		}
+	}
+
+	private void loadDefaultKeybindingsFor(CommandName commandName) {
+		boolean isPrimary = true;
+		for (Set<Integer> keybinding : commandName.defaultKeys) {
+			assignInput(commandName, keybinding, isPrimary);
+			isPrimary = false;
 		}
 	}
 
@@ -229,8 +233,11 @@ public class UserPreferences {
 				}
 			}
 		}
-		if (keyBindings.isEmpty()) {
-			resetToDefaultKeyBindings();
+
+		for (CommandName commandName : CommandName.values()) {
+			if (keyBindings.stream().noneMatch(k -> k.commandName().equals(commandName))) {
+				loadDefaultKeybindingsFor(commandName);
+			}
 		}
 	}
 

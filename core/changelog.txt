@@ -1,3 +1,13 @@
+Early Access 1.1.18 - 30th April 2023
+
+- Improved selection of materials on import pallets so you shouldn't end up with a useless item imported
+- Improvements to pathfinding during combat to hopefully avoid phasing into walls
+- Improvements to how items are dumped to avoid causing mis-allocations
+- Fix for keybindings to load correctly once modified
+- Fix for a crash that can happen when furniture is destroyed by a mining collapse
+- Fix for a crash when an item does not have a primary material set correctly
+- Fix for a crash when working on a job that has been removed
+
 Early Access 1.1.17 - 27th April 2023
 
 - Big improvement to pathfinding so that inaccessible jobs should no longer cause problems

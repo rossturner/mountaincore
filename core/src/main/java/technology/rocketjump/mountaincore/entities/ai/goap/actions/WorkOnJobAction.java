@@ -173,6 +173,9 @@ public class WorkOnJobAction extends Action {
 	}
 
 	private Optional<Entity> getTargetFurniture(Job assignedJob, GameContext gameContext) {
+		if (assignedJob == null) {
+			return Optional.empty();
+		}
 		if (assignedJob.getTargetId() != null) {
 			Entity targetEntity = gameContext.getEntities().get(assignedJob.getTargetId());
 			if (targetEntity != null && targetEntity.getType().equals(EntityType.FURNITURE)) {
