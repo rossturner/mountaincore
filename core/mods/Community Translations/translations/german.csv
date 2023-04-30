@@ -112,7 +112,7 @@ COMBAT.DESCRIPTION.GENERIC,,In combat,Im Kampf
 COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},Im Kampf mit {{targetDescription}}
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},Stellt {{furnitureType.noun}} aus {{materialType}} her
-CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned,{{numRequired}} benötigt{{n}}{{numAvailable}} verfügbar{{n}}{{numAssigned}} zugewiesen
+CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned,{{numRequired}} benötigt{{\n}}{{numAvailable}} verfügbar{{\n}}{{numAssigned}} zugewiesen
 CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.,{{outputItemType}} wird von {{profession}} an {{furnitureType}} hergestellt aus {{inputItemTypes}} und {{lastInputItemType}}.
 CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.,{{outputItemType}} wird von {{profession}} an {{furnitureType}} hergestellt aus {{lastInputItemType}}.
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items,Entfernt andere Gegenstände
@@ -226,7 +226,7 @@ FUEL.SACK,,Fuel,Brennstoff
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}.","Brennstoff wird für die Herstellung von Metall benötigt, sowohl von dem Brennofen als auch der Schmiede."
 
 FURNITURE.ARCHERY_TARGET,,Archery target,Zielscheibe
-FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.,Militärische Siedler üben hier ihre Fernkampffähigkeiten.
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here up to level 50.,Militärische Siedler üben hier ihre Fernkampffähigkeiten.
 FURNITURE.ARMOUR_STAND,,Armour stand,Rüstungsständer
 FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.,Zum ablegen von Rüstungen
 FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation,Handwerksarbeitsplatz
@@ -330,7 +330,7 @@ FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRO
 FURNITURE.TRADE_BANNER,,Banner,Banner
 FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.,Eine dekorative Fahne zur Kennzeichnung des Handelsdepots.
 FURNITURE.TRAINING_DUMMY,,Training dummy,Übungspuppe
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.,Militärische Siedler werden hier ihre Nahkampffähigkeiten trainieren.
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here up to level 50.,Militärische Siedler werden hier ihre Nahkampffähigkeiten trainieren.
 FURNITURE.WAGON_PARKED,,Wagon,Wagen
 FURNITURE.WATERWHEEL,,Water Wheel,Wasserrad
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels,Wasserräder
@@ -477,6 +477,11 @@ GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items i
 GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}}),{{craftingType}} ({{profession}})
 GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With,Hergestellt mit
 GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item,Gegenstand
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT,,Management,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT,,Limit,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY,,Quantity,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT,,Decrement,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT,,Increment,
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,Handwerk
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},Gesamt: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),({{quantity}} insgesamt)
@@ -647,7 +652,7 @@ GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,Gib dein
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Einreichen
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Twitch Integration
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,Benutze Zuschauer für Siedlernamen
-GUI.OPTIONS.TWITCH.VIEWERS_LABEL,,{{numViewers}} viewers,
+GUI.OPTIONS.TWITCH.VIEWERS_LABEL,,{{numViewers}} viewers,{{numViewers}} Zuschauer
 GUI.ORDERS.CHOP_WOOD,,Chop,Fällen
 GUI.ORDERS.CLEAR_GROUND,,Clear,Beräumen
 GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation,Bewässerung
@@ -661,7 +666,7 @@ GUI.ORDERS.MINE,,Mine,Graben
 GUI.ORDERS_LABEL,,Orders,Aufträge
 GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge must cover both sides of the river and be at least 3x3 tiles in size,Eine Brücke muss beide Seiten des Flusses bedecken und mindestens 3x3 Felder gross sein
 GUI.POWER_LABEL,,Power & Water,Energie & Wasser
-GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},Windmühlen {{drawable|tooltip_icon_windmill}} und Wasserräder {{drawable|tooltip_icon_waterwheel}} verbinden sich mit Energieleitungen {{drawable|tooltip_icon_power}}{{n}}Energieleitungen {{drawable|tooltip_icon_power}} treiben Wasserpumpen {{drawable|tooltip_icon_pump}} und andere angetriebene Möbel an{{n}}Wasserpumpen {{drawable|tooltip_icon_pump}} und Bewässerung {{drawable|tooltip_icon_irrigation}} sind mit Rohren verbunden {{drawable|tooltip_icon_pipes}}
+GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},Windmühlen {{drawable|tooltip_icon_windmill}} und Wasserräder {{drawable|tooltip_icon_waterwheel}} verbinden sich mit Energieleitungen {{drawable|tooltip_icon_power}}{{\n}}Energieleitungen {{drawable|tooltip_icon_power}} treiben Wasserpumpen {{drawable|tooltip_icon_pump}} und andere angetriebene Möbel an{{\n}}Wasserpumpen {{drawable|tooltip_icon_pump}} und Bewässerung {{drawable|tooltip_icon_irrigation}} sind mit Rohren verbunden {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority,Priorität
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Zu exportierenden Artikel auswählen
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Zu importierenden Artikel auswählen
@@ -1656,6 +1661,7 @@ TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. S
 TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.,Wähle Räume und platziere ein Sägewerk und eine Steinmetzwerkstatt. Beide erfordern den Bau einer Handwerksstation.
 TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.,Mit der Taste R kannst du die meisten Möbel drehen.
 TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.,Mit der X-Taste kannst du die meisten Möbel drehen.
+TUTORIAL.WORKSHOPS.D,,Crafting stations have a Crafting button which shows what can be produced.,
 
 VEGETABLE.BARLEY,,Barley,Gerste
 VEGETABLE.BARLEY.PLURAL,,Barley,Gerste

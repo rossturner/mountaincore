@@ -226,7 +226,7 @@ FUEL.SACK,,Fuel,燃料
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}.",{{FURNITURE.BLOOMERY_FURNACE}}和{{FURNITURE.FORGE}}的金属生产工序需要用到燃料。
 
 FURNITURE.ARCHERY_TARGET,,Archery target,
-FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.,
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here up to level 50.,
 FURNITURE.ARMOUR_STAND,,Armour stand,
 FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.,
 FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation,
@@ -330,7 +330,7 @@ FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRO
 FURNITURE.TRADE_BANNER,,Banner,
 FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.,
 FURNITURE.TRAINING_DUMMY,,Training dummy,
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.,
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here up to level 50.,
 FURNITURE.WAGON_PARKED,,Wagon,
 FURNITURE.WATERWHEEL,,Water Wheel,水车
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels,
@@ -477,6 +477,11 @@ GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items i
 GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}}),
 GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With,
 GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT,,Management,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT,,Limit,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY,,Quantity,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT,,Decrement,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT,,Increment,
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,制作
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},目前总数：{{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),（总计{{quantity}}）
@@ -1656,6 +1661,7 @@ TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. S
 TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.,
 TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.,
 TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.,
+TUTORIAL.WORKSHOPS.D,,Crafting stations have a Crafting button which shows what can be produced.,
 
 VEGETABLE.BARLEY,,Barley,大麦
 VEGETABLE.BARLEY.PLURAL,,Barley,大麦
