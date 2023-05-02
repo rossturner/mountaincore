@@ -390,6 +390,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					return;
 				}
 				LiquidAllocation liquidAllocation = matchedLiquidContainer.createAllocation(inputRequirement.getQuantity(), parentEntity);
+				liquidAllocation.setLiquidMaterial(inputRequirement.getMaterial());
 				craftingAssignment.getInputLiquidAllocations().add(liquidAllocation);
 			} else {
 				ProductionImportFurnitureBehaviour matchedInputFurniture = getImportFurnitureForRequirement(inputRequirement, craftingRecipe, importFurniture, desiredMaterial);
