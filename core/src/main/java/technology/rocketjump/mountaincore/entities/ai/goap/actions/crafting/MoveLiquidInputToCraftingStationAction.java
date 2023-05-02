@@ -75,6 +75,7 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 			LiquidAllocation liquidAllocation = liquidAllocations.remove(0);
 
 			subGoal = new AssignedGoal(SpecialGoal.TRANSFER_LIQUID_FOR_CRAFTING.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
+			subGoal.setAssignedJob(parent.getAssignedJob());
 
 			// need a hauling allocation of an item to carry the liquid in
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
