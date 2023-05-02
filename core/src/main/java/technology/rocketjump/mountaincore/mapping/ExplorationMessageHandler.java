@@ -45,12 +45,12 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 		switch (msg.message) {
 			case MessageType.WALL_REMOVED: {
 				GridPoint2 tileLocation = (GridPoint2) msg.extraInfo;
-				floodFillExploration(tileLocation, false);
+				floodFillExploration(tileLocation);
 				return true;
 			}
 			case MessageType.FLOOD_FILL_EXPLORATION: {
 				GridPoint2 tileLocation = (GridPoint2) msg.extraInfo;
-				floodFillExploration(tileLocation, true);
+				floodFillExploration(tileLocation);
 				return true;
 			}
 			default:
@@ -58,7 +58,7 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	private void floodFillExploration(GridPoint2 tileLocation, boolean includeOtherRegions) {
+	private void floodFillExploration(GridPoint2 tileLocation) {
 		MapTile initialTile = gameContext.getAreaMap().getTile(tileLocation);
 		Deque<MapTile> frontier = new ArrayDeque<>();
 		Set<MapTile> explored = new HashSet<>();
@@ -76,11 +76,8 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 							neighbour.setExploration(PARTIAL);
 						}
 					} else {
-						// If this is a floor tile in a different region, do not add it to frontier so diagonally-different regions are not explored
 						if (!frontier.contains(neighbour) && !neighbour.getExploration().equals(EXPLORED)) {
-							if (neighbour.hasWall() || includeOtherRegions || neighbour.getRegionId() == initialTile.getRegionId()) {
-								frontier.add(neighbour);
-							}
+							frontier.add(neighbour);
 						}
 					}
 				}

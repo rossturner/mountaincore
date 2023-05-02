@@ -1,3 +1,8 @@
+Early Access 1.1.19
+
+- Fixes to liquid allocations for brewery jobs
+- Fix for unexplored areas not being revealed correctly
+
 Early Access 1.1.18 - 30th April 2023
 
 - Improved selection of materials on import pallets so you shouldn't end up with a useless item imported
