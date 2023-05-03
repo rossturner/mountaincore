@@ -24,6 +24,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.furniture.Furn
 import technology.rocketjump.mountaincore.entities.planning.PathfindingCallback;
 import technology.rocketjump.mountaincore.entities.planning.PathfindingFlag;
 import technology.rocketjump.mountaincore.entities.planning.PathfindingTask;
+import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
@@ -44,11 +45,13 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 	public static final float WAYPOINT_TOLERANCE = 0.5f;
 	public static final float DESTINATION_TOLERANCE = 0.15f;
 	public static final float MAX_TIME_TO_WAIT = 8f;
+	public static final int ONE_HOUR = 1;
 
 	protected boolean pathfindingRequested;
 	protected GraphPath<Vector2> path;
 	private float timeWaitingForPath;
 	private int pathCursor = 0;
+	private double startOfWaypointGameTime;
 
 	protected Vector2 overrideLocation;
 	private transient PathfindingTask pathfindingTask;
@@ -62,19 +65,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 	public void update(float deltaTime, GameContext gameContext) {
 		if (!pathfindingRequested) {
 			pathfindingRequested = true;
-			Vector2 destination = selectDestination(gameContext);
-			if (destination == null) {
-				// Might have already set completionType to success for some cases e.g. going to own entity inventory
-				if (completionType == null) {
-					completionType = CompletionType.FAILURE; // Nowhere to navigate to
-				}
-				return;
-			}
-			PathfindingRequestMessage pathfindingRequestMessage = new PathfindingRequestMessage(
-					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
-					destination, gameContext.getAreaMap(), this, parent.parentEntity.getId(), pathfindingFlags);
-
-			parent.messageDispatcher.dispatchMessage(MessageType.PATHFINDING_REQUEST, pathfindingRequestMessage);
+			requestPathfinding(gameContext);
 		} else if (path == null) {
 			// Waiting for path
 			timeWaitingForPath += Gdx.graphics.getDeltaTime(); // unmodified delta time
@@ -93,7 +84,29 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		}
 	}
 
+	private void requestPathfinding(GameContext gameContext) {
+		Vector2 destination = selectDestination(gameContext);
+		if (destination == null) {
+			// Might have already set completionType to success for some cases e.g. going to own entity inventory
+			if (completionType == null) {
+				completionType = CompletionType.FAILURE; // Nowhere to navigate to
+			}
+			return;
+		}
+		PathfindingRequestMessage pathfindingRequestMessage = new PathfindingRequestMessage(
+				parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
+				destination, gameContext.getAreaMap(), this, parent.parentEntity.getId(), pathfindingFlags);
+
+		parent.messageDispatcher.dispatchMessage(MessageType.PATHFINDING_REQUEST, pathfindingRequestMessage);
+
+		startOfWaypointGameTime = gameContext.getGameClock().getCurrentGameTime();
+		pathCursor = 0;
+		timeWaitingForPath = 0;
+		path = null;
+	}
+
 	private void followPath(GameContext gameContext) {
+		GameClock gameClock = gameContext.getGameClock();
 		SteeringComponent steeringComponent = parent.parentEntity.getBehaviourComponent().getSteeringComponent();
 		LocationComponent locationComponent = parent.parentEntity.getOwnOrVehicleLocationComponent();
 
@@ -110,6 +123,12 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		steeringComponent.setDestination(destination);
 		steeringComponent.setNextWaypoint(nextPathNode);
 
+		if (Math.abs(gameClock.getCurrentGameTime() - startOfWaypointGameTime) > ONE_HOUR) {
+			//consider no progress made and request new path finding
+			requestPathfinding(gameContext);
+			return;
+		}
+
 		MapTile nextTile = gameContext.getAreaMap().getTile(nextPathNode);
 		MapTile destinationTile = gameContext.getAreaMap().getTile(destination);
 		if (!nextTile.isNavigable(parent.parentEntity, currentTile) || !destinationTile.isNavigable(parent.parentEntity, currentTile)) {
@@ -123,11 +142,16 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			if (pathCursor + 1 < path.getCount()) {
 				// Still more nodes to follow
 				pathCursor++;
+				startOfWaypointGameTime = gameClock.getCurrentGameTime();
 			}
 		}
 	}
 
 	protected void checkForCompletion(GameContext gameContext) {
+		if (path == null) {
+			return;
+		}
+
 		if (path.getCount() == 0) {
 			completionType = CompletionType.FAILURE;
 		} else {

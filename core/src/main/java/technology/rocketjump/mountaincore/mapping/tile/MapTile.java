@@ -203,7 +203,7 @@ public class MapTile implements Persistable {
 			// Can always navigate if this tile is the starting point
 			return true;
 		} else if (getFloor().isRiverTile() && !getFloor().isBridgeNavigable()) {
-			if (startingPoint != null && startingPoint.getFloor().isRiverTile()) {
+			if (startingPoint != null && startingPoint.getFloor().isRiverTile() && !startingPoint.getFloor().hasBridge()) {
 				return true; // Can navigate from a river tile to another river tile
 			} else {
 				return false; // Otherwise rivers are not navigable
