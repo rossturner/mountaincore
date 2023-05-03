@@ -206,8 +206,8 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		this.overrideLocation = overrideLocation;
 	}
 
-	private Vector2 calculatePosition(HaulingAllocation.AllocationPositionType allocationPositionType,
-									  GridPoint2 allocationPosition, Long targetEntityId, GameContext gameContext) {
+	protected Vector2 calculatePosition(HaulingAllocation.AllocationPositionType allocationPositionType,
+										GridPoint2 allocationPosition, Long targetEntityId, GameContext gameContext) {
 		if (HaulingAllocation.AllocationPositionType.FURNITURE.equals(allocationPositionType)) {
 			Entity targetFurniture = gameContext.getAreaMap().getTile(allocationPosition)
 					.getEntity(targetEntityId);
