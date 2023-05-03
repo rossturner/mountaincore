@@ -45,6 +45,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 	public static final float WAYPOINT_TOLERANCE = 0.5f;
 	public static final float DESTINATION_TOLERANCE = 0.15f;
 	public static final float MAX_TIME_TO_WAIT = 8f;
+	public static final int ONE_HOUR = 1;
 
 	protected boolean pathfindingRequested;
 	protected GraphPath<Vector2> path;
@@ -122,7 +123,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		steeringComponent.setDestination(destination);
 		steeringComponent.setNextWaypoint(nextPathNode);
 
-		if (Math.abs(gameClock.getCurrentGameTime() - startOfWaypointGameTime) > 3) {
+		if (Math.abs(gameClock.getCurrentGameTime() - startOfWaypointGameTime) > ONE_HOUR) {
 			//consider no progress made and request new path finding
 			requestPathfinding(gameContext);
 			return;
