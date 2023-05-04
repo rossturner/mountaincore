@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.lang3.tuple.Pair;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.cooking.model.FoodAllocation;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.*;
 import technology.rocketjump.mountaincore.entities.ai.memory.Memory;
@@ -25,6 +27,7 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.mountaincore.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.mountaincore.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
@@ -162,6 +165,12 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 			}
 		} else {
 			previousActions.add(actionQueue.poll());
+
+			if (interrupted && suspectedDeadlock(gameContext)) {
+				Logger.error("Deadlock detected with goal interruption, Goal: {}, Previous Actions: {}", goal.name, previousActions.stream().map(Action::getSimpleName).collect(Collectors.joining(" -> ")));
+				throw new SwitchGoalException(SpecialGoal.IDLE);
+			}
+
 			ActionTransitions transitions = goal.getAllTransitions().get(currentAction.getClass());
 			if (transitions != null) { // Might be null when extra actions added by code
 				if (actionCompletion.equals(SUCCESS)) {
@@ -171,6 +180,25 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 				}
 			}
 		}
+	}
+
+	private boolean suspectedDeadlock(GameContext gameContext) {
+		Map<Pair<Action.CompletionType, Class<? extends Action>>, Integer> map = new HashMap<>();
+		for (Action previousAction : previousActions) {
+			try {
+				Action.CompletionType completionType = previousAction.isCompleted(gameContext);
+				Pair<Action.CompletionType, Class<? extends Action>> key = Pair.of(completionType, previousAction.getClass());
+				Integer count = map.getOrDefault(key, 0);
+				if (count >= 25) {
+					return true;
+				}
+				map.put(key, count+1);
+
+			} catch (SwitchGoalException e) {
+				//shouldn't happen
+			}
+		}
+		return false;
 	}
 
 	public Action getCurrentAction() {
