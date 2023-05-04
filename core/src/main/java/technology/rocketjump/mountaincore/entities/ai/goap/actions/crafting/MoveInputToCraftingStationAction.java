@@ -14,11 +14,14 @@ import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MoveInputToCraftingStationAction extends Action implements InitialisableAction {
-
+	public static final int MAX_ATTEMPTS_PER_ALLOCATION = 3;
 	private AssignedGoal subGoal;
+	private final Map<Integer, Integer> transferAttempts = new HashMap<>();
 
 	public MoveInputToCraftingStationAction(AssignedGoal parent) {
 		super(parent);
@@ -43,14 +46,14 @@ public class MoveInputToCraftingStationAction extends Action implements Initiali
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		if (subGoal == null) {
-			initialiseHaulingOfInput(gameContext);
-		} else {
+		if (subGoal != null) {
 			if (subGoal.isComplete()) {
-				completionType = CompletionType.SUCCESS;
+				initialiseHaulingOfInput(gameContext);
 			} else {
 				subGoal.update(deltaTime, gameContext);
 			}
+		} else {
+			initialiseHaulingOfInput(gameContext);
 		}
 	}
 
@@ -60,14 +63,22 @@ public class MoveInputToCraftingStationAction extends Action implements Initiali
 				&& craftingStationBehaviour.getCurrentCraftingAssignment() != null) {
 
 			List<HaulingAllocation> inputAllocations = craftingStationBehaviour.getCurrentCraftingAssignment().getInputAllocations();
-			if (!inputAllocations.isEmpty()) {
+			if (inputAllocations.isEmpty()) {
+				completionType = CompletionType.SUCCESS;
+			} else {
 				HaulingAllocation haulingAllocation = inputAllocations.remove(0);
+				Integer attempt = transferAttempts.getOrDefault(inputAllocations.size(), 0);
+				if (attempt > MAX_ATTEMPTS_PER_ALLOCATION) {
+					inputAllocations.add(haulingAllocation);
+					completionType = CompletionType.FAILURE;
+					return;
+				} else {
+					transferAttempts.put(inputAllocations.size(), attempt + 1);
+				}
 
 				subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
 				subGoal.setAssignedHaulingAllocation(haulingAllocation);
 				subGoal.setParentGoal(this.parent);
-			} else {
-				completionType = CompletionType.FAILURE;
 			}
 		} else {
 			completionType = CompletionType.FAILURE;
