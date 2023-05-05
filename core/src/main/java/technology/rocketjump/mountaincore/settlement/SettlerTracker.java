@@ -92,6 +92,7 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 	public void clearContextRelatedState() {
 		livingSettlers.clear();
 		deadSettlers.clear();
+		trappedSettlers.clear();
 	}
 
 	@Override
@@ -116,16 +117,17 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 			case MessageType.SETTLER_LOCATE_DRINK_STATUS -> {
 				SettlerLocateDrinkStatusMessage message = (SettlerLocateDrinkStatusMessage) msg.extraInfo;
 				Entity settler = message.settler();
-
-				int sizeBefore = trappedSettlers.size();
-				if (message.drinkFound()) {
-					trappedSettlers.remove(settler.getId());
-				} else {
-					trappedSettlers.put(settler.getId(), settler);
-					if (sizeBefore == 0) {
-						Notification notification = new Notification(NotificationType.SETTLER_STUCK,
-								settler.getLocationComponent().getWorldOrParentPosition(), new Selectable(settler, 0));
-						messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
+				if (settler.isSettler()) {
+					int sizeBefore = trappedSettlers.size();
+					if (message.drinkFound()) {
+						trappedSettlers.remove(settler.getId());
+					} else {
+						trappedSettlers.put(settler.getId(), settler);
+						if (sizeBefore == 0) {
+							Notification notification = new Notification(NotificationType.SETTLER_STUCK,
+									settler.getLocationComponent().getWorldOrParentPosition(), new Selectable(settler, 0));
+							messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
+						}
 					}
 				}
 
