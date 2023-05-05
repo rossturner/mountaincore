@@ -20,7 +20,7 @@
           "type": "NEED",
           "need": "FOOD",
           "operator": "LESS_THAN_OR_EQUAL_TO",
-          "value": 65
+          "value": 70
         }
       ],
       "priority": "WANT_NORMAL",

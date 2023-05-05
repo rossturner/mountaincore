@@ -20,7 +20,7 @@
           "type": "NEED",
           "need": "SLEEP",
           "operator": "LESS_THAN_OR_EQUAL_TO",
-          "value": 55
+          "value": 70
         }
       ],
       "priority": "WANT_NORMAL",

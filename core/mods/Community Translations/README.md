@@ -59,30 +59,33 @@ This project is licensed under the Creative Commons Legal Code License - see the
 
 ## Contributors
 
+### Chinese (simplified) translation
+* Howard Huang
+
+### Danish translation
+* Thomas Michelsen aka ShamblerDK
+* Mathias Kiær
+
+### French translation
+* Rodolphe Moissinac
+
 ### German translation
 * Antafes
 * Katharina Schrempf
 * Ferdinand Niedermann
 * Mario Röder
 
-### French translation
-* Rodolphe Moissinac
-
-### Spanish translation
-* Harlmorl
-
 ### Italian translation
 * AndyD
-
-### Danish translation
-* Mathias kiær
-
-### Turkish translation
-* Fırat Gülmez
 
 ### Japanese translation
 * SPQR
 
-### Chinese (simplified) translation
-* Howard Huang
+### Spanish translation
+* Harlmorl
+
+### Turkish translation
+* Fırat Gülmez
+
+
 

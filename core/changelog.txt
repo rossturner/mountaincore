@@ -1,7 +1,12 @@
 Early Access 1.1.19
 
+- Added translators to in-game credits
 - Fixes to liquid allocations for brewery jobs
 - Fix for unexplored areas not being revealed correctly
+- Fix for items teleporting around the map
+- Better resolution of AI goals that are failing
+- Danish translation courtesy of community member ShamblerDK
+- Updated Chinese translation
 
 Early Access 1.1.18 - 30th April 2023
 
