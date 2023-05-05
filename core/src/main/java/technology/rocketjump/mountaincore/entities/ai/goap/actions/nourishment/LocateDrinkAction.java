@@ -6,6 +6,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
 import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.messaging.MessageType.SettlerLocateDrinkStatusMessage;
 import technology.rocketjump.mountaincore.messaging.types.RequestLiquidAllocationMessage;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
@@ -33,13 +34,18 @@ public class LocateDrinkAction extends Action implements RequestLiquidAllocation
 					true, true, this));
 
 			// Expecting above code to have found an alcoholic drink first
-			if (completionType != null && completionType.equals(CompletionType.FAILURE)) {
+			if (hasFailed()) {
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_ALLOCATION, new RequestLiquidAllocationMessage(
 						parent.parentEntity, LIQUID_AMOUNT_FOR_DRINK_CONSUMPTION,
 						false, true, this));
 			}
-		}
 
+			parent.messageDispatcher.dispatchMessage(MessageType.SETTLER_LOCATE_DRINK_STATUS, new SettlerLocateDrinkStatusMessage(parent.parentEntity, completionType == CompletionType.SUCCESS));
+		}
+	}
+
+	private boolean hasFailed() {
+		return completionType != null && completionType.equals(CompletionType.FAILURE);
 	}
 
 	@Override

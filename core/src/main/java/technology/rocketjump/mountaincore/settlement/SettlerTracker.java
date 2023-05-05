@@ -13,7 +13,11 @@ import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.messaging.MessageType;
+import technology.rocketjump.mountaincore.messaging.MessageType.SettlerLocateDrinkStatusMessage;
 import technology.rocketjump.mountaincore.messaging.types.LocateSettlersMessage;
+import technology.rocketjump.mountaincore.settlement.notifications.Notification;
+import technology.rocketjump.mountaincore.settlement.notifications.NotificationType;
+import technology.rocketjump.mountaincore.ui.Selectable;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,6 +34,8 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 
 	private final Map<Long, Entity> livingSettlers = new HashMap<>();
 	private final Map<Long, Entity> deadSettlers = new HashMap<>();
+	private final Map<Long, Entity> trappedSettlers = new HashMap<>();
+
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
 
@@ -37,6 +43,7 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 	public SettlerTracker(MessageDispatcher messageDispatcher) {
 		this.messageDispatcher = messageDispatcher;
 		this.messageDispatcher.addListener(this, MessageType.LOCATE_SETTLERS_IN_REGION);
+		this.messageDispatcher.addListener(this, MessageType.SETTLER_LOCATE_DRINK_STATUS);
 	}
 
 	public void settlerAdded(Entity entity) {
@@ -54,11 +61,13 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 
 	public void settlerRemoved(Entity entity) {
 		livingSettlers.remove(entity.getId());
+		trappedSettlers.remove(entity.getId());
 		deadSettlers.remove(entity.getId());
 	}
 
 	public void settlerDied(Entity entity) {
 		livingSettlers.remove(entity.getId());
+		trappedSettlers.remove(entity.getId());
 		deadSettlers.put(entity.getId(), entity);
 	}
 
@@ -83,6 +92,7 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 	public void clearContextRelatedState() {
 		livingSettlers.clear();
 		deadSettlers.clear();
+		trappedSettlers.clear();
 	}
 
 	@Override
@@ -102,6 +112,25 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 						})
 						.toList();
 				message.callback.accept(foundSettlers);
+				return true;
+			}
+			case MessageType.SETTLER_LOCATE_DRINK_STATUS -> {
+				SettlerLocateDrinkStatusMessage message = (SettlerLocateDrinkStatusMessage) msg.extraInfo;
+				Entity settler = message.settler();
+				if (settler.isSettler()) {
+					int sizeBefore = trappedSettlers.size();
+					if (message.drinkFound()) {
+						trappedSettlers.remove(settler.getId());
+					} else {
+						trappedSettlers.put(settler.getId(), settler);
+						if (sizeBefore == 0) {
+							Notification notification = new Notification(NotificationType.SETTLER_STUCK,
+									settler.getLocationComponent().getWorldOrParentPosition(), new Selectable(settler, 0));
+							messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
+						}
+					}
+				}
+
 				return true;
 			}
 			default ->
