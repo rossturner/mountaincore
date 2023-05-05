@@ -736,8 +736,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 
 		propagateDarknessFromTile(tileToAddWallTo, gameContext, outdoorLightProcessor);
 
-		updateRegions(tileToAddWallTo, tileNeighbours);
-
+		updateRegions(Set.of(tileToAddWallTo));
 		return true;
 	}
 

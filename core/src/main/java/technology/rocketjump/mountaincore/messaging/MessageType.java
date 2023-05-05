@@ -132,6 +132,9 @@ public class MessageType {
 	public static final int ENTITY_CREATED_AND_REGISTERED = 354;
 	public static final int ENTITY_DESTROYED_AND_UNREGISTERED = 355;
 
+	public static final int SETTLER_LOCATE_DRINK_STATUS = 356; public record SettlerLocateDrinkStatusMessage(Entity settler, boolean drinkFound) {}
+
+
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
 
