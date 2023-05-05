@@ -75,6 +75,7 @@ This project is licensed under the Creative Commons Legal Code License - see the
 * AndyD
 
 ### Danish translation
+* Thomas Michelsen aka ShamblerDK
 * Mathias kiær
 
 ### Turkish translation

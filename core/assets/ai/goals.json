@@ -206,7 +206,7 @@
     "conditions" : [ {
       "need" : "DRINK",
       "type" : "NEED",
-      "value" : 55,
+      "value" : 70,
       "operator" : "LESS_THAN_OR_EQUAL_TO"
     } ],
     "priority" : "WANT_NORMAL"
@@ -300,7 +300,7 @@
     "conditions" : [ {
       "need" : "FOOD",
       "type" : "NEED",
-      "value" : 65,
+      "value" : 70,
       "operator" : "LESS_THAN_OR_EQUAL_TO"
     } ],
     "priority" : "WANT_NORMAL"
@@ -985,7 +985,7 @@
     "conditions" : [ {
       "need" : "SLEEP",
       "type" : "NEED",
-      "value" : 55,
+      "value" : 70,
       "operator" : "LESS_THAN_OR_EQUAL_TO"
     } ],
     "priority" : "WANT_NORMAL"
