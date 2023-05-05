@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour.importFurnitureSort;
 
@@ -64,8 +63,7 @@ public class PlanMerchantPurchaseAction extends Action {
 							.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 							.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour)
 							.filter(e -> !((TradingExportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
-							.collect(Collectors.toSet())
-							.stream()
+							.distinct()
 							.sorted((a, b) -> {
 								TradingExportFurnitureBehaviour aBehaviour = (TradingExportFurnitureBehaviour) a.getBehaviourComponent();
 								TradingExportFurnitureBehaviour bBehaviour = (TradingExportFurnitureBehaviour) b.getBehaviourComponent();

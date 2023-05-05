@@ -103,6 +103,11 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 				setToFullyDecayed(attributes);
 			}
 		}
+
+		if (parentEntity.getPhysicalEntityComponent().getBaseAsset() == null) {
+			// No asset for skeleton or whatever, so just destroy
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
+		}
 		lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
 	}
 

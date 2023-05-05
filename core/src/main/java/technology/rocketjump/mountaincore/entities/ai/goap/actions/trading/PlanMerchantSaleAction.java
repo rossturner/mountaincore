@@ -66,8 +66,7 @@ public class PlanMerchantSaleAction extends Action {
 						.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 						.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour)
 						.filter(e -> !((TradingImportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
-						.collect(Collectors.toSet())
-						.stream()
+						.distinct()
 						.sorted((a, b) -> {
 							TradingImportFurnitureBehaviour aBehaviour = (TradingImportFurnitureBehaviour) a.getBehaviourComponent();
 							TradingImportFurnitureBehaviour bBehaviour = (TradingImportFurnitureBehaviour) b.getBehaviourComponent();
