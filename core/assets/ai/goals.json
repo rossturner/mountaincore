@@ -80,23 +80,15 @@
       "fail" : [ "UnequipItemForJob", "UnassignJob" ],
       "pass" : [ "CancelInterruptedFlag", "UnequipItemForJob", "CheckForPendingOutput" ]
     },
-    "CheckForPendingLiquidInput" : {
-      "fail" : [ "CheckForPendingInput" ],
-      "pass" : [ "MoveLiquidInputToCraftingStation" ]
-    },
     "MoveInputToCraftingStation" : {
       "fail" : [ "UnassignJob" ],
-      "pass" : [ "CheckForPendingInput" ]
+      "pass" : [ "CheckReadyToCraft" ]
     },
     "GoToLocation" : {
       "fail" : [ "UnassignJob" ],
       "pass" : [ "FaceTowardsLocation", "EquipItemForJobFromFurniture", "WorkOnJob" ]
     },
     "EquipItemForJobFromFurniture" : { },
-    "CheckForPendingInput" : {
-      "fail" : [ "CheckReadyToCraft" ],
-      "pass" : [ "MoveInputToCraftingStation" ]
-    },
     "CheckForPendingOutput" : {
       "fail" : [ "MarkCraftingAssignmentComplete" ],
       "pass" : [ "MoveOutputToExportSpot" ]
@@ -109,7 +101,7 @@
     },
     "MoveLiquidInputToCraftingStation" : {
       "fail" : [ "UnassignJob" ],
-      "pass" : [ "CheckForPendingLiquidInput" ]
+      "pass" : [ "MoveInputToCraftingStation" ]
     },
     "MarkCraftingAssignmentComplete" : { },
     "EquipItemForJobFromInventory" : {
@@ -119,7 +111,7 @@
     "FaceTowardsLocation" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "CheckForPendingLiquidInput" ],
+  "initialActions" : [ "MoveLiquidInputToCraftingStation" ],
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.ON_FIRE.DESCRIPTION",
@@ -366,19 +358,23 @@
       "fail" : [ "CancelHaulingAllocation" ],
       "pass" : [ "JobCompleted" ]
     },
-    "GoToLocation" : {
+    "GoToHaulingSourceLocation" : {
       "fail" : [ "CancelHaulingAllocation" ],
-      "pass" : [ "PlaceEntity" ]
+      "pass" : [ "PickUpEntity" ]
     },
     "PickUpEntity" : {
       "fail" : [ "CancelHaulingAllocation" ],
-      "pass" : [ "GoToLocation" ]
+      "pass" : [ "GoToHaulingTargetLocation" ]
+    },
+    "GoToHaulingTargetLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PlaceEntity" ]
     },
     "JobCompleted" : { },
     "UnassignJob" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "GoToLocation", "PickUpEntity" ],
+  "initialActions" : [ "GoToHaulingSourceLocation" ],
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.IDLE.DESCRIPTION",

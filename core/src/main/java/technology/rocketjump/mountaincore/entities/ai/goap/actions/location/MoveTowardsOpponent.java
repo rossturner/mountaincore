@@ -39,6 +39,7 @@ public class MoveTowardsOpponent extends GoToLocationAction {
 				// Reset pathing state to path closer to target
 				pathfindingRequested = false;
 				path = null;
+				timeFollowingPath = 0;
 			} else {
 				timeFollowingPath += deltaTime;
 			}

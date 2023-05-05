@@ -3,14 +3,18 @@
   "i18nDescription": "GOAL.HAULING.DESCRIPTION",
   "interruptedByLowNeeds": true,
   "selectors": [],
-  "initialActions": ["GoToLocation", "PickUpEntity"],
+  "initialActions": ["GoToHaulingSourceLocation"],
   "actionRelationships": {
-    "GoToLocation": {
-      "pass": ["PlaceEntity"],
+    "GoToHaulingSourceLocation": {
+      "pass": ["PickUpEntity"],
       "fail": ["CancelHaulingAllocation"]
     },
     "PickUpEntity": {
-      "pass": ["GoToLocation"],
+      "pass": ["GoToHaulingTargetLocation"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "GoToHaulingTargetLocation": {
+      "pass": ["PlaceEntity"],
       "fail": ["CancelHaulingAllocation"]
     },
     "PlaceEntity": {
