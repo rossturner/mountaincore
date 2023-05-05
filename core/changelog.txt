@@ -1,10 +1,12 @@
 Early Access 1.1.19
 
 - Added translators to in-game credits
+- A settler getting stuck should now post a notification to the player
 - Fully decayed non-dwarf corpses will now self-destruct rather than turn invisible
 - Fixes to liquid allocations for brewery jobs
 - Fix for unexplored areas not being revealed correctly
 - Fix for items teleporting around the map
+- Hopeful fix for trading chests getting stuck sometimes
 - Better resolution of AI goals that are failing
 - Danish translation courtesy of community member ShamblerDK
 - Updated Chinese translation

@@ -37,7 +37,7 @@
     },
     "GoToPaymentLocation": {
       "pass": ["PlacePayment"],
-      "fail": ["GoToRandomEmptyLocation"]
+      "fail": ["CancelHaulingAllocation", "GoToRandomEmptyLocation"]
     },
     "GoToRandomEmptyLocation": {
       "pass": ["PlacePayment"],
