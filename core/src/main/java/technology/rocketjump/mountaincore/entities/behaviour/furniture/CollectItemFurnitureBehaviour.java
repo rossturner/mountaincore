@@ -3,15 +3,19 @@ package technology.rocketjump.mountaincore.entities.behaviour.furniture;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.jobs.model.*;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.RequestHaulingAllocationMessage;
+import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
@@ -66,8 +70,14 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		if (inventoryAssignments.size() < maxNumItemStacks) {
 			ItemTypeWithMaterial potentialItemTypeWithMaterial = itemsToCollect.get(gameContext.getRandom().nextInt(itemsToCollect.size()));
 			if (allowDuplicates || !inventoryAssignments.contains(potentialItemTypeWithMaterial)) {
+				Vector2 location = parentEntity.getLocationComponent().getWorldOrParentPosition();
+				FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+				if (workspace != null) {
+					location = VectorUtils.toVector(workspace.getAccessedFrom());
+				}
+
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
+						parentEntity, location, potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
 						includeFromFurniture, null, null, allocation -> {
 							if (allocation != null) {
 								createHaulingJobForAllocation(potentialItemTypeWithMaterial, allocation);
@@ -101,6 +111,16 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		haulingJob.setTargetId(allocation.getHauledEntityId());
 		haulingJob.setHaulingAllocation(allocation);
 		haulingJob.setJobLocation(allocation.getSourcePosition());
+
+		if (allocation.getSourcePositionType() == HaulingAllocation.AllocationPositionType.FURNITURE) {
+			Entity containerEntity = gameContext.getEntities().get(allocation.getSourceContainerId());
+			if (containerEntity != null && containerEntity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes) {
+				FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
+				if (workspace != null) {
+					haulingJob.setJobLocation(workspace.getAccessedFrom());
+				}
+			}
+		}
 
 		if (requiredProfession != null) {
 			haulingJob.setRequiredProfession(requiredProfession);
