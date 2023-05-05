@@ -64,6 +64,10 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 	}
 
 	private void initialiseLiquidTransferInput(GameContext gameContext) {
+		if (parent.getAssignedJob() == null) {
+			completionType = CompletionType.FAILURE;
+			return;
+		}
 		Entity craftingStation = gameContext.getEntities().get(parent.getAssignedJob().getTargetId());
 		if (craftingStation != null && craftingStation.getBehaviourComponent() instanceof CraftingStationBehaviour craftingStationBehaviour
 				&& craftingStationBehaviour.getCurrentCraftingAssignment() != null) {
