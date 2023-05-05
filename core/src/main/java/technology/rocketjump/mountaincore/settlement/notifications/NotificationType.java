@@ -17,7 +17,8 @@ public enum NotificationType {
 	INVASION("NOTIF_INVASION.png", null),
 	TRADER_ARRIVED("NOTIF_TRADING_CARAVAN.png", null),
 	TRADER_ARRIVED_NO_DEPOT("NOTIF_TRADING_CARAVAN.png", null),
-	GAME_OVER("NOTIF_GAME_OVER.png", null);
+	GAME_OVER("NOTIF_GAME_OVER.png", null),
+	SETTLER_STUCK("NOTIF_DWARF_STUCK.png", null);
 
 
 	private String imageFilename;
