@@ -67,7 +67,7 @@ public class FillLiquidContainerBehaviour extends FurnitureBehaviour implements 
 		if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null) {
 			clearCompletedJobs();
 			// if num outstanding jobs + current liquid amount < max, try to create job to fill container
-			if (liquidContainerComponent.getLiquidQuantity() + (outstandingJobs.size() * relatedContainerCapacity()) < liquidContainerComponent.getMaxLiquidCapacity() - 1f) {
+			if (liquidContainerComponent.getLiquidQuantity() + (outstandingJobs.size() * relatedContainerCapacity()) < liquidContainerComponent.getMaxLiquidCapacity()) {
 				// Create new job
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
 						liquidContainerComponent.getTargetLiquidMaterial(), false, parentEntity,
