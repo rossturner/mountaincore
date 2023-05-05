@@ -16,6 +16,7 @@ import technology.rocketjump.mountaincore.jobs.model.*;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.RequestCorpseMessage;
 import technology.rocketjump.mountaincore.messaging.types.RequestHaulingMessage;
+import technology.rocketjump.mountaincore.misc.Destructible;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prioritisable {
+public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prioritisable, Destructible {
 
 	private List<Job> haulingJobs = new ArrayList<>();
 	private Job butcheryJob;
@@ -34,6 +35,22 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	private Skill requiredProfession = null;
 	private JobType haulingJobType;
 	private JobType butcheryJobType;
+
+	@Override
+	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		for (Job haulingJob : haulingJobs) {
+			HaulingAllocation haulingAllocation = haulingJob.getHaulingAllocation();
+			messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+
+			messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, haulingJob);
+		}
+
+		if (butcheryJob != null) {
+			messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, butcheryJob);
+		}
+
+
+	}
 
 	@Override
 	public FurnitureBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
