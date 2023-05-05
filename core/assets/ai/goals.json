@@ -584,6 +584,7 @@
       "fail" : [ "CancelTrade" ],
       "pass" : [ "PlaceEntity" ]
     },
+    "CancelHaulingAllocation" : { },
     "PlaceEntity" : {
       "fail" : [ "CancelTrade" ],
       "pass" : [ "GoToPaymentLocation" ]
@@ -594,7 +595,7 @@
     },
     "TradeCompleted" : { },
     "GoToPaymentLocation" : {
-      "fail" : [ "GoToRandomEmptyLocation" ],
+      "fail" : [ "CancelHaulingAllocation", "GoToRandomEmptyLocation" ],
       "pass" : [ "PlacePayment" ]
     },
     "RequeueThisGoal" : { },

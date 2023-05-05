@@ -49,6 +49,7 @@
     },
     "TradeCompleted": {},
     "RequeueThisGoal": {},
+    "CancelHaulingAllocation": {},
     "CancelTrade": {}
   }
 }
