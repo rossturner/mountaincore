@@ -1,5 +1,6 @@
 Early Access 1.1.19
 
+- Added translators to in-game credits
 - Fixes to liquid allocations for brewery jobs
 - Fix for unexplored areas not being revealed correctly
 - Fix for items teleporting around the map

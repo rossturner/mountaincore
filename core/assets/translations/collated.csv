@@ -498,6 +498,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,Programming,,Programmierung,,,,,,,,,Programme
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,Special Thanks,,Besonderer Dank,,,,,,,,,Speciel tak til,,,,,,,,
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,Special Thanks to our Founding Backers,,Besonderen Dank an unsere Gründungshelfer,,,,,,,,,Speciel tak til vores stiftende støtter,,,,,,,,
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,Additional Thanks to our Patreon and Kickstarter Backers,,Zusätzlicher Dank an unsere Patreon- und Kickstarter-Unterstützer,,,,,,,,,Yderligere tak til vores Patreon og Kickstarter støtter,,,,,,,,
+GUI.CREDITS.TRANSLATORS_TITLE,Translations,,,,,,,,,,,,,,,,,,,
 GUI.CROP_SELECTION,Crop:,,Pflanze:,Culture:,Coltura:,Cosecha:,Plantação:,Cultivo:,,Обрезать:,Mahsül:,Afgrøde:,,Beskära:,,,,Crop:,农作物：,
 GUI.CROP_SELECTION.DESCRIPTION,{{plantDescription}} - {{planting}} - {{usage}},,{{plantDescription}} - {{planting}} - {{usage}},,,,,,,,,{{plantDescription}} - {{planting}} - {{usage}},,,,,,,{{plantDescription}} - {{planting}} - {{usage}},
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,Can not be planted,,Kann nicht gepflanzt werden,,,,,,,,,Kan ikke plantes,,,,,,,无法种植,

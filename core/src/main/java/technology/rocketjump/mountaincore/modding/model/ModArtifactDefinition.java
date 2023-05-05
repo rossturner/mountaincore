@@ -89,6 +89,7 @@ public class ModArtifactDefinition implements Comparable<ModArtifactDefinition> 
 		JSON_MAP(".json"), // special case where object keys map as names
 		JSON_KEY_VALUES(".json"), // special case where every key is an individually-overwriteable property
 		CSV(".csv"),
+		TXT(".txt"),
 		WAV(".wav"),
 		OGG(".ogg"),
 		P_FILE(".p"),

@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
@@ -32,14 +34,19 @@ import javax.inject.Singleton;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Singleton
 public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     public static final int DEVELOPER_TITLE_MIN_WIDTH = 1100;
-    private final List<String> foundingBackers;
-    private final List<String> patreonKickstarters;
+    private static final String FOUNDING_BACKERS = "founding_backers";
+    private static final String PATREON_KICKSTARTERS = "patreon_kickstarters";
+    private final Map<String, List<String>> creditsData = new HashMap<>();
     private final I18nTranslator i18nTranslator;
     private final ButtonFactory buttonFactory;
     private final MessageDispatcher messageDispatcher;
@@ -52,8 +59,23 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         this.i18nTranslator = i18nTranslator;
         this.buttonFactory = buttonFactory;
         this.messageDispatcher = messageDispatcher;
-        foundingBackers = FileUtils.readLines(Gdx.files.internal("assets/text/credits/founding_backers.csv").file());
-        patreonKickstarters = FileUtils.readLines(Gdx.files.internal("assets/text/credits/patreon_kickstarter.csv").file());
+
+        try (Stream<Path> fileList = Files.list(Path.of("assets/text/credits"))) {
+            fileList.forEach(file -> {
+                if (!Files.isDirectory(file)) {
+                    try {
+                        String filename = FilenameUtils.removeExtension(file.getFileName().toString());
+                        List<String> lines = FileUtils.readLines(file.toFile());
+                        if (!filename.equals(FOUNDING_BACKERS) && !filename.equals(PATREON_KICKSTARTERS)) {
+                            Collections.sort(lines);
+                        }
+                        creditsData.put(filename, lines);
+                    } catch (IOException e) {
+                        Logger.error(e, "Error reading credits file: {}", file.getFileName());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -82,8 +104,8 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         Label backersTitle = i18nTitleRibbon("GUI.CREDITS.FOUNDING_BACKERS_TITLE");
         Label patreonKickstarterTitle = i18nTitleRibbon("GUI.CREDITS.PATREON_KICKSTARTER_TITLE");
         Label andYouTitle = i18nTitleRibbon("GUI.CREDITS.AND_YOU_TITLE");
-        Table backersTable = thankYouTable(foundingBackers);
-        Table patreonKickstarterTable = thankYouTable(patreonKickstarters);
+        Table backersTable = thankYouTable(creditsData.get(FOUNDING_BACKERS));
+        Table patreonKickstarterTable = thankYouTable(creditsData.get(PATREON_KICKSTARTERS));
 
         Table firstRow = new Table();
         firstRow.defaults().expandX();
@@ -161,6 +183,16 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
         table.add(thirdRow).spaceBottom(256).growX().row();
         table.add(fourthRow).spaceBottom(256).growX().row();
         table.add(fifthRow).spaceBottom(256).growX().row();
+
+        for (Map.Entry<String, List<String>> creditsEntry : creditsData.entrySet()) {
+            if (!creditsEntry.getKey().equals(FOUNDING_BACKERS) && !creditsEntry.getKey().equals(PATREON_KICKSTARTERS)) {
+                Label titleLabel = i18nTitleRibbon("GUI.CREDITS." + creditsEntry.getKey().toUpperCase() + "_TITLE");
+                Table creditsTable = thankYouTable(creditsEntry.getValue());
+                table.add(titleLabel).padTop(68f).padBottom(68).row();
+                table.add(creditsTable).spaceBottom(256).row();
+            }
+        }
+
         table.add(sixthRow).spaceBottom(256).growX().row();
 
         table.add(backersTitle).padTop(68f).padBottom(68).row();
