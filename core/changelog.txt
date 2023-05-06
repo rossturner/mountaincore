@@ -1,4 +1,10 @@
-Early Access 1.1.19
+Early Access 1.1.20 - 6th May 2023
+
+- Fix for when a retting tank gets stuck at 3/4 full
+- Fix for a crash that is happening when a merchant goes to place payment and something is missing
+- Plants can now access water (e.g. from irrigation) up to 3 tiles away instead of 2 tiles away
+
+Early Access 1.1.19 - 5th May 2023
 
 - Added translators to in-game credits
 - A settler getting stuck should now post a notification to the player

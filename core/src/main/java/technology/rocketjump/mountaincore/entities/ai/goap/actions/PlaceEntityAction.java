@@ -291,7 +291,11 @@ public class PlaceEntityAction extends Action {
 			((HaulingComponent)currentContainer).clearHauledEntity();
 			parent.parentEntity.removeComponent(HaulingComponent.class);
 		} else if (currentContainer instanceof InventoryComponent) {
-			((InventoryComponent)currentContainer).remove(parent.getAssignedHaulingAllocation().getHauledEntityId());
+			if (parent.getAssignedHaulingAllocation() != null) {
+				((InventoryComponent)currentContainer).remove(parent.getAssignedHaulingAllocation().getHauledEntityId());
+			} else {
+				Logger.error("Trying to remove item from inventory, but no hauling allocation set");
+			}
 		}
 	}
 
