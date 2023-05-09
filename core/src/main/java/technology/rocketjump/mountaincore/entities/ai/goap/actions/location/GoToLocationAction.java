@@ -45,10 +45,10 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 	public static final float WAYPOINT_TOLERANCE = 0.5f;
 	public static final float DESTINATION_TOLERANCE = 0.15f;
 	public static final float MAX_TIME_TO_WAIT = 8f;
-	public static final int ONE_HOUR = 1;
+	public static final double ONE_HOUR = 1.0d;
 
 	protected boolean pathfindingRequested;
-	protected GraphPath<Vector2> path;
+	protected volatile GraphPath<Vector2> path; //volatile ensures goes back to main memory
 	private float timeWaitingForPath;
 	private int pathCursor = 0;
 	private double startOfWaypointGameTime;
@@ -93,16 +93,18 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			}
 			return;
 		}
+
+		startOfWaypointGameTime = gameContext.getGameClock().getCurrentGameTime();
+		pathCursor = 0;
+		timeWaitingForPath = 0;
+		path = null; //do this first, reduce risk of race condition with Pathfinding request
+
 		PathfindingRequestMessage pathfindingRequestMessage = new PathfindingRequestMessage(
 				parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
 				destination, gameContext.getAreaMap(), this, parent.parentEntity.getId(), pathfindingFlags);
 
 		parent.messageDispatcher.dispatchMessage(MessageType.PATHFINDING_REQUEST, pathfindingRequestMessage);
 
-		startOfWaypointGameTime = gameContext.getGameClock().getCurrentGameTime();
-		pathCursor = 0;
-		timeWaitingForPath = 0;
-		path = null;
 	}
 
 	private void followPath(GameContext gameContext) {
