@@ -431,7 +431,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		}
 	}
 
-	private boolean hostileFactions(Faction myFaction, Faction targetFaction) {
+	public boolean hostileFactions(Faction myFaction, Faction targetFaction) {
 		return (myFaction == Faction.MONSTERS && myFaction != targetFaction) ||
 				(myFaction == Faction.SETTLEMENT && (targetFaction == Faction.MONSTERS || targetFaction == Faction.HOSTILE_INVASION));
 	}
