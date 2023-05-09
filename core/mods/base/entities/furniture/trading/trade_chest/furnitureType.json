@@ -11,6 +11,6 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "1", "ItemType_Treasure-Coin" ]
+    "STOCKPILE" : [ "4", "ItemType_Treasure-Coin" ]
   }
 }
