@@ -69,7 +69,7 @@ public class PlaceEntityAction extends Action {
 					} else {
 						Entity itemToPlace = getTargetFrom(containerComponent);
 						if (itemToPlace != null) {
-							removeTargetFrom(containerComponent);
+							removeTargetFrom(containerComponent, itemToPlace);
 							placeEntityInFurniture(itemToPlace, targetFurniture, gameContext, haulingAllocation);
 						} else {
 							completionType = CompletionType.FAILURE;
@@ -78,7 +78,7 @@ public class PlaceEntityAction extends Action {
 				} else if (adjacentTo(targetFurniture)) {
 					Entity itemToPlace = getTargetFrom(containerComponent);
 					if (itemToPlace != null) {
-						removeTargetFrom(containerComponent);
+						removeTargetFrom(containerComponent, itemToPlace);
 						placeEntityInFurniture(itemToPlace, targetFurniture, gameContext, haulingAllocation);
 					} else {
 						completionType = CompletionType.FAILURE;
@@ -218,7 +218,7 @@ public class PlaceEntityAction extends Action {
 					completionType = CompletionType.FAILURE; // Something already in target placement tile
 				} else {
 					// Place item into tile, including if it is a construction
-					removeTargetFrom(containerComponent);
+					removeTargetFrom(containerComponent, entityToPlace);
 					entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
 					entityToPlace.getLocationComponent().setFacing(EntityAssetOrientation.DOWN.toVector2());
 					entityToPlace.getLocationComponent().setContainerEntity(null);
@@ -244,7 +244,7 @@ public class PlaceEntityAction extends Action {
 		} else { // not of type ITEM
 
 			// Place entity into tile regardless
-			removeTargetFrom(containerComponent);
+			removeTargetFrom(containerComponent, entityToPlace);
 			entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
 			entityToPlace.getLocationComponent().setFacing(EntityAssetOrientation.DOWN.toVector2());
 			entityToPlace.getLocationComponent().setContainerEntity(null);
@@ -286,16 +286,12 @@ public class PlaceEntityAction extends Action {
 		return itemToPlace;
 	}
 
-	private void removeTargetFrom(EntityComponent currentContainer) {
+	private void removeTargetFrom(EntityComponent currentContainer, Entity itemToPlace) {
 		if (currentContainer instanceof HaulingComponent) {
 			((HaulingComponent)currentContainer).clearHauledEntity();
 			parent.parentEntity.removeComponent(HaulingComponent.class);
 		} else if (currentContainer instanceof InventoryComponent) {
-			if (parent.getAssignedHaulingAllocation() != null) {
-				((InventoryComponent)currentContainer).remove(parent.getAssignedHaulingAllocation().getHauledEntityId());
-			} else {
-				Logger.error("Trying to remove item from inventory, but no hauling allocation set");
-			}
+			((InventoryComponent)currentContainer).remove(itemToPlace.getId());
 		}
 	}
 
