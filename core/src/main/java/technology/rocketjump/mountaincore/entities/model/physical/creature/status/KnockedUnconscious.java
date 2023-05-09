@@ -37,6 +37,15 @@ public class KnockedUnconscious extends StatusEffect {
 	}
 
 	@Override
+	public void onRemoval(GameContext gameContext, MessageDispatcher messageDispatcher) {
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+		if (attributes.getConsciousness().equals(Consciousness.KNOCKED_UNCONSCIOUS)) {
+			attributes.setConsciousness(Consciousness.AWAKE);
+			parentEntity.getLocationComponent().setRotation(0f);
+		}
+	}
+
+	@Override
 	public boolean checkForRemoval(GameContext gameContext) {
 		return false; // removed by hoursUntilNextStage expiry
 	}
