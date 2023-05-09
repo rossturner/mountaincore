@@ -16,9 +16,12 @@ import technology.rocketjump.mountaincore.entities.ai.goap.Goal;
 import technology.rocketjump.mountaincore.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.location.GoToLocationAction;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.mountaincore.entities.components.Faction;
+import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.factories.SettlerFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.Updatable;
@@ -38,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -213,18 +217,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		// Must be map edge in region where settlers currently are
 
 		TiledMap areaMap = gameContext.getAreaMap();
-		Map<Integer, Long> regionIdFrequency = gameContext.getEntities().values().stream()
-				.filter(Entity::isSettler)
-				.map(settler -> settler.getLocationComponent().getWorldPosition())
-				.map(areaMap::getTile)
-				.filter(Objects::nonNull)
-				.map(MapTile::getRegionId)
-				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-		int regionId = regionIdFrequency.entrySet()
-				.stream()
-				.max(Map.Entry.comparingByValue())
-				.map(Map.Entry::getKey).orElse(gameContext.getAreaMap().getTile(gameContext.getAreaMap().getEmbarkPoint()).getRegionId());
+		int regionId = determineSettlementRegionId(gameContext, true);
 
 		List<MapTile> potentialImmigrationPoints = new ArrayList<>();
 		for (int x = 0; x < areaMap.getWidth(); x++) {
@@ -271,6 +264,30 @@ public class ImmigrationManager implements Updatable, Telegraph {
 			immigrationPoint.add(0f, -0.49f);
 		}
 		return immigrationPoint;
+	}
+
+	public static int determineSettlementRegionId(GameContext gameContext, boolean settlersOnly) {
+		TiledMap areaMap = gameContext.getAreaMap();
+		final Predicate<Entity> predicate;
+		if (settlersOnly) {
+			predicate = Entity::isSettler;
+		} else {
+			predicate = entity -> entity.isSettler() ||
+					(entity.getType() == EntityType.ITEM && Faction.SETTLEMENT == entity.getOrCreateComponent(FactionComponent.class).getFaction());
+		}
+
+		Map<Integer, Long> regionIdFrequency = gameContext.getEntities().values().stream()
+				.filter(predicate)
+				.map(settler -> settler.getLocationComponent().getWorldPosition())
+				.map(areaMap::getTile)
+				.filter(Objects::nonNull)
+				.map(MapTile::getRegionId)
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+		return regionIdFrequency.entrySet()
+				.stream()
+				.max(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).orElse(gameContext.getAreaMap().getTile(gameContext.getAreaMap().getEmbarkPoint()).getRegionId());
 	}
 
 	private void createImmigrant(Vector2 spawnPosition) {

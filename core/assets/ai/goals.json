@@ -347,6 +347,15 @@
   "selectors" : [ ],
   "initialActions" : [ "LocateLiquidContainerWithContents" ]
 }, {
+  "i18nDescription" : "GOAL.IDLE.DESCRIPTION",
+  "name" : "Go to settlement goal",
+  "actionRelationships" : {
+    "GoToSettlement" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "GoToSettlement" ],
+  "interruptedByLowNeeds" : false
+}, {
   "i18nDescription" : "GOAL.HAULING.DESCRIPTION",
   "name" : "Haul item goal",
   "actionRelationships" : {
