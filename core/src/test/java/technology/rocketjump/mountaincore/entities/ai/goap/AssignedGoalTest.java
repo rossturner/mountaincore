@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.entities.ai.goap;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -68,7 +69,9 @@ public class AssignedGoalTest {
 	public void setUp() throws Exception {
 		when(mockMap.getNearestTiles(any(Vector2.class))).thenReturn(new Array<>());
 		when(mockMap.getTile(any(Vector2.class))).thenReturn(mockTile);
+		when(mockMap.getTile(any(GridPoint2.class))).thenReturn(mockTile);
 		when(mockMap.getNeighbours(anyInt(), anyInt())).thenReturn(new TileNeighbours());
+		when(mockMap.getEmbarkPoint()).thenReturn(new GridPoint2(1, 1));
 
 		when(mockTile.getFloor()).thenReturn(new TileFloor(NULL_FLOOR, GameMaterial.NULL_MATERIAL));
 		stubRace = new Race();

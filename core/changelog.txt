@@ -1,8 +1,10 @@
-Early Access 1.1.21
+Early Access 1.1.21 - 10th May 2023
 
 - Squads on guard will now get attacks of opportunity against opponents in range
 - Creatures can now regain consciousness after being knocked unconscious
 - Trading chests can now store multiple stacks of coins
+- Updated Spanish translation, thanks Harlmorl!
+- Fixes for when settlers get stuck in walls/furniture
 
 Early Access 1.1.20 - 6th May 2023
 
