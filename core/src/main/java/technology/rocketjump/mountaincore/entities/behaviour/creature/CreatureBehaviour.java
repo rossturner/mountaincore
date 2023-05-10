@@ -27,6 +27,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.statu
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.TemporaryBlinded;
 import technology.rocketjump.mountaincore.environment.model.WeatherType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState;
@@ -224,6 +225,20 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	protected AssignedGoal pickNextGoalFromQueue() throws EnteringCombatException {
 		if (inVehicleAndNotDriving()) {
 			return AssignedGoalFactory.doNothingGoal(parentEntity, messageDispatcher, gameContext);
+		}
+
+		TiledMap areaMap = gameContext.getAreaMap();
+		if (parentEntity.getLocationComponent() != null && parentEntity.getLocationComponent().getWorldPosition() != null) {
+			MapTile currentTile = areaMap.getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+			if (currentTile != null &&
+				(
+					currentTile.getRegionType() == MapTile.RegionType.WALL ||
+					currentTile.getRegionType() == MapTile.RegionType.CHANNEL ||
+					currentTile.getRegionType() == MapTile.RegionType.MOVEMENT_BLOCKING_ENTITY
+				)) {
+				//Lets escape from a region that can cause pathfinding problems
+				return new AssignedGoal(SpecialGoal.GO_TO_SETTLEMENT_GOAL.getInstance(), parentEntity, messageDispatcher, gameContext);
+			}
 		}
 
 		if (parentEntity.isOnFire()) {

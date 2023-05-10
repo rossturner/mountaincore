@@ -1,0 +1,10 @@
+{
+  "name": "Go to settlement goal",
+  "i18nDescription": "GOAL.IDLE.DESCRIPTION",
+  "interruptedByLowNeeds": false,
+  "selectors": [],
+  "initialActions": ["GoToSettlement"],
+  "actionRelationships": {
+    "GoToSettlement": {}
+  }
+}
