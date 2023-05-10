@@ -1,9 +1,11 @@
 package technology.rocketjump.mountaincore.ui.widgets.furniture;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Gender;
@@ -22,11 +24,10 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nString;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWordClass;
+import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.widgets.EntityDrawable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -37,24 +38,22 @@ public class FurnitureRequirementWidget extends Table {
 	private final ItemAvailabilityChecker itemAvailabilityChecker;
 	private final I18nTranslator i18nTranslator;
 
-	private final List<GameMaterial> materials;
+	private final Array<GameMaterial> materials;
 	private final Entity itemEntity;
 	private final GameMaterial defaultDisplayMaterial;
 	private final Skin skin;
-	private final Button leftButton, rightButton;
 	private final Image entityImage;
 	private final Stack entityStack;
 	private final Table tooltipTable;
+	private final SelectBox<GameMaterial> materialSelect;
 	private final EntityDrawable entityDrawable;
 	private int selectionIndex;
-
-	private Label label;
 
 	private Consumer<GameMaterial> callback;
 
 	public FurnitureRequirementWidget(QuantifiedItemType requirement, Entity itemEntity, Skin skin, MessageDispatcher messageDispatcher,
 									  ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator, EntityRenderer entityRenderer,
-									  TooltipFactory tooltipFactory, GameMaterial defaultDisplayMaterial, SoundAssetDictionary soundAssetDictionary) {
+									  TooltipFactory tooltipFactory, GameMaterial defaultDisplayMaterial, SoundAssetDictionary soundAssetDictionary, MenuSkin menuSkin) {
 		this.requirement = requirement;
 		this.skin = skin;
 		this.messageDispatcher = messageDispatcher;
@@ -65,35 +64,39 @@ public class FurnitureRequirementWidget extends Table {
 
 		this.defaults().pad(4);
 
-		materials = new ArrayList<>(itemAvailabilityChecker.getAvailableMaterialsFor(requirement.getItemType(), requirement.getQuantity()));
-		materials.add(0, null);
-
-
-		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
-		if (materials.size() > 1) {
-			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
-			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
-			leftButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					changeSelectionIndex(-1);
+		materials = new Array<>();
+		materials.add(GameMaterial.NULL_MATERIAL);
+		itemAvailabilityChecker.getAvailableMaterialsFor(requirement.getItemType(), requirement.getQuantity()).forEach(materials::add);
+		materialSelect = new SelectBox<>(menuSkin, "select_narrow_alt") {
+			@Override
+			protected String toString(GameMaterial item) {
+				if (item == GameMaterial.NULL_MATERIAL) {
+					return i18nTranslator.getTranslatedString("MATERIAL_TYPE.ANY").toString();
+				} else {
+					return i18nTranslator.getTranslatedString(item.getI18nKey()).toString();
 				}
-			});
-		} else {
-			leftButton.setDisabled(true);
-		}
-		rightButton = new Button(skin.get("btn_arrow_small_right", Button.ButtonStyle.class));
-		if (materials.size() > 1) {
-			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
-			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
-			rightButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					changeSelectionIndex(1);
-				}
-			});
-		} else {
-			rightButton.setDisabled(true);
+			}
+		};
+		materialSelect.setAlignment(Align.center);
+		materialSelect.getList().setAlignment(Align.center);
+
+		materialSelect.setItems(materials);
+
+		materialSelect.getSelection().setProgrammaticChangeEvents(false);
+		materialSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				int index = materials.indexOf(materialSelect.getSelected(), true);
+
+				changeSelectionIndex(index);
+			}
+		});
+
+		materialSelect.addListener(new ChangeCursorOnHover(materialSelect, GameCursor.SELECT, messageDispatcher));
+		materialSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
+		if (materials.size == 1) {
+			materialSelect.setDisabled(true);
+			materialSelect.getColor().a = 0.5f;
 		}
 
 		entityStack = new Stack();
@@ -122,7 +125,7 @@ public class FurnitureRequirementWidget extends Table {
 		entityStack.add(entityImage);
 		entityStack.add(amountTable);
 
-		resetLabel();
+		rebuildUI();
 	}
 
 	private void rebuildTooltipTable() {
@@ -150,25 +153,28 @@ public class FurnitureRequirementWidget extends Table {
 
 	private void rebuildUI() {
 		this.clearChildren();
-		this.add(leftButton).center();
-		this.add(entityStack).size(120, 120);
-		this.add(rightButton).center().row();
-		this.add(label).colspan(3).expandX().center().row();
+		this.add(entityStack).size(120, 120).row();
+		this.add(materialSelect).growX().center().row();
 	}
 
 	private void changeSelectionIndex(int amount) {
 		selectionIndex += amount;
 		if (selectionIndex < 0) {
-			selectionIndex = materials.size() - 1;
+			selectionIndex = materials.size - 1;
 		}
-		if (selectionIndex >= materials.size()) {
+		if (selectionIndex >= materials.size) {
 			selectionIndex = 0;
 		}
 		if (callback != null) {
-			callback.accept(materials.get(selectionIndex));
+			GameMaterial material = materials.get(selectionIndex);
+			if (material == GameMaterial.NULL_MATERIAL) {
+				callback.accept(null);
+			} else {
+				callback.accept(material);
+			}
 		}
 		updateEntity();
-		resetLabel();
+		rebuildUI();
 		rebuildTooltipTable();
 	}
 
@@ -190,19 +196,6 @@ public class FurnitureRequirementWidget extends Table {
 		}
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemEntity);
-	}
-
-	private void resetLabel() {
-		GameMaterial selected = materials.get(selectionIndex);
-		String text;
-		if (selected == null) {
-			text = i18nTranslator.getTranslatedString("MATERIAL_TYPE.ANY").toString();
-		} else {
-			text = i18nTranslator.getTranslatedString(selected.getI18nKey()).toString();
-		}
-		label = new Label(text, skin.get("default-red", Label.LabelStyle.class));
-
-		rebuildUI();
 	}
 
 	public void onMaterialSelection(Consumer<GameMaterial> callback) {

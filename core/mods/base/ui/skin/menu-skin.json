@@ -15,6 +15,12 @@ com.badlogic.gdx.graphics.Color: {
 	dropdown_body_colour: {
 		hex: a44929ff
 	}
+	dropdown_body_hover_alt_colour: {
+		hex: 524852ff
+	}
+	dropdown_body_alt_colour: {
+		hex: 655965ff
+	}
 	dropdown_body_hover_colour: {
 		hex: 913613ff
 	}
@@ -78,6 +84,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: white-pixel
 		color: white
 	}
+	dropdown_body_hover_alt: {
+		name: white-pixel
+		color: dropdown_body_hover_alt_colour
+	}
+	dropdown_body_alt: {
+		name: white-pixel
+		color: dropdown_body_alt_colour
+	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
 	title_ribbon_bg_mike_10patch: {
@@ -131,6 +145,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		leftWidth: 10
 		bottomHeight: 0
 		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+	select_narrow_body_purple_v2_10patch: {
+		region: select_narrow_body_purple_v2
+		horizontalStretchAreas: [ 0, 29 ]
+		verticalStretchAreas: [ 0, 3, 27, 29 ]
+		tiling: false
+		minWidth: 68
+		minHeight: 30
+		rightWidth: 47
+		leftWidth: 10
+		bottomHeight: 1
+		topHeight: 1
 		offsetX: 0
 		offsetY: 0
 		offsetXspeed: 0
@@ -350,6 +384,13 @@ com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 		selection: btn_dropdown_body_hover_state
 		background: dropdown_body
 	}
+	list_alt: {
+		font: default-font-16
+		fontColorSelected: primary_font_colour_yellow_alt
+		fontColorUnselected: white
+		selection: dropdown_body_hover_alt
+		background: dropdown_body_alt
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {
@@ -379,6 +420,13 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 		background: select_narrow_body
 		scrollStyle: default
 		listStyle: default
+	}
+	select_narrow_alt: {
+		font: default-font-16
+		fontColor: white
+		background: select_narrow_body_purple_v2_10patch
+		scrollStyle: default
+		listStyle: list_alt
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
