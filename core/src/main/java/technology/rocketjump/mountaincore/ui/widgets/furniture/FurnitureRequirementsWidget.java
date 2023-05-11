@@ -25,6 +25,7 @@ import technology.rocketjump.mountaincore.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
+import technology.rocketjump.mountaincore.ui.skins.MenuSkin;
 import technology.rocketjump.mountaincore.ui.views.RoomEditorFurnitureMap;
 import technology.rocketjump.mountaincore.ui.views.RoomEditorItemMap;
 
@@ -36,6 +37,7 @@ import java.util.function.Consumer;
 public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 
 	private final Skin skin;
+	private final MenuSkin menuSkin;
 	private final MessageDispatcher messageDispatcher;
 	private final ItemAvailabilityChecker itemAvailabilityChecker;
 	private final I18nTranslator i18nTranslator;
@@ -62,6 +64,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 									   EntityRenderer entityRenderer, TooltipFactory tooltipFactory, GameMaterialDictionary gameMaterialDictionary,
 									   SoundAssetDictionary soundAssetDictionary) {
 		this.skin = guiSkinRepository.getMainGameSkin();
+		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.itemAvailabilityChecker = itemAvailabilityChecker;
 		this.i18nTranslator = i18nTranslator;
@@ -99,7 +102,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 		this.clearChildren();
 		materialTypeSelection.clearChildren();
 		itemMaterialSelection.clearChildren();
-		itemMaterialSelection.defaults().padRight(20);
+		itemMaterialSelection.defaults().padRight(20).uniformX();
 
 		if (selectedFurnitureType == null) {
 			return;
@@ -146,7 +149,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 
 			FurnitureRequirementWidget furnitureRequirementWidget = new FurnitureRequirementWidget(requirement, roomEditorItemMap.getByItemType(requirement.getItemType()),
 					skin, messageDispatcher, itemAvailabilityChecker, i18nTranslator, entityRenderer,
-					tooltipFactory, gameMaterialDictionary.getExampleMaterial(requirement.getItemType().getPrimaryMaterialType()), soundAssetDictionary);
+					tooltipFactory, gameMaterialDictionary.getExampleMaterial(requirement.getItemType().getPrimaryMaterialType()), soundAssetDictionary, menuSkin);
 			furnitureRequirementWidget.onMaterialSelection(material -> {
 				List<ItemTypeWithMaterial> otherMaterialSelections = new ArrayList<>(materialSelections.stream()
 						.filter(s -> !s.getItemType().equals(requirement.getItemType()))
@@ -166,7 +169,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
 			});
 
-			itemMaterialSelection.add(furnitureRequirementWidget);
+			itemMaterialSelection.add(furnitureRequirementWidget).growX();
 		}
 	}
 

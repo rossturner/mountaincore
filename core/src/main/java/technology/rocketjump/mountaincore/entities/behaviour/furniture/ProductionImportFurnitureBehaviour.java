@@ -77,6 +77,10 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 	}
 
 	public void setSelectedMaterial(GameMaterial selectedMaterial) {
+		if (selectedMaterial == GameMaterial.NULL_MATERIAL) {
+			selectedMaterial = null;
+		}
+
 		if (selectedMaterial != this.selectedMaterial) {
 			this.selectedMaterial = selectedMaterial;
 			if (selectedMaterial != null) {

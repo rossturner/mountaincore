@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
@@ -72,15 +72,17 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 	private final Container<Button> buttonContainer = new Container<>();
 	private final Drawable noneSelectedDrawable;
 	private final Drawable backgroundDrawable;
-	private final Button leftButton, rightButton;
 	private final MainGameSkin skin;
 
+	private final SelectBox<GameMaterial> materialSelect;
 
 	private Entity furnitureEntity;
 	private ProductionExportFurnitureBehaviour productionExportBehaviour;
 	private GameContext gameContext;
 
-	private List<GameMaterial> availableMaterials;
+	private Array<GameMaterial> availableMaterials;
+
+	private Entity displayedEntity;
 
 
 	@Inject
@@ -110,10 +112,9 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		backgroundDrawable = skin.getDrawable("asset_bg");
 		buttonContainer.setBackground(backgroundDrawable);
 
-		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
-		rightButton = new Button(skin.get("btn_arrow_small_right", Button.ButtonStyle.class));
-
 		noneSelectedDrawable = skin.getDrawable("icon_not_equipped_no_bg");
+
+		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 	}
 
 	public void setFurnitureEntity(Entity entity) {
@@ -146,7 +147,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			button = new Button(noneSelectedDrawable);
 			addNoneSelectedTooltip(button);
 		} else {
-			Entity displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
+			displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
 			GameMaterial selectedMaterial = productionExportBehaviour.getSelectedMaterial();
 			if (selectedMaterial == null) {
 				selectedMaterial = gameMaterialDictionary.getExampleMaterial(selectedItemType.getPrimaryMaterialType());
@@ -174,95 +175,55 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 
 		this.add(buttonContainer).center().row();
 
-		leftButton.clearListeners();
-		rightButton.clearListeners();
-		if (availableMaterials.size() > 1) {
-			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
-			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
-			leftButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					previousMaterialSelection();
-				}
-			});
-			leftButton.setDisabled(false);
-			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
-			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
-			rightButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					nextMaterialSelection();
-				}
-			});
-			rightButton.setDisabled(false);
-		} else {
-			leftButton.setDisabled(true);
-			rightButton.setDisabled(true);
-		}
+		determineAvailableMaterials(selectedItemType);
 
-		if (availableMaterials.size() == 1) {
+		materialSelect.setItems(availableMaterials);
+
+		if (availableMaterials.size == 1) {
 			productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
 		}
-		GameMaterial selectedMaterial = productionExportBehaviour.getSelectedMaterial();
-		String materialI18nKey = selectedMaterial == null ? "MATERIAL_TYPE.ANY" : selectedMaterial.getI18nKey();
-		Label materialLabel = new Label(i18nTranslator.getTranslatedString(materialI18nKey).toString(), skin.get("default-red", Label.LabelStyle.class));
-		materialLabel.setAlignment(Align.center);
-		Table materialRow = new Table();
-		materialRow.add(leftButton).left().padRight(5);
-		materialRow.add(materialLabel).center().growX();
-		materialRow.add(rightButton).right().padLeft(5);
-		this.add(materialRow).center().growX().padTop(4).row();
+
+		GameMaterial currentlySelected = productionExportBehaviour.getSelectedMaterial();
+		materialSelect.setSelected(currentlySelected == null ? GameMaterial.NULL_MATERIAL : currentlySelected);
+
+		this.add(materialSelect).center().growX().padTop(4).row();
+	}
+
+	private void changeMaterial(GameMaterial selectedMaterial) {
+		productionExportBehaviour.setSelectedMaterial(selectedMaterial);
+
+		if (displayedEntity != null) {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) displayedEntity.getPhysicalEntityComponent().getAttributes();
+			attributes.setMaterial(selectedMaterial);
+			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, displayedEntity);
+		}
 	}
 
 	private void determineAvailableMaterials(ItemType selectedItemType) {
-		availableMaterials = new ArrayList<>();
+		availableMaterials = new Array<>();
 		if (selectedItemType == null) {
-			availableMaterials.add(0, null);
+			availableMaterials.add(GameMaterial.NULL_MATERIAL);
 		} else {
 			List<GameMaterial> specifiedMaterials = selectedItemType.getSpecificallyAllowedMaterials(craftingRecipeDictionary);
 
 			if (specifiedMaterials.isEmpty() || specifiedMaterials.contains(null)) {
 				availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()).stream()
-						.filter(m -> !m.isHiddenFromUI()).toList());
+						.filter(m -> !m.isHiddenFromUI()).toArray(GameMaterial[]::new));
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				if (availableMaterials.size() > 1) {
-					availableMaterials.add(0, null);
+				if (availableMaterials.size > 1) {
+					availableMaterials.insert(0, GameMaterial.NULL_MATERIAL);
 				}
 			} else {
-				availableMaterials.addAll(specifiedMaterials);
+				availableMaterials.addAll(specifiedMaterials.toArray(GameMaterial[]::new));
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				if (availableMaterials.size() > 1) {
-					availableMaterials.add(0, null);
+				if (availableMaterials.size > 1) {
+					availableMaterials.insert(0, GameMaterial.NULL_MATERIAL);
 				}
-				if (!availableMaterials.contains(productionExportBehaviour.getSelectedMaterial())) {
+				if (!availableMaterials.contains(productionExportBehaviour.getSelectedMaterial(), true)) {
 					productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
 				}
 			}
 		}
-	}
-
-	private void previousMaterialSelection() {
-		GameMaterial previousMaterial = availableMaterials.get(availableMaterials.size() - 1);
-
-		for (GameMaterial availableMaterial : availableMaterials) {
-			if (availableMaterial == productionExportBehaviour.getSelectedMaterial()) {
-				break;
-			} else {
-				previousMaterial = availableMaterial;
-			}
-		}
-
-		productionExportBehaviour.setSelectedMaterial(previousMaterial);
-		rebuildUI();
-	}
-
-	private void nextMaterialSelection() {
-		int nextIndex = availableMaterials.indexOf(productionExportBehaviour.getSelectedMaterial()) + 1;
-		if (nextIndex == availableMaterials.size()) {
-			nextIndex = 0;
-		}
-		productionExportBehaviour.setSelectedMaterial(availableMaterials.get(nextIndex));
-		rebuildUI();
 	}
 
 	private void onClickItemType() {
