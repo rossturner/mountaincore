@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.entities;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -204,9 +205,19 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 		for (Entity unallocatedItem : unallocatedItems) {
 			MapTile itemTile = areaMap.getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
-			if (itemTile == null || itemTile.getRegionId() != requesterRegionId) {
-				// Item not found or in different region
+			Entity containerEntity = unallocatedItem.getLocationComponent().getContainerEntity();
+
+			if (itemTile == null) {
 				continue;
+			}
+
+			if (itemTile.getRegionId() != requesterRegionId) {
+				if (containerEntity == null) {
+					continue;
+				}
+				if (message.includeFromFurniture && !hasAccessibleWorkspaceInRegion(containerEntity, requesterRegionId)) {
+					continue;
+				}
 			}
 
 			LiquidContainerComponent liquidContainerComponent = unallocatedItem.getComponent(LiquidContainerComponent.class);
@@ -222,7 +233,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				continue;
 			}
 
-			Entity containerEntity = unallocatedItem.getLocationComponent().getContainerEntity();
+
 			Long requestingEntityId = null;
 			if (message.requestingEntity != null) {
 				requestingEntityId = message.requestingEntity.getId();
@@ -260,6 +271,22 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 		message.allocationCallback.allocationFound(null);
 		return true;
+	}
+
+	private boolean hasAccessibleWorkspaceInRegion(Entity containerEntity, int requesterRegionId) {
+		if (containerEntity.getType() == EntityType.FURNITURE && containerEntity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes) {
+			GridPoint2 furniturePosition = VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition());
+
+			List<FurnitureLayout.Workspace> workspaces = attributes.getCurrentLayout().getWorkspaces();
+			for (FurnitureLayout.Workspace workspace : workspaces) {
+				GridPoint2 accessedFromLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
+				MapTile accessedFromTile = gameContext.getAreaMap().getTile(accessedFromLocation);
+				if (accessedFromTile != null && accessedFromTile.isNavigable(null) && accessedFromTile.getRegionId() == requesterRegionId) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean handle(ItemMaterialSelectionMessage itemMaterialSelectionMessage) {
