@@ -352,26 +352,27 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						if (descriptions.getActor().hasChildren()) {
 							viewContents.add(descriptions.getActor()).center().row();
 						}
-
-						if (entity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour) {
-							viewContents.add(productionExportFurnitureWidget).center().row();
-						} else if (entity.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour) {
-							viewContents.add(productionImportFurnitureWidget).center().row();
-						} else if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
-							viewContents.add(productionImportFurnitureWidget).center().row();
-						} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
-							viewContents.add(productionExportFurnitureWidget).center().row();
-						}
-
-						if (entity.getComponent(InventoryComponent.class) != null) {
-							viewContents.add(inventory.getActor()).row();
-						} else {
-							outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
-						}
-
-
 					});
 					viewContentsUpdatable.update();
+
+
+					if (entity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour) {
+						outerTable.add(productionExportFurnitureWidget).colspan(3).center().padRight(67).padLeft(67).padTop(20).row();
+					} else if (entity.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour) {
+						outerTable.add(productionImportFurnitureWidget).colspan(3).center().padRight(67).padLeft(67).padTop(20).row();
+					} else if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
+						outerTable.add(productionImportFurnitureWidget).colspan(3).center().padRight(67).padLeft(67).padTop(20).row();
+					} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
+						outerTable.add(productionExportFurnitureWidget).colspan(3).center().padRight(67).padLeft(67).padTop(20).row();
+					}
+
+
+					if (entity.getComponent(InventoryComponent.class) != null) {
+						outerTable.add(inventory.getActor()).colspan(3).padRight(67).padLeft(67).padTop(20).row();
+					} else {
+						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
+					}
+
 
 					updatables.add(viewContentsUpdatable);
 					if (entity.getComponent(FurnitureStockpileComponent.class) != null) {
