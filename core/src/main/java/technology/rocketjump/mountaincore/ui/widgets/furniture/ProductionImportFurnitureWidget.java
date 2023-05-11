@@ -3,12 +3,9 @@ package technology.rocketjump.mountaincore.ui.widgets.furniture;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -113,30 +110,9 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		backgroundDrawable = skin.getDrawable("asset_bg");
 		buttonContainer.setBackground(backgroundDrawable);
 
-		materialSelect = new SelectBox<>(guiSkinRepository.getMenuSkin(), "select_narrow_alt") {
-			@Override
-			protected String toString(GameMaterial item) {
-				if (item == GameMaterial.NULL_MATERIAL) {
-					return i18nTranslator.getTranslatedString("MATERIAL_TYPE.ANY").toString();
-				} else {
-					return i18nTranslator.getTranslatedString(item.getI18nKey()).toString();
-				}
-			}
-		};
-		materialSelect.setAlignment(Align.center);
-		materialSelect.getList().setAlignment(Align.center);
-		materialSelect.addListener(new ChangeCursorOnHover(materialSelect, GameCursor.SELECT, messageDispatcher));
-		materialSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
-		materialSelect.getSelection().setProgrammaticChangeEvents(false);
-		materialSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				int index = availableMaterials.indexOf(materialSelect.getSelected(), true);
-				changeSelectionIndex(index);
-			}
-		});
-
 		noneSelectedDrawable = skin.getDrawable("icon_not_equipped_no_bg");
+
+		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 	}
 
 	public void setFurnitureEntity(Entity entity) {
@@ -202,26 +178,15 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		materialSelect.setItems(availableMaterials);
 
 		if (availableMaterials.size == 1) {
-			materialSelect.setDisabled(true);
-			materialSelect.setTouchable(Touchable.disabled);
-			materialSelect.getColor().a = 0.5f;
-		} else {
-			materialSelect.setDisabled(false);
-			materialSelect.setTouchable(Touchable.enabled);
-			materialSelect.getColor().a = 1.0f;
-		}
-
-		if (availableMaterials.size == 1) {
 			productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
 		}
+
+		GameMaterial currentlySelected = productionImportBehaviour.getSelectedMaterial();
+		materialSelect.setSelected(currentlySelected == null ? GameMaterial.NULL_MATERIAL : currentlySelected);
 		this.add(materialSelect).center().growX().padTop(4).row();
 	}
 
-	private void changeSelectionIndex(int index) {
-		GameMaterial selectedMaterial = availableMaterials.get(index);
-		if (selectedMaterial == GameMaterial.NULL_MATERIAL) {
-			selectedMaterial = null;
-		}
+	private void changeMaterial(GameMaterial selectedMaterial) {
 		productionImportBehaviour.setSelectedMaterial(selectedMaterial);
 
 		if (displayedEntity != null) {
