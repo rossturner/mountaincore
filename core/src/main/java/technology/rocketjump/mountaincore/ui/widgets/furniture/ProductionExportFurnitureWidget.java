@@ -82,8 +82,6 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 
 	private Array<GameMaterial> availableMaterials;
 
-	private Entity displayedEntity;
-
 
 	@Inject
 	public ProductionExportFurnitureWidget(MessageDispatcher messageDispatcher, CraftingHintWidgetFactory craftingHintWidgetFactory, GuiSkinRepository guiSkinRepository,
@@ -142,12 +140,32 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		// Material selection
 		determineAvailableMaterials(selectedItemType);
 
+		updateButton();
+
+		this.add(buttonContainer).center().row();
+
+		determineAvailableMaterials(selectedItemType);
+
+		materialSelect.setItems(availableMaterials);
+
+		if (availableMaterials.size == 1) {
+			productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+		}
+
+		GameMaterial currentlySelected = productionExportBehaviour.getSelectedMaterial();
+		materialSelect.setSelected(currentlySelected == null ? GameMaterial.NULL_MATERIAL : currentlySelected);
+
+		this.add(materialSelect).center().growX().padTop(4).row();
+	}
+
+	private void updateButton() {
+		ItemType selectedItemType = productionExportBehaviour.getSelectedItemType();
 		Button button;
 		if (selectedItemType == null) {
 			button = new Button(noneSelectedDrawable);
 			addNoneSelectedTooltip(button);
 		} else {
-			displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
+			Entity displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
 			GameMaterial selectedMaterial = productionExportBehaviour.getSelectedMaterial();
 			if (selectedMaterial == null) {
 				selectedMaterial = gameMaterialDictionary.getExampleMaterial(selectedItemType.getPrimaryMaterialType());
@@ -172,31 +190,12 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			}
 		});
 		buttonContainer.setActor(button);
-
-		this.add(buttonContainer).center().row();
-
-		determineAvailableMaterials(selectedItemType);
-
-		materialSelect.setItems(availableMaterials);
-
-		if (availableMaterials.size == 1) {
-			productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
-		}
-
-		GameMaterial currentlySelected = productionExportBehaviour.getSelectedMaterial();
-		materialSelect.setSelected(currentlySelected == null ? GameMaterial.NULL_MATERIAL : currentlySelected);
-
-		this.add(materialSelect).center().growX().padTop(4).row();
 	}
 
 	private void changeMaterial(GameMaterial selectedMaterial) {
 		productionExportBehaviour.setSelectedMaterial(selectedMaterial);
 
-		if (displayedEntity != null) {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) displayedEntity.getPhysicalEntityComponent().getAttributes();
-			attributes.setMaterial(selectedMaterial);
-			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, displayedEntity);
-		}
+		updateButton();
 	}
 
 	private void determineAvailableMaterials(ItemType selectedItemType) {
