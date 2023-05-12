@@ -402,6 +402,10 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				weatherManager.triggerNextWeather();
 				break;
 			}
+			case TRIGGER_NEXT_SEASON: {
+				gameContext.getGameClock().nextSeason(messageDispatcher);
+				break;
+			}
 			case TRIGGER_IMMIGRATION: {
 				gameContext.getSettlementState().setImmigrantsDue(7);
 				immigrationManager.triggerImmigration();
