@@ -162,6 +162,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		} else {
 			Entity displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
 			GameMaterial selectedMaterial = productionImportBehaviour.getSelectedMaterial();
+			GameMaterial tooltipMaterial = selectedMaterial;
 			if (selectedMaterial == null) {
 				selectedMaterial = gameMaterialDictionary.getExampleMaterial(selectedItemType.getPrimaryMaterialType());
 			}
@@ -174,7 +175,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 			entityDrawable.setMinSize(backgroundDrawable.getMinWidth(), backgroundDrawable.getMinHeight());
 			button = new Button(entityDrawable);
 
-			craftingHintWidgetFactory.addComplexTooltip(button, skin, selectedItemType, selectedMaterial);
+			craftingHintWidgetFactory.addComplexTooltip(button, skin, selectedItemType, tooltipMaterial);
 		}
 
 
