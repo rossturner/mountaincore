@@ -198,7 +198,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 					}
 					if (interactionMode.tileDesignationCheck.shouldDesignationApply(tile)) {
 						GameMaterialType requiredFloorMaterialType = interactionMode.getRoomType().getRequiredFloorMaterialType();
-						if (requiredFloorMaterialType == null || tile.getFloor().getMaterial().getMaterialType().equals(requiredFloorMaterialType)) {
+						if (requiredFloorMaterialType == null || tile.getActualFloor().getMaterial().getMaterialType().equals(requiredFloorMaterialType)) {
 							GridPoint2 position = new GridPoint2(x, y);
 							RoomTile newRoomTile = new RoomTile();
 							newRoomTile.setRoom(virtualRoom);

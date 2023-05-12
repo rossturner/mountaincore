@@ -305,7 +305,9 @@ public class I18nTranslator {
 			} else if (entity.getLocationComponent().getWorldPosition() != null) {
 				// Not in container entity
 				MapTile currentTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
-				replacements.put("tileDescription", getDescription(currentTile));
+				if (currentTile != null) {
+					replacements.put("tileDescription", getDescription(currentTile));
+				}
 			}
 
 			return applyReplacements(description, replacements, attributes.getGender());
