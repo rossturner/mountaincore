@@ -38,7 +38,6 @@ import technology.rocketjump.mountaincore.messaging.types.RequestPlantRemovalMes
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 import technology.rocketjump.mountaincore.rooms.RoomTile;
-import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -54,7 +53,6 @@ import static technology.rocketjump.mountaincore.ui.GameInteractionMode.isRiverE
 public class ConstructionManager implements Updatable {
 
 	private final ConstructionStore constructionStore;
-	private final SettlementItemTracker settlementItemTracker;
 	private final MessageDispatcher messageDispatcher;
 	private final JobFactory jobFactory;
 	private final JobType haulingJobType;
@@ -63,10 +61,9 @@ public class ConstructionManager implements Updatable {
 	private GameContext gameContext;
 
 	@Inject
-	public ConstructionManager(ConstructionStore constructionStore, SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
+	public ConstructionManager(ConstructionStore constructionStore, MessageDispatcher messageDispatcher,
 							   JobFactory jobFactory, JobTypeDictionary jobTypeDictionary) {
 		this.constructionStore = constructionStore;
-		this.settlementItemTracker = settlementItemTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.jobFactory = jobFactory;
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");
@@ -520,7 +517,7 @@ public class ConstructionManager implements Updatable {
 			}
 
 			if (attributes.getFurnitureType().getRequiredFloorMaterialType() != null &&
-					!tileToCheck.getAllFloors().getLast().getMaterial().getMaterialType().equals(attributes.getFurnitureType().getRequiredFloorMaterialType())) {
+					!tileToCheck.getActualFloor().getMaterial().getMaterialType().equals(attributes.getFurnitureType().getRequiredFloorMaterialType())) {
 				return false;
 			}
 			if (!attributes.getFurnitureType().isPlaceAnywhere()) {

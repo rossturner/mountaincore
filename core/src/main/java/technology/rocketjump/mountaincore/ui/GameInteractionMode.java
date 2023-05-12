@@ -35,7 +35,7 @@ public enum GameInteractionMode {
 				return false;
 			}
 		}
-		return mapTile.hasFloor() && mapTile.getFloor().getMaterial().getMaterialType().equals(GameMaterialType.EARTH);
+		return mapTile.hasFloor() && mapTile.getActualFloor().getMaterial().getMaterialType().equals(GameMaterialType.EARTH);
 	}, true),
 	DESIGNATE_CLEAR_GROUND(GameCursor.SPADE, "CLEAR_GROUND", mapTile -> {
 		if (!mapTile.getExploration().equals(EXPLORED) || mapTile.getDesignation() != null) {
