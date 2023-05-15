@@ -29,6 +29,7 @@ import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.rendering.custom_libgdx.AlphaMaskSpriteBatch;
 import technology.rocketjump.mountaincore.rendering.custom_libgdx.VertexColorSpriteBatch;
+import technology.rocketjump.mountaincore.rendering.utils.TransitoryFloorQuadrantCalculator;
 import technology.rocketjump.mountaincore.rooms.Bridge;
 import technology.rocketjump.mountaincore.rooms.constructions.BridgeConstruction;
 import technology.rocketjump.mountaincore.rooms.constructions.Construction;
@@ -138,10 +139,12 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 		alphaMaskSpriteBatch.setProjectionMatrix(camera.combined);
 		alphaMaskSpriteBatch.begin();
 		for (MapTile mapTile : tilesToShowWater) {
-			renderFloorWithChannelMasks(mapTile, spriteCache, renderMode);
+			renderFloorWithChannelMasks(mapTile, spriteCache, renderMode, FloorSource.ACTUAL);
+			renderFloorWithChannelMasks(mapTile, spriteCache, renderMode, FloorSource.TRANSITORY);
 		}
 		alphaMaskSpriteBatch.end();
-		floorOverlapRenderer.renderWithChannelMasks(tilesToShowWater, camera, renderMode, spriteCache);
+		floorOverlapRenderer.renderWithChannelMasks(tilesToShowWater, camera, renderMode, spriteCache, FloorSource.ACTUAL);
+		floorOverlapRenderer.renderWithChannelMasks(tilesToShowWater, camera, renderMode, spriteCache, FloorSource.TRANSITORY);
 
 
 
@@ -263,30 +266,43 @@ public class TerrainRenderer implements Disposable, GameContextAware {
 		}
 	}
 
-	public void renderFloorWithChannelMasks(MapTile mapTile, TerrainSpriteCache spriteCache, RenderMode renderMode) {
+	public void renderFloorWithChannelMasks(MapTile mapTile, TerrainSpriteCache spriteCache, RenderMode renderMode, FloorSource floorSource) {
 		if (!mapTile.hasChannel()) {
 			return;
 		}
-		if (renderMode.equals(RenderMode.DIFFUSE)) {
-			TileFloor floor = mapTile.getFloor();
-			if (floor.getFloorType().isUseMaterialColor() && floor.getMaterial().getColor() != null) {
-				alphaMaskSpriteBatch.setColor(floor.getMaterial().getColor());
-			} else {
-				Color[] vertexColors = mapTile.getFloor().getVertexColors();
-				alphaMaskSpriteBatch.setColors(vertexColors);
-			}
+
+		final TileFloor floor;
+		final TransitoryFloorQuadrantCalculator transitoryFloorQuadrantCalculator;
+		if (floorSource == FloorSource.ACTUAL) {
+			floor = mapTile.getActualFloor();
+		} else if (floorSource == FloorSource.TRANSITORY) {
+			floor = mapTile.getTransitoryFloor();
 		} else {
-			alphaMaskSpriteBatch.setColor(Color.WHITE);
+			floor = mapTile.getActualFloor();
 		}
 
-		ChannelLayout channelLayout = mapTile.getUnderTile().getChannelLayout();
-		QuadrantSprites quadrantSprites = diffuseTerrainSpriteCache.getSpritesForChannel(channelMaskType, channelLayout, mapTile.getSeed());
-		Sprite spriteForFloor = spriteCache.getFloorSpriteForType(mapTile.getFloor().getFloorType(), mapTile.getSeed());
+		if (renderMode == RenderMode.NORMALS) {
+			transitoryFloorQuadrantCalculator = TransitoryFloorQuadrantCalculator.NORMAL_RENDER_MODE_CALCULATOR;
+		} else if (floorSource == FloorSource.TRANSITORY) {
+			transitoryFloorQuadrantCalculator = new TransitoryFloorQuadrantCalculator(mapTile, gameContext);
+		} else {
+			transitoryFloorQuadrantCalculator = TransitoryFloorQuadrantCalculator.NULL_CALCULATOR;
+		}
 
-		alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getA(), mapTile.getTileX(), mapTile.getTileY(), 0, 0.5f, 0.5f, 0.5f);
-		alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getB(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0.5f, 0.5f, 0.5f);
-		alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getC(), mapTile.getTileX(), mapTile.getTileY(), 0, 0f, 0.5f, 0.5f);
-		alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getD(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0f, 0.5f, 0.5f);
+		if (floor != null) {
+			ChannelLayout channelLayout = mapTile.getUnderTile().getChannelLayout();
+			QuadrantSprites quadrantSprites = diffuseTerrainSpriteCache.getSpritesForChannel(channelMaskType, channelLayout, mapTile.getSeed());
+
+			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
+			alphaMaskSpriteBatch.setColors(transitoryFloorQuadrantCalculator.adjustAlpha(floor, TransitoryFloorQuadrantCalculator.Quadrant.ZERO));
+			alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getA(), mapTile.getTileX(), mapTile.getTileY(), 0, 0.5f, 0.5f, 0.5f);
+			alphaMaskSpriteBatch.setColors(transitoryFloorQuadrantCalculator.adjustAlpha(floor, TransitoryFloorQuadrantCalculator.Quadrant.ONE));
+			alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getB(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0.5f, 0.5f, 0.5f);
+			alphaMaskSpriteBatch.setColors(transitoryFloorQuadrantCalculator.adjustAlpha(floor, TransitoryFloorQuadrantCalculator.Quadrant.TWO));
+			alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getC(), mapTile.getTileX(), mapTile.getTileY(), 0, 0f, 0.5f, 0.5f);
+			alphaMaskSpriteBatch.setColors(transitoryFloorQuadrantCalculator.adjustAlpha(floor, TransitoryFloorQuadrantCalculator.Quadrant.THREE));
+			alphaMaskSpriteBatch.draw(spriteForFloor, quadrantSprites.getD(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0f, 0.5f, 0.5f);
+		}
 	}
 
 	public void renderBridgeTiles(Map<Bridge, List<MapTile>> bridgeTiles, TerrainSpriteCache spriteCache, SpriteBatch basicSpriteBatch, RenderMode renderMode) {

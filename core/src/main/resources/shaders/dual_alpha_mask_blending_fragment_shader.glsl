@@ -16,6 +16,6 @@ void main() {
     vec4 mask2Color = texture2D(u_texture2, v_texCoords2);
     gl_FragColor = vec4(
         vec3(v_color * texColor),
-        min(mask1Color.a, mask2Color.a)
+        min(v_color.a * mask1Color.a, v_color.a * mask2Color.a)
     );
 }
