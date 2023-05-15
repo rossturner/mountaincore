@@ -1,3 +1,10 @@
+Early Access 1.1.22 - 12th May 2023
+
+- Material selections now use a drop-down select rather than left/right arrows
+- Fir for issues when hauling an item from a container
+- Fix for a crash when an entity has gone beyond the bounds of the world
+- Fix to allow farm plots and irrigation channels to be placed over snow
+
 Early Access 1.1.21 - 10th May 2023
 
 - Squads on guard will now get attacks of opportunity against opponents in range
