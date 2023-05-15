@@ -1,3 +1,7 @@
+Early Access 1.1.23 - 15th May 2023
+
+- Fix for items becoming stuck when trying to be hauled out of furniture
+
 Early Access 1.1.22 - 12th May 2023
 
 - Material selections now use a drop-down select rather than left/right arrows
