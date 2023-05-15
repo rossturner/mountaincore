@@ -232,7 +232,20 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		this.overrideLocation = overrideLocation;
 	}
 
-	protected Vector2 calculatePosition(HaulingAllocation.AllocationPositionType allocationPositionType,
+
+	public static Vector2 calculatePosition(HaulingAllocation haulingAllocation, GameContext gameContext) {
+		if (haulingAllocation.getSourceContainerId() != null) {
+			return calculatePosition(haulingAllocation.getSourcePositionType(),
+					haulingAllocation.getSourcePosition(),
+					haulingAllocation.getSourceContainerId(), gameContext);
+		} else {
+			return calculatePosition(haulingAllocation.getSourcePositionType(),
+					haulingAllocation.getSourcePosition(),
+					haulingAllocation.getHauledEntityId(), gameContext);
+		}
+	}
+
+	protected static Vector2 calculatePosition(HaulingAllocation.AllocationPositionType allocationPositionType,
 										GridPoint2 allocationPosition, Long targetEntityId, GameContext gameContext) {
 		if (HaulingAllocation.AllocationPositionType.FURNITURE.equals(allocationPositionType)) {
 			Entity targetFurniture = gameContext.getAreaMap().getTile(allocationPosition)

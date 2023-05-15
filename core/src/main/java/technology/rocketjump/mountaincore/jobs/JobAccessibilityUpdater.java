@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static technology.rocketjump.mountaincore.entities.ai.goap.actions.location.GoToLocationAction.calculatePosition;
+import static technology.rocketjump.mountaincore.misc.VectorUtils.toGridPoint;
+
 /**
  * This class is mostly responsible for switching potentially accessible jobs to assignable jobs
  */
@@ -80,8 +83,9 @@ public class JobAccessibilityUpdater implements Updatable {
 
 		List<GridPoint2> jobLocations = new ArrayList<>();
 
-
-		if (potentiallyAccessibleJob.getType().isAccessedFromAdjacentTile()) {
+		if (potentiallyAccessibleJob.getHaulingAllocation() != null) {
+			jobLocations.add(toGridPoint(calculatePosition(potentiallyAccessibleJob.getHaulingAllocation(), gameContext)));
+		} else if (potentiallyAccessibleJob.getType().isAccessedFromAdjacentTile()) {
 			TileNeighbours jobNeighbourTiles = gameContext.getAreaMap().getOrthogonalNeighbours(potentiallyAccessibleJob.getJobLocation().x, potentiallyAccessibleJob.getJobLocation().y);
 			for (CompassDirection compassDirection : jobNeighbourTiles.keySet()) {
 				if (!jobNeighbourTiles.get(compassDirection).isNavigable(null)) {
