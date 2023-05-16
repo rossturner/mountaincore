@@ -90,7 +90,7 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 			}
 		}
 
-		if (unexploredTile != null) {
+		if (unexploredTile != null && !tileLocation.equals(gameContext.getAreaMap().getEmbarkPoint())) {
 			Notification areaUncoveredNotification = new Notification(AREA_REVEALED, unexploredTile.getWorldPositionOfCenter(), null);
 			messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, areaUncoveredNotification);
 		}

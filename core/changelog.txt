@@ -1,3 +1,9 @@
+Early Access 1.1.25 - 16th May 2023
+
+- Jobs to remove pests from crops will no longer be generated in winter (though they might roll over from autumn)
+- Fix for incorrect display of "New area discovered!" when starting a new game
+- Dwarves have had their noontime lunch break revoked and will no longer try to eat or drink at midday unless their needs are urgent
+
 Early Access 1.1.24 - 16th May 2023
 
 - Fungolems can now be butchered for some bland, tasteless meat-like substance
