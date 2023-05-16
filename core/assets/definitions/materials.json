@@ -2634,8 +2634,26 @@
   "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
-  "materialName" : "Syrup Powder Mushroom",
+  "materialName" : "Fungolem Mushroom",
   "materialId" : 141,
+  "materialType" : "VEGETABLE",
+  "colorCode" : "#fcf2f0",
+  "valueMultiplier" : 0.7,
+  "alcoholic" : false,
+  "combustible" : true,
+  "edible" : true,
+  "poisonous" : false,
+  "quenchesThirst" : false,
+  "useAsExampleMaterialForMaterialType" : false,
+  "hiddenFromUI" : false,
+  "i18nKey" : "VEGETABLE.FUNGOLEM_MUSHROOM",
+  "useMaterialTypeAsAdjective" : false,
+  "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
+  "dynamicallyCreated" : false
+}, {
+  "materialName" : "Syrup Powder Mushroom",
+  "materialId" : 142,
   "materialType" : "VEGETABLE",
   "colorCode" : "#ffe700",
   "valueMultiplier" : 1.8,
@@ -2653,7 +2671,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Beech",
-  "materialId" : 142,
+  "materialId" : 143,
   "materialType" : "WOOD",
   "colorCode" : "#e2c793",
   "valueMultiplier" : 1.0,
@@ -2671,7 +2689,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Birch",
-  "materialId" : 143,
+  "materialId" : 144,
   "materialType" : "WOOD",
   "colorCode" : "#edd7ae",
   "valueMultiplier" : 1.0,
@@ -2689,7 +2707,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fir",
-  "materialId" : 144,
+  "materialId" : 145,
   "materialType" : "WOOD",
   "colorCode" : "#be926e",
   "valueMultiplier" : 0.9,
@@ -2707,7 +2725,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Maple",
-  "materialId" : 145,
+  "materialId" : 146,
   "materialType" : "WOOD",
   "colorCode" : "#e9b775",
   "valueMultiplier" : 1.1,
@@ -2725,7 +2743,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pine",
-  "materialId" : 146,
+  "materialId" : 147,
   "materialType" : "WOOD",
   "colorCode" : "#e0ba83",
   "valueMultiplier" : 1.0,
@@ -2743,7 +2761,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Oak",
-  "materialId" : 147,
+  "materialId" : 148,
   "materialType" : "WOOD",
   "colorCode" : "#634735",
   "valueMultiplier" : 2.5,
@@ -2761,7 +2779,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ebony",
-  "materialId" : 148,
+  "materialId" : 149,
   "materialType" : "WOOD",
   "colorCode" : "#424647",
   "valueMultiplier" : 2.3,
@@ -2779,7 +2797,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pecan",
-  "materialId" : 149,
+  "materialId" : 150,
   "materialType" : "WOOD",
   "colorCode" : "#dbb396",
   "valueMultiplier" : 1.0,
@@ -2797,7 +2815,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sycamore",
-  "materialId" : 150,
+  "materialId" : 151,
   "materialType" : "WOOD",
   "colorCode" : "#e4d2b2",
   "valueMultiplier" : 1.0,
@@ -2815,7 +2833,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ironwood",
-  "materialId" : 151,
+  "materialId" : 152,
   "materialType" : "WOOD",
   "colorCode" : "#74342f",
   "valueMultiplier" : 3.0,
@@ -2833,7 +2851,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rosewood",
-  "materialId" : 152,
+  "materialId" : 153,
   "materialType" : "WOOD",
   "colorCode" : "#970b28",
   "valueMultiplier" : 1.7,
@@ -2851,7 +2869,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Aspen",
-  "materialId" : 153,
+  "materialId" : 154,
   "materialType" : "WOOD",
   "colorCode" : "#ecb35b",
   "valueMultiplier" : 1.1,
@@ -2869,7 +2887,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Spruce",
-  "materialId" : 154,
+  "materialId" : 155,
   "materialType" : "WOOD",
   "colorCode" : "#f1d3ab",
   "valueMultiplier" : 1.1,
@@ -2887,7 +2905,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Nuytsia",
-  "materialId" : 155,
+  "materialId" : 156,
   "materialType" : "WOOD",
   "colorCode" : "#ad9160",
   "valueMultiplier" : 1.2,
@@ -2905,7 +2923,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red cedar",
-  "materialId" : 156,
+  "materialId" : 157,
   "materialType" : "WOOD",
   "colorCode" : "#b9624e",
   "valueMultiplier" : 1.5,
@@ -2923,7 +2941,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red emperor",
-  "materialId" : 157,
+  "materialId" : 158,
   "materialType" : "WOOD",
   "colorCode" : "#832a1a",
   "valueMultiplier" : 1.9,
@@ -2941,7 +2959,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Baobab",
-  "materialId" : 158,
+  "materialId" : 159,
   "materialType" : "WOOD",
   "colorCode" : "#daba7f",
   "valueMultiplier" : 1.3,
@@ -2959,7 +2977,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Star pine",
-  "materialId" : 159,
+  "materialId" : 160,
   "materialType" : "WOOD",
   "colorCode" : "#c7b198",
   "valueMultiplier" : 1.4,
@@ -2977,7 +2995,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Shrub branch wood",
-  "materialId" : 160,
+  "materialId" : 161,
   "materialType" : "WOOD",
   "colorCode" : "#b08070",
   "valueMultiplier" : 1.0,
@@ -2995,7 +3013,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fungiwood",
-  "materialId" : 161,
+  "materialId" : 162,
   "materialType" : "WOOD",
   "colorCode" : "#7ca47b",
   "valueMultiplier" : 2.3,
@@ -3013,7 +3031,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Barkshroom",
-  "materialId" : 162,
+  "materialId" : 163,
   "materialType" : "WOOD",
   "colorCode" : "#37b5b7",
   "valueMultiplier" : 2.4,

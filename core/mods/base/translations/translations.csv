@@ -1736,6 +1736,9 @@ VEGETABLE.WHEAT,,Wheat
 VEGETABLE.WHEAT.PLURAL,,Wheat
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 VEGETABLE.WHEAT.USAGE,,used to bake bread
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.
 
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
 

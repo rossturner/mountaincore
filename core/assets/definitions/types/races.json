@@ -676,6 +676,11 @@
       "weaponMissSoundAssetName" : "SFX_Melee_Miss",
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
+    },
+    "meat" : {
+      "itemTypeName" : "Ingredient-Vegetable-Crate",
+      "materialName" : "Fungolem Mushroom",
+      "quantity" : 4
     }
   },
   "tags" : { }

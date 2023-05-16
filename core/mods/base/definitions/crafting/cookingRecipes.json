@@ -51,6 +51,10 @@
         "materialName": "Syrup Powder Mushroom"
       },
       {
+        "itemTypeName": "Ingredient-Vegetable-Crate",
+        "materialName": "Fungolem Mushroom"
+      },
+      {
         "itemTypeName": "Carcass-Carp-Prepared",
         "materialName": "Carp Meat"
       },

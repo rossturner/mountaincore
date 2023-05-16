@@ -1,6 +1,8 @@
 Early Access 1.1.24 - 16th May 2023
 
+- Fungolems can now be butchered for some bland, tasteless meat-like substance
 - Improvements to hauling of crafted items to export pallets
+- Set minimum level before water barrels will be refilled to avoid refilling after one drink
 - Fix for cavern exploration notifications not firing correctly
 - Fix for item availability when "Any" material selected
 

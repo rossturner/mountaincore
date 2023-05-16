@@ -402,7 +402,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
-  "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom", "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom", "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom" ],
+  "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom", "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom", "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom", "Fungolem Mushroom" ],
   "tradeExportable" : true,
   "tradeImportable" : true,
   "valueFixedToMaterial" : false,
