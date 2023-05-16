@@ -176,7 +176,7 @@ public class FurnitureRequirementWidget extends Table {
 		}
 		attributes.setMaterial(selected);
 
-		boolean isAvailable = itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), selected) >= requirement.getQuantity();
+		boolean isAvailable = itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), getSelectedMaterial()) >= requirement.getQuantity();
 		if (isAvailable) {
 			entityDrawable.setOverrideColor(null);
 		} else {
