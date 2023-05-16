@@ -63,7 +63,6 @@ import technology.rocketjump.mountaincore.rooms.RoomFactory;
 import technology.rocketjump.mountaincore.rooms.RoomStore;
 import technology.rocketjump.mountaincore.rooms.RoomTile;
 import technology.rocketjump.mountaincore.rooms.components.StockpileRoomComponent;
-import technology.rocketjump.mountaincore.settlement.notifications.Notification;
 import technology.rocketjump.mountaincore.ui.GameInteractionMode;
 import technology.rocketjump.mountaincore.ui.GameInteractionStateContainer;
 import technology.rocketjump.mountaincore.ui.Selectable;
@@ -79,7 +78,6 @@ import static technology.rocketjump.mountaincore.mapping.tile.TileExploration.EX
 import static technology.rocketjump.mountaincore.mapping.tile.roof.RoofConstructionState.NONE;
 import static technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState.CONSTRUCTED;
 import static technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState.OPEN;
-import static technology.rocketjump.mountaincore.settlement.notifications.NotificationType.AREA_REVEALED;
 
 @Singleton
 public class MapMessageHandler implements Telegraph, GameContextAware {
@@ -952,12 +950,8 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 					tile.getWorldPositionOfCenter(), null));
 
 			Integer neighbourRegionId = null;
-			MapTile unexploredTile = null;
 			for (MapTile neighbourTile : gameContext.getAreaMap().getOrthogonalNeighbours(location.x, location.y).values()) {
 				if (neighbourTile.hasFloor() && !neighbourTile.getFloor().isRiverTile()) {
-					if (!neighbourTile.getExploration().equals(TileExploration.EXPLORED)) {
-						unexploredTile = neighbourTile;
-					}
 					if (neighbourRegionId == null) {
 						neighbourRegionId = neighbourTile.getRegionId();
 						tile.setRegionId(neighbourRegionId);
@@ -976,10 +970,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 					neighbourTile.getRoomTile().getRoom().checkIfEnclosed(gameContext.getAreaMap());
 				}
 			}
-			if (unexploredTile != null) {
-				Notification areaUncoveredNotification = new Notification(AREA_REVEALED, unexploredTile.getWorldPositionOfCenter(), null);
-				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, areaUncoveredNotification);
-			}
+
 			if (neighbourRegionId == null) {
 				neighbourRegionId = gameContext.getAreaMap().createNewRegionId();
 				tile.setRegionId(neighbourRegionId);
