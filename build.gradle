@@ -186,6 +186,7 @@ project(":desktop") {
         dependsOn 'butlerMac'
         dependsOn 'butlerWin'
         dependsOn 'epicUploadWin'
+        dependsOn 'epicUploadMac'
     }
 }
 

@@ -1088,7 +1088,7 @@
   },
   "tags" : {
     "LIQUID_CONTAINER" : [ "6", "Water" ],
-    "LIQUID_CONTAINER_REFILL_THRESHOLD" : [ "3" ],
+    "LIQUID_CONTAINER_REFILL_THRESHOLD" : [ "4" ],
     "FURNITURE_BEHAVIOUR" : [ "FILL_LIQUID_CONTAINER", "ItemType_Product-Bucket" ]
   },
   "hiddenFromPlacementMenu" : false
