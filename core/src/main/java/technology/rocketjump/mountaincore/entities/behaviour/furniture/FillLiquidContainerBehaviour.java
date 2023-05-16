@@ -7,6 +7,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.components.LiquidContainerComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
+import technology.rocketjump.mountaincore.entities.tags.LiquidContainerRefillThresholdTag;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobPriority;
@@ -67,7 +68,12 @@ public class FillLiquidContainerBehaviour extends FurnitureBehaviour implements 
 		if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null) {
 			clearCompletedJobs();
 			// if num outstanding jobs + current liquid amount < max, try to create job to fill container
-			if (liquidContainerComponent.getLiquidQuantity() + (outstandingJobs.size() * relatedContainerCapacity()) < liquidContainerComponent.getMaxLiquidCapacity()) {
+			Integer refillThreshold = liquidContainerComponent.getMaxLiquidCapacity();
+			LiquidContainerRefillThresholdTag thresholdTag = parentEntity.getTag(LiquidContainerRefillThresholdTag.class);
+			if (thresholdTag != null) {
+				refillThreshold = thresholdTag.getRefillThreshold();
+			}
+			if (liquidContainerComponent.getLiquidQuantity() + (outstandingJobs.size() * relatedContainerCapacity()) < refillThreshold) {
 				// Create new job
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
 						liquidContainerComponent.getTargetLiquidMaterial(), false, parentEntity,
