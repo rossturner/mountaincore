@@ -1,6 +1,8 @@
 Early Access 1.1.24 - 16th May 2023
 
-
+- Improvements to hauling of crafted items to export pallets
+- Fix for cavern exploration notifications not firing correctly
+- Fix for item availability when "Any" material selected
 
 Early Access 1.1.23 - 15th May 2023
 

@@ -1,5 +1,5 @@
 {
-  "ai/goals.json" : 2207119005389988470,
+  "ai/goals.json" : -3891823949876087292,
   "ai/schedules.json" : 7401291134305884154,
   "code/*.jar" : 0,
   "definitions/animation/animations.json" : -2390059054749296479,
@@ -67,7 +67,7 @@
   "tilesets/gui.atlas" : 523782016604872495,
   "tilesets/masks.atlas" : -2254037008974301863,
   "tilesets/terrain.atlas" : 8113924133803828555,
-  "translations/collated.csv" : -2571979557379064759,
+  "translations/collated.csv" : 5176452818413167251,
   "translations/languages.json" : 122344139983851037,
   "ui/RJT_LOGO_BLACK.png" : 7034639513656950598,
   "ui/cursors/1080p/*.png" : 3420255348437021693,

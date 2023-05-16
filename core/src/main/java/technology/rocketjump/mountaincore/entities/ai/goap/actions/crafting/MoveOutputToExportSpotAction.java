@@ -9,6 +9,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.actions.Initialisable
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
+import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
@@ -73,11 +74,15 @@ public class MoveOutputToExportSpotAction extends Action implements Initialisabl
 				if (itemEntry != null) {
 					ItemAllocationComponent allocationComponent = itemEntry.entity.getComponent(ItemAllocationComponent.class);
 					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) itemEntry.entity.getPhysicalEntityComponent().getAttributes();
+					allocationComponent.cancelAll(ItemAllocation.Purpose.PRODUCTION_OUTPUT);
 					int haulingQuantity = Math.min(allocationComponent.getNumUnallocated(), itemEntityAttributes.getItemType().getMaxHauledAtOnce());
 
 					if (haulingQuantity > 0) {
 						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(haulingQuantity, itemEntry.entity, parent.parentEntity)
 								.toEntity(targetExportBehaviour.getParentEntity());
+						if (allocationComponent.getNumUnallocated() > 0) {
+							allocationComponent.createAllocation(allocationComponent.getNumUnallocated(), itemEntry.entity, ItemAllocation.Purpose.PRODUCTION_OUTPUT);
+						}
 
 						subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher, gameContext);
 						subGoal.setAssignedHaulingAllocation(haulingAllocation);

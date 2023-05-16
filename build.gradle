@@ -150,7 +150,7 @@ project(":desktop") {
         dependsOn 'moveToolWin'
     }
 
-    task('epicUpload', type: Exec, dependsOn: 'moveToolWin') {
+    task('epicUploadWin', type: Exec, dependsOn: 'moveToolWin') {
         workingDir '..'
         commandLine "${rootDir}\\release_tools\\Epic_BuildPatchTool_1.5.1\\Engine\\Binaries\\Win64\\BuildPatchTool.exe",
                 "-ClientId=\"xyza7891V44W4RAVHy6IwDFq37jtpkAQ\"",
@@ -161,8 +161,23 @@ project(":desktop") {
                 "-mode=UploadBinary",
                 "-BuildRoot=\"${rootDir}\\release_tools\\win64_release\"",
                 "-CloudDir=\"${rootDir}\\release_tools\\epic_upload\"",
-                "-BuildVersion=\"${epicVersion}\"",
+                "-BuildVersion=\"${epicVersion}-Win\"",
                 "-AppLaunch=\"Mountaincore.exe\"",
+                "-AppArgs=\"\""
+    }
+    task('epicUploadMac', type: Exec, dependsOn: 'packrMac') {
+        workingDir '..'
+        commandLine "${rootDir}\\release_tools\\Epic_BuildPatchTool_1.5.1\\Engine\\Binaries\\Win64\\BuildPatchTool.exe",
+                "-ClientId=\"xyza7891V44W4RAVHy6IwDFq37jtpkAQ\"",
+                "-ClientSecretEnvVar=\"EPIC_SECRET\"",
+                "-OrganizationId=\"o-9wdpdvs2cxr8wmqdmwwaqclav8gbec\"",
+                "-ProductId=\"dc4547eedc0d450eb22bf89c192117cd\"",
+                "-ArtifactId=\"0d16fe61e67745a3a4d3e39076e39d21\"",
+                "-mode=UploadBinary",
+                "-BuildRoot=\"${rootDir}\\release_tools\\macosx_release\"",
+                "-CloudDir=\"${rootDir}\\release_tools\\epic_upload_mac\"",
+                "-BuildVersion=\"${epicVersion}-Mac\"",
+                "-AppLaunch=\"Contents/MacOs/Mountaincore\"",
                 "-AppArgs=\"\""
     }
 
@@ -170,7 +185,7 @@ project(":desktop") {
         dependsOn 'butlerLinux'
         dependsOn 'butlerMac'
         dependsOn 'butlerWin'
-        dependsOn 'epicUpload'
+        dependsOn 'epicUploadWin'
     }
 }
 

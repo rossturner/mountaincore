@@ -90,13 +90,14 @@
     },
     "EquipItemForJobFromFurniture" : { },
     "CheckForPendingOutput" : {
-      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "fail" : [ "CancelProductionOutputAssignmentsOnCraftingStation", "MarkCraftingAssignmentComplete" ],
       "pass" : [ "MoveOutputToExportSpot" ]
     },
+    "CancelProductionOutputAssignmentsOnCraftingStation" : { },
     "UnequipItemForJob" : { },
     "CancelInterruptedFlag" : { },
     "MoveOutputToExportSpot" : {
-      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "fail" : [ "CancelProductionOutputAssignmentsOnCraftingStation", "MarkCraftingAssignmentComplete" ],
       "pass" : [ "CheckForPendingOutput" ]
     },
     "MoveLiquidInputToCraftingStation" : {

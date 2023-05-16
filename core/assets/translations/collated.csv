@@ -696,6 +696,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,{{item}}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,{{item}} are being placed for construction,,{{item}} werden für den Bau platziert,,{{item}} sono in fase di costruzione,{{item}} están siendo colocados para construcción,,,,,,{{item}} er ved at blive placeret til konstruktion,,,,,,,{{item}}已部署，等待修建,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,{{item}} is on an import pallet,,{{item}} befindet sich auf einer Importpalette,,{{item}} è su un pallet di importazione,{{item}} está en un pallet de entrada,,,,,,{{item}} er på en importpalle,,,,,,,{{item}}在进口托架上,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,{{item}} are on an import pallet,,{{item}} befinden sich auf einer Importpalette,,{{item}} sono su un pallet di importazione,{{item}} están en un pallet de entrada,,,,,,{{item}} er på en importpalle,,,,,,,{{item}}在进口托架上,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,{{item}} is being moved to an export palle,,,,,,,,,,,,,,,,,,,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,{{item}} are being moved to an export pallet,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,{{quantity}} {{item}},,{{quantity}} {{item}},,{{quantity}} {{item}},{{quantity}} {{item}},,,,,,{{quantity}} {{item}},,,,,,,{{quantity}} {{item}},
 GUI.RESOURCE_MANAGEMENT.SEARCH,Search,,Suche,,Ricerca,Buscar,,,,,,Søg,,,,,,,搜索,
 GUI.RESOURCE_MANAGEMENT.SORT_BY,Sort By,,Sortieren nach,,Ordina per,Ordenar por,,,,,,Sort efter,,,,,,,排序,
