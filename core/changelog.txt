@@ -1,3 +1,8 @@
+Early Access 1.1.26
+
+- Music track volume levels have been normalised
+- Added ability to copy map seed to clipboard from load game screen (will require the map to have been saved in this version or later)
+
 Early Access 1.1.25 - 16th May 2023
 
 - Jobs to remove pests from crops will no longer be generated in winter (though they might roll over from autumn)
