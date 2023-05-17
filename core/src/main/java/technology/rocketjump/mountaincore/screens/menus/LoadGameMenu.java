@@ -16,6 +16,7 @@ import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
+import technology.rocketjump.mountaincore.logging.ClipboardUtils;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.GameSaveMessage;
 import technology.rocketjump.mountaincore.messaging.types.RequestSoundMessage;
@@ -235,6 +236,38 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 		saveSlot.row();
 		saveSlot.add(new Label(savedGameInfo.formattedFileModifiedTime, skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		Table seedRow = new Table();
+		final String seedAsString;
+
+		if (savedGameInfo.seed != null) {
+			seedAsString = savedGameInfo.seed.toString();
+		} else {
+			seedAsString = "";
+			seedRow.setVisible(false);
+		}
+
+		TextButton copySeedButton = new TextButton(i18nTranslator.translate("GUI.LOAD_GAME.TABLE.COPY_SEED"), skin, "btn_rounded_grey");
+		copySeedButton.addListener(new ChangeCursorOnHover(saveSlot, GameCursor.SELECT, messageDispatcher));
+		copySeedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, ClickableSoundsListener.DEFAULT_MENU_HOVER, ClickableSoundsListener.DEFAULT_MENU_CLICK));
+		copySeedButton.addListener(new ClickListener() {
+
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				ClipboardUtils.copyToClipboard(seedAsString);
+				event.cancel(); //prevent click through
+				return true;
+			}
+
+		});
+		Label seedLabel = new Label(seedAsString, skin, "seed_label");
+		seedLabel.setAlignment(Align.center);
+		seedRow.add(copySeedButton).padRight(22);
+		seedRow.add(seedLabel);
+
+
+		saveSlot.row();
+		saveSlot.add(seedRow).spaceTop(26.0f).spaceBottom(26.0f);
 	}
 
 	private void enablePlayAndDeleteButtons() {

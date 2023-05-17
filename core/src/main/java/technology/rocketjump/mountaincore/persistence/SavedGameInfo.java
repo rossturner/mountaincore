@@ -27,6 +27,7 @@ public class SavedGameInfo implements Disposable {
 	public final String formattedGameTime;
 	public final boolean peacefulMode;
 	public final Pixmap minimapPixmap;
+	public final Long seed;
 	private boolean isCompressed = true;
 
 	public SavedGameInfo(File saveFile, JSONObject headerJson, I18nTranslator i18nTranslator, Pixmap minimapPixmap) throws InvalidSaveException, IOException {
@@ -38,6 +39,7 @@ public class SavedGameInfo implements Disposable {
 		this.settlementName = headerJson.getString("name");
 		this.version = headerJson.getString("version");
 		this.peacefulMode = headerJson.getBooleanValue("peacefulMode");
+		this.seed = headerJson.getLong("seed");
 		this.lastModifiedTime = Files.getLastModifiedTime(file.toPath()).toInstant();
 		this.formattedFileModifiedTime = DATE_TIME_FORMATTER.format(lastModifiedTime);
 		this.formattedGameTime = i18nTranslator.getDateTimeString(gameClock).toString();

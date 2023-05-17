@@ -19,9 +19,6 @@ import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.persistence.UserPreferences;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
 import static technology.rocketjump.mountaincore.rendering.camera.GlobalSettings.VERSION;
 
@@ -71,8 +68,8 @@ public class CrashHandler implements Telegraph {
 					JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
 			if (result == 0) {
-				Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-				systemClipboard.setContents(new StringSelection(getJsonPayload(e).toString(SerializerFeature.PrettyFormat)), null);
+				String clipboardText = getJsonPayload(e).toString(SerializerFeature.PrettyFormat);
+				ClipboardUtils.copyToClipboard(clipboardText);
 			}
 		} catch (RuntimeException runtimeException) {
 			CrashHandler.logCrash(new RuntimeException("Error displaying exception dialog", runtimeException));
