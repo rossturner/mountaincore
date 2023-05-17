@@ -39,30 +39,29 @@ public class SkillsComponent implements EntityComponent {
 		return cloned;
 	}
 
-	public void replace(Skill professionToReplace, Skill newProfession) {
-		int indexToReplace = activeProfessions.indexOf(professionToReplace);
-		if (indexToReplace == -1 && activeProfessions.size() < MAX_PROFESSIONS) {
-			activeProfessions.add(newProfession);
-		} else if (indexToReplace != -1) {
-			activeProfessions.set(indexToReplace, newProfession);
-		} else {
-			Logger.error("Attempting to replace a profession that is not in the list and max professions reached");
+	public void remove(int index) {
+		if (index < activeProfessions.size()) {
+			activeProfessions.remove(index);
 		}
+	}
+
+	public void replace(int index, Skill newProfession) {
+		if (index < MAX_PROFESSIONS) {
+			if (index < activeProfessions.size()) {
+				activeProfessions.set(index, newProfession);
+			} else {
+				activeProfessions.add(newProfession);
+			}
+		} else {
+			Logger.error("Attempting to set a profession with an invalid index {}", index);
+		}
+
 	}
 
 
 	public void activateProfession(Skill profession) {
 		if (!activeProfessions.contains(profession)) {
-			// Insert new active profession before last entry (which is NULL_PROFESSION)
-			activeProfessions.add(activeProfessions.size() - 1, profession);
-		}
-	}
-
-	public void deactivateProfession(Skill profession) {
-		if (profession.equals(NULL_PROFESSION)) {
-			Logger.warn("Can not deactivate " + NULL_PROFESSION.getName());
-		} else {
-			activeProfessions.remove(profession);
+			activeProfessions.add(profession);
 		}
 	}
 
@@ -132,14 +131,17 @@ public class SkillsComponent implements EntityComponent {
 
 		skillLevels.put(UNARMED_COMBAT_SKILL, 30);
 		skillLevels.put(NULL_PROFESSION, 50); // always 50 for null/none profession so will take medium time
-		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Villager" profession
 	}
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		JSONArray activeProfessionsJson = new JSONArray();
+
+		boolean nullProfessionAdded = false;
 		for (Skill activeProfession : activeProfessions) {
-			if (!activeProfession.equals(NULL_PROFESSION)) {
+			boolean isNullProfession = activeProfession.equals(NULL_PROFESSION);
+			if (!isNullProfession || !nullProfessionAdded) {
+				nullProfessionAdded |= isNullProfession;
 				activeProfessionsJson.add(activeProfession.getName());
 			}
 		}
@@ -178,7 +180,11 @@ public class SkillsComponent implements EntityComponent {
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
-			activeProfessions.add(activeProfessions.size() -1 , profession);
+			activeProfessions.add(profession);
+		}
+
+		if (activeProfessions.isEmpty()) {
+			activeProfessions.add(NULL_PROFESSION);
 		}
 
 		for (String professionName: skillLevelsJson.keySet()) {
