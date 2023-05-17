@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class StockpileTag extends Tag {
 
-	private static final Pattern IS_MACRO_PATTERN = Pattern.compile("IS_(ARMOUR|WEAPON)");
+	private static final Pattern IS_MACRO_PATTERN = Pattern.compile("IS_(ARMOUR|WEAPON|SHIELD)");
 	private static final Pattern ITEM_TYPE_PATTERN = Pattern.compile("ItemType_(.*)");
 
 	@Override
@@ -73,6 +73,7 @@ public class StockpileTag extends Tag {
 					String macroName = isMacroMatcher.group(1);
 					predicate = switch (macroName) {
 						case "ARMOUR" -> itemType -> itemType.getDefenseInfo() != null && DefenseType.ARMOR == itemType.getDefenseInfo().getType();
+						case "SHIELD" -> itemType -> itemType.getDefenseInfo() != null && DefenseType.SHIELD == itemType.getDefenseInfo().getType();
 						case "WEAPON" -> itemType -> itemType.getWeaponInfo() != null;
 						default -> itemType -> false;
 					};

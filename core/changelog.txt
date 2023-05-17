@@ -1,7 +1,9 @@
-Early Access 1.1.26
+Early Access 1.1.26 - 17th May 2023
 
 - Music track volume levels have been normalised
+- Weapon racks can now also store shields
 - Added ability to copy map seed to clipboard from load game screen (will require the map to have been saved in this version or later)
+- Fix (for most cases) for incorrect display of filled irrigation channels under snow cover
 
 Early Access 1.1.25 - 16th May 2023
 
