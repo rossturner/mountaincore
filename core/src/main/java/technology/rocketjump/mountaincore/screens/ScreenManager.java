@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.EntityStore;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.environment.model.GameSpeed;
 import technology.rocketjump.mountaincore.gamecontext.*;
@@ -32,7 +33,9 @@ import technology.rocketjump.mountaincore.ui.widgets.GameDialogDictionary;
 import technology.rocketjump.mountaincore.ui.widgets.ModalDialog;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.mountaincore.rendering.camera.GlobalSettings.DEV_MODE;
@@ -126,20 +129,40 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				!Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ENABLE_TUTORIAL));
 	}
 
-	private List<Skill> buildProfessionList() {
-		List<Skill> professionList = new ArrayList<>();
+	private List<SkillsComponent> buildProfessionList() {
+		List<SkillsComponent> professionList = new ArrayList<>();
 		if (!DEV_MODE) {
-			add(professionList, "MINER", 1);
-			add(professionList, "LUMBERJACK", 1);
-			add(professionList, "CARPENTER", 1);
-			add(professionList, "STONEMASON", 1);
-			add(professionList, "BLACKSMITH", 1);
-			add(professionList, "FARMER", 1);
-			add(professionList, NULL_PROFESSION.getName(), 1);
+			add(professionList, Map.of(
+				"MINER", 50,
+				"BLACKSMITH", 40
+			));
+			add(professionList, Map.of(
+				"LUMBERJACK", 50,
+				"CARPENTER", 30
+			));
+			add(professionList, Map.of(
+				"FARMER", 50
+			));
+			add(professionList, Map.of(
+				"STONEMASON", 50,
+				"MINER", 30
+			));
+			add(professionList, Map.of(
+					"CHEF", 50
+			));
+			add(professionList, Map.of(
+					"FARMER", 50
+			));
+			professionList.get(5).remove(1);
+			add(professionList, Map.of());
 		} else if (GlobalSettings.STRESS_TEST) {
 			List<Skill> allProfessions = new ArrayList<>(skillDictionary.getSelectableProfessions());
 			for (int cursor = 0; cursor < 1000; cursor++) {
-				professionList.add(allProfessions.get(cursor % allProfessions.size()));
+				add(professionList, Map.of(
+						skillDictionary.getSelectableProfessions().get(
+								gameContext.getRandom().nextInt(skillDictionary.getSelectableProfessions().size())
+						).getName(), 50
+				));
 			}
 		} else {
 			for (int iteration = 0; iteration < 2; iteration++) {
@@ -147,7 +170,9 @@ public class ScreenManager implements Telegraph, GameContextAware {
 					if (profession.getName().equals("VILLAGER")) {
 						continue;
 					}
-					professionList.add(profession);
+					add(professionList, Map.of(
+							profession.getName(), 50
+					));
 				}
 			}
 		}
@@ -155,15 +180,20 @@ public class ScreenManager implements Telegraph, GameContextAware {
 		return professionList;
 	}
 
-	private void add(List<Skill> professionList, String professionName, int quantity) {
-		for (int cursor = 0; cursor < quantity; cursor++) {
-			Skill profession = skillDictionary.getByName(professionName);
-			if (profession == null) {
-				Logger.error("Could not find profession by name: " + professionName);
-			} else {
-				professionList.add(profession);
-			}
-		}
+	private void add(List<SkillsComponent> skillsComponentList, Map<String, Integer> professionMap) {
+		SkillsComponent skillsComponent = new SkillsComponent();
+		professionMap.entrySet().stream()
+				.sorted(Comparator.comparingInt(e -> -e.getValue()))
+				.forEach((entry) -> {
+					Skill profession = skillDictionary.getByName(entry.getKey());
+					if (profession == null) {
+						Logger.error("Could not find profession by name: " + entry.getKey());
+					} else {
+						skillsComponent.setSkillLevel(profession, entry.getValue());
+					}
+				});
+		skillsComponent.setSkillLevel(NULL_PROFESSION, 50);
+		skillsComponentList.add(skillsComponent);
 	}
 
 	public Screen getCurrentScreen() {

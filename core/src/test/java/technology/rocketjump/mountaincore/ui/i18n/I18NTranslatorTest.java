@@ -23,6 +23,7 @@ import technology.rocketjump.mountaincore.entities.EntityAssetUpdater;
 import technology.rocketjump.mountaincore.entities.EntityStore;
 import technology.rocketjump.mountaincore.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.mountaincore.entities.components.Faction;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.mountaincore.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.mountaincore.entities.factories.*;
@@ -165,7 +166,7 @@ public class I18NTranslatorTest {
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
 		profession.setType(SkillType.PROFESSION);
 		Entity entity = Guice.createInjector(new TestModule()).getInstance(SettlerFactory.class)
-				.create(new Vector2(), profession, null, mockGameContext, false);
+				.create(new Vector2(), new SkillsComponent().withNullProfessionActive(), mockGameContext, false);
 
 		I18nText description = translator.getDescription(entity);
 

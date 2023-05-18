@@ -31,6 +31,7 @@ import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.invasions.model.InvasionDefinition;
 import technology.rocketjump.mountaincore.invasions.model.InvasionEquipmentDescriptor;
 import technology.rocketjump.mountaincore.invasions.model.InvasionParticipant;
+import technology.rocketjump.mountaincore.jobs.SkillDictionary;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
@@ -93,6 +94,7 @@ public class InvasionGenerator implements GameContextAware {
 			invader.addComponent(militaryComponent);
 			EquippedItemComponent equippedItemComponent = invader.getOrCreateComponent(EquippedItemComponent.class);
 			SkillsComponent skillsComponent = invader.getOrCreateComponent(SkillsComponent.class);
+			skillsComponent.activateProfession(SkillDictionary.NULL_PROFESSION);
 			NeedsComponent needsComponent = new NeedsComponent(List.of(EntityNeed.SLEEP, EntityNeed.FOOD), gameContext.getRandom());
 			invader.addComponent(needsComponent);
 

@@ -2,6 +2,7 @@ package technology.rocketjump.mountaincore.entities.model.physical;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.entities.item.model.ItemPlacement;
@@ -9,16 +10,23 @@ import technology.rocketjump.mountaincore.assets.entities.model.EntityAssetOrien
 import technology.rocketjump.mountaincore.entities.components.AttachedLightSourceComponent;
 import technology.rocketjump.mountaincore.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
+import technology.rocketjump.mountaincore.entities.model.EntityType;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.EntityPositionChangedMessage;
+import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.JSONUtils;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
+
+import java.util.List;
 
 import static technology.rocketjump.mountaincore.entities.model.EntityType.ONGOING_EFFECT;
 
@@ -48,7 +56,7 @@ public class LocationComponent implements ParentDependentEntityComponent {
 	private transient Long containerEntityId; // Only used during loading
 	private transient boolean initialised; // Only used during loading
 
-	@Override
+    @Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
@@ -226,6 +234,23 @@ public class LocationComponent implements ParentDependentEntityComponent {
 
 	public boolean isInitialised() {
 		return parentEntity != null && messageDispatcher != null;
+	}
+
+
+	public static boolean hasAccessibleWorkspaceInRegion(Entity containerEntity, int requesterRegionId, GameContext gameContext) {
+		if (containerEntity.getType() == EntityType.FURNITURE && containerEntity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes) {
+			GridPoint2 furniturePosition = VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition());
+
+			List<FurnitureLayout.Workspace> workspaces = attributes.getCurrentLayout().getWorkspaces();
+			for (FurnitureLayout.Workspace workspace : workspaces) {
+				GridPoint2 accessedFromLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
+				MapTile accessedFromTile = gameContext.getAreaMap().getTile(accessedFromLocation);
+				if (accessedFromTile != null && accessedFromTile.isNavigable(null) && accessedFromTile.getRegionId() == requesterRegionId) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override

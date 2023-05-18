@@ -26,6 +26,7 @@ import technology.rocketjump.mountaincore.entities.components.InventoryComponent
 import technology.rocketjump.mountaincore.entities.components.creature.HappinessComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.MemoryComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.NeedsComponent;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.mountaincore.entities.factories.*;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -341,7 +342,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				break;
 			}
 			case SPAWN_SETTLER: {
-				settlerFactory.create(worldPosition, null, null, gameContext, true);
+				settlerFactory.create(worldPosition, new SkillsComponent().withNullProfessionActive(), gameContext, true);
 				break;
 			}
 			case KILL_CREATURE: {

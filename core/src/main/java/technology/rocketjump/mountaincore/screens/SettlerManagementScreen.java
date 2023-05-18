@@ -289,6 +289,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Button sortByName = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.NAME", SORT_NAME);
 		Button sortBySkillLevel = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL", Comparator.comparing((Function<Entity, Float>) settler -> {
 			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+			if (skillsComponent == null) {
+				return 0f;
+			}
 			java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 
 			if (selectedFilter instanceof MatchesActiveProfession matchesProfessionFilter) {

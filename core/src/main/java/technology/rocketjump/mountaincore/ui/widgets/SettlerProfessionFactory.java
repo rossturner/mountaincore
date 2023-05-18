@@ -38,6 +38,8 @@ public class SettlerProfessionFactory {
 	private final I18nTranslator i18nTranslator;
 	private final SkillDictionary skillDictionary;
 	private final TooltipFactory tooltipFactory;
+	private final Drawable noneSelectedDrawableOption;
+	private final Drawable noneSelectedDrawable;
 
 	@Inject
 	public SettlerProfessionFactory(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
@@ -50,6 +52,8 @@ public class SettlerProfessionFactory {
 		this.i18nTranslator = i18nTranslator;
 		this.skillDictionary = skillDictionary;
 		this.tooltipFactory = tooltipFactory;
+		this.noneSelectedDrawableOption = skinRepository.getMainGameSkin().getDrawable("icon_not_equipped_no_bg");
+		this.noneSelectedDrawable = skinRepository.getManagementSkin().getDrawable("icon_not_equipped");
 	}
 
 	//todo: really needs refactoring, lots of things happening
@@ -58,6 +62,7 @@ public class SettlerProfessionFactory {
 		table.clearChildren();
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		DragAndDrop dragAndDrop = new DragAndDrop();
+		boolean showNonOption = true;
 		for (int i = 0; i < SkillsComponent.MAX_PROFESSIONS; i++) {
 			Table column = new Table();
 			Image numberIcon = new Image(managementSkin.getDrawable("icon_" + (i + 1)));
@@ -68,49 +73,70 @@ public class SettlerProfessionFactory {
 			if (i < activeProfessions.size()) {
 				skill = activeProfessions.get(i).getSkill();
 			} else {
-				skill = SkillDictionary.NULL_PROFESSION;
+				skill = null;
 			}
+			int activeSkillIndex = i;
 
-			TextureRegionDrawable drawable = (TextureRegionDrawable) managementSkin.getDrawable(skill.getDraggableIcon());
-			drawable = new TextureRegionDrawable(drawable);
-			drawable.setMinWidth(drawable.getMinWidth() * scale);
-			drawable.setMinHeight(drawable.getMinHeight() * scale);
-			Image draggableImage = new Image(drawable);
+			if (skill != null) {
+				TextureRegionDrawable drawable = (TextureRegionDrawable) managementSkin.getDrawable(skill.getDraggableIcon());
+				drawable = new TextureRegionDrawable(drawable);
+				drawable.setMinWidth(drawable.getMinWidth() * scale);
+				drawable.setMinHeight(drawable.getMinHeight() * scale);
+				Image draggableImage = new Image(drawable);
 
+				Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
 
-			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
+				tooltipFactory.simpleTooltip(draggableImage, skill.getI18nKey(), TooltipLocationHint.ABOVE);
 
-			tooltipFactory.simpleTooltip(draggableImage, skill.getI18nKey(), TooltipLocationHint.ABOVE);
+				Actor draggingCursorWidget = new Actor();
+				draggingCursorWidget.addListener(new ChangeCursorOnHover(draggingCursorWidget, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
+				draggingCursorWidget.setWidth(draggableImage.getWidth() * 0.34f);
+				draggingCursorWidget.setHeight(draggableImage.getHeight());
+				Actor clickingCursorWidget = new Actor();
+				clickingCursorWidget.addListener(new ChangeCursorOnHover(clickingCursorWidget, GameCursor.SELECT, messageDispatcher));
+				clickingCursorWidget.setWidth(draggableImage.getWidth() * (1-0.34f));
+				clickingCursorWidget.setHeight(draggableImage.getHeight());
 
-			Actor draggingCursorWidget = new Actor();
-			draggingCursorWidget.addListener(new ChangeCursorOnHover(draggingCursorWidget, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
-			draggingCursorWidget.setWidth(draggableImage.getWidth() * 0.34f);
-			draggingCursorWidget.setHeight(draggableImage.getHeight());
-			Actor clickingCursorWidget = new Actor();
-			clickingCursorWidget.addListener(new ChangeCursorOnHover(clickingCursorWidget, GameCursor.SELECT, messageDispatcher));
-			clickingCursorWidget.setWidth(draggableImage.getWidth() * (1-0.34f));
-			clickingCursorWidget.setHeight(draggableImage.getHeight());
+				Table draggableCursors = new Table();
+				draggableCursors.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+				draggableCursors.add(draggingCursorWidget);
+				draggableCursors.add(clickingCursorWidget);
 
-			Table draggableCursors = new Table();
-			draggableCursors.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-			draggableCursors.add(draggingCursorWidget);
-			draggableCursors.add(clickingCursorWidget);
+				Stack complexCursorStack = new Stack();
+				complexCursorStack.add(draggableImage);
+				complexCursorStack.add(draggableCursors);
+				column.add(complexCursorStack).spaceTop(10f).spaceBottom(6f).row();
+				column.add(progressRow);
+				tooltipFactory.simpleTooltip(complexCursorStack, skill.getI18nKey(), TooltipLocationHint.BELOW);
 
-			Stack complexCursorStack = new Stack();
-			complexCursorStack.add(draggableImage);
-			complexCursorStack.add(draggableCursors);
-			column.add(complexCursorStack).spaceTop(10f).spaceBottom(6f).row();
-			column.add(progressRow);
-			tooltipFactory.simpleTooltip(complexCursorStack, skill.getI18nKey(), TooltipLocationHint.BELOW);
+				dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
+				dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange, scale));
 
-			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
-			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange, scale));
-			clickingCursorWidget.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table, onProfessionChange, scale));
-				}
-			});
+				clickingCursorWidget.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, activeSkillIndex, table, onProfessionChange, scale));
+					}
+				});
+			} else {
+				TextureRegionDrawable drawable = new TextureRegionDrawable((TextureRegionDrawable) noneSelectedDrawable);
+				drawable.setMinWidth(drawable.getMinWidth() * scale);
+				drawable.setMinHeight(drawable.getMinHeight() * scale);
+				Image noneOptionImage = new Image(drawable);
+				noneOptionImage.addListener(new ChangeCursorOnHover(noneOptionImage, GameCursor.SELECT, messageDispatcher));
+				noneOptionImage.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, activeSkillIndex, table, onProfessionChange, scale));
+					}
+				});
+				column.add(noneOptionImage).spaceTop(10f).spaceBottom(6f).row();
+				Table progressRow = buildProgressBarRow(skillsComponent, SkillDictionary.NULL_PROFESSION, false);
+				column.add(progressRow);
+				noneOptionImage.setVisible(showNonOption);
+
+				showNonOption = false;
+			}
 
 			table.add(column).spaceRight(24 * scale).spaceLeft(24 * scale);
 		}
@@ -227,17 +253,20 @@ public class SettlerProfessionFactory {
 
 		public ChangeProfessionDialog(I18nTranslator i18nTranslator, Skin skin,
 		                              MessageDispatcher messageDispatcher, SkillDictionary skillDictionary,
-		                              SoundAssetDictionary soundAssetDictionary, Entity settler, Skill professionToReplace, Table wholeTable, Consumer<Entity> onProfessionChange, final float scale) {
+		                              SoundAssetDictionary soundAssetDictionary, Entity settler, int activeSkillIndex, Table wholeTable, Consumer<Entity> onProfessionChange, final float scale) {
 			super(i18nTranslator.getTranslatedString("GUI.CHANGE_PROFESSION_LABEL"), skin, messageDispatcher, soundAssetDictionary);
 
 			int numAdded = 0;
 
 			List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getSelectableProfessions());
+			if (!professionsForSelection.contains(SkillDictionary.NULL_PROFESSION)) {
+				professionsForSelection.add(SkillDictionary.NULL_PROFESSION);
+			}
+
 			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 			for (SkillsComponent.QuantifiedSkill quantifiedSkill : skillsComponent.getActiveProfessions()) {
 				professionsForSelection.remove(quantifiedSkill.getSkill());
 			}
-			professionsForSelection.add(SkillDictionary.NULL_PROFESSION);
 
 
 			for (Skill profession : professionsForSelection) {
@@ -249,7 +278,7 @@ public class SettlerProfessionFactory {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						messageDispatcher.dispatchMessage(MessageType.CHANGE_PROFESSION, new ChangeProfessionMessage(
-								settler, professionToReplace, profession
+								settler, activeSkillIndex, profession
 						));
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
 						SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange, scale);
@@ -269,6 +298,33 @@ public class SettlerProfessionFactory {
 					contentTable.row();
 				}
 			}
+
+			if (activeSkillIndex > 0) {
+				contentTable.add(removeProfessionOption(messageDispatcher, soundAssetDictionary, settler, activeSkillIndex, wholeTable, onProfessionChange, scale)).pad(3);
+			}
+		}
+
+		private Table removeProfessionOption(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, Entity settler, int activeSkillIndex, Table wholeTable, Consumer<Entity> onProfessionChange, float scale) {
+			Table innerTable = new Table();
+			Image image = new Image(noneSelectedDrawableOption);
+			image.setTouchable(Touchable.enabled);
+			image.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					messageDispatcher.dispatchMessage(MessageType.REMOVE_PROFESSION, new MessageType.RemoveProfessionMessage(
+							settler, activeSkillIndex
+					));
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
+					SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange, scale);
+					close();
+				}
+			});
+
+			innerTable.add(image).pad(10).row();
+			image.addListener(new ChangeCursorOnHover(image, GameCursor.SELECT, messageDispatcher));
+			image.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+			tooltipFactory.simpleTooltip(image, "ITEM.NONE_SELECTED", TooltipLocationHint.BELOW);
+			return innerTable;
 		}
 
 		@Override

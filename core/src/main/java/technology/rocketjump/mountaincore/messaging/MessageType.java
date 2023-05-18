@@ -134,6 +134,7 @@ public class MessageType {
 
 	public static final int SETTLER_LOCATE_DRINK_STATUS = 356; public record SettlerLocateDrinkStatusMessage(Entity settler, boolean drinkFound) {}
 
+	public static final int REMOVE_PROFESSION = 357; public record RemoveProfessionMessage(Entity entity, int activeSkillIndex) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

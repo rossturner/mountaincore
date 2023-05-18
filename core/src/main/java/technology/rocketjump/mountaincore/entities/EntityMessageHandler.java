@@ -28,6 +28,7 @@ import technology.rocketjump.mountaincore.entities.factories.ItemEntityFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.LocationComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.*;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.Death;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.StatusEffect;
@@ -165,6 +166,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_REMOVAL);
 		messageDispatcher.addListener(this, MessageType.HAULING_ALLOCATION_CANCELLED);
 		messageDispatcher.addListener(this, MessageType.CHANGE_PROFESSION);
+		messageDispatcher.addListener(this, MessageType.REMOVE_PROFESSION);
 		messageDispatcher.addListener(this, MessageType.APPLY_STATUS);
 		messageDispatcher.addListener(this, MessageType.REMOVE_STATUS);
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_FURNITURE_TYPE);
@@ -483,6 +485,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.CHANGE_PROFESSION:
 				return handle((ChangeProfessionMessage) msg.extraInfo);
+			case MessageType.REMOVE_PROFESSION:
+				return handle((MessageType.RemoveProfessionMessage) msg.extraInfo);
 			case MessageType.HAULING_ALLOCATION_CANCELLED: {
 				HaulingAllocation allocation = (HaulingAllocation) msg.extraInfo;
 
@@ -675,14 +679,29 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		SkillsComponent skillsComponent = changeProfessionMessage.entity.getComponent(SkillsComponent.class);
-		if (changeProfessionMessage.professionToReplace != null && changeProfessionMessage.newProfession != null) {
-			skillsComponent.replace(changeProfessionMessage.professionToReplace, changeProfessionMessage.newProfession);
+		if (changeProfessionMessage.newProfession != null) {
+			skillsComponent.replace(changeProfessionMessage.activeSkillIndex, changeProfessionMessage.newProfession);
 		}
 
 		// Remove any attached light sources so changing between mining helmet and not does not leave a rogue lightsource
 		changeProfessionMessage.entity.removeComponent(AttachedLightSourceComponent.class);
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, changeProfessionMessage.entity);
+		return true;
+	}
+
+	private boolean handle(MessageType.RemoveProfessionMessage message) {
+		if (message.entity() == null || message.entity().getComponent(SkillsComponent.class) == null) {
+			throw new RuntimeException("No entity in " + message.getClass().getSimpleName() + " handled in " + this.getClass().getSimpleName());
+		}
+
+		SkillsComponent skillsComponent = message.entity().getComponent(SkillsComponent.class);
+		skillsComponent.remove(message.activeSkillIndex());
+
+		// Remove any attached light sources so changing between mining helmet and not does not leave a rogue lightsource
+		message.entity().removeComponent(AttachedLightSourceComponent.class);
+
+		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, message.entity());
 		return true;
 	}
 
@@ -1108,12 +1127,24 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		for (Entity deadCreatureEntity : creatureTracker.getDead()) {
 			MapTile corpseTile = areaMap.getTile(deadCreatureEntity.getLocationComponent().getWorldOrParentPosition());
-			if (corpseTile == null || corpseTile.getRegionId() != requesterRegionId) {
+
+			if (corpseTile == null) {
 				continue;
 			}
 
-			if (deadCreatureEntity.getLocationComponent().getContainerEntity() != null && deadCreatureEntity.getLocationComponent().getContainerEntity().getType() != FURNITURE) {
+			Entity containerEntity = deadCreatureEntity.getLocationComponent().getContainerEntity();
+			if (containerEntity != null && containerEntity.getType() != FURNITURE) {
 				continue;
+			}
+
+
+			if (corpseTile.getRegionId() != requesterRegionId) {
+				if (containerEntity == null) {
+					continue;
+				}
+				if (!LocationComponent.hasAccessibleWorkspaceInRegion(containerEntity, requesterRegionId, gameContext)) {
+					continue;
+				}
 			}
 
 			ItemAllocationComponent itemAllocationComponent = deadCreatureEntity.getComponent(ItemAllocationComponent.class);

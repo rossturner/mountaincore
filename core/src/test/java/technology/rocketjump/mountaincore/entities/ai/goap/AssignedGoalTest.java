@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.mountaincore.entities.EntityAssetUpdater;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureGroup;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.mountaincore.entities.factories.SettlerFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -36,7 +37,6 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.mountaincore.assets.model.FloorType.NULL_FLOOR;
-import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AssignedGoalTest {
@@ -100,7 +100,7 @@ public class AssignedGoalTest {
 		this.scheduleDictionary = injector.getInstance(ScheduleDictionary.class);
 		this.roomStore = injector.getInstance(RoomStore.class);
 
-		this.entity = injector.getInstance(SettlerFactory.class).create(new Vector2(), NULL_PROFESSION, NULL_PROFESSION, gameContext, true);
+		this.entity = injector.getInstance(SettlerFactory.class).create(new Vector2(), new SkillsComponent().withNullProfessionActive(), gameContext, true);
 	}
 
 	@Test

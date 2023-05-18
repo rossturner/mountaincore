@@ -6,12 +6,12 @@ import technology.rocketjump.mountaincore.jobs.model.Skill;
 public class ChangeProfessionMessage {
 
 	public final Entity entity;
-	public final Skill professionToReplace;
+	public final int activeSkillIndex;
 	public final Skill newProfession;
 
-	public ChangeProfessionMessage(Entity entity, Skill professionToReplace, Skill newProfession) {
+	public ChangeProfessionMessage(Entity entity, int activeSkillIndex, Skill newProfession) {
 		this.entity = entity;
-		this.professionToReplace = professionToReplace;
+		this.activeSkillIndex = activeSkillIndex;
 		this.newProfession = newProfession;
 	}
 }
