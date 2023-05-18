@@ -15,7 +15,6 @@ import technology.rocketjump.mountaincore.combat.CombatTracker;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.mountaincore.entities.model.Entity;
-import technology.rocketjump.mountaincore.environment.model.Season;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -184,12 +183,8 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 					}
 				}
 
-				if (isWinter()) {
-					fadeOutPeacefulTrack();
-				} else {
-					if (skirmishTrack == null && invasionTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
-						startNewPeacefulTrack();
-					}
+				if (skirmishTrack == null && invasionTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
+					startNewPeacefulTrack();
 				}
 			}
 			case SKIRMISH_COMBAT -> {
@@ -266,10 +261,6 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				}
 			}
 		}
-	}
-
-	private boolean isWinter() {
-		return gameContext != null && gameContext.getGameClock() != null && gameContext.getGameClock().getCurrentSeason() == Season.WINTER;
 	}
 
 	private void fadeOutPeacefulTrack() {
