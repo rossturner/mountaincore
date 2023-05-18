@@ -311,7 +311,10 @@ public class ConstructionManager implements Updatable {
 			construction.getIncomingHaulingAllocations().add(allocation);
 
 			Entity targetItem = gameContext.getEntities().get(allocation.getItemAllocation().getTargetItemEntityId());
-			return createHaulingJob(allocation, targetItem, haulingJobType, construction.getPriority());
+			Job haulingJob = createHaulingJob(allocation, targetItem, haulingJobType, construction.getPriority());
+			construction.addHaulingJob(haulingJob);
+
+			return haulingJob;
 		} else {
 			return null;
 		}
