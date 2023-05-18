@@ -24,6 +24,8 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.Equip
 import technology.rocketjump.mountaincore.entities.model.physical.item.*;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
+import technology.rocketjump.mountaincore.jobs.SkillDictionary;
+import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
@@ -158,11 +160,14 @@ public class TradeCaravanGenerator implements GameContextAware {
 		NeedsComponent needsComponent = new NeedsComponent(List.of(EntityNeed.SLEEP, EntityNeed.FOOD, EntityNeed.DRINK), gameContext.getRandom());
 		creature.addComponent(needsComponent);
 
-		if (creatureDescriptor.getProfession() != null) {
-			SkillsComponent skillsComponent = creature.getOrCreateComponent(SkillsComponent.class);
-			skillsComponent.setSkillLevel(creatureDescriptor.getProfession(), 50);
-			skillsComponent.activateProfession(creatureDescriptor.getProfession());
+		Skill profession = creatureDescriptor.getProfession();
+		if (profession == null) {
+			profession = SkillDictionary.NULL_PROFESSION;
 		}
+
+		SkillsComponent skillsComponent = creature.getOrCreateComponent(SkillsComponent.class);
+		skillsComponent.setSkillLevel(profession, 50);
+		skillsComponent.activateProfession(profession);
 
 		addInventoryAndEquipment(creature, creatureDescriptor);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, creature);
