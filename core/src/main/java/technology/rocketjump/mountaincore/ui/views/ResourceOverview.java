@@ -25,10 +25,7 @@ import technology.rocketjump.mountaincore.ui.GuiArea;
 import technology.rocketjump.mountaincore.ui.cursor.GameCursor;
 import technology.rocketjump.mountaincore.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.mountaincore.ui.eventlistener.TooltipLocationHint;
-import technology.rocketjump.mountaincore.ui.i18n.I18nText;
-import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
-import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
-import technology.rocketjump.mountaincore.ui.i18n.I18nWordClass;
+import technology.rocketjump.mountaincore.ui.i18n.*;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.skins.MainGameSkin;
 import technology.rocketjump.mountaincore.ui.skins.ManagementSkin;
@@ -46,7 +43,7 @@ import static technology.rocketjump.mountaincore.ui.i18n.I18nWordClass.NOUN;
 import static technology.rocketjump.mountaincore.ui.i18n.I18nWordClass.PLURAL;
 
 @Singleton
-public class ResourceOverview implements GuiView, GameContextAware {
+public class ResourceOverview implements GuiView, GameContextAware, DisplaysText {
 
     public static final int OVERALL_INDENT_SPACING = 40;
     private final MainGameSkin mainGameSkin;
@@ -427,6 +424,11 @@ public class ResourceOverview implements GuiView, GameContextAware {
                     TreeNodeValue newNodeValue = new TreeNodeValue(v.stockpileGroup, v.itemType, treeNodeValue.count + v.count);
                     values.set(idx, newNodeValue);
                 }, () -> values.add(v));
+    }
+
+    @Override
+    public void rebuildUI() {
+        rebuildTree();
     }
 
     static class TreeNode extends Tree.Node<TreeNode, List<TreeNodeValue>, Table> { }
