@@ -19,15 +19,12 @@ import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntit
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
-import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.ItemPrimaryMaterialChangedMessage;
 
 import java.util.Random;
-
-import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
 public class SettlerFactory {
@@ -53,7 +50,7 @@ public class SettlerFactory {
 		this.goalDictionary = goalDictionary;
 	}
 
-	public Entity create(Vector2 worldPosition, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext, boolean includeRations) {
+	public Entity create(Vector2 worldPosition, SkillsComponent skillsComponent, GameContext gameContext, boolean includeRations) {
 		Random random = gameContext.getRandom();
 		CreatureEntityAttributes attributes = settlerAttributesFactory.create(gameContext);
 
@@ -71,7 +68,7 @@ public class SettlerFactory {
 		Entity entity = new Entity(EntityType.CREATURE, physicalComponent, behaviourComponent, locationComponent,
 				messageDispatcher, gameContext);
 		entity.addComponent(new HaulingComponent());
-		entity.addComponent(buildSkillsComponent(primaryProfession, secondaryProfession));
+		entity.addComponent(skillsComponent);
 		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), random));
 		entity.addComponent(new MemoryComponent());
 		entity.addComponent(new CombatStateComponent());
@@ -90,18 +87,6 @@ public class SettlerFactory {
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
 		return entity;
-	}
-
-	private SkillsComponent buildSkillsComponent(Skill primaryProfession, Skill secondaryProfession) {
-		SkillsComponent skillsComponent = new SkillsComponent();
-		if (primaryProfession == null) {
-			primaryProfession = NULL_PROFESSION;
-		}
-		skillsComponent.setSkillLevel(primaryProfession, 50);
-		if (secondaryProfession != null && !secondaryProfession.equals(primaryProfession)) {
-			skillsComponent.setSkillLevel(secondaryProfession, 30);
-		}
-		return skillsComponent;
 	}
 
 	private void addRations(Entity settler, MessageDispatcher messageDispatcher, GameContext gameContext) {

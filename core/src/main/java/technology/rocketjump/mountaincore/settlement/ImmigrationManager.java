@@ -19,6 +19,7 @@ import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBe
 import technology.rocketjump.mountaincore.entities.components.Faction;
 import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.factories.SettlerFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
@@ -26,7 +27,6 @@ import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.Updatable;
 import technology.rocketjump.mountaincore.jobs.SkillDictionary;
-import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.mapping.factories.CreaturePopulator;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
@@ -291,13 +291,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 	}
 
 	private void createImmigrant(Vector2 spawnPosition) {
-		List<Skill> allProfessions = new ArrayList<>(skillDictionary.getSelectableProfessions());
-		Skill primaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
-		Skill secondaryProfession = null;
-		if (!primaryProfession.getName().equals("VILLAGER")) {
-			secondaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
-		}
-		Entity settler = settlerFactory.create(spawnPosition, primaryProfession, secondaryProfession, gameContext, true);
+		Entity settler = settlerFactory.create(spawnPosition, new SkillsComponent().withNullProfessionActive(), gameContext, true);
 		CreatureBehaviour settlerBehaviour = (CreatureBehaviour) settler.getBehaviourComponent();
 
 		Goal idleGoal = SpecialGoal.IDLE.getInstance();

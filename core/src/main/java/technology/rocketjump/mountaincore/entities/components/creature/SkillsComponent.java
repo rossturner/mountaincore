@@ -229,6 +229,10 @@ public class SkillsComponent implements EntityComponent {
 		activeProfessions = reordered;
 	}
 
+	public SkillsComponent withNullProfessionActive() {
+		this.activateProfession(NULL_PROFESSION);
+		return this;
+	}
 
 
 	public static class QuantifiedSkill {

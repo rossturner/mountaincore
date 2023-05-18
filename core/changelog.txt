@@ -1,6 +1,7 @@
 Early Access 1.1.23 - 15th May 2023
 
 - Fix for items becoming stuck when trying to be hauled out of furniture
+- Fix for a crash when a settler does not have a skills component, might only affect old saves
 
 Early Access 1.1.22 - 12th May 2023
 

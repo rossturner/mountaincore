@@ -9,6 +9,7 @@ import technology.rocketjump.mountaincore.assets.FloorTypeDictionary;
 import technology.rocketjump.mountaincore.assets.model.FloorType;
 import technology.rocketjump.mountaincore.cooking.CookingRecipeDictionary;
 import technology.rocketjump.mountaincore.entities.EntityStore;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.mountaincore.entities.factories.ItemEntityFactory;
 import technology.rocketjump.mountaincore.entities.factories.SettlerFactory;
@@ -21,7 +22,6 @@ import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpe
 import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.mountaincore.entities.model.physical.plant.PlantSpeciesType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
-import technology.rocketjump.mountaincore.jobs.model.Skill;
 import technology.rocketjump.mountaincore.mapgen.model.output.GameMap;
 import technology.rocketjump.mountaincore.mapping.model.InvalidMapGenerationException;
 import technology.rocketjump.mountaincore.mapping.model.TiledMap;
@@ -38,7 +38,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.badlogic.gdx.math.MathUtils.random;
-import static technology.rocketjump.mountaincore.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.mountaincore.materials.model.GameMaterialType.METAL;
 
 public class TiledMapFactory {
@@ -117,7 +116,7 @@ public class TiledMapFactory {
 
 
 	// Note this passes in MessageDispatcher as a guard against using it in this class before the GameContext is set up
-	public void postSelectSpawnStep(GameContext gameContext, MessageDispatcher messageDispatcher, List<Skill> professionList) {
+	public void postSelectSpawnStep(GameContext gameContext, MessageDispatcher messageDispatcher, List<SkillsComponent> professionList) {
 		TiledMap areaMap = gameContext.getAreaMap();
 		GridPoint2 embarkPoint = areaMap.getEmbarkPoint();
 		messageDispatcher.dispatchMessage(MessageType.FLOOD_FILL_EXPLORATION, embarkPoint);
@@ -129,10 +128,8 @@ public class TiledMapFactory {
 		int xOffset = -1;
 		int yOffset = -1;
 
-		for (Skill primaryProfession : professionList) {
-			Skill secondaryProfession = primaryProfession.equals(NULL_PROFESSION) ? NULL_PROFESSION : professionList.get(gameContext.getRandom().nextInt(professionList.size()));
-
-			createSettler(embarkPoint.x + xOffset, embarkPoint.y + yOffset, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
+		for (SkillsComponent skillsComponent : professionList) {
+			createSettler(embarkPoint.x + xOffset, embarkPoint.y + yOffset, skillsComponent, gameContext, messageDispatcher);
 
 			xOffset++;
 			if (xOffset > 1) {
@@ -194,7 +191,7 @@ public class TiledMapFactory {
 		return quantifiedItemTypeWithMaterial;
 	}
 
-	private Entity createSettler(int tileX, int tileY, Skill primaryprofession, Skill secondaryProfession, GameContext gameContext, MessageDispatcher messageDispatcher) {
+	private Entity createSettler(int tileX, int tileY, SkillsComponent skillsComponent, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		Random random = new Random();
 		Vector2 worldPosition = new Vector2(tileX + 0.5f + (0.1f - (random.nextFloat() * 0.2f)), tileY + 0.5f+ (0.1f - (random.nextFloat() * 0.2f)));
 
@@ -223,7 +220,7 @@ public class TiledMapFactory {
 			}
 		}
 
-		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);
+		Entity settler = setterFactory.create(worldPosition, skillsComponent, gameContext, true);
 
 //		if (GlobalSettings.DEV_MODE) {
 //			HaulingComponent haulingComponent = settler.getOrCreateComponent(HaulingComponent.class);
