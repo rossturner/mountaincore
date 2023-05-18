@@ -55,6 +55,7 @@ public abstract class Construction implements Persistable, SelectableDescription
 	protected JobPriority priority = JobPriority.NORMAL;
 	protected Job constructionJob;
 	protected List<HaulingAllocation> incomingHaulingAllocations = new ArrayList<>();
+	private List<Job> incomingHaulingJobs = new ArrayList<>();
 	protected Map<GridPoint2, ItemAllocation> placedItemAllocations = new HashMap<>();
 	protected GameMaterialType primaryMaterialType;
 	protected List<QuantifiedItemTypeWithMaterial> requirements = new ArrayList<>(); // Note that material will be null initially
@@ -84,6 +85,9 @@ public abstract class Construction implements Persistable, SelectableDescription
 		this.priority = priority;
 		if (constructionJob != null) {
 			constructionJob.setJobPriority(priority);
+		}
+		for (Job incomingHaulingJob : incomingHaulingJobs) {
+			incomingHaulingJob.setJobPriority(priority);
 		}
 		messageDispatcher.dispatchMessage(MessageType.CONSTRUCTION_PRIORITY_CHANGED);
 	}
@@ -153,6 +157,10 @@ public abstract class Construction implements Persistable, SelectableDescription
 
 	public List<HaulingAllocation> getIncomingHaulingAllocations() {
 		return incomingHaulingAllocations;
+	}
+
+	public void addHaulingJob(Job haulingJob) {
+		this.incomingHaulingJobs.add(haulingJob);
 	}
 
 	public Map<GridPoint2, ItemAllocation> getPlacedItemAllocations() {
@@ -226,6 +234,16 @@ public abstract class Construction implements Persistable, SelectableDescription
 			constructionJob.writeTo(savedGameStateHolder);
 			asJson.put("constructionJob", constructionJob.getJobId());
 		}
+
+		if (!incomingHaulingJobs.isEmpty()) {
+			JSONArray incomingHaulingJobsJson = new JSONArray();
+			for (Job haulingJob : incomingHaulingJobs) {
+				haulingJob.writeTo(savedGameStateHolder);
+				incomingHaulingJobsJson.add(haulingJob.getJobId());
+			}
+			asJson.put("jobs", incomingHaulingJobsJson);
+		}
+
 		if (!incomingHaulingAllocations.isEmpty()) {
 			JSONArray allocatedItemsJson = new JSONArray();
 			for (HaulingAllocation allocatedItem : incomingHaulingAllocations) {
@@ -292,6 +310,19 @@ public abstract class Construction implements Persistable, SelectableDescription
 			this.constructionJob = savedGameStateHolder.jobs.get(constructionJobId);
 			if (this.constructionJob == null) {
 				throw new InvalidSaveException("Could not find job with ID " + constructionJobId);
+			}
+		}
+
+		JSONArray incomingHaulingJobsJson = asJson.getJSONArray("jobs");
+		if (incomingHaulingJobsJson != null) {
+			for (int cursor = 0; cursor < incomingHaulingJobsJson.size(); cursor++) {
+				long jobId = incomingHaulingJobsJson.getLongValue(cursor);
+				Job job = savedGameStateHolder.jobs.get(jobId);
+				if (job == null) {
+					throw new InvalidSaveException("Could not find job by ID " + jobId);
+				} else {
+					incomingHaulingJobs.add(job);
+				}
 			}
 		}
 
@@ -480,4 +511,5 @@ public abstract class Construction implements Persistable, SelectableDescription
 
 		return i18nTranslator.applyReplacements(i18nTranslator.getWord("CONSTRUCTION.ITEM_ALLOCATION"), replacements, Gender.ANY);
 	}
+
 }
