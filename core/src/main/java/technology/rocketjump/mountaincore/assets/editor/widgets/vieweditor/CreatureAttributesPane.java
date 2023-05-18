@@ -88,7 +88,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
 				.filter(skill -> skill.getType().equals(SkillType.PROFESSION) || skill.getType().equals(SkillType.ASSET_OVERRIDE))
 				.toList();
 
-		SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class);
+		SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class).withNullProfessionActive();
 
 		//Attributes components
 		add(WidgetBuilder.selectField("Gender:", attributes.getGender(), genders, null, update(attributes::setGender)));
