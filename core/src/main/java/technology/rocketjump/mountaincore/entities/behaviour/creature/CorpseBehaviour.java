@@ -15,6 +15,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.Creat
 import technology.rocketjump.mountaincore.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Gender;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
+import technology.rocketjump.mountaincore.jobs.SkillDictionary;
 import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -117,6 +118,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 		SkillsComponent skillsComponent = parentEntity.getComponent(SkillsComponent.class);
 		if (skillsComponent != null) {
 			skillsComponent.clear();
+			skillsComponent.activateProfession(SkillDictionary.NULL_PROFESSION);
 		}
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parentEntity);
 	}
