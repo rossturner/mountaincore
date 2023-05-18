@@ -28,6 +28,7 @@ import technology.rocketjump.mountaincore.entities.factories.ItemEntityFactory;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.LocationComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.*;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.Death;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.StatusEffect;
@@ -1126,12 +1127,24 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		for (Entity deadCreatureEntity : creatureTracker.getDead()) {
 			MapTile corpseTile = areaMap.getTile(deadCreatureEntity.getLocationComponent().getWorldOrParentPosition());
-			if (corpseTile == null || corpseTile.getRegionId() != requesterRegionId) {
+
+			if (corpseTile == null) {
 				continue;
 			}
 
-			if (deadCreatureEntity.getLocationComponent().getContainerEntity() != null && deadCreatureEntity.getLocationComponent().getContainerEntity().getType() != FURNITURE) {
+			Entity containerEntity = deadCreatureEntity.getLocationComponent().getContainerEntity();
+			if (containerEntity != null && containerEntity.getType() != FURNITURE) {
 				continue;
+			}
+
+
+			if (corpseTile.getRegionId() != requesterRegionId) {
+				if (containerEntity == null) {
+					continue;
+				}
+				if (!LocationComponent.hasAccessibleWorkspaceInRegion(containerEntity, requesterRegionId, gameContext)) {
+					continue;
+				}
 			}
 
 			ItemAllocationComponent itemAllocationComponent = deadCreatureEntity.getComponent(ItemAllocationComponent.class);
