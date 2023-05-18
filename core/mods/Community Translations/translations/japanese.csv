@@ -219,7 +219,7 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards,木の床
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,岩石パン
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,カビが生えることなく長期に渡って保存が可能であり、そしてまたほとんど噛み砕けないほどに堅い、悪名高いパンです。人間の探検家であるJ.A.モファットは、このパンを食べることを「沼の底から砂利を掘り出して噛むようなもの」と表現しました。幸いなことに、ほとんどのドワーフは気にすることなく食べます。
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,カビが生えることなく長期に渡って保存が可能であり、そしてまたほとんど噛み砕けないほどに堅い、悪名高いパンです。人間の探検家であるJ.A.モファットは、このパンを食べることを「沼の底から砂利を掘り出して噛むようなもの」と表現しました。幸いなことに、ほとんどのドワーフは気にすることなく食べます。
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat,小麦
 
 FUEL.SACK,,Fuel,燃料
@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,煮沸器
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,{{FURNITURE.MASH_TUN}}の麦汁に{{VEGETABLE.HOPS}}を加えて加熱し、煮沸済みの麦汁(すなわち、未発酵のビール)を作ります。
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,食肉加工台
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,魚や動物の死体を食料に加工します。
+FURNITURE.BUYING_PALLET,,Buying pallet,
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,家具製造台
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.",{{PRODUCT.BUCKET.PLURAL}}や{{PRODUCT.BARREL.PLURAL}}のような木製品を加工します。
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,大釜
@@ -315,6 +317,8 @@ FURNITURE.RETTING_TANK,,Retting tank,紡績タンク
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,{{VEGETABLE.HEMP}}から有用な繊維を取り出すために必要なタンクです。
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,石棺
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,精緻な作りの石棺です。かつて入植者であった故人はここで最後の安息を得ます。
+FURNITURE.SELLING_PALLET,,Selling pallet,
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,サービングテーブル
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{FURNITURE.BAKING_OVEN}}で焼いた後、{{PRODUCT.BREAD.LOAF.PLURAL}}を切り分けるために使われる台です。
 FURNITURE.SINGLE_BED,,Bed,ベッド
@@ -497,6 +501,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
 GUI.CROP_SELECTION,,Crop:,Crop:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,
@@ -585,6 +590,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,なし(休耕地)
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,最終更新
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,削除
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,時間
@@ -693,6 +699,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,
@@ -716,7 +724,7 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires t
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Hauler,
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search,
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,
@@ -1016,6 +1024,8 @@ NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,屋根の崩壊
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,次々と襲いかかる苦難が{{character}}の心を押しつぶしてしまいました。
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,精神崩壊
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,{{character}}はあまりにも不幸を感じたため、やけになってかんしゃくを起こしています！
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,かんしゃく！
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,
@@ -1246,8 +1256,8 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,石工
 PROFESSION.STONEMASON.PLURAL,,Stonemasons,
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,石から建築物やアイテムを作ります。
 PROFESSION.STONEMASON.VERB,,Sculpting,石を加工している
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村人
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,村人
+PROFESSION.VILLAGER.FEMALE_NOUN,,Hauler,村人
+PROFESSION.VILLAGER.MALE_NOUN,,Hauler,村人
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,この入植者は特定の役割を持ちませんが、アイテムを運搬するなどの誰でもできるような仕事を果たします。
 PROFESSION.VILLAGER.VERB,,Working,働いている
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
@@ -1687,6 +1697,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,フィストマッシュルーム
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,フィストマッシュルーム
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,ヘビーでメタリックな味がする、黒と青のキノコです。暗黒の時代には、この名前を冠した吟遊詩人の一団がいたと言われています。
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,グローマッシュルーム
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,グローマッシュルーム
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,ひとりでに光を放ち、しかも季節ごとに色が変わる不思議なキノコです。

@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.
+FURNITURE.BUYING_PALLET,,Buying pallet
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}."
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
@@ -315,6 +317,8 @@ FURNITURE.RETTING_TANK,,Retting tank
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.
+FURNITURE.SELLING_PALLET,,Selling pallet
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.SINGLE_BED,,Bed
@@ -494,10 +498,10 @@ GUI.CREDITS.DEVELOPERS.LEAD_UI,,Lead 2D & UI Artist
 GUI.CREDITS.DEVELOPERS.MUSIC,,Music & Sound Effects
 GUI.CREDITS.DEVELOPERS.MUSIC_ADDITIONAL,,Additional Music Tracks
 GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming
-GUI.CREDITS.TRANSLATORS_TITLE,,Translations
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations
 GUI.CROP_SELECTION,,Crop:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted
@@ -1693,6 +1697,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}}
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.
@@ -1737,9 +1744,6 @@ VEGETABLE.WHEAT,,Wheat
 VEGETABLE.WHEAT.PLURAL,,Wheat
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 VEGETABLE.WHEAT.USAGE,,used to bake bread
-VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat
-VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat
-VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.
 
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
 

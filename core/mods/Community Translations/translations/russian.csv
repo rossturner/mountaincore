@@ -219,7 +219,7 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards,"Деревянные половые доски "
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,Каменный хлеб
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,"Это печально известный жесткий хлеб, который настолько твердый и практически несъедобный, что потребуется очень много времени, чтобы он испортился. Человек-исследователь Дж. А. Моффатт описал его вкус как «Сродни жеваемому гравию, который был вынут из болота». К счастью, большинство гномов, кажется, не против их есть."
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,"Это печально известный жесткий хлеб, который настолько твердый и практически несъедобный, что потребуется очень много времени, чтобы он испортился. Человек-исследователь Дж. А. Моффатт описал его вкус как «Сродни жеваемому гравию, который был вынут из болота». К счастью, большинство гномов, кажется, не против их есть."
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat,Пшеница
 
 FUEL.SACK,,Fuel,Топливо
@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,"Заварочный чайник "
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,"Это используется для производства конечного сусла (неферментированного пива) с использованием {{VEGETABLE.HOPS}} и сусла из {{FURNITURE.MASH_TUN}} "
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,Стол для разделки мяса
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,Туши рыбы и животных здесь превращают в пригодное для употребления мясо
+FURNITURE.BUYING_PALLET,,Buying pallet,
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,Столярный верстак
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.","Здесь производится большинство деревянных изделий и инструментов, таких как {{PRODUCT.BUCKET.PLURAL}} и {PRODUCT.BARREL.PLURAL}}."
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Котел
@@ -315,6 +317,8 @@ FURNITURE.RETTING_TANK,,Retting tank,Сливной бак
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,Он используется для переработки сырья из {{VEGETABLE.HEMP}} в конопляное волокно которое может быть переработано в полезные материалы
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,Саркофаг
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,Этот изящный каменный гроб является последним местом упокоения для поселенца.
+FURNITURE.SELLING_PALLET,,Selling pallet,
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,Сервировочный стол
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{PRODUCT.BREAD.LOAF.PLURAL}} размещаются здесь для подачи на стол после выпечки в {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.SINGLE_BED,,Bed,Кровать
@@ -498,6 +502,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
 GUI.CROP_SELECTION,,Crop:,Обрезать:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,
@@ -586,6 +591,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,Ничего (оставить невозделанной)
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,Последнее изменение
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,Удалить
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,Мировое время
@@ -694,6 +700,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,
@@ -717,7 +725,7 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires t
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Hauler,
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search,
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,
@@ -1017,6 +1025,8 @@ NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Крыша обрушилась
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,Ужасающие трудности оказались слишком сложными для {{character}}.
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,Нервный срыв
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,"{{character}} стал так недоволен, что впал в ярость!"
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,Ярость!
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,
@@ -1247,8 +1257,8 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,Каменщик
 PROFESSION.STONEMASON.PLURAL,,Stonemasons,
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,Создает мебель и предметы из камня.
 PROFESSION.STONEMASON.VERB,,Sculpting,Высекание
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Крестьянка
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Крестьянин
+PROFESSION.VILLAGER.FEMALE_NOUN,,Hauler,Крестьянка
+PROFESSION.VILLAGER.MALE_NOUN,,Hauler,Крестьянин
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,"Этот поселенец не имеет какой-либо конкретной профессии и будет выполнять любые повседневные задачи, такие как транспортировка предметов."
 PROFESSION.VILLAGER.VERB,,Working,Рабочий
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
@@ -1688,6 +1698,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,Кулаковик
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,Кулаковики
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,Черно-синий гриб с металлическим вкусом. Он назван в честь группы бардов из эпохи Тьмы.
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,Светящейся гриб
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,Светящиеся грибы
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,"Волшебный гриб, который излучает свет и меняет его в зависимости от сезона."

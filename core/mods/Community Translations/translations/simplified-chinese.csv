@@ -1,5 +1,5 @@
 KEY,NOTES,ENGLISH,SIMPLIFIED CHINESE
-,,,
+
 ACTION.DRINK_FROM_RIVER,,from river,河水
 ACTION.JOB.BUTCHER_CREATURE,,Butchering,屠宰
 ACTION.JOB.CLEAR_GROUND,E.g. “Clearing shrub”,Clearing {{targetPlant}},正在清除{{targetPlant}}
@@ -33,16 +33,16 @@ ACTION.PREPARATION.VERB,,Preparing,准备
 ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to do,正在找活儿做
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},在{{tileDescription}}上睡觉
 ACTION.STUNNED,,Stunned,昏迷
-,,,
+
 ARMOUR.LEATHER,,Leather armour,皮甲
 ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,轻便、简易的防具，能在战斗中保护你。
 ARMOUR.ORC.HEAVY,,Orc armour,兽人盔甲
 ARMOUR.ORC.LIGHT,,Leather orc armour,兽人皮甲
 ARMOUR.PLATE,,Plate armour,板甲
 ARMOUR.PLATE.TOOLTIP,,Thick and sturdy armour which offers a lot of protection in combat,厚重的防具，能在战斗中提供极强的防御。
-,,,
+
 ASHES.NOUN,,Ash,灰烬
-,,,
+
 BODY_STRUCTURE.ABDOMEN,,Abdomen,腹部
 BODY_STRUCTURE.ARM,,Arm,胳膊
 BODY_STRUCTURE.CEPHALOTHORAX,,Cephalothorax,头胸部
@@ -86,9 +86,9 @@ BODY_STRUCTURE.RIGHT-ARM,,Right arm,右臂
 BODY_STRUCTURE.RIGHT-HAND,,Right hand,右手
 BODY_STRUCTURE.TORSO,,Chest,胸
 BODY_STRUCTURE.TRUNK,,Trunk,躯干
-,,,
+
 BONE.BONE,,Bone,骨头
-,,,
+
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,鲤鱼柳
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,鲤鱼柳
 CARCASS.GROUP,,Corpses,尸体
@@ -101,16 +101,16 @@ CARCASS.PERCH.PREPARED.NOUN,,Perch fillet,鲈鱼柳
 CARCASS.PERCH.PREPARED.PLURAL,,Perch fillets,鲈鱼柳
 CARCASS.PIKE.PREPARED.NOUN,,Pike fillet,梭鱼柳
 CARCASS.PIKE.PREPARED.PLURAL,,Pike fillets,梭鱼柳
-,,,
+
 CLOTH.BRONZED_HEMP,,Hemp,火麻
 CLOTH.HEMP-LINEN,,Hemp,火麻
 CLOTH.LIGHT_HEMP,,Hemp,火麻
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,
-,,,
+
 COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,逃离战斗
 COMBAT.DESCRIPTION.GENERIC,,In combat,正在战斗
 COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},正在与{{targetDescription}}战斗
-,,,
+
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},建造{{materialType.adjective}} {{furnitureType.noun}}
 CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned,{{numRequired}}需要{{\n}}{{numAvailable}} 可用{{\n}}{{numAssigned}}已分配
 CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.,{{outputItemType}}由{{profession}}在{{furnitureType}}加工{{inputItemTypes}}和{{lastInputItemType}}而成。
@@ -120,13 +120,13 @@ CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be 
 CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available,等待更多的{{materialType}} {{itemDescription.plural}}
 CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION,This is displayed once all resources are in place and the construction is being worked on,Under construction,正在施工
 CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES,This is displayed while a construction is waiting for resource items to be placed in the build area,Waiting for resources to arrive,等待资源到达
-,,,
+
 COOKING.BREAD.DESCRIPTION,E.g. “Wheat bread”,{{materialDescription}} bread,{{materialDescription}}面包
 COOKING.DUAL_INGREDIENT.DESCRIPTION,"E.g. “Tomato and potato”, to be used for for two ingredients together as below",{{materialOne}} and {{materialTwo}},{{materialOne}}和{{materialTwo}}
 COOKING.RATION.DESCRIPTION,E.g. “Rockbread ration”,{{materialDescription}} ration,{{materialDescription}}配给粮
 COOKING.SOUP.DESCRIPTION,"E.g. “Tomato soup”, “Tomato and potato soup”, “Vegetable soup”",{{materialDescription}} soup,{{materialDescription}}汤食
 COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. “Fish, tomato and potato”, to be used for for three ingredients together as below","{{materialOne}}, {{materialTwo}} and {{materialThree}}",{{materialOne}}，{{materialTwo}}和{{materialThree}}
-,,,
+
 CRAFTING_TYPE.BAKING,,Baking,烘焙
 CRAFTING_TYPE.BLACKSMITHING,,Blacksmithing,锻造
 CRAFTING_TYPE.BONE_CRAFTING,,Bone crafting,骨头制作
@@ -149,13 +149,13 @@ CRAFTING_TYPE.WEAPONSMITHING,,Weaponsmithing,武器锻造
 CRAFTING_TYPE.WEAVING,,Weaving,纺织
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,伐木
 CRAFTING_TYPE.WORT_BREWING,,Brewing,酿制
-,,,
+
 CREATURE.DAMAGE.DESCRIPTION_A,,{{damageType}} {{bodyPart}},{{damageType}} {{bodyPart}}
 CREATURE.DAMAGE.DESCRIPTION_B,,{{damageType}} {{discriminator}} {{bodyPart}},{{damageType}} {{discriminator}} {{bodyPart}}
 CREATURE.DESCRIPTION,,{{gender.adjective}} {{race.noun}},{{gender.adjective}} {{race.noun}}
 CREATURE.STATUS.BLINDED,,Blinded,失明
 CREATURE.STATUS.DEAD,,Dead,死亡
-,,,
+
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,虫害
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,该农作物的虫害情况非常严重，需要{{PROFESSION.FARMER}}为其除虫，否则将会影响生长。若不及时除害，农作物甚至可能会死亡！
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}}植物
@@ -164,7 +164,7 @@ CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,该植物由于没有浇水而生长缓慢
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,你可以用水渠灌溉农作物
 CROP.MOISTURE_STATE.WATERED,,This plant has been watered recently and is growing quickly,近期已浇灌该植物，长势迅猛
-,,,
+
 DEATH_REASON.BURNING,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Burning,燃烧
 DEATH_REASON.CRITICAL_ORGAN_DAMAGE,,Critical organ damage,严重器官损伤
 DEATH_REASON.CRUSHED_BY_FALLING_DEBRIS,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Falling debris,崩塌
@@ -180,23 +180,23 @@ DEATH_REASON.MURDERED.UNKNOWN_KILLER,,someone,
 DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation,饥饿
 DEATH_REASON.SUFFOCATION,,Suffocation,窒息
 DEATH_REASON.UNKNOWN,,Mysterious circumstances,神秘环境
-,,,
+
 EARTH.DIRT,,Dirt,泥土
 EARTH.GRASS,,Grass,青草
-,,,
+
 EFFECT.FIRE,When the player selects a fire by itself,Fire,
-,,,
+
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire,毁于一场大火
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat,在战斗中被摧毁
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain,由于长期日晒雨淋损坏了
-,,,
+
 FACTION.HOSTILE_INVASION,,Hostile Invader,
 FACTION.MERCHANTS,,Merchant,商人
 FACTION.MONSTERS,,Monster,怪物
 FACTION.SETTLEMENT,,Settler,
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,驯养动物
 FACTION.WILD_ANIMALS,,Wild Animal,野生动物
-,,,
+
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}}),灌溉渠
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.,灌溉渠能为2格内的农作物提供水源。建造水泵，然后用管道连接灌溉渠。
 FLOOR.CHANNEL.STATE.EMPTY,,Empty,空
@@ -217,16 +217,16 @@ FLOOR.STONE_SLAB,,Stone slab,石板
 FLOOR.TILLED_EARTH,,Tilled earth,耕土
 FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered yet,Unexplored,未探索
 FLOOR.WOODEN,,Wooden floorboards,木地板
-,,,
+
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,石面包
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,硬到难以下嘴的面包，经过非常久的时间后才会发霉。人类探险家J.A.莫法特称它的口感就像是“从沼泽里捞出来的砂砾”。幸好绝大多数矮人似乎并不在意。
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,硬到难以下嘴的面包，经过非常久的时间后才会发霉。人类探险家J.A.莫法特称它的口感就像是“从沼泽里捞出来的砂砾”。幸好绝大多数矮人似乎并不在意。
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat,小麦
-,,,
+
 FUEL.SACK,,Fuel,燃料
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}.",{{FURNITURE.BLOOMERY_FURNACE}}和{{FURNITURE.FORGE}}的金属生产工序需要用到燃料。
-,,,
+
 FURNITURE.ARCHERY_TARGET,,Archery target,射垛
-FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here.,士兵能用来练习远程作战能力。
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here up to level 50.,士兵能用来练习远程作战能力。
 FURNITURE.ARMOUR_STAND,,Armour stand,盔甲架
 FURNITURE.ARMOUR_STAND.TOOLTIP,,Used to store armour.,能用来存放盔甲。
 FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation,手工站
@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,酿造锅
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,这种器具能将{{VEGETABLE.HOPS}}和利用{{FURNITURE.MASH_TUN}}获得的麦芽汁做成未发酵的啤酒。
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,屠宰台
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,鱼类和动物骨肉经过处理后成为可食用的肉。
+FURNITURE.BUYING_PALLET,,Buying pallet,
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,木工工作台
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.",大多数的木制品和工具都产自这里，比如{{PRODUCT.BUCKET.PLURAL}}和{{PRODUCT.BARREL.PLURAL}}。
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,坩埚
@@ -300,7 +302,7 @@ FURNITURE.LEDGER_TABLE.TOOLTIP,,A landmark for the {{ROOMS.TRADING_DEPOT}}. This
 FURNITURE.LOOM,,Loom,织布机
 FURNITURE.LOOM.TOOLTIP,,Used to craft textiles such as {{PRODUCT.LINEN.NOUN}} from {{RESOURCE.HEMP.FIBRE.BUNDLE.PLURAL}}.,制作布料的工具，比如把{{RESOURCE.HEMP.FIBRE.BUNDLE.PLURAL}}加工成{{PRODUCT.LINEN.NOUN}}。
 FURNITURE.MALTING_STATION,,Malting station,麦芽屋
-FURNITURE.MALTING_STATION.TOOLTIP,,Here brewers steep barley and then dry it out using a kiln to produce malt.,酿酒师在这里将大麦浸泡在水中，等待出芽后迅速地加热干燥，最后就能获得麦芽了。 
+FURNITURE.MALTING_STATION.TOOLTIP,,Here brewers steep barley and then dry it out using a kiln to produce malt.,"酿酒师在这里将大麦浸泡在水中，等待出芽后迅速地加热干燥，最后就能获得麦芽了。 "
 FURNITURE.MASH_TUN,,Mash tun,糖化桶
 FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.,用它能将磨碎的麦芽和水制作成麦芽汁（未发酵的啤酒）
 FURNITURE.MUSHROOM_LOG,,Mushroom log,蘑菇木
@@ -315,10 +317,12 @@ FURNITURE.RETTING_TANK,,Retting tank,沤麻池
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,能将{{VEGETABLE.HEMP}}加工处理成火麻纤维，从而能制作成各种有用的材料。
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,石棺
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,这口精美的石制棺椁是殖民者最后的安息之处。
+FURNITURE.SELLING_PALLET,,Selling pallet,
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,餐桌
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{FURNITURE.BAKING_OVEN}}烘焙的{{PRODUCT.BREAD.LOAF.PLURAL}}放在这里供所有人享用。
 FURNITURE.SINGLE_BED,,Bed,床
-FURNITURE.SINGLE_BED.TOOLTIP,,A bed is the best place for a comfortable night’s rest.,安逸睡觉用的家具。 
+FURNITURE.SINGLE_BED.TOOLTIP,,A bed is the best place for a comfortable night’s rest.,"安逸睡觉用的家具。 "
 FURNITURE.SINGLE_DOOR,,Door,门
 FURNITURE.SINGLE_DOOR_FRAME,,Door frame,门框
 FURNITURE.SLEEPING_SPOT,,Sleeping spot,睡觉地点
@@ -330,7 +334,7 @@ FURNITURE.TANNING_FRAME.TOOLTIP,,Used to turn {{CARCASS.HIDE.PLURAL}} into {{PRO
 FURNITURE.TRADE_BANNER,,Banner,横幅
 FURNITURE.TRADE_BANNER.TOOLTIP,,A decorative banner to denote the trading depot.,用来装饰贸易站点的横幅。
 FURNITURE.TRAINING_DUMMY,,Training dummy,训练假人
-FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here.,士兵能用来练习近战格斗能力。
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here up to level 50.,士兵能用来练习近战格斗能力。
 FURNITURE.WAGON_PARKED,,Wagon,马车
 FURNITURE.WATERWHEEL,,Water Wheel,水车
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels,水车
@@ -349,7 +353,7 @@ FURNITURE.WINDMILL.PLURAL,,Windmills,风车
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,通过{{PRODUCT.STONE.GEAR.PLURAL}}和轴为其他装置提供动力。
 FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench,伐木台
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.,{{PROFESSION.WOODCUTTER}}在这里将{{RESOURCE.LOGS.PLURAL}}加工成{{RESOURCE.PLANKS.PLURAL}}。
-,,,
+
 GEM.AMETHYST.ADJECTIVE,,Amethyst,紫水晶
 GEM.AMETHYST.NOUN,,Amethyst,紫水晶
 GEM.AMETHYST.TOOLTIP,,A violet-hued variety of quartz. Ancient humans believed it could magically protect them from becoming too drunk. For this reason it is not very popular in dwarven culture.,紫色的水晶。古人相信它具有防止让人酩酊大醉的奇妙效果。因此，紫水晶在矮人文化中不太受欢迎。
@@ -431,7 +435,7 @@ GEM.TOURMALINE.TOOLTIP,,Often found alongside {{ORE.CASSITERITE.ADJECTIVE}} ore.
 GEM.TURQUOISE.ADJECTIVE,,Turquoise,绿松石
 GEM.TURQUOISE.NOUN,,Turquoise,绿松石
 GEM.TURQUOISE.TOOLTIP,,A blue-green mineral often used in decorations. It is thought to bring good luck to the bearer. It is often infused with the element of earth.,蓝绿色的矿物，可作首饰。据说能为佩戴者带来好运。通常为它灌注土系元素。
-,,,
+
 GOAL.ABANDON_JOB.DESCRIPTION,,Abandoning task,放弃任务
 GOAL.ADD_TO_INVENTORY.DESCRIPTION,E.g. “Collecting bag of wheat seeds”,Collecting {{targetDescription}},正在采集{{targetDescription}}
 GOAL.COMBAT.DESCRIPTION,,Attacking {{targetDescription}},正在攻击{{targetDescription}}
@@ -452,7 +456,7 @@ GOAL.ON_FIRE.DESCRIPTION,,On fire!,着火了！
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin,正在装水
 GOAL.SLEEP.DESCRIPTION,,Going to sleep,去睡觉
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}},正在转移{{targetZoneMaterial}}
-,,,
+
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,添加/移除区格
 GUI.ADD_TILES,,Add tiles,添加区格
 GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere,环境氛围
@@ -477,6 +481,11 @@ GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items i
 GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}}),{{craftingType}} ({{profession}})
 GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With,制作材料：
 GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item,物品
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT,,Management,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT,,Limit,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY,,Quantity,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT,,Decrement,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT,,Increment,
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,制作
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},目前总数：{{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),（总计{{quantity}}）
@@ -492,6 +501,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
 GUI.CROP_SELECTION,,Crop:,农作物：
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},{{plantDescription}} - {{planting}} - {{usage}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,无法种植
@@ -580,6 +590,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,旋转
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,放大
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,缩小
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,无（休耕）
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,上次修改
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,删除
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,世界时间
@@ -588,7 +599,7 @@ GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME,,Name,名字
 GUI.LOAD_GAME.TABLE.VERSION,,Version,版本
 GUI.LOAD_GAME.TITLE,,Load Game,加载游戏
 GUI.MAP_SEED.COPY_TO_CLIPBOARD,,Copy to clipboard,复制到剪贴板
-GUI.MAP_SEED_DISPLAY,,Current map seed: ,当前的地图种子： 
+GUI.MAP_SEED_DISPLAY,,"Current map seed: ","当前的地图种子： "
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,水平
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,垂直
 GUI.MILITARY.DIALOG.ADD_SQUAD,,Name New Squad,命名新分队
@@ -616,13 +627,13 @@ GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this vers
 GUI.OK_LABEL,,Ok,Ok
 GUI.OPTIONS.AUDIO.TITLE,,Sound Options,声音设置
 GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS,This is an option that makes trees partially transparent when a settler moves behind them,Make trees transparent when obscuring settlers,让遮挡殖民者的树木透明化
-GUI.OPTIONS.GAMEPLAY.TITLE,,Gameplay Options ,游戏设置 
+GUI.OPTIONS.GAMEPLAY.TITLE,,"Gameplay Options ","游戏设置 "
 GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING,This is for a question to ask if the player would like the camera to scroll/pan by placing the mouse at the edge of the screen,Scroll when cursor is at the edge of the screen,当光标在屏幕边缘时滚动
 GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR,This is for a question to ask if the player would like the camera to scroll/pan based on where the mouse cursor is when they zoom in or out,Scroll to cursor when zooming,缩放时是否基于光标所在位置
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,无边框
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,独占全屏
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,窗口化
-GUI.OPTIONS.GRAPHICS.TITLE,,Graphics Options ,图像设置 
+GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","图像设置 "
 GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,,Weather Effects,天气效果
 GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,,Show weather effects like snow on furniture,显示天气效果，比如家具上的积雪
 GUI.OPTIONS.KEY_BINDINGS,,Key Bindings,按键绑定
@@ -652,10 +663,10 @@ GUI.ORDERS.CHOP_WOOD,,Chop,伐木
 GUI.ORDERS.CLEAR_GROUND,,Clear,清理
 GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation,灌溉
 GUI.ORDERS.DIG_CHANNELS.TOOLTIP,,This order is used to dig channels in the ground.,使用该指令能在地面挖掘通渠。
-GUI.ORDERS.EXTINGUISH_FLAMES, - used to put out fires by throwing buckets of water on them,Extinguish,灭火
+GUI.ORDERS.EXTINGUISH_FLAMES," - used to put out fires by throwing buckets of water on them",Extinguish,灭火
 GUI.ORDERS.EXTINGUISH_FLAMES.TOOLTIP,,This order is used to extinguish fires that are currently burning.,使用该指令能扑灭燃烧的火焰。
 GUI.ORDERS.HARVEST_PLANTS,,Harvest,收割
-GUI.ORDERS.HUNT, - used to select animals to be hunted,Hunt,狩猎
+GUI.ORDERS.HUNT," - used to select animals to be hunted",Hunt,狩猎
 GUI.ORDERS.HUNT.TOOLTIP,,This order is used to select animals to be hunted.,使用该指令选择狩猎的动物。
 GUI.ORDERS.MINE,,Mine,挖矿
 GUI.ORDERS_LABEL,,Orders,指令
@@ -688,6 +699,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,{{item}}已部署，等待修建
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,{{item}}在进口托架上
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,{{item}}在进口托架上
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},{{quantity}} {{item}}
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,搜索
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,排序
@@ -711,7 +724,7 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires t
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},平民人口 {{civilianCount}} (平民床铺 {{civilianBedCount}}) - 军人人口 {{militaryCount}} (军人床铺 {{militaryBedCount}}) - 总人数 {{populationCount}}
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,平民
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,军人
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,村民
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Hauler,村民
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search,搜索
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,幸福度
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,军人/平民
@@ -728,7 +741,7 @@ GUI.VIEW_MODE.PIPING,,Piping view,管道视图
 GUI.VIEW_MODE.ROOFING_INFO,,Roof view,屋顶视图
 GUI.VIEW_ROADMAP,,View development roadmap,查看开发路线图
 GUI.YEAR_LABEL,,Year {{year}},第{{year}}年
-,,,
+
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober,戒酒
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal,享用了美味的食物
 HAPPINESS_MODIFIER.BLEEDING,,Bleeding profusely,大量出血
@@ -754,9 +767,9 @@ HAPPINESS_MODIFIER.VERY_THIRSTY,,Very thirsty,口渴
 HAPPINESS_MODIFIER.VERY_TIRED,,Extremely tired,极度疲惫
 HAPPINESS_MODIFIER.WORKED_IN_ENCLOSED_ROOM,,Worked in an enclosed room,在室内工作
 HAPPINESS_MODIFIER.WORKED_IN_RAIN,,Working in the rain,在雨中工作
-,,,
+
 HAULING.ASSIGNMENT.DESCRIPTION,,{{quantity}} assigned to {{targetDescription}},{{quantity}}分配给{{targetDescription}}
-,,,
+
 HINT.BUILD_PIPES.1,,"You can use this view to lay pipes between liquid inputs and outputs, as well as irrigation channels.",你可以使用该视图在出入口之间铺设管道，灌溉渠同样如此。
 HINT.BUILD_PIPES.2,,"These are placed below the ground, so make sure your settlers can access each tile from the side.",它们铺设在地底，所以务必保证殖民者能从侧边使用每个区格。
 HINT.BUILD_PIPES.3,,Furniture with a liquid input or output display a blue or green icon indicating if they are an input or output to the network.,拥有液体输入或输出的家具会以蓝色或绿色的图标标明。
@@ -786,10 +799,10 @@ HINT.WEAPON_SELECTION.2,,It is strongly recommended you assign a ranged weapon s
 HINT.WEAPON_SELECTION.3,,Weapons which you do not have available are displayed in red.,尚未拥有的武器显示为红色。
 HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, “Hints only” to skip the tutorial but be provided with info as you play, or “Disable all hints” to stop showing these messages.",点击“教程”熟悉游戏的基础知识，“仅限提示”会跳过教程，但在游戏中会提供各类信息，“禁用所有提示”会不再显示这类信息。
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with open space near the river, and clicking the '{{GUI.EMBARK.START}}' button.",在地图上点击任意地点，然后点击'{{GUI.EMBARK.START}}'即可开始游戏。
-,,,
+
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.adjective}} {{race.noun}}"
 HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
-,,,
+
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,面团
 INGREDIENT.FLOUR,,Flour,面粉
 INGREDIENT.LOAF,To be combined with the above as “bread loaf”,Loaf,（条）
@@ -808,9 +821,9 @@ INGREDIENT.VEGETABLE.CRATE.NOUN,,Vegetable (crate),蔬菜（箱）
 INGREDIENT.VEGETABLE.CRATE.PLURAL,,Vegetables (crate),蔬菜（箱）
 INGREDIENT.VEGETABLE.SACK.NOUN,,Vegetable (sack),蔬菜（袋）
 INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),蔬菜（袋）
-,,,
+
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,背包：
-,,,
+
 ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}}可用
 ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}}
 ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
@@ -823,14 +836,14 @@ ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,次品
 ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,这件物品造价低廉，使用它或许会略微受到影响。
 ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,优秀
 ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",这件物品的制作工艺相当不错，因此价值珍贵，便于使用。
-,,,
+
 ITEM_GROUP.FUEL.PLURAL,,Fuel,燃料
 ITEM_GROUP.PRODUCT.PLURAL,,Products,产品
 ITEM_GROUP.RESOURCE.PLURAL,,Resources,资源
 ITEM_GROUP.TOOL.PLURAL,,Tools,工具
-,,,
+
 LANGUAGE.LABEL,,Language,语言
-,,,
+
 LIQUID.BEER.NOUN,,Beer,啤酒
 LIQUID.BEER.TOOLTIP,,"Beloved by dwarves, this will provide a substantial happiness bonus for a while. The only problem is that they will eventually require it to get through the working day.",矮人的最爱，啤酒能让他们短时间内获得充足的幸福感。但唯一的问题是最终他们需要酒精渡过工作日。
 LIQUID.HOPPED_WORT.NOUN,,Hopped wort,麦芽汁（加酒花）
@@ -838,16 +851,16 @@ LIQUID.HOPPED_WORT.TOOLTIP,,This is the final stage of unfermented beer before i
 LIQUID.WATER.NOUN,,Water,水
 LIQUID.WORT.NOUN,,Wort,麦芽汁
 LIQUID.WORT.TOOLTIP,,"This is unfermented beer, it requires {{VEGETABLE.HOPS}} to be added in a {{FURNITURE.BREW_KETTLE}} for flavour before it can be fermented.",未发酵的啤酒，需要将{{VEGETABLE.HOPS}}添加至{{FURNITURE.BREW_KETTLE}}中增添风味，然后再进行发酵。
-,,,
+
 MADNESS.BROKEN.ADJECTIVE,,Broken,颓丧
-MADNESS.BROKEN.TOOLTIP,,This settler was so unhappy that they have been pushed past the breaking point and will no longer work or even eat! ,这名殖民者的情绪非常低落，已经到了崩溃的程度，无心工作，茶饭不思！ 
-,,,
+MADNESS.BROKEN.TOOLTIP,,"This settler was so unhappy that they have been pushed past the breaking point and will no longer work or even eat! ","这名殖民者的情绪非常低落，已经到了崩溃的程度，无心工作，茶饭不思！ "
+
 MATERIAL,Used for specifying which material something is made out of,Material,材料
-,,,
+
 MATERIAL_TYPE,,Type,类型
 MATERIAL_TYPE.ANY,For allowing any kind of material to be used,Any,任意
-MATERIAL_TYPE.CLOTH.ADJECTIVE,, , 
-MATERIAL_TYPE.CLOTH.NOUN,, , 
+MATERIAL_TYPE.CLOTH.ADJECTIVE,," "," "
+MATERIAL_TYPE.CLOTH.NOUN,," "," "
 MATERIAL_TYPE.EARTH.ADJECTIVE,,Earthen,土制的
 MATERIAL_TYPE.EARTH.NOUN,,Earth,泥土
 MATERIAL_TYPE.FOODSTUFF.NOUN,,Food,食物
@@ -856,11 +869,11 @@ MATERIAL_TYPE.METAL.ADJECTIVE,,Metallic,金属
 MATERIAL_TYPE.METAL.NOUN,,Metal,金属
 MATERIAL_TYPE.ORE.NOUN,This is only used as a noun,Ore,矿石
 MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combined with other words,Other,其他
-MATERIAL_TYPE.ROPE.ADJECTIVE,, , 
-MATERIAL_TYPE.ROPE.NOUN,, , 
+MATERIAL_TYPE.ROPE.ADJECTIVE,," "," "
+MATERIAL_TYPE.ROPE.NOUN,," "," "
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,种子
-MATERIAL_TYPE.SKIN.ADJECTIVE,, ,
-MATERIAL_TYPE.SKIN.NOUN,, ,
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,
 MATERIAL_TYPE.STONE.NOUN,,Stone,石头
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,蔬菜
@@ -868,7 +881,7 @@ MATERIAL_TYPE.VITRIOL.ADJECTIVE,,Vitriol of,硫酸盐
 MATERIAL_TYPE.VITRIOL.NOUN,,Vitriol,硫酸盐
 MATERIAL_TYPE.WOOD.ADJECTIVE,,Wooden,木头
 MATERIAL_TYPE.WOOD.NOUN,,Wood,木头
-,,,
+
 MEAT.BOAR_MEAT,,Boar,野猪
 MEAT.CARP_MEAT.NOUN,,Carp,鲤鱼
 MEAT.CARP_MEAT.PLURAL,,Carp,鲤鱼
@@ -880,7 +893,7 @@ MEAT.PERCH_MEAT.NOUN,,Perch,鲈鱼
 MEAT.PERCH_MEAT.PLURAL,,Perch,鲈鱼
 MEAT.PIKE_MEAT.NOUN,,Pike,梭子鱼
 MEAT.PIKE_MEAT.PLURAL,,Pike,梭子鱼
-,,,
+
 MECHANISM.FURNITURE.CONSUMING_POWER,,Working - consuming {{power}} power,正在运转 - 消耗{{power}}动能
 MECHANISM.FURNITURE.CRAFTING_STATION_REQUIRES_POWER,,Working very slowly - not enough power,缓慢运转 - 动能不足
 MECHANISM.FURNITURE.CRAFTING_STATION_REQUIRES_POWER.TOOLTIP,,This furniture requires an underground power connection to a power-producer such as a {{FURNITURE.WINDMILL}} or {{FURNITURE.WATERWHEEL}}.,此家具需要与动力源相连，比如{{FURNITURE.WINDMILL}}或{{FURNITURE.WATERWHEEL}}。
@@ -894,7 +907,7 @@ MECHANISM.STONE.GEAR.NOUN,,Gear assembly,齿轮组件
 MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 4 directions.,此装置能连接4个方向的机械动力。
 MECHANISM.WOODEN.SHAFT.NOUN,,Shaft,连接杆
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.,木杆，能连接2个方向的机械动能。
-,,,
+
 MENU.CONTINUE_GAME,,Continue,继续游戏
 MENU.CREDITS,,Credits,制作组
 MENU.JOIN_DISCORD,,Join Discord,加入Discord
@@ -906,7 +919,7 @@ MENU.OPTIONS,,Options,设置
 MENU.QUIT,,Quit,退出
 MENU.SAVE_AND_QUIT,,Save & Quit,保存&退出
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen,切换全屏
-,,,
+
 METAL.BRONZE.ADJECTIVE,,Bronze,青铜
 METAL.BRONZE.NOUN,,Bronze,青铜
 METAL.BRONZE.TOOLTIP,,Bronze is an alloy of copper and tin. It is harder and much more durable than copper alone. (Alloys have not yet been implemented),铜和锡的合金。比铜更硬、更耐用。（合金尚未在游戏内实装）
@@ -930,14 +943,14 @@ METAL.RUSTED_IRON.NOUN,,Rust,铁锈
 METAL.RUSTED_IRON.TOOLTIP,,Iron turns to rust when exposed to rain for a long period. Eventually this will decay completely!,铁长时间暴露在雨中会生锈。最终它会彻底衰败。
 METAL.SILVER.ADJECTIVE,,Silver,白银
 METAL.SILVER.NOUN,,Silver,白银
-METAL.SILVER.TOOLTIP,,"Like {{METAL.GOLD.NOUN}}, silver is often used for coinage and as solid bars for the trading of wealth. ",白银与{{METAL.GOLD.NOUN}}类似，通常熔炼成货币和条状用于交易。 
+METAL.SILVER.TOOLTIP,,"Like {{METAL.GOLD.NOUN}}, silver is often used for coinage and as solid bars for the trading of wealth. ","白银与{{METAL.GOLD.NOUN}}类似，通常熔炼成货币和条状用于交易。 "
 METAL.STEEL.ADJECTIVE,,Steel,钢
 METAL.STEEL.NOUN,,Steel,钢
 METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for superior weapons and tools, only the dwarves know the secret of creating steel.",强度远胜于{{METAL.IRON.NOUN}}，制作精良武器和工具的材料。只有矮人掌握了冶炼钢的技术。
 METAL.TIN.ADJECTIVE,,Tin,锡
 METAL.TIN.NOUN,,Tin,锡
 METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented),熔炼{{ORE.CASSITERITE.NOUN}}可获得锡，与{{METAL.COPPER.NOUN}}混合熔化能生产{{METAL.BRONZE.NOUN}}。（合金尚未在游戏内实装）
-,,,
+
 MILITARY.FORMATION.COLUMN,,Column - Narrow,纵队 - 窄
 MILITARY.FORMATION.COLUMN_DOUBLE,,Column - Wide,纵队 - 宽
 MILITARY.FORMATION.COLUMN_SINGLE,,Column,纵队
@@ -955,7 +968,7 @@ MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating,撤退中
 MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training,训练中
 MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift,日班
 MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift,夜班
-,,,
+
 MODS.APPLY,,Apply,应用
 MODS.BUTTON.BROWSE,,Browse Mods,浏览MOD
 MODS.BUTTON.REFRESH,,Refresh,刷新
@@ -980,13 +993,13 @@ MODS.TABLE.ENABLED,,Enable,启用
 MODS.TABLE.NAME,,Name,名字
 MODS.TABLE.ORDERING,,Re-order,重新排序
 MODS.TABLE.VERSION,,Version,版本
-,,,
+
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.noun}}
-,,,
+
 NEEDS.DRINK,,Drink,饮水
 NEEDS.FOOD,,Food,食物
 NEEDS.SLEEP,,Sleep,睡觉
-,,,
+
 NOTIFICATION.AREA_REVEALED.DESCRIPTION,,Your miners have discovered a new area!,你的矿工发现了新区域！
 NOTIFICATION.AREA_REVEALED.TITLE,,Exploration,探索
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}.",{{character}}死于{{reason}}。
@@ -1011,13 +1024,15 @@ NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,屋顶坍塌
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,折磨的艰难生活让{{character}}不堪重负。
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,精神崩溃
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,{{character}}变得闷闷不乐，在乱发脾气！
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,发脾气！
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,他们将前往你的贸易站点做买卖。
 NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!,商人已经到达！
 NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,,You must construct a Trading Depot to buy and sell goods.,你必须建造贸易站点才能购买和出售货物。
 NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!,商人已经到达！
-,,,
+
 ORE.BAUXITE.ADJECTIVE,,Bauxite,铝土矿
 ORE.BAUXITE.NOUN,,Bauxite,铝土矿
 ORE.BAUXITE.TOOLTIP,,"Bauxite is the primary ore of aluminium. Unfortunately, a means of aluminium production is yet to be discovered.",铝土矿是最主要的含铝矿物。但非常可惜，生产铝的途径尚未发现。
@@ -1072,26 +1087,26 @@ ORE.THORIUM.TOOLTIP,,A silvery metallic ore which turns black when exposed to ai
 ORE.WOLFRAMITE.ADJECTIVE,,Wolframite,黑钨矿
 ORE.WOLFRAMITE.NOUN,,Wolframite,黑钨矿
 ORE.WOLFRAMITE.TOOLTIP,,A metallic ore which complicates the smelting of tin. It has too high a melting point to be smelted with normal processes.,会影响冶炼锡的金属矿物。熔炼太高，用普通方法难以冶炼。
-,,,
+
 OTHER.ASH,,Charred,焦炭
 OTHER.BRICK.NOUN,,Brick,砖块
 OTHER.CLAY_SOIL.NOUN,,Clay soil,粘土
 OTHER.GRASS.NOUN,,,
-,,,
+
 PRIORITY.DISABLED,,Disabled,禁用
 PRIORITY.HIGHER,,Higher priority,更高
 PRIORITY.HIGHEST,,Highest priority,最高
 PRIORITY.LOWER,,Lower priority,较低
 PRIORITY.LOWEST,,Lowest priority,最低
 PRIORITY.NORMAL,,Normal priority,普通
-,,,
+
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept,我接受
 PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client,• 游戏客户端版本
 PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings,• 你的选项设置
 PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash,• 崩溃时的游戏状态
 PRIVACY.OPT_IN.DESCRIPTION,,"Mountaincore is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:",Mountaincore仍处于开发阶段。为了帮助诊断和修复BUG，请点击下方的“我接受”方便自动发送匿名崩溃报告。\n\n仅包含以下数据：
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting,禁用报告
-,,,
+
 PRODUCT.ANVIL,,Anvil,铁砧
 PRODUCT.ANVIL.PLURAL,,Anvils,铁砧
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.,用来锻捶金属用的铁铸砧板。建造{{FURNITURE.FORGE}所需的物品。
@@ -1153,7 +1168,7 @@ PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produc
 PRODUCT.WOODEN.SHAFT.VERTICAL.NOUN,,Vertical shaft,连接杆（垂直）
 PRODUCT.WOODEN.SHAFT.VERTICAL.PLURAL,,Vertical shafts,连接杆（垂直）
 PRODUCT.WOODEN.SHAFT.VERTICAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,能用来连接产生和需求动能的机械装置。
-,,,
+
 PROFESSION.ARTISAN.FEMALE_NOUN,,Artisan,工匠
 PROFESSION.ARTISAN.MALE_NOUN,,Artisan,工匠
 PROFESSION.ARTISAN.PLURAL,,Artisans,工匠
@@ -1241,8 +1256,8 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,石匠
 PROFESSION.STONEMASON.PLURAL,,Stonemasons,石匠
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,利用石料制作家具和其他东西。
 PROFESSION.STONEMASON.VERB,,Sculpting,雕刻
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村民
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,村民
+PROFESSION.VILLAGER.FEMALE_NOUN,,Hauler,村民
+PROFESSION.VILLAGER.MALE_NOUN,,Hauler,村民
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,这类殖民者没有特定的职业，可以完成任何普通的任务，比如搬运东西。
 PROFESSION.VILLAGER.VERB,,Working,劳作
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,织工
@@ -1255,10 +1270,10 @@ PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,樵夫
 PROFESSION.WOODCUTTER.PLURAL,,Woodcutters,樵夫
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,砍伐树木获得供{{ROOMS.SAWMILL}}使用的木材。
 PROFESSION.WOODCUTTER.VERB,,Chopping,砍伐
-,,,
+
 QUOTA.FIXED_AMOUNT,,in total,总计
 QUOTA.PER_SETTLER,,per settler,每名殖民者
-,,,
+
 RACE.BOAR.NOUN,,Wild boar,野猪
 RACE.CARP.NOUN,,Carp,鲤鱼
 RACE.DEER.FEMALE_NOUN,,Doe,母鹿
@@ -1283,7 +1298,7 @@ RACE.PIKE.NOUN,,Pike,梭子鱼
 RACE.SPIDER,,Spider,蜘蛛
 RACE.UNDEAD_DWARF,,Undead dwarf,亡灵矮人
 RACE.WURM,,Wurm,亚龙
-,,,
+
 RESOURCE.BONE.LARGE.NOUN,,Large Bone,大型骨头
 RESOURCE.BONE.LARGE.PLURAL,,Large Bones,大型骨头
 RESOURCE.BONE.MEDIUM.NOUN,,Medium Bone,中型骨头
@@ -1341,7 +1356,7 @@ RESOURCE.STONE.UNREFINED.TOOLTIP,,A huge piece of stone that must be chiselled i
 RESOURCE.WHEAT.SACK.NOUN,,Wheat (sack),小麦（袋）
 RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack),小麦（袋）
 RESOURCE.WHEAT.SACK.TOOLTIP,,Sacks of wheat are harvested from farm plots sown with wheat seeds.,播撒的小麦种子在农田收获后装入袋中。
-,,,
+
 ROOMS.ARMOURY,,Armoury,兵工厂
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here.,生产武器和盔甲的工厂
 ROOMS.ARTISAN_WORKSHOP,,Artisan workshop,手工作坊
@@ -1392,21 +1407,21 @@ ROOMS.TEXTILE_WORKSHOP,,Textile workshop,纺织车间
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.,将{{SEED.HEMP_SEED}}加工成用途广泛的纺织品。
 ROOMS.TRADING_DEPOT,,Trading depot,贸易站
 ROOMS.TRADING_DEPOT.TOOLTIP,,Buy and sell items with visiting merchants.,与到访的商人做生意。
-,,,
+
 ROPE.AGED_ROPE,,Aged,老旧
 ROPE.BRONZED_ROPE,,Bronzed,古铜色
 ROPE.GRAY_ROPE,,Gray,灰色
 ROPE.HEMP-ROPE,,Hemp,火麻
 ROPE.TOBACCO_ROPE,Just to describe a light colour,Light,浅色
-,,,
+
 RUSTED_SCRAP.NOUN,,Scrap,废料
 RUSTED_SCRAP.TOOLTIP,,These are the remains of an item that has completed corroded due to rust.,已经彻底锈蚀的无用之物。
-,,,
+
 SEASON.AUTUMN,,Autumn,秋季
 SEASON.SPRING,,Spring,春季
 SEASON.SUMMER,,Summer,夏季
 SEASON.WINTER,,Winter,冬季
-,,,
+
 SEED.BARLEY_SEED,,Barley,大麦
 SEED.BARLEY_SEED.TOOLTIP,{{VEGETABLE.BARLEY.TOOLTIP}},"A grain used only in the production of beer. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}.",仅用于酿制啤酒的谷物。{{SEASON.SPRING}}，{{SEASON.SUMMER}}和{{SEASON.AUTUMN}}都可以种植。
 SEED.BERSERKER_MUSHROOM_SPAWN,,Berserker,狂战士
@@ -1443,9 +1458,9 @@ SEED.TOMATO_SEED,,Tomato,番茄
 SEED.TOMATO_SEED.TOOLTIP,{{VEGETABLE.TOMATO.TOOLTIP}},A plant which grows large red berries often used as a vegetable. Can only be planted in {{SEASON.SPRING}}.,草本植物，浆果呈红色，多为扁球状或近球状，用作蔬菜食用。仅能在{{SEASON.SPRING}}播种。
 SEED.WHEAT_SEED,,Wheat,小麦
 SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.",通常用来制作面包的谷物。能在{{SEASON.WINTER}}生存，但生长周期较长，所以通常在{{SEASON.SPRING}}或 {{SEASON.AUTUMN}}播种。
-,,,
+
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,灌木
-,,,
+
 SKILL.ARCHERY.FEMALE_NOUN,,Archer,弓箭手
 SKILL.ARCHERY.MALE_NOUN,,Archer,弓箭手
 SKILL.ARCHERY.TOOLTIP,,Skill with the bow,娴熟使用弓箭
@@ -1464,13 +1479,13 @@ SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,娴熟使用剑
 SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,格斗家
 SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,格斗家
 SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,娴熟使用徒手战斗
-,,,
+
 SKIN.BOAR_HIDE,,Boar,野猪
 SKIN.DEER_HIDE,,Deer,鹿
 SKIN.DWARF_HIDE,,Dwarf,矮人
 SKIN.ELEPHANT_HIDE,,Elephant,大象
 SKIN.HORSE_HIDE,,Horse,马
-,,,
+
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,酒精戒断症
 STATUS.BLEEDING,,Bleeding,流血
 STATUS.BLINDED,,Blind,失明
@@ -1489,7 +1504,7 @@ STATUS.POISONED,,Poisoned,中毒
 STATUS.TEMPORARILY_BLINDED,,Temporarily blinded,暂时失明
 STATUS.VERY_HUNGRY,,Very hungry,饥饿
 STATUS.VERY_THIRSTY,,Very thirsty,口渴
-,,,
+
 STOCKPILE.GROUP.FOOD,,Food,食物
 STOCKPILE.GROUP.FOOD.TOOLTIP,,Stores harvested fruit and vegetables which can expire.,存放会变质的水果和蔬菜。
 STOCKPILE.GROUP.FUEL,,Fuel,燃料
@@ -1503,7 +1518,7 @@ STOCKPILE.GROUP.TOOLS.TOOLTIP,,Stores tools required for working on jobs.,存放
 STOCKPILE.GROUP.TREASURE,,Treasure,宝藏
 STOCKPILE.GROUP.WEAPONS,,Weapons,武器
 STOCKPILE.GROUP.WEAPONS.TOOLTIP,,Stores harvested fruit and vegetables which can expire.,存放会变质的水果和蔬菜。
-,,,
+
 STONE.BASALT.ADJECTIVE,,Basalt,玄武岩
 STONE.BASALT.NOUN,,Basalt,玄武岩
 STONE.BASALT.TOOLTIP,,An igneous rock formed by the rapid cooling of lava. Almost all of the volcanic rock in the world is basalt.,岩浆快速冷却形成的火成岩。世界上几乎所有的火山岩都是玄武岩。
@@ -1524,14 +1539,14 @@ STONE.MARBLE.NOUN,,Marble,大理石
 STONE.MARBLE.TOOLTIP,,A metamorphic rock which is used as a high-quality material for sculpture and masonry due to its brilliant appearance.,变质岩，凭借出色的外观成为了雕刻和石工的高质量材料。
 STONE.SANDSTONE.ADJECTIVE,,Sandstone,砂岩
 STONE.SANDSTONE.NOUN,,Sandstone,砂岩
-STONE.SANDSTONE.TOOLTIP,,A sedimentary rock composed of sand-like fragments. ,由各种砂粒胶结而成的沉积岩。 
+STONE.SANDSTONE.TOOLTIP,,"A sedimentary rock composed of sand-like fragments. ","由各种砂粒胶结而成的沉积岩。 "
 STONE.SHALE.ADJECTIVE,,Shale,页岩
 STONE.SHALE.NOUN,,Shale,页岩
 STONE.SHALE.TOOLTIP,,A fine-grained sedimentary rock composed of pressurized mud. It can be easily broken into thin layers.,由黏土沉积经压力形成的细颗粒沉积岩。很容易断裂成较薄的岩层。
 STONE.SLATE.ADJECTIVE,,Slate,板岩
 STONE.SLATE.NOUN,,Slate,板岩
 STONE.SLATE.TOOLTIP,,A metamorphic rock that is usually formed out of {{STONE.SHALE.NOUN}}. It is often made into tiles for roofing or writing.,通常由{{STONE.SHALE.NOUN}}形成的变质岩。通常用来作为屋顶的瓦或书写用的黑板。
-,,,
+
 TOOL.AXE.NOUN,,Axe,斧头
 TOOL.AXE.PLURAL,,Axes,斧头
 TOOL.AXE.TOOLTIP,,Used to chop down trees. The primary tool of a {{PROFESSION.WOODCUTTER}}.,砍伐树木的工具。{{PROFESSION.WOODCUTTER}}的主要工具。
@@ -1565,16 +1580,16 @@ TOOL.SMALL.HAMMER.TOOLTIP,,Used to bash small items of stone and metal into shap
 TOOL.TONGS.NOUN,A blacksmith's tongs,Tongs,钳子
 TOOL.TONGS.PLURAL,A blacksmith's tongs,Sets of tongs,钳子
 TOOL.TONGS.TOOLTIP,,Used to hold extremely hot metal items. Used in the process of smelting metal ore.,用来夹持滚烫的金属器具。熔炼金属矿物的过程中也会用到。
-,,,
+
 TREASURE.COIN.NOUN,,Coin,钱币
 TREASURE.COIN.PLURAL,,Coins,钱币
 TREASURE.COIN.TOOLTIP,,Minted coins used as a form of currency for trading.,铸造而成的钱币，交易所用的货币。
 TREASURE.GEM.NOUN,,Gem,宝石
 TREASURE.GEM.PLURAL,,Gems,宝石
 TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.,经过切割和打磨的宝石能绽放更夺目的美。通常用作装饰品。
-,,,
+
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree,{{materialType.noun}}树
-,,,
+
 TUTORIAL.COMPLETED.A,,This covers the basics of playing.,这包含了游戏的基础知识。
 TUTORIAL.COMPLETED.B,,"You should aim to set up a functioning {{ROOMS.SMITHY}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore, to produce metal items.",你的目标是修建拥有{{FURNITURE.FORGE}}的{{ROOMS.SMITHY}}，然后提供燃料和精炼的金属矿石来生产金属制品。
 TUTORIAL.COMPLETED.C,,"Also, you should move your settlement underground or at least build a roof overhead to protect your Settlers and iron items from the weather.",另外，你应该把你的殖民地迁至地下或者至少搭建屋顶，为你的居民和铁制品遮风挡雨。
@@ -1656,7 +1671,8 @@ TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. S
 TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.,选择并部署锯木厂和石工工坊，两者的建造都需要工作台。
 TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.,按R可以旋转大多数家具。
 TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.,按X可以旋转大多数家具。
-,,,
+TUTORIAL.WORKSHOPS.D,,Crafting stations have a Crafting button which shows what can be produced.,
+
 VEGETABLE.BARLEY,,Barley,大麦
 VEGETABLE.BARLEY.PLURAL,,Barley,大麦
 VEGETABLE.BARLEY.TOOLTIP,,"A grain used only in the production of beer. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}.",仅用于酿制啤酒的谷物。{{SEASON.SPRING}}，{{SEASON.SUMMER}}和{{SEASON.AUTUMN}}都可以种植。
@@ -1681,13 +1697,16 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,拳菇
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,拳菇
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,蘑菇呈蓝黑色，入口为金属味。黑暗时代的吟游诗人为它取了这个名字。
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},酿制{{LIQUID.BEER}}所需的材料
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,微光菇
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,微光菇
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,蕴含魔力的蘑菇，它散发的光芒会随着季节的变化而变色。
 VEGETABLE.HEMP,,Hemp,火麻
 VEGETABLE.HEMP.PLURAL,,Hemp,火麻
 VEGETABLE.HEMP.TOOLTIP,,This is processed at the {{ROOMS.TEXTILE_WORKSHOP}} to a useful material.,在{{ROOMS.TEXTILE_WORKSHOP}}加工后可获得有用的材料。
-VEGETABLE.HEMP.USAGE,,a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}}, {{ROOMS.TEXTILE_WORKSHOP}}生产{{PRODUCT.LINEN}}所需的材料
+VEGETABLE.HEMP.USAGE,,a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}}," {{ROOMS.TEXTILE_WORKSHOP}}生产{{PRODUCT.LINEN}}所需的材料"
 VEGETABLE.HEMP_FIBRE,,Hemp fibre,火麻纤维
 VEGETABLE.HEMP_FIBRE.PLURAL,,Hemp fibre,火麻纤维
 VEGETABLE.HOPS,,Hops,啤酒花
@@ -1725,16 +1744,16 @@ VEGETABLE.WHEAT,,Wheat,小麦
 VEGETABLE.WHEAT.PLURAL,,Wheat,小麦
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.",通常用来制作面包的谷物。能在{{SEASON.WINTER}}生存，但生长周期较长，所以通常在{{SEASON.SPRING}}或 {{SEASON.AUTUMN}}播种。
 VEGETABLE.WHEAT.USAGE,,used to bake bread,能用来烘焙面包
-,,,
+
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}},{{materialType.adjective}} {{vehicleType.noun}}
-,,,
+
 WALL.DESCRIPTION,"E.g. “Granite rock wall”, “Granite smooth stone wall”",{{materialType.adjective}} {{wallType.noun}},{{materialType.adjective}} {{wallType.noun}}
 WALL.GEMS.NOUN,,Gems,宝石
 WALL.ORE.NOUN,,Ore,矿石
 WALL.ROUGH_STONE.NOUN,,Rock wall,石墙
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,光滑的石头墙
 WALL.WOODEN.NOUN,,Wood wall,木墙
-,,,
+
 WEAPON.BATTLE.AXE,,Battle axe,战斧
 WEAPON.BATTLE.HAMMER,,Battle hammer,战锤
 WEAPON.BONE.ARROW.HEADS.NOUN,,Bone arrow head,骨箭簇
@@ -1756,14 +1775,14 @@ WEAPON.NO_SHIELD,,Unshielded,无盾牌
 WEAPON.SWORD,,Sword,剑
 WEAPON.UNARMED,,Unarmed,赤手空拳
 WEAPON.WOODEN.SHIELD,,Shield,盾牌
-,,,
+
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,多云
 WEATHER.TYPE.COLD_WINDS,,Cold winds,寒风
 WEATHER.TYPE.PERFECT,,Perfect weather,完美天气
 WEATHER.TYPE.RAIN,,Pouring rain,瓢泼大雨
 WEATHER.TYPE.SNOW,,Snow flurries,阵雪
 WEATHER.TYPE.THUNDERSTORM,,Thunderstorm,雷雨
-,,,
+
 WOOD.ASPEN.ADJECTIVE,,Aspen,山杨
 WOOD.ASPEN.NOUN,,Aspen,山杨
 WOOD.BAOBAB.ADJECTIVE,,Baobab,猴面包树

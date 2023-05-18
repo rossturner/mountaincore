@@ -1547,7 +1547,7 @@
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "TRADING_EXPORT",
-  "i18nKey" : "FURNITURE.EXPORT_PALLET",
+  "i18nKey" : "FURNITURE.SELLING_PALLET",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
   "autoConstructed" : false,
@@ -1569,7 +1569,7 @@
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "TRADING_IMPORT",
-  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "i18nKey" : "FURNITURE.BUYING_PALLET",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
   "autoConstructed" : false,

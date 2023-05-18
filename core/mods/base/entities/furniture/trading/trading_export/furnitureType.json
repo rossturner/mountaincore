@@ -1,6 +1,6 @@
 {
   "name" : "TRADING_EXPORT",
-  "i18nKey" : "FURNITURE.EXPORT_PALLET",
+  "i18nKey" : "FURNITURE.SELLING_PALLET",
   "defaultLayoutName" : "1x1",
   "requirements" : {
     "WOOD" : [ {

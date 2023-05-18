@@ -3,47 +3,47 @@
   "filenames": ["SFX_Hunting_Attack_Bow.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 0.4
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Hunting_Impact_Crushing",
   "filenames": ["SFX_Hunting_Impact_Crushing.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 0.5
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Hunting_Impact_Slicing",
   "filenames": ["SFX_Hunting_Impact_Slicing.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 0.5
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Hunting_Impact_Stabbing_Bow",
   "filenames": ["SFX_Hunting_Impact_Stabbing_Bow.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 0.35
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Hunting_Miss_Bow",
   "filenames": ["SFX_Hunting_Miss_Bow.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 0.4
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Punch_Impact",
   "filenames": ["SFX_Punch.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 1.0
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Melee_Miss",
   "filenames": ["SFW_Swing_Miss_1.wav", "SFW_Swing_Miss_2.wav", "SFW_Swing_Miss_3.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 1.0
+  "volumeModifier": 0.3
 },{
   "name": "SFX_Stab_Splat",
   "filenames": ["SFW_Stab_Splat_1.wav", "SFW_Stab_Splat_2.wav", "SFW_Stab_Splat_3.wav"],
   "minPitch": 0.8,
   "maxPitch": 1.2,
-  "volumeModifier": 1.0
+  "volumeModifier": 0.3
 }]

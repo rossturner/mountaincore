@@ -1,6 +1,8 @@
-Early Access 1.1.28
+Early Access 1.1.28 - 18th May 2023
 
+- Fixes for a few crashes when changing professions
 - Corrected file format of new music track
+- Renamed pallets in Trading Depot to make more sense
 
 Early Access 1.1.27 - 18th May 2023
 

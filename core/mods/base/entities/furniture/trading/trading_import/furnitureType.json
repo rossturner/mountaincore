@@ -1,6 +1,6 @@
 {
   "name" : "TRADING_IMPORT",
-  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "i18nKey" : "FURNITURE.BUYING_PALLET",
   "defaultLayoutName" : "1x1",
   "requirements" : {
     "WOOD" : [ {

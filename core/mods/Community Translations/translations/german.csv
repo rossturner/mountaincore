@@ -219,7 +219,7 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards,Holzdielen
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,Steinbrot
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,"Dies ist ein berüchtigt zähes Brot, das so hart und ungenießbar ist, dass es eine sehr lange Zeit braucht bis es schimmelt. Der menschliche Forscher J.A. Moffatt beschrieb den Verzehr einmal damit “Kieselsteine zu kauen, die aus einem Sumpf stammen”. Glücklicherweise scheinen die meisten Zwerge zufrieden damit zu sein."
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,"Dies ist ein berüchtigt zähes Brot, das so hart und ungenießbar ist, dass es eine sehr lange Zeit braucht bis es schimmelt. Der menschliche Forscher J.A. Moffatt beschrieb den Verzehr einmal damit “Kieselsteine zu kauen, die aus einem Sumpf stammen”. Glücklicherweise scheinen die meisten Zwerge zufrieden damit zu sein."
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat,Weizen
 
 FUEL.SACK,,Fuel,Brennstoff
@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,Braukessel
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,Aus Hopfen und Stammwürze vom Maischebottich wird hier die Bierwürze (ungegärtes Bier) hergestellt.
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,Metzgerei Arbeitsplatte
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,Hier werden Fisch- und Tierkadaver zu verwertbarem Fleisch verarbeitet.
+FURNITURE.BUYING_PALLET,,Buying pallet,
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,Schreinerwerkbank
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.","Die meisten Gegenstände und Werkzeuge aus Holz, wie Eimer und Fässer, werden hier hergestellt."
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Kessel
@@ -315,6 +317,8 @@ FURNITURE.RETTING_TANK,,Retting tank,Rottegrube
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,"Dies wird verwendet, um rohes Hanf zu Hanffasern zu verarbeiten, die zu nützlichen Materialien verarbeitet werden können."
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,Sarkophag
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,Dieser fein gearbeitete Steinbehälter ist die letzte Ruhestätte eines verstorbenen Siedlers.
+FURNITURE.SELLING_PALLET,,Selling pallet,
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,Serviertisch
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,"Nachdem Brote im Ofen gebacken worden sind, werden sie hier zum Servieren platziert."
 FURNITURE.SINGLE_BED,,Bed,Bett
@@ -497,6 +501,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,Programmierung
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,Besonderer Dank
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,Besonderen Dank an unsere Gründungshelfer
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,Zusätzlicher Dank an unsere Patreon- und Kickstarter-Unterstützer
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
 GUI.CROP_SELECTION,,Crop:,Pflanze:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},{{plantDescription}} - {{planting}} - {{usage}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,Kann nicht gepflanzt werden
@@ -585,6 +590,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,Rotieren
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,Vergrößern
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,Verkleinern
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,Keine (Brachfläche)
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,Zuletzt geändert
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,Löschen
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,Uhrzeit
@@ -693,6 +699,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,{{item}} werden für den Bau platziert
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,{{item}} befindet sich auf einer Importpalette
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,{{item}} befinden sich auf einer Importpalette
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},{{quantity}} {{item}}
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,Suche
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,Sortieren nach
@@ -716,7 +724,7 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires t
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},Zivilbevölkerung {{civilianCount}} (Zivilbetten {{civilianBedCount}}) - Militärbevölkerung {{militaryCount}} (Militärbetten {{militaryBedCount}}) - Gesamtbevölkerung {{populationCount}}
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,Zivilist
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,Militär
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,Dorfbewohner
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Hauler,Dorfbewohner
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search,Suche
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,Zufriedenheit
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,Militär/Zivilist
@@ -1016,6 +1024,8 @@ NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Dach eingestürzt
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,Die zermürbende Not konnte von {{character}} nicht mehr ertragen werden.
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,Nervenzusammenbruch
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,"{{character}} ist so unglücklich geworden, dass sie einen Wutanfall bekommen!"
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,Wutanfall!
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,"Sie sind auf dem Weg zu Ihrem Handelsdepot, um Waren zu kaufen und zu verkaufen."
@@ -1246,8 +1256,8 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,Steinmetz
 PROFESSION.STONEMASON.PLURAL,,Stonemasons,Steinmetze
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,Stellt Möbel und Gegenstände aus Stein her.
 PROFESSION.STONEMASON.VERB,,Sculpting,Bearbeitet
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Dorfbewohnerin
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,Dorfbewohner
+PROFESSION.VILLAGER.FEMALE_NOUN,,Hauler,Dorfbewohnerin
+PROFESSION.VILLAGER.MALE_NOUN,,Hauler,Dorfbewohner
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,Dieser Siedler hat keine spezifischen Berufe und wird alltägliche Aufgaben wie das Transportieren von Gegenständen übernehmen.
 PROFESSION.VILLAGER.VERB,,Working,Arbeitet
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,Weberin
@@ -1687,6 +1697,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,Faustpilz
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,Faustpilze
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,Ein schwarz-blauer Pilz mit einem metallischen Geschmack. Es ist nach einer Gruppe von Barden aus dem Zeitalter der Dunkelheit benannt.
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},für das Brauen von Bier
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,Glühpilz
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,Glühpilze
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,"Ein magisch infundiertes Pilz, das Licht abgibt und die Farbe mit den Jahreszeiten ändert."

@@ -219,7 +219,7 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards,
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,록브레드
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,이것은 매우 단단하고 실질적으로 먹을 수없는 불명예 힘든 빵입니다 곰팡이를 설정하는 데 매우 오랜 시간이 걸립니다. 인간 탐험가 J. A. Moffatt는 그것을 “늪에서 준설된 자갈을 씹는 것과 비슷합니다”라고 묘사했습니다. 다행히 대부분의 드워프는 마음에 들지 않는 것 같습니다.
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,이것은 매우 단단하고 실질적으로 먹을 수없는 불명예 힘든 빵입니다 곰팡이를 설정하는 데 매우 오랜 시간이 걸립니다. 인간 탐험가 J. A. Moffatt는 그것을 “늪에서 준설된 자갈을 씹는 것과 비슷합니다”라고 묘사했습니다. 다행히 대부분의 드워프는 마음에 들지 않는 것 같습니다.
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat,밀
 
 FUEL.SACK,,Fuel,연료
@@ -249,6 +249,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,
+FURNITURE.BUYING_PALLET,,Buying pallet,
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,목공 작업대
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.",대부분의 목재 항목과 도구는 여기서 생산됩니다. 예를 들어 {{PRODUCT.BUCKET.PLURAL}} 및 {{PRODUCT.BARREL.PLURAL}}.
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,가마솥
@@ -315,6 +317,8 @@ FURNITURE.RETTING_TANK,,Retting tank,
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,석관
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,이 정교한 돌 용기는 사망 한 정착민의 마지막 휴식 장소입니다.
+FURNITURE.SELLING_PALLET,,Selling pallet,
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,서빙 테이블
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{PRODUCT.BREAD.LOAF.PLURAL}} 은 (는) {{FURNITURE.BAKING_OVEN}} 에서 구운 후 서빙하기 위해 여기에 놓입니다.
 FURNITURE.SINGLE_BED,,Bed,침대
@@ -497,6 +501,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
 GUI.CROP_SELECTION,,Crop:,자르기:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,
@@ -585,6 +590,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,없음 (휴지 남기기)
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,
@@ -693,6 +699,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,
@@ -716,7 +724,7 @@ GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires t
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian,
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military,
-GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager,
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Hauler,
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search,
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness,
 GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian,
@@ -1016,6 +1024,8 @@ NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,이 지저분한 어려움은 {{character}} 을 (를) 처리하기에는 너무 많은 것으로 입증되었습니다.
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,정신 휴식
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,
@@ -1246,8 +1256,8 @@ PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,스톤메이슨
 PROFESSION.STONEMASON.PLURAL,,Stonemasons,
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,공예품 가구 및 돌에서 항목.
 PROFESSION.STONEMASON.VERB,,Sculpting,조각
-PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,마을 주민
-PROFESSION.VILLAGER.MALE_NOUN,,Villager,마을 주민
+PROFESSION.VILLAGER.FEMALE_NOUN,,Hauler,마을 주민
+PROFESSION.VILLAGER.MALE_NOUN,,Hauler,마을 주민
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,이 정착민은 특정 직업이 없으며 물품 운반과 같은 일상적인 작업을 수행합니다.
 PROFESSION.VILLAGER.VERB,,Working,일하면서
 PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
@@ -1687,6 +1697,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,주먹버섯
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,주먹 버섯
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,금속 맛을 지닌 검은 파란색 버섯. 그것은 어둠 시대의 바지선 그룹의 이름을 따서 명명되었습니다.
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,글로우 버섯
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,글로우 버섯
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,계절에 따라 빛을 발하고 색채를 바꾸는 마법이 주입된 버섯.
