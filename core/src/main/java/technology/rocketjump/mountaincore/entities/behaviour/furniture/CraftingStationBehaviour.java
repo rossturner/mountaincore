@@ -145,20 +145,23 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				if (exportFurnitureBehaviour != null) {
 					InventoryComponent.InventoryEntry outputEntry = inventoryComponent.findByItemTypeAndMaterial(exportFurnitureBehaviour.getSelectedItemType(), exportFurnitureBehaviour.getSelectedMaterial(), gameContext.getGameClock());
 					if (outputEntry != null) {
-						ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
-						int quantityToHaul = Math.min(attributes.getQuantity(), attributes.getItemType().getMaxHauledAtOnce());
+						ItemAllocationComponent itemAllocationComponent = outputEntry.entity.getComponent(ItemAllocationComponent.class);
+						while (itemAllocationComponent.getNumUnallocated() > 0) {
+							ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
+							int quantityToHaul = Math.min(itemAllocationComponent.getNumUnallocated(), attributes.getItemType().getMaxHauledAtOnce());
 
-						Job haulingJob = new Job(haulingJobType);
-						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaul, outputEntry.entity, parentEntity)
-								.toEntity(exportFurnitureBehaviour.getParentEntity());
-						haulingJob.setHaulingAllocation(haulingAllocation);
-						haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
-						haulingJob.setJobPriority(getPriority());
-						haulingJob.setJobState(JobState.ASSIGNABLE);
-						haulingJob.setTargetId(outputEntry.entity.getId());
-						haulingJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
-						updateJobLocationIfNotNavigable(haulingJob);
-						messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
+							Job haulingJob = new Job(haulingJobType);
+							HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaul, outputEntry.entity, parentEntity)
+									.toEntity(exportFurnitureBehaviour.getParentEntity());
+							haulingJob.setHaulingAllocation(haulingAllocation);
+							haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
+							haulingJob.setJobPriority(getPriority());
+							haulingJob.setJobState(JobState.ASSIGNABLE);
+							haulingJob.setTargetId(outputEntry.entity.getId());
+							haulingJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+							updateJobLocationIfNotNavigable(haulingJob);
+							messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
+						}
 					} // else can't find what needs to hauled away in inventory, hope the station resolves its state
 				}
 
@@ -466,7 +469,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			return List.of();
 		}
 
-		List<ProductionExportFurnitureBehaviour> exportFurniture = mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
+		return mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
 				.map(gameContext.getAreaMap()::getTile)
 				.flatMap(t -> t.getEntities().stream())
 				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
@@ -474,7 +477,6 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				.filter(e -> e.getSelectedItemType() != null && !DISABLED.equals(e.getPriority()))
 				.sorted((a, b) -> exportFurnitureSort(a, b, gameContext.getRandom()))
 				.toList();
-		return exportFurniture;
 	}
 
 	public static int exportFurnitureSort(ProductionExportFurnitureBehaviour a, ProductionExportFurnitureBehaviour b, Random random) {
@@ -665,7 +667,11 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		for (Entity outputEntity : output) {
 			inventoryComponent.add(outputEntity, parentEntity, messageDispatcher, gameContext.getGameClock());
 			// Unallocate from inventory
-			outputEntity.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
+			ItemAllocationComponent itemAllocationComponent = outputEntity.getOrCreateComponent(ItemAllocationComponent.class);
+			itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HELD_IN_INVENTORY);
+			if (craftingAssignment != null && craftingAssignment.getOutputLocation() != null && craftingAssignment.getTargetRecipe().getExtraGameHoursToComplete() == null) {
+				itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), outputEntity, ItemAllocation.Purpose.PRODUCTION_OUTPUT);
+			}
 
 			setItemValue(inputItemsTotalValue / output.size(), outputEntity);
 		}

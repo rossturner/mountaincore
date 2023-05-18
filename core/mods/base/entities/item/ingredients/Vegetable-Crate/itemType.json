@@ -6,7 +6,7 @@
   "primaryMaterialType" : "VEGETABLE",
   "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom",
       "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom",
-      "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom"
+      "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom", "Fungolem Mushroom"
     ],
   "baseValuePerItem": 4,
   "hoursInInventoryUntilUnused" : 2.0,

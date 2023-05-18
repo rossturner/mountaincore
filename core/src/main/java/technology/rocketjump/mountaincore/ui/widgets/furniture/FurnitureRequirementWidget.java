@@ -47,8 +47,6 @@ public class FurnitureRequirementWidget extends Table {
 	private final Table tooltipTable;
 	private final SelectBox<GameMaterial> materialSelect;
 	private final EntityDrawable entityDrawable;
-	private int selectionIndex;
-
 	private Consumer<GameMaterial> callback;
 
 	public FurnitureRequirementWidget(QuantifiedItemType requirement, Entity itemEntity, Skin skin, MessageDispatcher messageDispatcher,
@@ -86,9 +84,7 @@ public class FurnitureRequirementWidget extends Table {
 		materialSelect.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				int index = materials.indexOf(materialSelect.getSelected(), true);
-
-				changeSelectionIndex(index);
+				changeSelection(getSelectedMaterial());
 			}
 		});
 
@@ -141,7 +137,7 @@ public class FurnitureRequirementWidget extends Table {
 		tooltipTable.add(descriptionLabel).width(700).center().row();
 
 		Map<String, I18nString> replacements = new HashMap<>();
-		GameMaterial selectedMaterial = materials.get(selectionIndex);
+		GameMaterial selectedMaterial = getSelectedMaterial();
 		replacements.put("amount", new I18nWord(String.valueOf(itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), selectedMaterial))));
 		if (selectedMaterial != null) {
 			replacements.put("material", i18nTranslator.getTranslatedString(selectedMaterial.getI18nKey()));
@@ -157,20 +153,12 @@ public class FurnitureRequirementWidget extends Table {
 		this.add(materialSelect).growX().center().row();
 	}
 
-	private void changeSelectionIndex(int amount) {
-		selectionIndex += amount;
-		if (selectionIndex < 0) {
-			selectionIndex = materials.size - 1;
-		}
-		if (selectionIndex >= materials.size) {
-			selectionIndex = 0;
-		}
+	private void changeSelection(GameMaterial gameMaterial) {
 		if (callback != null) {
-			GameMaterial material = materials.get(selectionIndex);
-			if (material == GameMaterial.NULL_MATERIAL) {
+			if (gameMaterial == GameMaterial.NULL_MATERIAL) {
 				callback.accept(null);
 			} else {
-				callback.accept(material);
+				callback.accept(gameMaterial);
 			}
 		}
 		updateEntity();
@@ -182,13 +170,13 @@ public class FurnitureRequirementWidget extends Table {
 		ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
 		attributes.setQuantity(Math.min(requirement.getQuantity(), attributes.getItemType().getMaxStackSize()));
 
-		GameMaterial selected = materials.get(selectionIndex);
+		GameMaterial selected = getSelectedMaterial();
 		if (selected == null) {
 			selected = defaultDisplayMaterial;
 		}
 		attributes.setMaterial(selected);
 
-		boolean isAvailable = itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), materials.get(selectionIndex)) >= requirement.getQuantity();
+		boolean isAvailable = itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), getSelectedMaterial()) >= requirement.getQuantity();
 		if (isAvailable) {
 			entityDrawable.setOverrideColor(null);
 		} else {
@@ -196,6 +184,14 @@ public class FurnitureRequirementWidget extends Table {
 		}
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemEntity);
+	}
+
+	private GameMaterial getSelectedMaterial() {
+		GameMaterial selected = materialSelect.getSelected();
+		if (selected == GameMaterial.NULL_MATERIAL) {
+			return null;
+		}
+		return selected;
 	}
 
 	public void onMaterialSelection(Consumer<GameMaterial> callback) {

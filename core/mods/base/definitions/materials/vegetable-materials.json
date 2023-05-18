@@ -138,6 +138,15 @@
     "colorCode": "#ffd5d5"
   },
   {
+    "materialName": "Fungolem Mushroom",
+    "materialType": "VEGETABLE",
+    "edible": true,
+    "valueMultiplier": 0.7,
+    "colorCode": "#fcf2f0",
+    "combustible": true,
+    "useInRandomGeneration": false
+  },
+  {
     "materialName": "Syrup Powder Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,

@@ -1088,6 +1088,7 @@
   },
   "tags" : {
     "LIQUID_CONTAINER" : [ "6", "Water" ],
+    "LIQUID_CONTAINER_REFILL_THRESHOLD" : [ "4" ],
     "FURNITURE_BEHAVIOUR" : [ "FILL_LIQUID_CONTAINER", "ItemType_Product-Bucket" ]
   },
   "hiddenFromPlacementMenu" : false
@@ -1403,7 +1404,7 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "6", "IS_WEAPON", "ItemType_Weapon-Metal-Arrows", "ItemType_Weapon-Bone-Arrows" ],
+    "STOCKPILE" : [ "6", "IS_WEAPON", "IS_SHIELD", "ItemType_Weapon-Metal-Arrows", "ItemType_Weapon-Bone-Arrows" ],
     "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   },
   "hiddenFromPlacementMenu" : false

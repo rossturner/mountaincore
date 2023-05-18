@@ -31,15 +31,16 @@
     },
     "CheckForPendingOutput": {
       "pass": ["MoveOutputToExportSpot"],
-      "fail": ["MarkCraftingAssignmentComplete"]
+      "fail": ["CancelProductionOutputAssignmentsOnCraftingStation", "MarkCraftingAssignmentComplete"]
     },
     "MoveOutputToExportSpot": {
       "pass": ["CheckForPendingOutput"],
-      "fail": ["MarkCraftingAssignmentComplete"]
+      "fail": ["CancelProductionOutputAssignmentsOnCraftingStation", "MarkCraftingAssignmentComplete"]
     },
     "CancelInterruptedFlag": {},
     "FaceTowardsLocation": {},
     "EquipItemForJobFromFurniture": {},
+    "CancelProductionOutputAssignmentsOnCraftingStation": {},
     "MarkCraftingAssignmentComplete": {},
     "UnequipItemForJob": {},
     "UnassignJob": {}

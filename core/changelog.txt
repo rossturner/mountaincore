@@ -1,3 +1,24 @@
+Early Access 1.1.26 - 17th May 2023
+
+- Music track volume levels have been normalised
+- Weapon racks can now also store shields
+- Added ability to copy map seed to clipboard from load game screen (will require the map to have been saved in this version or later)
+- Fix (for most cases) for incorrect display of filled irrigation channels under snow cover
+
+Early Access 1.1.25 - 16th May 2023
+
+- Jobs to remove pests from crops will no longer be generated in winter (though they might roll over from autumn)
+- Fix for incorrect display of "New area discovered!" when starting a new game
+- Dwarves have had their noontime lunch break revoked and will no longer try to eat or drink at midday unless their needs are urgent
+
+Early Access 1.1.24 - 16th May 2023
+
+- Fungolems can now be butchered for some bland, tasteless meat-like substance
+- Improvements to hauling of crafted items to export pallets
+- Set minimum level before water barrels will be refilled to avoid refilling after one drink
+- Fix for cavern exploration notifications not firing correctly
+- Fix for item availability when "Any" material selected
+
 Early Access 1.1.23 - 15th May 2023
 
 - Fix for items becoming stuck when trying to be hauled out of furniture

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.messaging.types.EntityMessage;
+import technology.rocketjump.mountaincore.messaging.types.GameSaveMessage;
 import technology.rocketjump.mountaincore.persistence.JSONUtils;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.ChildPersistable;
@@ -47,6 +48,8 @@ public class PersistableTelegram extends Telegram implements ChildPersistable {
 				JSONObject notificationJson = new JSONObject(true);
 				notification.writeTo(notificationJson, savedGameStateHolder);
 				extraInfoJson.put("notification", notificationJson);
+			} else if (extraInfo instanceof GameSaveMessage ignored) {
+				// Can just ignore this as a save is already in progress
 			} else {
 				throw new NotImplementedException("Not yet implemented: persisting telegram with extraInfo of " + extraInfo.getClass().getSimpleName());
 			}
@@ -82,6 +85,8 @@ public class PersistableTelegram extends Telegram implements ChildPersistable {
 				Notification notification = new Notification();
 				notification.readFrom(notificationJson, savedGameStateHolder, relatedStores);
 				this.extraInfo = notification;
+			} else if (className.equals(GameSaveMessage.class.getSimpleName())) {
+				this.extraInfo = new GameSaveMessage(true);
 			} else {
 				throw new InvalidSaveException("Unrecognised telegram extrainfo class: " + className);
 			}

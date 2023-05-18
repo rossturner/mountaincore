@@ -73,7 +73,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	private final Drawable backgroundDrawable;
 	private final MainGameSkin skin;
 
-	private final SelectBox<GameMaterial> materialSelect;
+	private SelectBox<GameMaterial> materialSelect;
 
 	private Entity furnitureEntity;
 	private ProductionImportFurnitureBehaviour productionImportBehaviour;
@@ -110,7 +110,6 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 
 		noneSelectedDrawable = skin.getDrawable("icon_not_equipped_no_bg");
 
-		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 	}
 
 	public void setFurnitureEntity(Entity entity) {
@@ -132,6 +131,8 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		if (furnitureEntity == null || productionImportBehaviour == null) {
 			return;
 		}
+
+		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 
 		ItemType selectedItemType = productionImportBehaviour.getSelectedItemType();
 

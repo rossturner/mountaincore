@@ -16,6 +16,7 @@ import technology.rocketjump.mountaincore.mapping.tile.MapVertex;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.JobStateMessage;
 import technology.rocketjump.mountaincore.messaging.types.RemoveDesignationMessage;
+import technology.rocketjump.mountaincore.settlement.notifications.Notification;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -23,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static technology.rocketjump.mountaincore.mapping.tile.TileExploration.*;
+import static technology.rocketjump.mountaincore.settlement.notifications.NotificationType.AREA_REVEALED;
 
 @Singleton
 public class ExplorationMessageHandler implements Telegraph, GameContextAware {
@@ -63,6 +65,7 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 		Deque<MapTile> frontier = new ArrayDeque<>();
 		Set<MapTile> explored = new HashSet<>();
 		frontier.add(initialTile);
+		MapTile unexploredTile = null;
 
 		while (!frontier.isEmpty()) {
 			MapTile currentTile = frontier.pop();
@@ -78,10 +81,18 @@ public class ExplorationMessageHandler implements Telegraph, GameContextAware {
 					} else {
 						if (!frontier.contains(neighbour) && !neighbour.getExploration().equals(EXPLORED)) {
 							frontier.add(neighbour);
+							if (unexploredTile == null && !neighbour.hasWall()) {
+								unexploredTile = neighbour;
+							}
 						}
 					}
 				}
 			}
+		}
+
+		if (unexploredTile != null && !tileLocation.equals(gameContext.getAreaMap().getEmbarkPoint())) {
+			Notification areaUncoveredNotification = new Notification(AREA_REVEALED, unexploredTile.getWorldPositionOfCenter(), null);
+			messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, areaUncoveredNotification);
 		}
 
 	}

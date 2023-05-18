@@ -81,16 +81,20 @@ public class GameClock implements Persistable {
 			dayOfYear++;
 			currentDayNumber++;
 			if (dayOfSeason > DAYS_IN_SEASON) {
-				dayOfSeason = 1;
-				currentSeason = currentSeason.getNext();
-//				messageDispatcher.dispatchMessage(MessageType.SEASON_ELAPSED);
-				if (currentSeason.equals(Season.SPRING)) {
-					currentYear++;
-					dayOfYear = 1;
-					messageDispatcher.dispatchMessage(MessageType.YEAR_ELAPSED);
-				}
+				nextSeason(messageDispatcher);
 			}
 			messageDispatcher.dispatchMessage(MessageType.DAY_ELAPSED);
+		}
+	}
+
+	public void nextSeason(MessageDispatcher messageDispatcher) {
+		dayOfSeason = 1;
+		currentSeason = currentSeason.getNext();
+//				messageDispatcher.dispatchMessage(MessageType.SEASON_ELAPSED);
+		if (currentSeason.equals(Season.SPRING)) {
+			currentYear++;
+			dayOfYear = 1;
+			messageDispatcher.dispatchMessage(MessageType.YEAR_ELAPSED);
 		}
 	}
 

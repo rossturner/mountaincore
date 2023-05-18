@@ -219,7 +219,7 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer Rosalie Moon once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.
 FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat
 
 FUEL.SACK,,Fuel
@@ -586,6 +586,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified
 GUI.LOAD_GAME.TABLE.DELETE,,Delete
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time
@@ -694,6 +695,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}}
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By
@@ -1734,6 +1737,9 @@ VEGETABLE.WHEAT,,Wheat
 VEGETABLE.WHEAT.PLURAL,,Wheat
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 VEGETABLE.WHEAT.USAGE,,used to bake bread
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.
 
 VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
 

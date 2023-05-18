@@ -375,6 +375,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: header-font-32
 		fontColor: primary_font_colour_red
 	}
+	seed_label: {
+		font: default-font-16
+		fontColor: white
+		background: asset_bg_random_seed
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
@@ -527,6 +532,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-23
 		up: btn_02
 		unpressedOffsetY: 6
+	}
+	btn_rounded_grey: {
+		font: default-font-16
+		fontColor: white
+		up: btn_copy_random_seed
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

@@ -74,7 +74,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 	private final Drawable backgroundDrawable;
 	private final MainGameSkin skin;
 
-	private final SelectBox<GameMaterial> materialSelect;
+	private SelectBox<GameMaterial> materialSelect;
 
 	private Entity furnitureEntity;
 	private ProductionExportFurnitureBehaviour productionExportBehaviour;
@@ -111,8 +111,6 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		buttonContainer.setBackground(backgroundDrawable);
 
 		noneSelectedDrawable = skin.getDrawable("icon_not_equipped_no_bg");
-
-		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 	}
 
 	public void setFurnitureEntity(Entity entity) {
@@ -135,6 +133,8 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			return;
 		}
 
+
+		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 		ItemType selectedItemType = productionExportBehaviour.getSelectedItemType();
 
 		// Material selection

@@ -177,17 +177,19 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 		}
 
 		if (gameTimeToApplyPests != null && gameTimeToApplyPests < gameContext.getGameClock().getCurrentGameTime()) {
-			Job removePestsJob = new Job(removePestsJobType);
-			// try to set priority based on room (farm plot) we are in
-			if (parentEntityTile.hasRoom() && parentEntityTile.getRoomTile().getRoom().getBehaviourComponent() instanceof Prioritisable) {
-				removePestsJob.setJobPriority(((Prioritisable)parentEntityTile.getRoomTile().getRoom().getBehaviourComponent()).getPriority());
-			}
-			removePestsJob.setTargetId(parentEntity.getId());
-			removePestsJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
-			messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, removePestsJob);
+			if (!seasonPlantThinksItIs.equals(Season.WINTER)) {
+				Job removePestsJob = new Job(removePestsJobType);
+				// try to set priority based on room (farm plot) we are in
+				if (parentEntityTile.hasRoom() && parentEntityTile.getRoomTile().getRoom().getBehaviourComponent() instanceof Prioritisable) {
+					removePestsJob.setJobPriority(((Prioritisable)parentEntityTile.getRoomTile().getRoom().getBehaviourComponent()).getPriority());
+				}
+				removePestsJob.setTargetId(parentEntity.getId());
+				removePestsJob.setJobLocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+				messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, removePestsJob);
 
+				attributes.setAfflictedByPests(removePestsJob);
+			}
 			gameTimeToApplyPests = null;
-			attributes.setAfflictedByPests(removePestsJob);
 		}
 
 		if (currentGrowth >= 1) {
