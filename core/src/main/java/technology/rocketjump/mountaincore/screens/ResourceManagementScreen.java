@@ -300,7 +300,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 					final Entity owningEntity;
 					if (owningEntityId != null) {
 						owningEntity = gameContext.getEntities().get(owningEntityId);
-						if (owningEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+						if (owningEntity != null && owningEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
 							gender =  creatureEntityAttributes.getGender();
 						}
 					} else {
