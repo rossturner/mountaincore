@@ -1,3 +1,19 @@
+Early Access 1.1.27 - 18th May 2023
+
+- Added a new peaceful music track, "Respite" by Jordan Chin
+- "Villager" profession renamed (in translation only) to "Hauler"
+- Settlers can now have 1, 2 or 3 professions set, and do not need to have the Hauler profession
+- Hauling can now be higher priority than other professions
+- The starting profession skills are now fixed to avoid issues with certain secondary professions being missing
+- Immigrants now only have the Hauler profession set (look out for ways to change this in the future)
+- Peaceful music now plays (again) in Winter
+- Changing priority of a construction now applies to the hauling jobs also
+- Fix for a crash on the settlers screen after loading an old save
+- Fix for a crash on the resources info button
+- Fix for an issue with text display after changing language
+- Exposed cameraMouseDragPanningSpeed in uiConstants to adjust panning speed due to holding middle mouse button
+- Corrected use of quotes in Spanish translation
+
 Early Access 1.1.26 - 17th May 2023
 
 - Music track volume levels have been normalised

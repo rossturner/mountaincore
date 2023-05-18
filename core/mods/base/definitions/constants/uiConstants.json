@@ -1,5 +1,6 @@
 {
   "defaultFont": "Roboto-Bold.ttf",
   "headerFont": "GermaniaOne-Regular.ttf",
-  "cameraPanningSpeed": 4.0
+  "cameraPanningSpeed": 4.0,
+  "cameraMouseDragPanningSpeed": 12.0
 }

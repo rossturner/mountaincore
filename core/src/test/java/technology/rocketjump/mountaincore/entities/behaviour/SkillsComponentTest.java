@@ -42,11 +42,10 @@ public class SkillsComponentTest {
 		component.setSkillLevel(profA, 20);
 		component.setSkillLevel(profC,80);
 
-		assertThat(component.getActiveProfessions()).hasSize(4);
+		assertThat(component.getActiveProfessions()).hasSize(3);
 		assertThat(component.getActiveProfessions().get(0).getLevel()).isEqualTo(50);
 		assertThat(component.getActiveProfessions().get(1).getLevel()).isEqualTo(20);
 		assertThat(component.getActiveProfessions().get(2).getLevel()).isEqualTo(80);
-		assertThat(component.getActiveProfessions().get(3).getLevel()).isEqualTo(50); // NULL_PROFESSION
 	}
 
 }

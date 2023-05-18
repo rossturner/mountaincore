@@ -165,8 +165,10 @@ public class I18NTranslatorTest {
 		Skill profession = new Skill();
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
 		profession.setType(SkillType.PROFESSION);
+		SkillsComponent skillsComponent = new SkillsComponent();
+		skillsComponent.setSkillLevel(profession, 50);
 		Entity entity = Guice.createInjector(new TestModule()).getInstance(SettlerFactory.class)
-				.create(new Vector2(), new SkillsComponent().withNullProfessionActive(), mockGameContext, false);
+				.create(new Vector2(), skillsComponent, mockGameContext, false);
 
 		I18nText description = translator.getDescription(entity);
 

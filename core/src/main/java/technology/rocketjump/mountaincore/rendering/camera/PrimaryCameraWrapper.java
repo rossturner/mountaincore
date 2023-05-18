@@ -64,13 +64,15 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 
 	private Vector2 storedCameraPosition = null;
 	private float storedCameraZoom = 0f;
-	private float cameraPanningSpeed;
+	private final float cameraPanningSpeed;
+	private final float cameraMouseDragPanningSpeed;
 
 	@Inject
 	public PrimaryCameraWrapper(ScreenWriter screenWriter, MessageDispatcher messageDispatcher, ConstantsRepo constantsRepo) throws IOException {
 		this.screenWriter = screenWriter;
 		this.messageDispatcher = messageDispatcher;
 		this.cameraPanningSpeed = constantsRepo.getUiConstants().getCameraPanningSpeed();
+		this.cameraMouseDragPanningSpeed = constantsRepo.getUiConstants().getCameraMouseDragPanningSpeed();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth() / 100.0f, Gdx.graphics.getHeight() / 100.0f);
 		camera.zoom = 2.0f;
@@ -325,7 +327,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 	}
 
 	public void moveTo(float deltaX, float deltaY) {
-		float translateUnits = 12f * camera.zoom;
+		float translateUnits = cameraMouseDragPanningSpeed * camera.zoom;
 		camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
 		camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
 	}
