@@ -64,10 +64,16 @@ public class SettlementItemTracker implements GameContextAware {
 
 	public void itemRemoved(Entity entity) {
 		ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-		itemTypesToMaterialsToEntitiesMap.getOrDefault(attributes.getItemType(), EMPTY_1)
-				.getOrDefault(attributes.getPrimaryMaterial(), EMPTY_2)
-				.remove(entity.getId());
-		cullEmptyMapEntries(attributes.getItemType(), attributes.getPrimaryMaterial());
+		ItemType itemType = attributes.getItemType();
+		GameMaterial primaryMaterial = attributes.getPrimaryMaterial();
+
+		if (itemType != null && primaryMaterial != null) {
+			itemTypesToMaterialsToEntitiesMap.getOrDefault(itemType, EMPTY_1)
+					.getOrDefault(primaryMaterial, EMPTY_2)
+					.remove(entity.getId());
+
+			cullEmptyMapEntries(itemType, primaryMaterial);
+		}
 		// Easiest to just always remove from edibleItems
 		edibleItems.remove(entity.getId());
 	}
