@@ -384,7 +384,7 @@ public class MapTile implements Persistable {
 
 	public RoomTile getRoomTile() {
 		//Fix for an issue where a RoomTile lacks room due to a placement issue
-		if (roomTile == null || roomTile.getRoom() == null) {
+		if (roomTile != null && roomTile.getRoom() == null) {
 			roomTile = null;
 		}
 		return roomTile;
