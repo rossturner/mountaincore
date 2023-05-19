@@ -63,7 +63,7 @@
 }, {
   "name" : "ORE_CRUSHING",
   "i18nKey" : "CRAFTING_TYPE.ORE_CRUSHING",
-  "professionRequiredName" : "BLACKSMITH",
+  "professionRequiredName" : "STONEMASON",
   "usesWorkstationTool" : false
 }, {
   "name" : "COKE_OVEN_BAKING",

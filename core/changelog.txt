@@ -1,6 +1,9 @@
 Early Access 1.1.31
 
+- Fishing now only has a chance to catch a fish (depending on skill level) rather than always being successful
+- Ore crushing is now performed by the stonemason rather than blacksmith
 - Corn and Hemp now grow a little faster
+- Fix for a crash when a liquid container no longer has a valid access zone
 
 Early Access 1.1.30 - 19th May 2023
 

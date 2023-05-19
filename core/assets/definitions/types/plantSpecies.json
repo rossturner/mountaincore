@@ -369,7 +369,7 @@
   "growthStages" : [ {
     "name" : "Seeds",
     "nextGrowthStage" : 1,
-    "seasonsUntilComplete" : 0.4,
+    "seasonsUntilComplete" : 0.2,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -395,7 +395,7 @@
   }, {
     "name" : "Mid-growth no fruit",
     "nextGrowthStage" : 3,
-    "seasonsUntilComplete" : 0.5,
+    "seasonsUntilComplete" : 0.4,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -408,7 +408,7 @@
   }, {
     "name" : "Late growth",
     "nextGrowthStage" : 4,
-    "seasonsUntilComplete" : 0.5,
+    "seasonsUntilComplete" : 0.4,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -669,7 +669,7 @@
   }, {
     "name" : "Shoots",
     "nextGrowthStage" : 2,
-    "seasonsUntilComplete" : 0.3,
+    "seasonsUntilComplete" : 0.25,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -682,7 +682,7 @@
   }, {
     "name" : "Small-growth",
     "nextGrowthStage" : 3,
-    "seasonsUntilComplete" : 0.3,
+    "seasonsUntilComplete" : 0.25,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -708,7 +708,7 @@
   }, {
     "name" : "Mid-growth with fruit",
     "nextGrowthStage" : 5,
-    "seasonsUntilComplete" : 0.5,
+    "seasonsUntilComplete" : 0.4,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,

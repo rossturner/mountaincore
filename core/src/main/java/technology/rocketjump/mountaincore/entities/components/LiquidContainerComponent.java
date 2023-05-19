@@ -208,6 +208,9 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 			return null;
 		} else {
 			ZoneTile zoneTile = LiquidMessageHandler.pickTileInZone(this.liquidContainerAccessZone, gameContext.getRandom(), gameContext.getAreaMap());
+			if (zoneTile == null) {
+				return null;
+			}
 			LiquidAllocation allocation = new LiquidAllocation(LiquidAllocation.LiquidAllocationType.FROM_LIQUID_CONTAINER, zoneTile, amountRequired, targetLiquidMaterial);
 			allocation.setTargetContainerId(parentEntity.getId());
 			allocation.setRequesterEntityId(requestingEntity.getId());

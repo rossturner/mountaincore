@@ -393,6 +393,11 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					return;
 				}
 				LiquidAllocation liquidAllocation = matchedLiquidContainer.createAllocation(inputRequirement.getQuantity(), parentEntity);
+				if (liquidAllocation == null) {
+					// Liquid container does now have a valid zone tile or something
+					cancelAssignment();
+					return;
+				}
 				liquidAllocation.setLiquidMaterial(inputRequirement.getMaterial());
 				craftingAssignment.getInputLiquidAllocations().add(liquidAllocation);
 			} else {
@@ -561,6 +566,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		return liquidContainers.stream()
 				.filter(l -> requirement.getMaterial().equals(l.getTargetLiquidMaterial()))
 				.filter(l -> l.getNumUnallocated() >= (float) requirement.getQuantity())
+				.filter(l -> !l.getAccessZone().isEmpty())
 				.findAny().orElse(null);
 	}
 
@@ -588,7 +594,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			for (LiquidAllocation allocation : temp.getInputLiquidAllocations()) {
 				messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, allocation);
 			}
-			if (!temp.getCraftingJob().getJobState().equals(JobState.REMOVED)) {
+			if (temp.getCraftingJob() != null && !temp.getCraftingJob().getJobState().equals(JobState.REMOVED)) {
 				messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, temp.getCraftingJob());
 			}
 		}

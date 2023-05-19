@@ -19,6 +19,6 @@
     ],
     "minPitch": 0.8,
     "maxPitch": 1.2,
-    "volumeModifier": 0.5
+    "volumeModifier": 0.35
   }
 ]
