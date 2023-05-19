@@ -2,6 +2,7 @@ Early Access 1.1.29 - 19th May 2023
 
 - Fix for crashes and other problems with messed up room tiles
 - Fix for a crash when merchants are paying but all coins are assigned elsewhere
+- Fix for a crash when a material is lost
 - Corrected an issue where merchants paying for items could cause extra piles of coins to appear in the resources screen
 - Added (crossbow) bolts to weapon rack storage
 
