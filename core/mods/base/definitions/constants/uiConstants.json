@@ -2,5 +2,13 @@
   "defaultFont": "Roboto-Bold.ttf",
   "headerFont": "GermaniaOne-Regular.ttf",
   "cameraPanningSpeed": 4.0,
-  "cameraMouseDragPanningSpeed": 12.0
+  "cameraMouseDragPanningSpeed": 12.0,
+
+  "roofStateColors": {
+    "OPEN": "#54faed99",
+    "CONSTRUCTED": "#463e3a99",
+    "MINED": "#dfcfba99",
+    "CAVERN": "#8aeab399",
+    "MOUNTAIN_ROOF": "#aaaaaa99"
+  }
 }

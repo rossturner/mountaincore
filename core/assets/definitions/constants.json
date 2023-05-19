@@ -21,6 +21,13 @@
   "fishingJobType" : "FISHING",
   "constructRoofingJobType" : "CONSTRUCT_ROOFING",
   "headerFont" : "GermaniaOne-Regular.ttf",
+  "roofStateColors" : {
+    "CONSTRUCTED" : "#463e3a99",
+    "CAVERN" : "#8aeab399",
+    "MOUNTAIN_ROOF" : "#aaaaaa99",
+    "MINED" : "#dfcfba99",
+    "OPEN" : "#54faed99"
+  },
   "cameraPanningSpeed" : 4.0,
   "defaultFont" : "Roboto-Bold.ttf",
   "cameraMouseDragPanningSpeed" : 12.0,

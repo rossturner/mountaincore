@@ -15,6 +15,7 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.RaceD
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
+import technology.rocketjump.mountaincore.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 
@@ -41,6 +42,8 @@ public class ConstantsRepo implements GameContextAware, Telegraph {
 		this.worldConstants = objectMapper.readValue(rawFileContents, WorldConstants.class);
 		this.uiConstants = objectMapper.readValue(rawFileContents, UiConstants.class);
 		this.settlementConstants = objectMapper.readValue(rawFileContents, SettlementConstants.class);
+
+		TileRoofState.initFromConstants(uiConstants);
 
 		messageDispatcher.addListener(this, MessageType.GET_SETTLEMENT_CONSTANTS);
 	}
