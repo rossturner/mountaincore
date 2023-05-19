@@ -9,7 +9,7 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "6", "IS_WEAPON", "IS_SHIELD", "ItemType_Weapon-Metal-Arrows", "ItemType_Weapon-Bone-Arrows", "Weapon-Metal-Bolts" ],
+    "STOCKPILE" : [ "6", "IS_WEAPON", "IS_SHIELD", "ItemType_Weapon-Metal-Arrows", "ItemType_Weapon-Bone-Arrows", "ItemType_Weapon-Metal-Bolts" ],
     "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   }
 }

@@ -1,3 +1,9 @@
+Early Access 1.1.30 - 19th May 2023
+
+- Corrected weapon rack tags
+- Prevented placement of rooms over irrigation channels
+- Removed state file for Asset Editor tool to prevent a crash
+
 Early Access 1.1.29 - 19th May 2023
 
 - Fix for crashes and other problems with messed up room tiles
