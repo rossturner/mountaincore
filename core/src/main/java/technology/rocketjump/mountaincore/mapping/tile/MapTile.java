@@ -40,6 +40,7 @@ import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException
 import technology.rocketjump.mountaincore.persistence.model.Persistable;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
+import technology.rocketjump.mountaincore.rooms.Room;
 import technology.rocketjump.mountaincore.rooms.RoomTile;
 import technology.rocketjump.mountaincore.rooms.constructions.Construction;
 import technology.rocketjump.mountaincore.rooms.constructions.ConstructionType;
@@ -378,11 +379,22 @@ public class MapTile implements Persistable {
 	}
 
 	public boolean hasRoom() {
-		return roomTile != null;
+		return getRoomTile() != null;
 	}
 
 	public RoomTile getRoomTile() {
+		//Fix for an issue where a RoomTile lacks room due to a placement issue
+		if (roomTile == null || roomTile.getRoom() == null) {
+			roomTile = null;
+		}
 		return roomTile;
+	}
+
+	public void setRoom(Room room) {
+		if (roomTile != null) {
+			roomTile.setRoom(room);
+			room.addTile(roomTile);
+		}
 	}
 
 	public void setRoomTile(RoomTile roomTile) {
