@@ -23,6 +23,7 @@ import technology.rocketjump.mountaincore.entities.behaviour.furniture.Innoculat
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.OnJobCompletion;
 import technology.rocketjump.mountaincore.entities.behaviour.plants.FallingTreeBehaviour;
 import technology.rocketjump.mountaincore.entities.components.*;
+import technology.rocketjump.mountaincore.entities.components.creature.SkillsComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.StatusComponent;
 import technology.rocketjump.mountaincore.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.mountaincore.entities.components.furniture.DecorationInventoryComponent;
@@ -947,18 +948,23 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					break;
 				}
 				case "FISHING": {
-					Race fishType = fishRacesAvailable.get(gameContext.getRandom().nextInt(fishRacesAvailable.size()));
-					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
+					int skillLevel = jobCompletedMessage.getCompletedByEntity().getComponent(SkillsComponent.class).getSkillLevel(jobCompletedMessage.getJob().getRequiredProfession());
+					float chanceToCatchFish = 0.2f + (0.8f * ((float)skillLevel / 100f));
 
-					CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
-					Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
-					messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
-					fishEntity.getLocationComponent().setRotation(0);
+					if (gameContext.getRandom().nextFloat() < chanceToCatchFish) {
+						Race fishType = fishRacesAvailable.get(gameContext.getRandom().nextInt(fishRacesAvailable.size()));
+						Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 
-					HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
-					haulingComponent.setHauledEntity(fishEntity, messageDispatcher, completedByEntity);
+						CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
+						Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
+						fishEntity.getLocationComponent().setRotation(0);
 
-					messageDispatcher.dispatchMessage(MessageType.FISH_HARVESTED_FROM_RIVER);
+						HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
+						haulingComponent.setHauledEntity(fishEntity, messageDispatcher, completedByEntity);
+
+						messageDispatcher.dispatchMessage(MessageType.FISH_HARVESTED_FROM_RIVER);
+					}
 					break;
 				}
 				case "BUTCHER_CREATURE": {
