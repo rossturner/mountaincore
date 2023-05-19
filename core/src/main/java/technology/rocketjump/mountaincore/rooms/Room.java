@@ -324,9 +324,8 @@ public class Room implements Persistable {
 			if (mapTile == null) {
 				throw new InvalidSaveException("Could not find map tile at location " + roomTile.getTilePosition());
 			}
-			roomTile = mapTile.getRoomTile(); // Map has the real instance of the RoomTile
-			roomTile.setRoom(this);
-			roomTiles.put(roomTile.getTilePosition(), roomTile);
+
+			mapTile.setRoom(this);
 		}
 
 		JSONArray componentsArray = asJson.getJSONArray("components");
