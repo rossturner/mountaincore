@@ -169,7 +169,7 @@ public class PlanMerchantPurchaseAction extends Action {
 	private ItemAllocation createAllocationIfAmountAvailable(InventoryComponent.InventoryEntry inventoryEntry, int amountRequired, GameContext gameContext) {
 		ItemAllocationComponent largeDenominationItemAllocationComponent = inventoryEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
 		ItemAllocation heldInInventoryAllocation = largeDenominationItemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.HELD_IN_INVENTORY);
-		if (heldInInventoryAllocation.getAllocationAmount() >= amountRequired) {
+		if (heldInInventoryAllocation != null && heldInInventoryAllocation.getAllocationAmount() >= amountRequired) {
 			int remainder = heldInInventoryAllocation.getAllocationAmount() - amountRequired;
 			largeDenominationItemAllocationComponent.cancel(heldInInventoryAllocation);
 			ItemAllocation paymentAllocation = largeDenominationItemAllocationComponent.createAllocation(amountRequired, parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
