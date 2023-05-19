@@ -1,3 +1,7 @@
+Early Access 1.1.29 - 19th May 2023
+
+- Corrected an issue where merchants paying for items could cause extra piles of coins to appear in the resources screen
+
 Early Access 1.1.28 - 18th May 2023
 
 - Fixes for a few crashes when changing professions

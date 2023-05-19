@@ -29,7 +29,7 @@ public class PlacePaymentAction extends PlaceEntityAction {
 			Entity clonedItem = originalItem.clone(parent.messageDispatcher, gameContext);
 			int amountToPlace = parent.getPlannedTrade().getPaymentItemAllocation().getAllocationAmount();
 			ItemAllocationComponent originalItemAllocationComponent = originalItem.getComponent(ItemAllocationComponent.class);
-			originalItemAllocationComponent.cancel(parent.getPlannedTrade().getPaymentItemAllocation());
+			originalItemAllocationComponent.cancelAll(ItemAllocation.Purpose.TRADING_PAYMENT);
 
 			ItemEntityAttributes originalAttributes = (ItemEntityAttributes) originalItem.getPhysicalEntityComponent().getAttributes();
 			int remainder = originalAttributes.getQuantity() - amountToPlace;

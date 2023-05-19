@@ -7,12 +7,13 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.FactionChangedMessage;
+import technology.rocketjump.mountaincore.misc.Destructible;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 
-public class FactionComponent implements ParentDependentEntityComponent {
+public class FactionComponent implements ParentDependentEntityComponent, Destructible {
 
 	private Faction faction = Faction.SETTLEMENT;
 	private transient Entity parentEntity;
@@ -30,6 +31,11 @@ public class FactionComponent implements ParentDependentEntityComponent {
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
+	}
+
+	@Override
+	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		this.parentEntity = null;
 	}
 
 	@Override
