@@ -87,7 +87,7 @@ public enum GameInteractionMode {
 			!mapTile.getFloor().isRiverTile(), true),
 
 	PLACE_ROOM(GameCursor.ROOMS, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && !mapTile.hasWall() &&
-			!mapTile.hasRoom() && !mapTile.hasDoorway() && !mapTile.isWaterSource() && !mapTile.getFloor().hasBridge(), true),
+			!mapTile.hasRoom() && !mapTile.hasDoorway() && !mapTile.isWaterSource() && !mapTile.getFloor().hasBridge() && !mapTile.hasChannel(), true),
 	PLACE_FURNITURE(GameCursor.ROOMS, null, null, false),
 	PLACE_DOOR(GameCursor.DOOR, null, null, false),
 	PLACE_WALLS(GameCursor.WALL, null, null, true),
