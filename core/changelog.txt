@@ -1,3 +1,7 @@
+Early Access 1.1.31
+
+- Corn and Hemp now grow a little faster
+
 Early Access 1.1.30 - 19th May 2023
 
 - Corrected weapon rack tags

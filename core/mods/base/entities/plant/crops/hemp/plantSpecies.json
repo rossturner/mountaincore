@@ -28,7 +28,7 @@
     {
       "name": "Seeds",
       "nextGrowthStage": 1,
-      "seasonsUntilComplete": 0.4,
+      "seasonsUntilComplete": 0.2,
       "tileHeight": 1
     },
     {
@@ -40,13 +40,13 @@
     {
       "name": "Mid-growth no fruit",
       "nextGrowthStage": 3,
-      "seasonsUntilComplete": 0.5,
+      "seasonsUntilComplete": 0.4,
       "tileHeight": 1
     },
     {
       "name": "Late growth",
       "nextGrowthStage": 4,
-      "seasonsUntilComplete": 0.5,
+      "seasonsUntilComplete": 0.4,
       "tileHeight": 1
     },
     {

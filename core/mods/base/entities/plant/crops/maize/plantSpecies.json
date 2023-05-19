@@ -34,13 +34,13 @@
     {
       "name": "Shoots",
       "nextGrowthStage": 2,
-      "seasonsUntilComplete": 0.3,
+      "seasonsUntilComplete": 0.25,
       "tileHeight": 1
     },
     {
       "name": "Small-growth",
       "nextGrowthStage": 3,
-      "seasonsUntilComplete": 0.3,
+      "seasonsUntilComplete": 0.25,
       "tileHeight": 1
     },
     {
@@ -52,7 +52,7 @@
     {
       "name": "Mid-growth with fruit",
       "nextGrowthStage": 5,
-      "seasonsUntilComplete": 0.5,
+      "seasonsUntilComplete": 0.4,
       "tileHeight": 1,
       "showFruit": true,
       "colors": {
