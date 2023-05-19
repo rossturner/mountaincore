@@ -73,6 +73,7 @@ project(":desktop") {
         file('../release_tools/linux64_release').deleteDir()
         file('../release_tools/macosx_release').deleteDir()
         file('../release_tools/epic_upload').deleteDir()
+        file('../core/assets/editor-state.json').delete()
     }
 
     task('packrWin', type: JavaExec, dependsOn: 'dist') {
