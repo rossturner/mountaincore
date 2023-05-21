@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,Fjendtlig angriber
 FACTION.MERCHANTS,,Merchant,Handelsmand
 FACTION.MONSTERS,,Monster,Monster
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,Bosætter
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,Tæmmet dyr
 FACTION.WILD_ANIMALS,,Wild Animal,Vildt dyr
@@ -675,6 +676,7 @@ GUI.POWER_LABEL,,Power & Water,Kraft & Vand
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} og {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} forbindes til kraftledninger {{drawable|tooltip_icon_power}}{{\n}}Kraftledninger {{drawable|tooltip_icon_power}} kraft {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} og andet kraftdrevet udstyr {{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} og vandingskanaler {{drawable|tooltip_icon_irrigation}} forbindes til {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority,Prioritet
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Vælg ting der skal eksporteres
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Vælg ting der skal importeres
 GUI.REMOVE_LABEL,,Remove,Fjern
 GUI.REMOVE_TILES,,Remove tiles,Fjern felter
@@ -889,6 +891,7 @@ MEAT.DEER_MEAT,,Deer,Dådyr
 MEAT.DWARF_FLESH,,Dwarf flesh,Dværgkød
 MEAT.ELEPHANT_MEAT,,Elephant,Elefant
 MEAT.FOX_MEAT,,Fox,Ræv
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,Aborre
 MEAT.PERCH_MEAT.PLURAL,,Perch,Aborrer
 MEAT.PIKE_MEAT.NOUN,,Pike,Gedde
@@ -1020,6 +1023,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Minekollaps
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,En ting eller et møbel er blevet ødelagt grundet længere udsættelse for regn.\nNogle materialer såsom jern og stål bør ikke efterlades udenfor i en længere periode.
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Rustet væk
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Et tag er kollapset grundet manglende søjler og støtter.
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Tag kollapset
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,De hårde tider har vist sig at være for meget for {{character}}.
@@ -1229,6 +1234,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Adelskvinde
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Adelsmand
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","Adlen opfylder ikke jobs på samme måde som almindelige bosættere, men bringer berømmelse og prestige til din bosættelse."
 PROFESSION.NOBLE.VERB,,Reigning,Regerer
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Runesmed
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Runesmed
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Fortryller våben, rustninger og genstande med magiske runer, for at øge deres evner."

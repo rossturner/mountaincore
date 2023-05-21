@@ -38,6 +38,7 @@ import technology.rocketjump.mountaincore.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.mountaincore.ui.i18n.DisplaysText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nText;
 import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
+import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.skins.MainGameSkin;
 import technology.rocketjump.mountaincore.ui.views.RoomEditorItemMap;
@@ -45,10 +46,8 @@ import technology.rocketjump.mountaincore.ui.widgets.EntityDrawable;
 import technology.rocketjump.mountaincore.ui.widgets.SelectItemDialog;
 import technology.rocketjump.mountaincore.ui.widgets.crafting.CraftingHintWidgetFactory;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -133,16 +132,25 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			return;
 		}
 
-
 		materialSelect = MaterialSelectBox.create(guiSkinRepository, i18nTranslator, messageDispatcher, soundAssetDictionary, this::changeMaterial);
 		ItemType selectedItemType = productionExportBehaviour.getSelectedItemType();
+
+		messageDispatcher.dispatchMessage(MessageType.CHECK_CRAFTING_QUOTA, new MessageType.CheckCraftingQuotaMessage(selectedItemType,
+				productionExportBehaviour.getSelectedMaterial(), false, (isLimitReached, limitAmount) -> {
+			if (isLimitReached) {
+				I18nText limitReachedText = i18nTranslator.getTranslatedWordWithReplacements("GUI.PRODUCTION_EXPORT.LIMIT.REACHED", Map.of("quantity", new I18nWord(String.valueOf(limitAmount))));
+				Label label = new Label(limitReachedText.toString(), skin.get("default-red", Label.LabelStyle.class));
+				this.add(label).pad(15).padBottom(30).row();
+			}
+		}));
 
 		// Material selection
 		determineAvailableMaterials(selectedItemType);
 
 		updateButton();
 
-		this.add(buttonContainer).center().row();
+		Table layoutTable = new Table();
+		layoutTable.add(buttonContainer).center().row();
 
 		determineAvailableMaterials(selectedItemType);
 
@@ -155,7 +163,8 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		GameMaterial currentlySelected = productionExportBehaviour.getSelectedMaterial();
 		materialSelect.setSelected(currentlySelected == null ? GameMaterial.NULL_MATERIAL : currentlySelected);
 
-		this.add(materialSelect).center().growX().padTop(4).row();
+		layoutTable.add(materialSelect).center().growX().padTop(4).row();
+		this.add(layoutTable).center().row();
 	}
 
 	private void updateButton() {

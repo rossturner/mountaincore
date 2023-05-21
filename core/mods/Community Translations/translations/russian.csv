@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,
 FACTION.MERCHANTS,,Merchant,
 FACTION.MONSTERS,,Monster,
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,
 FACTION.WILD_ANIMALS,,Wild Animal,
@@ -676,6 +677,7 @@ GUI.POWER_LABEL,,Power & Water,
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},
 GUI.PRIORITY_LABEL,,Priority,Приоритеты
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,
 GUI.REMOVE_LABEL,,Remove,Удалить
 GUI.REMOVE_TILES,,Remove tiles,Удалить квадраты
@@ -890,6 +892,7 @@ MEAT.DEER_MEAT,,Deer,Олень
 MEAT.DWARF_FLESH,,Dwarf flesh,
 MEAT.ELEPHANT_MEAT,,Elephant,Слон
 MEAT.FOX_MEAT,,Fox,Лисица
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,Окунь
 MEAT.PERCH_MEAT.PLURAL,,Perch,Окуни
 MEAT.PIKE_MEAT.NOUN,,Pike,Щука
@@ -1021,6 +1024,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Шахта обрушилась
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,"Предмет или мебель были разрушены из-за длительного пребывания под дождем. Некоторые материалы, такие как железо и сталь, не следует оставлять на улице в течение длительного времени."
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Заржавело
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Обрушилась крыша из-за отсутствия столбов и опор
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Крыша обрушилась
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,Ужасающие трудности оказались слишком сложными для {{character}}.
@@ -1230,6 +1235,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Аристократка
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Аристократ
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","Дворяне выполняют работу так же, как обычные поселенцы, но приносят славу и престиж вашему поселению."
 PROFESSION.NOBLE.VERB,,Reigning,Царствование
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Мастер рун
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Мастер рун
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Зачаровывает оружие, доспехи и предметы магическими рунами, чтобы повысить их характеристики."

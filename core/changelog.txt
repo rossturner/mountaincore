@@ -1,3 +1,8 @@
+Early Access 1.1.32
+
+- Added a label to export pallets to warn when a production limit has been reached
+- Updated French translation, with thanks to Crono Natsuga
+
 Early Access 1.1.31 - 19th May 2023
 
 - Fishing now only has a chance to catch a fish (depending on skill level) rather than always being successful

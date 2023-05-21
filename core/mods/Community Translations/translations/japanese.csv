@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,
 FACTION.MERCHANTS,,Merchant,
 FACTION.MONSTERS,,Monster,
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,
 FACTION.WILD_ANIMALS,,Wild Animal,
@@ -675,6 +676,7 @@ GUI.POWER_LABEL,,Power & Water,
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},
 GUI.PRIORITY_LABEL,,Priority,優先度
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,
 GUI.REMOVE_LABEL,,Remove,除去
 GUI.REMOVE_TILES,,Remove tiles,タイル縮小
@@ -889,6 +891,7 @@ MEAT.DEER_MEAT,,Deer,シカ
 MEAT.DWARF_FLESH,,Dwarf flesh,ドワーフの死体
 MEAT.ELEPHANT_MEAT,,Elephant,ゾウ
 MEAT.FOX_MEAT,,Fox,キツネ
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,パーチ
 MEAT.PERCH_MEAT.PLURAL,,Perch,パーチ
 MEAT.PIKE_MEAT.NOUN,,Pike,マス
@@ -1020,6 +1023,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,落盤
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,長期に渡って雨に晒された結果、建築物が壊れてしまいました。\n鉄や鋼のようないくつかの素材は、長期間屋外に放置すべきではありません。
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,錆の発生
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,柱や支柱がないために、屋根が崩れてしまいました。
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,屋根の崩壊
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,次々と襲いかかる苦難が{{character}}の心を押しつぶしてしまいました。
@@ -1229,6 +1234,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,貴族
 PROFESSION.NOBLE.MALE_NOUN,,Noble,貴族
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.",貴族は平民の入植者と同様の労働を行いませんが、あなたの入植地に名声と威信をもたらします。
 PROFESSION.NOBLE.VERB,,Reigning,君臨している
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,ルーンスミス
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,ルーンスミス
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.",武器、防具、その他のアイテムに魔法のルーンでエンチャントを施し、それらを強化します。

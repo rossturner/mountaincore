@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,Invasore ostile
 FACTION.MERCHANTS,,Merchant,Commerciante
 FACTION.MONSTERS,,Monster,Mostro
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,Colono
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,Animale addomesticato
 FACTION.WILD_ANIMALS,,Wild Animal,Animale selvatico
@@ -676,6 +677,7 @@ GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_wind
 {{drawable|tooltip_icon_waterwheel}} si collegano alle linee elettriche {{drawable|tooltip_icon_power}}{{n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{n}}Le linee elettriche {{drawable|tooltip_icon_power}} alimentano {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} e altri mobili alimentati{{n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} e l'irrigazione {{drawable|tooltip_icon_irrigation}} sono collegati a {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}"
 GUI.PRIORITY_LABEL,,Priority,Priorità
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Scegliere l'oggetto da esportare
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Scegliere l'oggetto da importare
 GUI.REMOVE_LABEL,,Remove,Rimuovi
 GUI.REMOVE_TILES,,Remove tiles,Rimuovi caselle
@@ -890,6 +892,7 @@ MEAT.DEER_MEAT,,Deer,Cervo
 MEAT.DWARF_FLESH,,Dwarf flesh,Carne di nano
 MEAT.ELEPHANT_MEAT,,Elephant,Elefante
 MEAT.FOX_MEAT,,Fox,Volpe
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,Persico
 MEAT.PERCH_MEAT.PLURAL,,Perch,Persico
 MEAT.PIKE_MEAT.NOUN,,Pike,Luccio
@@ -1021,6 +1024,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Crollo minerario
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,Un oggetto o un mobile è stato distrutto a causa dell'esposizione prolungata alla pioggia.nAlcuni materiali come il ferro e l'acciaio non dovrebbero essere lasciati fuori per un lungo periodo.
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Arrugginito
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Un tetto è crollato per mancanza di pilastri e supporti.
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Tetto crollato
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,L'estenuante difficoltà ha dimostrato di essere troppo da gestire per {{character}}.
@@ -1230,6 +1235,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Nobildonna
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Nobiluomo
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","I nobili non svolgono lavori allo stesso modo dei coloni comuni, ma portano fama e prestigio al vostro insediamento."
 PROFESSION.NOBLE.VERB,,Reigning,Sta regnando
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Forgiarune
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Forgiarune
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Incanta armi, armature e oggetti con rune magiche per potenziare le loro abilità."

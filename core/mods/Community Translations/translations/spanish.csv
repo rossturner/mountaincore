@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,Invasor hostil
 FACTION.MERCHANTS,,Merchant,Mercader
 FACTION.MONSTERS,,Monster,Monstruo
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,Colono
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,Animal domesticado
 FACTION.WILD_ANIMALS,,Wild Animal,Animal salvaje
@@ -675,6 +676,7 @@ GUI.POWER_LABEL,,Power & Water,Energía y Agua
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} y {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} se conectan con con líneas de transmisión {{drawable|tooltip_icon_power}}{{\n}}Las líneas de tansmisión {{drawable|tooltip_icon_power}} proporcionan energía a {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} y otros muebles{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} y la Irrigación {{drawable|tooltip_icon_irrigation}} están conectados a {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority,Prioridad
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Elegir objeto para Retirar de la habitación
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Elegir objeto para Traer a la habitación
 GUI.REMOVE_LABEL,,Remove,Eliminar
 GUI.REMOVE_TILES,,Remove tiles,Eliminar casillas
@@ -889,6 +891,7 @@ MEAT.DEER_MEAT,,Deer,Ciervo
 MEAT.DWARF_FLESH,,Dwarf flesh,Carne de enano
 MEAT.ELEPHANT_MEAT,,Elephant,Elefante
 MEAT.FOX_MEAT,,Fox,Zorro
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,Perca
 MEAT.PERCH_MEAT.PLURAL,,Perch,Percas
 MEAT.PIKE_MEAT.NOUN,,Pike,Lucio
@@ -1020,6 +1023,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Derrumbe en la mina
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,Un objeto o mueble ha sido destruido debido a la exposición prolongada a la lluvia.\nAlgunos materiales como el hierro y el acero no deben dejarse en el exterior durante mucho tiempo.
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Completamente oxidado
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Un tejado se ha derrumbado debido a la falta de pilares u otros soportes.
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Tejado derrumbado
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,Las penurias de una vida dura han demostrado ser demasiado difíciles de sobrellevar para {{character}}.
@@ -1229,6 +1234,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Aristócrata
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Aristócrata
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","Los Aristócratas no realizan trabajos de la misma manera que los colonos comunes, sino que traen fama y prestigio a su asentamiento."
 PROFESSION.NOBLE.VERB,,Reigning,Reinando
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Herrera rúnica
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Herrero rúnico
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Encanta armas, armaduras y objetos con runas mágicas para potenciar sus habilidades."

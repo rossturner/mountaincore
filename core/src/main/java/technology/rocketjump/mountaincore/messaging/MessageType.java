@@ -5,6 +5,7 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
+import technology.rocketjump.mountaincore.messaging.types.CheckCraftingQuoteCallback;
 import technology.rocketjump.mountaincore.military.model.Squad;
 
 import java.util.Collection;
@@ -185,6 +186,8 @@ public class MessageType {
 			ItemTypeWithMaterial requirement, Consumer<Integer> callback) {}
 
 	public static final int GET_ITEMS = 710; public record GetItemsMessage(ItemType itemType, GameMaterial material, Consumer<List<Entity>> callback){}
+	public static final int CHECK_CRAFTING_QUOTA = 711; public record CheckCraftingQuotaMessage(ItemType itemType, GameMaterial material, Boolean isLiquid, CheckCraftingQuoteCallback callback) {}
+
 
 	// Furniture & doorway specific messages
 	public static final int CREATE_DOORWAY = 801;

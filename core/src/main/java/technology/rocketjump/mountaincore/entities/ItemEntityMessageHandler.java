@@ -45,8 +45,10 @@ import technology.rocketjump.mountaincore.rooms.Room;
 import technology.rocketjump.mountaincore.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.mountaincore.rooms.tags.StockpileTag;
 import technology.rocketjump.mountaincore.settlement.SettlementItemTracker;
+import technology.rocketjump.mountaincore.settlement.production.CraftingQuota;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -85,6 +87,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP);
 		messageDispatcher.addListener(this, MessageType.CHECK_ITEM_AVAILABILITY);
 		messageDispatcher.addListener(this, MessageType.GET_ITEMS);
+		messageDispatcher.addListener(this, MessageType.CHECK_CRAFTING_QUOTA);
 	}
 
 	@Override
@@ -121,6 +124,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.GET_ITEMS: {
 				return handle((MessageType.GetItemsMessage)msg.extraInfo);
+			}
+			case MessageType.CHECK_CRAFTING_QUOTA: {
+				return handle((MessageType.CheckCraftingQuotaMessage)msg.extraInfo);
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -315,6 +321,28 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			message.callback().accept(countAvailability(items));
 		}
 		return true;
+	}
+
+	private boolean handle(MessageType.CheckCraftingQuotaMessage checkCraftingQuotaMessage) {
+		CraftingQuota craftingQuota = gameContext.getSettlementState().getCraftingQuota(checkCraftingQuotaMessage.itemType(), checkCraftingQuotaMessage.material());
+		boolean limitReached = craftingQuota.getQuantity() < getCurrentAmount(checkCraftingQuotaMessage.itemType(), checkCraftingQuotaMessage.material(), checkCraftingQuotaMessage.isLiquid());
+		checkCraftingQuotaMessage.callback().result((craftingQuota.isLimited() && limitReached), craftingQuota.getQuantity());
+		return true;
+	}
+
+	private int getCurrentAmount(ItemType itemType, GameMaterial material, boolean liquid) {
+		AtomicInteger currentAmount = new AtomicInteger();
+		if (liquid) {
+			messageDispatcher.dispatchMessage(MessageType.GET_LIQUID_AMOUNT, new MessageType.GetLiquidAmountMessage(material, floatAmount -> currentAmount.set((int) Math.floor(floatAmount))));
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.GET_ITEMS, new MessageType.GetItemsMessage(itemType, material, items -> {
+				for (Entity item : items) {
+					int quantity = ((ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes()).getQuantity();
+					currentAmount.addAndGet(quantity);
+				}
+			}));
+		}
+		return currentAmount.get();
 	}
 
 	private Integer countAvailability(List<Entity> items) {

@@ -193,6 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,
 FACTION.MERCHANTS,,Merchant,商人
 FACTION.MONSTERS,,Monster,怪物
+FACTION.PIRATES,,Pirate,
 FACTION.SETTLEMENT,,Settler,
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,驯养动物
 FACTION.WILD_ANIMALS,,Wild Animal,野生动物
@@ -675,6 +676,7 @@ GUI.POWER_LABEL,,Power & Water,动力&水
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},
 GUI.PRIORITY_LABEL,,Priority,优先级
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,选择运出的物品
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,选择运进的物品
 GUI.REMOVE_LABEL,,Remove,移除
 GUI.REMOVE_TILES,,Remove tiles,移除区格
@@ -889,6 +891,7 @@ MEAT.DEER_MEAT,,Deer,鹿
 MEAT.DWARF_FLESH,,Dwarf flesh,矮人血肉
 MEAT.ELEPHANT_MEAT,,Elephant,大象
 MEAT.FOX_MEAT,,Fox,狐狸
+MEAT.HORSE_MEAT,,Horse,
 MEAT.PERCH_MEAT.NOUN,,Perch,鲈鱼
 MEAT.PERCH_MEAT.PLURAL,,Perch,鲈鱼
 MEAT.PIKE_MEAT.NOUN,,Pike,梭子鱼
@@ -1020,6 +1023,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,矿井坍塌
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,由于长期暴露在雨中，物品或家具已经损坏。\n诸如铁和钢的材料不应该长时间放在室外。
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,锈蚀
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,由于缺少支柱或支撑，屋顶已坍塌。
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,屋顶坍塌
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,折磨的艰难生活让{{character}}不堪重负。
@@ -1229,6 +1234,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,贵族
 PROFESSION.NOBLE.MALE_NOUN,,Noble,贵族
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.",贵族不用像普通的殖民者从事劳动，但他们能为你的殖民地带来名望。
 PROFESSION.NOBLE.VERB,,Reigning,统治
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,
+PROFESSION.PIRATE.VERB,,Pilfering,
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,符文师
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,符文师
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.",为武器、盔甲和其他物品附魔符文来增强它们的性能。
