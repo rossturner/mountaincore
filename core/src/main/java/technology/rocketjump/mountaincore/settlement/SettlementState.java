@@ -418,7 +418,7 @@ public class SettlementState implements Persistable {
 		for (String invasionName : invasionCheckJson.keySet()) {
 			InvasionDefinition invasionDefinition = relatedStores.invasionDefinitionDictionary.getByName(invasionName);
 			if (invasionDefinition == null) {
-				throw new InvalidSaveException("Could not find invasion with name " + invasionName);
+//				throw new InvalidSaveException("Could not find invasion with name " + invasionName);
 			} else {
 				daysUntilNextInvasionCheck.put(invasionDefinition, invasionCheckJson.getInteger(invasionName));
 			}
@@ -427,7 +427,7 @@ public class SettlementState implements Persistable {
 		if (asJson.getString("incomingInvasion") != null) {
 			this.incomingInvasion = relatedStores.invasionDefinitionDictionary.getByName(asJson.getString("incomingInvasion"));
 			if (this.incomingInvasion == null) {
-				throw new InvalidSaveException("Could not find invasion with name " + asJson.getString("incomingInvasion"));
+//				throw new InvalidSaveException("Could not find invasion with name " + asJson.getString("incomingInvasion"));
 			}
 		}
 		this.hoursUntilInvasion = asJson.getDouble("hoursUntilInvasion");

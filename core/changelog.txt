@@ -1,4 +1,4 @@
-Early Access 1.1.32
+Early Access 1.1.32 - 21st May 2023
 
 - Added a label to export pallets to warn when a production limit has been reached
 - Updated French translation, with thanks to Crono Natsuga

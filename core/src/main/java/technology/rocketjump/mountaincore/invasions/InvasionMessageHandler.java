@@ -53,7 +53,9 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 				return true;
 			}
 			case MessageType.TRIGGER_INVASION -> {
-				triggerInvasion((InvasionDefinition) msg.extraInfo);
+				if (msg.extraInfo != null) {
+					triggerInvasion((InvasionDefinition) msg.extraInfo);
+				}
 				return true;
 			}
 			case MessageType.DAY_ELAPSED -> {
