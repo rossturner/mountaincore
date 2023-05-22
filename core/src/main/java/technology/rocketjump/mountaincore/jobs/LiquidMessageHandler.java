@@ -163,6 +163,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 								transferLiquidJob.setJobLocation(areaMap.getTile(message.requesterPosition).getTilePosition());
 								transferLiquidJob.setTargetId(message.requesterEntity.getId());
 								transferLiquidJob.setHaulingAllocation(allocation);
+								transferLiquidJob.setRequiredProfession(message.requiredProfession);
 
 								if (nearestApplicableZone.get().getClassification().isConstructed()) {
 									LiquidContainerComponent furnitureLiquidContainer = getLiquidContainerFromFurnitureInTile(areaMap.getTile(zoneTile.getTargetTile()));

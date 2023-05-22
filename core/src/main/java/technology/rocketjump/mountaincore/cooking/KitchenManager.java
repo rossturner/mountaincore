@@ -28,6 +28,7 @@ import technology.rocketjump.mountaincore.jobs.SkillDictionary;
 import technology.rocketjump.mountaincore.jobs.model.Job;
 import technology.rocketjump.mountaincore.jobs.model.JobType;
 import technology.rocketjump.mountaincore.jobs.model.Skill;
+import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.materials.model.GameMaterialType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -35,6 +36,7 @@ import technology.rocketjump.mountaincore.messaging.types.CookingCompleteMessage
 import technology.rocketjump.mountaincore.misc.VectorUtils;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 import technology.rocketjump.mountaincore.rooms.HaulingAllocationBuilder;
+import technology.rocketjump.mountaincore.rooms.components.behaviour.KitchenBehaviour;
 import technology.rocketjump.mountaincore.rooms.constructions.Construction;
 import technology.rocketjump.mountaincore.rooms.constructions.ConstructionState;
 import technology.rocketjump.mountaincore.rooms.constructions.ConstructionStore;
@@ -97,6 +99,17 @@ public class KitchenManager implements Telegraph, Updatable {
 						Job haulingJob = createHaulingJob(matchingEntity, construction);
 						if (haulingJob != null) {
 							construction.getIncomingHaulingAllocations().add(haulingJob.getHaulingAllocation()); // To track when allocation is cancelled
+
+							// Match priority of hauling job to priority of room it comes from
+							MapTile matchingEntityTile = gameContext.getAreaMap().getTile(matchingEntity.getLocationComponent().getWorldPosition());
+							if (matchingEntityTile != null && matchingEntityTile.getRoomTile() != null && matchingEntityTile.getRoomTile().getRoom() != null) {
+								KitchenBehaviour kitchenBehaviour = matchingEntityTile.getRoomTile().getRoom().getComponent(KitchenBehaviour.class);
+								if (kitchenBehaviour != null) {
+									haulingJob.setJobPriority(kitchenBehaviour.getPriority());
+									construction.setPriority(kitchenBehaviour.getPriority(), messageDispatcher);
+								}
+							}
+
 							messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
 
 							// TODO would all of this be better served by adding a new FurnitureBehaviour to the cauldron containing soup?
