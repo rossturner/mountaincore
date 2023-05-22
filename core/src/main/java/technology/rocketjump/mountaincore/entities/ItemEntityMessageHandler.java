@@ -403,11 +403,16 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	public static Job createHaulingJob(HaulingAllocation haulingAllocation, Entity itemEntity, JobType haulingJobType, JobPriority jobPriority) {
+
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setTargetId(itemEntity.getId());
 		haulingJob.setJobLocation(VectorUtils.toGridPoint(itemEntity.getLocationComponent().getWorldOrParentPosition()));
 		haulingJob.setHaulingAllocation(haulingAllocation);
-		haulingJob.setJobPriority(jobPriority);
+		if (jobPriority == JobPriority.DISABLED) {
+			haulingJob.setJobPriority(JobPriority.LOWEST);
+		} else {
+			haulingJob.setJobPriority(jobPriority);
+		}
 		return haulingJob;
 	}
 
