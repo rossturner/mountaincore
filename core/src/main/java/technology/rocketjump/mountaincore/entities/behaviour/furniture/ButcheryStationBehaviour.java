@@ -102,9 +102,11 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 			if (inventoryEntry.entity.getType().equals(EntityType.ITEM)) {
 				ItemAllocationComponent itemAllocationComponent = inventoryEntry.entity.getComponent(ItemAllocationComponent.class);
 				if (itemAllocationComponent.getNumUnallocated() > 0) {
-					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(
+					RequestHaulingMessage requestHaulingMessage = new RequestHaulingMessage(
 							inventoryEntry.entity, parentEntity, true, priority, job -> haulingJobs.add(job)
-					));
+					);
+					requestHaulingMessage.setSpecificProfessionRequired(requiredProfession);
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, requestHaulingMessage);
 				}
 			}
 		}
