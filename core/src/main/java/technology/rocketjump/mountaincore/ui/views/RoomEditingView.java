@@ -30,6 +30,7 @@ import technology.rocketjump.mountaincore.materials.GameMaterialDictionary;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.async.ErrorType;
 import technology.rocketjump.mountaincore.production.StockpileComponentUpdater;
+import technology.rocketjump.mountaincore.production.StockpileGroup;
 import technology.rocketjump.mountaincore.production.StockpileGroupDictionary;
 import technology.rocketjump.mountaincore.rendering.entities.EntityRenderer;
 import technology.rocketjump.mountaincore.rooms.*;
@@ -53,6 +54,8 @@ import technology.rocketjump.mountaincore.ui.widgets.furniture.FurnitureRequirem
 import technology.rocketjump.mountaincore.ui.widgets.rooms.FarmPlotDescriptionWidget;
 import technology.rocketjump.mountaincore.ui.widgets.rooms.FarmPlotWidget;
 import technology.rocketjump.mountaincore.ui.widgets.rooms.PriorityWidget;
+
+import java.util.Set;
 
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
@@ -392,6 +395,12 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		addTilesContainer.pad(18);
 		Button addTilesButton = buttonFactory.buildDrawableButton("btn_add_tile", "GUI.ADD_TILES", () -> {
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
+			if (selectedRoom != null && selectedRoom.getComponent(StockpileRoomComponent.class) != null) {
+				Set<StockpileGroup> enabledGroups = selectedRoom.getComponent(StockpileRoomComponent.class).getStockpileSettings().getEnabledGroups();
+				if (!enabledGroups.isEmpty()) {
+					messageDispatcher.dispatchMessage(MessageType.GUI_STOCKPILE_GROUP_SELECTED, enabledGroups.iterator().next());
+				}
+			}
 			interactionStateContainer.getInteractionMode().setRoomType(getSelectedRoomType());
 		});
 		addTilesContainer.setActor(addTilesButton);

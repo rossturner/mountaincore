@@ -360,6 +360,13 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			}
 
 			if (!roomsToMergeTo.isEmpty()) {
+
+				StockpileRoomComponent stockpileRoomComponent = newRoom.getComponent(StockpileRoomComponent.class);
+				if (stockpileRoomComponent != null) {
+					// new room has a stockpile component and we are merging into another room, so we remove all settings of the new room
+					stockpileRoomComponent.getStockpileSettings().clearAll();
+				}
+
 				while (!roomsToMergeTo.isEmpty()) {
 					long roomId = roomsToMergeTo.iterator().next();
 					roomsToMergeTo.remove(roomId);

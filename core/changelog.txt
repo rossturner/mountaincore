@@ -1,3 +1,11 @@
+Early Access 1.1.33 - 22nd May 2023
+
+- "Add tiles" button when a stockpile is selected will now correctly use that stockpile's (first if several) stockpile group
+- Adding a stockpile will now use the settings of a stockpile that is being extended rather than what was selected
+- Note that merging two existing stockpiles together will keep both of their settings
+- Fixes and improvements to butchery station
+- Improved logging to avoid writing too much to disk
+
 Early Access 1.1.32 - 21st May 2023
 
 - Added a label to export pallets to warn when a production limit has been reached

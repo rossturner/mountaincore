@@ -18,11 +18,11 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 import java.util.*;
 
 public class StockpileSettings implements ChildPersistable {
-    private final Set<StockpileGroup> enabledGroups = new HashSet<StockpileGroup>();
-    private final Set<ItemType> enabledItemTypes = new HashSet<ItemType>();
-    private final Map<ItemType, Set<GameMaterial>> enabledMaterialsByItemType = new HashMap<ItemType, Set<GameMaterial>>();
+    private final Set<StockpileGroup> enabledGroups = new HashSet<>();
+    private final Set<ItemType> enabledItemTypes = new HashSet<>();
+    private final Map<ItemType, Set<GameMaterial>> enabledMaterialsByItemType = new HashMap<>();
     private boolean acceptingCorpses;
-    private final Set<Race> enabledRaceCorpses = new HashSet<Race>();
+    private final Set<Race> enabledRaceCorpses = new HashSet<>();
     private final Set<String> restrictions = new HashSet<>();
 
     public StockpileSettings clone() {
@@ -146,6 +146,15 @@ public class StockpileSettings implements ChildPersistable {
         } else {
             return restrictions.contains(name);
         }
+    }
+
+    public void clearAll() {
+        enabledGroups.clear();
+        enabledItemTypes.clear();
+        enabledMaterialsByItemType.clear();
+        acceptingCorpses = false;
+        enabledRaceCorpses.clear();
+        restrictions.clear();
     }
 
     @Override

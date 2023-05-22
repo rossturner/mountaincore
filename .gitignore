@@ -39,7 +39,7 @@ release_tools/steam/build_output
 core/log.txt
 core/client.txt
 
-log.txt
+log.*txt
 core/mods/base/ui/skin/skin-composer-project-data
 core/mods/base/ui/skin/skin-composer-project_data
 core/mods/base/ui/skin/main-game-skin-composer-project_data
