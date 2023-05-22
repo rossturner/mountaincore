@@ -9,6 +9,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.TraderCreatureGroup;
+import technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.mountaincore.entities.behaviour.furniture.TradingExportFurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.FactionComponent;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
@@ -32,8 +33,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-
-import static technology.rocketjump.mountaincore.entities.behaviour.furniture.CraftingStationBehaviour.importFurnitureSort;
 
 public class PlanMerchantPurchaseAction extends Action {
 
@@ -59,17 +58,13 @@ public class PlanMerchantPurchaseAction extends Action {
 						.toList();
 
 				if (!availableWagons.isEmpty()) {
-					for (Entity tradeExportFurniture : tile.getRoomTile().getRoom().getRoomTiles().values().stream()
+					List<Entity> furniture = tile.getRoomTile().getRoom().getRoomTiles().values().stream()
 							.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
 							.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour)
-							.filter(e -> !((TradingExportFurnitureBehaviour)e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
+							.filter(e -> !((TradingExportFurnitureBehaviour) e.getBehaviourComponent()).getPriority().equals(JobPriority.DISABLED))
 							.distinct()
-							.sorted((a, b) -> {
-								TradingExportFurnitureBehaviour aBehaviour = (TradingExportFurnitureBehaviour) a.getBehaviourComponent();
-								TradingExportFurnitureBehaviour bBehaviour = (TradingExportFurnitureBehaviour) b.getBehaviourComponent();
-								return importFurnitureSort(aBehaviour, bBehaviour, gameContext.getRandom());
-							})
-							.toList()) {
+							.toList();
+					for (Entity tradeExportFurniture : CraftingStationBehaviour.priorityShuffled(furniture, gameContext, f -> ((TradingExportFurnitureBehaviour) f.getBehaviourComponent()).getPriority())) {
 
 						TradingExportFurnitureBehaviour tradingExportFurnitureBehaviour = (TradingExportFurnitureBehaviour) tradeExportFurniture.getBehaviourComponent();
 						InventoryComponent exportFurnitureInventory = tradeExportFurniture.getOrCreateComponent(InventoryComponent.class);
