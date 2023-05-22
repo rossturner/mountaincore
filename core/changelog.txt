@@ -4,7 +4,7 @@ Early Access 1.1.33 - 22nd May 2023
 - Adding a stockpile will now use the settings of a stockpile that is being extended rather than what was selected
 - Note that merging two existing stockpiles together will keep both of their settings
 - Fixes and improvements to butchery station
-- Transferring water to soul cauldrons is now the responsibility of a Chef (was a Hauler previously, which was incorrect)
+- Transferring water to soup cauldrons is now the responsibility of a Chef (was a Hauler previously, which was incorrect)
 - The construction of a feasting hall cauldron (and hauling a cauldron of soup to it) now gets set to the priority of the kitchen it is coming from
 - Improved logging to avoid writing too much to disk
 - Improved crash handling to keep stack trace instead of it being lost sometimes
