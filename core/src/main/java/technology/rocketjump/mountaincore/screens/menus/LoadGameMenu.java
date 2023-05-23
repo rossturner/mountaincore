@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -36,9 +37,8 @@ import technology.rocketjump.mountaincore.ui.widgets.LabelFactory;
 import technology.rocketjump.mountaincore.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.mountaincore.ui.widgets.NoTitleDialog;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
+import java.util.*;
 
 @Singleton
 public class LoadGameMenu extends PaperMenu implements GameContextAware, DisplaysText {
@@ -99,7 +99,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 			slotOverlay.clearChildren();
 		}
 
-		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
+		List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
 		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
 
 		if (carouselIndex < 0) {
@@ -217,7 +217,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 		//TODO: refactor a season widget (label and icon)
 		Label seasonLabel = new Label(i18nTranslator.translate(gameClock.getCurrentSeason().getI18nKey()), skin, "white_text_default-font-23");
-		Image seasonIcon = new Image(mainGameSkin.getDrawable("asset_season_" + gameClock.getCurrentSeason().name().toLowerCase() + "_icon"));
+		Image seasonIcon = new Image(mainGameSkin.getDrawable("asset_season_" + gameClock.getCurrentSeason().name().toLowerCase(Locale.ROOT) + "_icon"));
 
 		HorizontalGroup season = new HorizontalGroup();
 		season.space(12f);

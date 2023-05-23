@@ -1,5 +1,7 @@
 package technology.rocketjump.mountaincore.entities.model.physical.creature.body.organs;
 
+import java.util.Locale;
+
 public enum OrganDamageLevel {
 
 	DESTROYED(5, 0),
@@ -29,6 +31,6 @@ public enum OrganDamageLevel {
 	}
 
 	public String i18nKey() {
-		return "BODY_STRUCTURE.ORGAN_DAMAGE."+name().toUpperCase();
+		return "BODY_STRUCTURE.ORGAN_DAMAGE."+name().toUpperCase(Locale.ROOT);
 	}
 }

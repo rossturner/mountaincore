@@ -11,6 +11,7 @@ import technology.rocketjump.mountaincore.messaging.MessageType;
 import javax.inject.Inject;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Locale;
 
 public class NavigatorContextMenu extends PopupMenu {
 
@@ -29,7 +30,7 @@ public class NavigatorContextMenu extends PopupMenu {
 		this.clearChildren();
 
 		if (!value.treeValueType.equals(NavigatorTreeValue.TreeValueType.ENTITY_DIR)) {
-			MenuItem createEntityDefinition = new MenuItem("Add new " + value.entityType.name().toLowerCase() + " type");
+			MenuItem createEntityDefinition = new MenuItem("Add new " + value.entityType.name().toLowerCase(Locale.ROOT) + " type");
 			createEntityDefinition.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {

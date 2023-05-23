@@ -5,6 +5,7 @@ import technology.rocketjump.mountaincore.misc.Name;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BodyPartDefinition {
@@ -71,6 +72,6 @@ public class BodyPartDefinition {
 	}
 
 	public String getI18nKey() {
-		return "BODY_STRUCTURE."+name.toUpperCase();
+		return "BODY_STRUCTURE."+name.toUpperCase(Locale.ROOT);
 	}
 }

@@ -712,7 +712,7 @@ public class I18nTranslator {
 				} else {
 					replacement = I18nWord.BLANK;
 				}
-			} else if (token.toUpperCase().equals("BLANK")) {
+			} else if (token.toUpperCase(Locale.ROOT).equals("BLANK")) {
 				// Always replace {{BLANK}} with ""
 				replacement = I18nWord.BLANK;
 
@@ -727,7 +727,7 @@ public class I18nTranslator {
 						replacementWordclass = I18nWordClass.PLURAL;
 					}
 				} else {
-					replacementWordclass = I18nWordClass.valueOf(split[split.length - 1].toUpperCase());
+					replacementWordclass = I18nWordClass.valueOf(split[split.length - 1].toUpperCase(Locale.ROOT));
 				}
 			} else {
 				replacement = replacements.getOrDefault(token, I18nWord.BLANK);
@@ -738,7 +738,7 @@ public class I18nTranslator {
 
 				String replacementText = replacementWord.get(replacementWordclass, gender);
 				if (!token.equals("name")) {
-					replacementText = replacementText.toLowerCase();
+					replacementText = replacementText.toLowerCase(Locale.ROOT);
 				}
 
 				i18nText.replace(matcher.group(0), replacementText, replacementWord.hasTooltip() ? replacementWord.getKey() : null);
@@ -777,7 +777,7 @@ public class I18nTranslator {
 
 			if (token.contains(".")) {
 				String[] parts = token.split("\\.");
-				String lastPart = parts[parts.length - 1].toUpperCase();
+				String lastPart = parts[parts.length - 1].toUpperCase(Locale.ROOT);
 				I18nWordClass wordClass = EnumUtils.getEnum(I18nWordClass.class, lastPart);
 				String[] partsWithoutWordClass = parts;
 				if (wordClass != null) {
@@ -785,13 +785,13 @@ public class I18nTranslator {
 					replacementWordclass = wordClass;
 				}
 
-				String rejoinedParts = StringUtils.join(partsWithoutWordClass, ".").toUpperCase();
+				String rejoinedParts = StringUtils.join(partsWithoutWordClass, ".").toUpperCase(Locale.ROOT);
 				if (dictionary.containsKey(rejoinedParts)) {
 					replacement = dictionary.getWord(rejoinedParts);
 				}
 			}
 
-			String replacementText = replacement.get(replacementWordclass, Gender.ANY).toLowerCase();
+			String replacementText = replacement.get(replacementWordclass, Gender.ANY).toLowerCase(Locale.ROOT);
 
 			i18nText.replace(matcher.group(0), replacementText, replacement.hasTooltip() ? replacement.getKey() : null);
 		}

@@ -373,7 +373,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Collection<Entity> settlers = settlerTracker.getLiving()
 				.stream()
 				.filter(selectedFilter)
-				.filter(settler -> getName(settler).toLowerCase().contains(searchBarText.toLowerCase()))
+				.filter(settler -> getName(settler).toLowerCase(Locale.ROOT).contains(searchBarText.toLowerCase(Locale.ROOT)))
 				.sorted(selectedSortFunction.thenComparing(SORT_NAME))
 				.collect(Collectors.toList());
 

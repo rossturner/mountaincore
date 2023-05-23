@@ -211,7 +211,7 @@ public class ItemType {
 		if (itemTypeName == null) {
 			return null;
 		}
-		return itemTypeName.toUpperCase().replaceAll("-", ".").replaceAll(" ", "_");
+		return itemTypeName.toUpperCase(Locale.ROOT).replaceAll("-", ".").replaceAll(" ", "_");
 	}
 
 	public boolean isEquippedWhileWorkingOnJob() {

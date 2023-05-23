@@ -3,6 +3,8 @@ package technology.rocketjump.mountaincore.jobs.model;
 import com.badlogic.gdx.graphics.Color;
 import technology.rocketjump.mountaincore.rendering.utils.HexColors;
 
+import java.util.Locale;
+
 public enum JobPriority {
 
 	// These are expected to be in order of highest to lowest priority
@@ -23,7 +25,7 @@ public enum JobPriority {
 	JobPriority(String hexColor, String i18nKey, String craftingDrawableName, String buttonDrawableName) {
 		this.color = HexColors.get(hexColor);
 		this.buttonDrawableName = buttonDrawableName;
-		this.iconName = "priority_"+name().toLowerCase();
+		this.iconName = "priority_"+name().toLowerCase(Locale.ROOT);
 		this.i18nKey = i18nKey;
 		this.craftingDrawableName = craftingDrawableName;
 	}

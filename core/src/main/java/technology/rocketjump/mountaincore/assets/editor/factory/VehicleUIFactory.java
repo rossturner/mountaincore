@@ -109,7 +109,7 @@ public class VehicleUIFactory implements UIFactory {
             public void onOk() {
                 String name = vehicleType.getName();
                 //required defaults
-                vehicleType.setI18nKey("VEHICLE."+name.toUpperCase());
+                vehicleType.setI18nKey("VEHICLE."+name.toUpperCase(Locale.ROOT));
                 String folderName = name.toLowerCase(Locale.ROOT);
                 Path basePath = FileUtils.createDirectory(path, folderName);
 

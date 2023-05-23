@@ -2,6 +2,8 @@ package technology.rocketjump.mountaincore.rendering.utils;
 
 import com.badlogic.gdx.graphics.Color;
 
+import java.util.Locale;
+
 public class HexColors {
 
 	public static final Color POSITIVE_COLOR = HexColors.get("#36ba3f");
@@ -34,9 +36,9 @@ public class HexColors {
 
 	public static String toHexString(Color color) {
 		if (color.a >= 1) {
-			return "#" + color.toString().substring(0, 6).toUpperCase();
+			return "#" + color.toString().substring(0, 6).toUpperCase(Locale.ROOT);
 		} else {
-			return "#" + color.toString().toUpperCase();
+			return "#" + color.toString().toUpperCase(Locale.ROOT);
 		}
 	}
 }

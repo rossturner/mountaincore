@@ -222,7 +222,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	public String getI18nKey() {
 		if (this.i18nKey == null) { // FIXME probably better to always explicitly set i18nKey rather than derive it like this
-			return materialType.name() + "." + materialName.toUpperCase().replaceAll(" ", "_");
+			return materialType.name() + "." + materialName.toUpperCase(Locale.ROOT).replaceAll(" ", "_");
 		} else {
 			return i18nKey;
 		}
@@ -258,7 +258,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	@Override
 	public String toString() {
-		return materialName + " (" + materialType.name().toLowerCase() + ")";
+		return materialName + " (" + materialType.name().toLowerCase(Locale.ROOT) + ")";
 	}
 
 	@Override

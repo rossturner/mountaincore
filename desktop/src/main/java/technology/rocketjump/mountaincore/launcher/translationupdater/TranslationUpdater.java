@@ -67,11 +67,11 @@ public class TranslationUpdater {
 				if (key == null || key.isEmpty()) {
 					continue;
 				}
-				key = key.toUpperCase();
+				key = key.toUpperCase(Locale.ROOT);
 
 				Map<String, String> languagesToValues = combinedKeysToLanguagesToValues.get(key);
 				if (languagesToValues != null) {
-					String value = csvRecord.get(targetLanguage.getLabelEn().toUpperCase());
+					String value = csvRecord.get(targetLanguage.getLabelEn().toUpperCase(Locale.ROOT));
 					if (value != null && !value.isEmpty()) {
 						languagesToValues.put(targetLanguage.getCode(), value);
 					}
@@ -97,7 +97,7 @@ public class TranslationUpdater {
 			if (key == null || key.isEmpty()) {
 				continue;
 			}
-			key = key.toUpperCase();
+			key = key.toUpperCase(Locale.ROOT);
 
 			String englishValue = csvRecord.get(masterHeaderMap.get("ENGLISH"));
 			String notesValue = csvRecord.get(masterHeaderMap.get("NOTES"));
@@ -107,8 +107,8 @@ public class TranslationUpdater {
 			languagesToValuesForKey.put("notes", notesValue);
 
 			for (LanguageType targetLanguage : targetLanguages) {
-				if (masterHeaderMap.containsKey(targetLanguage.getLabelEn().toUpperCase())) {
-					String value = csvRecord.get(targetLanguage.getLabelEn().toUpperCase());
+				if (masterHeaderMap.containsKey(targetLanguage.getLabelEn().toUpperCase(Locale.ROOT))) {
+					String value = csvRecord.get(targetLanguage.getLabelEn().toUpperCase(Locale.ROOT));
 					if (value != null && !value.isEmpty()) {
 						languagesToValuesForKey.put(targetLanguage.getCode(), value);
 					}
@@ -140,7 +140,7 @@ public class TranslationUpdater {
 		printer.print("NOTES");
 		printer.print("ENGLISH");
 		if (!isSourceLanguage) {
-			printer.print(targetLanguage.getLabelEn().toUpperCase());
+			printer.print(targetLanguage.getLabelEn().toUpperCase(Locale.ROOT));
 		}
 		printer.println();
 

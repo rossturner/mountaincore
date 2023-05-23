@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -44,10 +45,8 @@ import technology.rocketjump.mountaincore.ui.widgets.text.ItemValueLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
@@ -424,7 +423,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 					} else {
 						for (Function<Entity, String> nameFunction : displayNameFunctions) {
 							String displayName = nameFunction.apply(entity);
-							if (displayName.toLowerCase().contains(searchBarText.toLowerCase())) {
+							if (displayName.toLowerCase(Locale.ROOT).contains(searchBarText.toLowerCase(Locale.ROOT))) {
 								return true;
 							}
 						}

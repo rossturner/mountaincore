@@ -28,10 +28,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nTranslator;
 import technology.rocketjump.mountaincore.ui.skins.GuiSkinRepository;
 import technology.rocketjump.mountaincore.ui.widgets.ScaledToFitLabel;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class TimeDateWidget extends Container<Table> implements Telegraph, GameContextAware, DisplaysText {
@@ -72,7 +69,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		this.setTouchable(Touchable.enabled); // Prevent click-through to game world below this section of the UI
 
 		for (Season season : Season.values()) {
-			String drawableName = "asset_season_" + season.name().toLowerCase() + "_icon";
+			String drawableName = "asset_season_" + season.name().toLowerCase(Locale.ROOT) + "_icon";
 			Drawable seasonDrawable = mainGameSkin.getDrawable(drawableName);
 			if (seasonDrawable == null) {
 				Logger.error("Could not find drawable with name " + drawableName + " in main game skin");
@@ -124,7 +121,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		gameSpeedControlsTable.defaults().padLeft(44);
 
 		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
-			Button speedButton = new Button(mainGameSkin, "game-speed-"+gameSpeed.name().toLowerCase());
+			Button speedButton = new Button(mainGameSkin, "game-speed-"+gameSpeed.name().toLowerCase(Locale.ROOT));
 			speedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "MediumHover", "ConfirmMedium"));
 			speedButton.addListener(new ChangeCursorOnHover(speedButton, GameCursor.SELECT, messageDispatcher));
 			speedButton.addListener(new ClickListener() {

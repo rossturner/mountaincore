@@ -63,6 +63,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -294,7 +295,7 @@ public class AssetEditorUI implements Telegraph {
 
 				VisValidatableTextField folderTextBox = new VisValidatableTextField();
 				folderTextBox.addValidator(StringUtils::isNotBlank);
-				folderTextBox.addListener(new TextBoxConventionListener(original -> original.toLowerCase().replaceAll("\\s", "_")));
+				folderTextBox.addListener(new TextBoxConventionListener(original -> original.toLowerCase(Locale.ROOT).replaceAll("\\s", "_")));
 				OkCancelDialog dialog = new OkCancelDialog("Create subdirectory under " + directory) {
 					@Override
 					public void onOk() {
@@ -344,7 +345,7 @@ public class AssetEditorUI implements Telegraph {
 				final Path directory = Paths.get("mods/").toAbsolutePath();
 				VisValidatableTextField modNameTextField = new VisValidatableTextField();
 				modNameTextField.addValidator(StringUtils::isNotBlank);
-				modNameTextField.addListener(new TextBoxConventionListener(original -> original.toLowerCase().replaceAll("\\s", "_")));
+				modNameTextField.addListener(new TextBoxConventionListener(original -> original.toLowerCase(Locale.ROOT).replaceAll("\\s", "_")));
 
 				VisTextArea descriptionTextField = new VisTextArea();
 				VisTextField homepageTextField = new VisTextField();

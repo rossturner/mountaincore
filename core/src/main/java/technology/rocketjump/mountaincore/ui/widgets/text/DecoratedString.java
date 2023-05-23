@@ -5,6 +5,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DecoratedString {
 
@@ -76,8 +77,8 @@ public class DecoratedString {
 				continue;
 			}
 			switch (decorationFlag) {
-				case LOWERCASE -> token.value = token.value.toLowerCase();
-				case UPPERCASE -> token.value = token.value.toUpperCase();
+				case LOWERCASE -> token.value = token.value.toLowerCase(Locale.ROOT);
+				case UPPERCASE -> token.value = token.value.toUpperCase(Locale.ROOT);
 				case WORDCASE -> token.value = WordUtils.capitalize(token.value);
 			}
 		}
