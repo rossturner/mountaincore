@@ -113,7 +113,7 @@ public class MechanismMessageHandler implements Telegraph, GameContextAware {
 		MechanismType mechanismType = ((MechanismEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getMechanismType();
 		for (CompassDirection powerTransmissionDirection : mechanismType.getPowerTransmission()) {
 			MapTile tileInDirection = gameContext.getAreaMap().getTile(tile.getTilePosition().x + powerTransmissionDirection.getXOffset(), tile.getTileY() + powerTransmissionDirection.getYOffset());
-			if (tileInDirection.getUnderTile() != null) {
+			if (tileInDirection != null && tileInDirection.getUnderTile() != null) {
 				PowerGrid powerGridInDirection = tileInDirection.getUnderTile().getPowerGrid();
 				if (powerGridInDirection != null) {
 					MechanismEntityAttributes attributesInDirection = (MechanismEntityAttributes) tileInDirection.getUnderTile().getPowerMechanismEntity().getPhysicalEntityComponent().getAttributes();
