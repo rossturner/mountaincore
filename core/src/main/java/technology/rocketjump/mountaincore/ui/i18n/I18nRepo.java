@@ -61,16 +61,16 @@ public class I18nRepo {
 		for (CSVRecord csvRecord : parsedCsv.getRecords()) {
 			if (columnIndices.isEmpty()) {
 				for (int cursor = 0; cursor < csvRecord.size(); cursor++) {
-					columnIndices.put(csvRecord.get(cursor).toUpperCase(), cursor);
+					columnIndices.put(csvRecord.get(cursor).toUpperCase(Locale.ROOT), cursor);
 				}
 			} else {
 				String key = csvRecord.get(columnIndices.get("KEY"));
 				if (key == null || key.isEmpty()) {
 					continue;
 				}
-				key = key.toUpperCase();
+				key = key.toUpperCase(Locale.ROOT);
 				for (I18nLanguageDictionary dictionary : dictionaries.values()) {
-					Integer index = columnIndices.get(dictionary.getLabelEn().toUpperCase());
+					Integer index = columnIndices.get(dictionary.getLabelEn().toUpperCase(Locale.ROOT));
 					if (index != null) {
 						String translatedValue = csvRecord.get(index);
 						if (translatedValue == null || translatedValue.isEmpty()) {

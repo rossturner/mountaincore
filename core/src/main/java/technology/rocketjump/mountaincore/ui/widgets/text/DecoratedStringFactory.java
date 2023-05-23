@@ -10,10 +10,7 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nRepo;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 import technology.rocketjump.mountaincore.ui.i18n.I18nWordClass;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,7 +52,7 @@ public class DecoratedStringFactory {
 			DecoratedStringToken.TokenType tokenType = TEXT;
 			List<DecorationFlag> flags = new ArrayList<>();
 			while (matchedGroup.contains("|")) {
-				String tokenPrefix = matchedGroup.substring(0, matchedGroup.indexOf("|")).toLowerCase();
+				String tokenPrefix = matchedGroup.substring(0, matchedGroup.indexOf("|")).toLowerCase(Locale.ROOT);
 
 				switch (tokenPrefix) {
 					case "drawable" -> tokenType = DRAWABLE;
@@ -84,7 +81,7 @@ public class DecoratedStringFactory {
 				} else {
 					I18nWordClass replacementWordClass = I18nWordClass.UNSPECIFIED;
 					String[] parts = matchedGroup.split("\\.");
-					String lastPart = parts[parts.length - 1].toUpperCase();
+					String lastPart = parts[parts.length - 1].toUpperCase(Locale.ROOT);
 					I18nWordClass parsedWordClass = EnumUtils.getEnum(I18nWordClass.class, lastPart);
 					String[] partsWithoutWordClass = parts;
 					if (parsedWordClass != null) {
@@ -92,7 +89,7 @@ public class DecoratedStringFactory {
 						replacementWordClass = parsedWordClass;
 					}
 
-					String rejoinedParts = StringUtils.join(partsWithoutWordClass, ".").toUpperCase();
+					String rejoinedParts = StringUtils.join(partsWithoutWordClass, ".").toUpperCase(Locale.ROOT);
 					replacement = translate(rejoinedParts, staticReplacements, replacementWordClass);
 				}
 			}

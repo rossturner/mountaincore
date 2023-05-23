@@ -107,7 +107,7 @@ public class I18nText implements I18nString {
 	}
 
 	public I18nText toLowerCase() {
-		textElements.forEach(t -> t.setText(t.getText().toLowerCase()));
+		textElements.forEach(t -> t.setText(t.getText().toLowerCase(Locale.ROOT)));
 		return this;
 	}
 

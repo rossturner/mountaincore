@@ -1,5 +1,7 @@
 package technology.rocketjump.mountaincore.entities.model.physical.creature.body;
 
+import java.util.Locale;
+
 public enum BodyPartDamageLevel {
 
 	Destroyed(10, 0, 0.9f, 0.8f),
@@ -34,6 +36,6 @@ public enum BodyPartDamageLevel {
 	}
 
 	public String i18nKey() {
-		return "BODY_STRUCTURE.DAMAGE."+name().toUpperCase();
+		return "BODY_STRUCTURE.DAMAGE."+name().toUpperCase(Locale.ROOT);
 	}
 }

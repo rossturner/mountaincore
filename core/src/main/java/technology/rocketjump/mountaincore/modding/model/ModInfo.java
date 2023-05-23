@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.modding.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.mountaincore.misc.versioning.Version;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import static technology.rocketjump.mountaincore.misc.versioning.Version.Qualifier.Unknown;
@@ -33,7 +34,7 @@ public class ModInfo {
 		if (nameId != null) {
 			return nameId;
 		} else if (name != null) {
-			return name.replace(" ", "-").toLowerCase();
+			return name.replace(" ", "-").toLowerCase(Locale.ROOT);
 		} else {
 			return null;
 		}

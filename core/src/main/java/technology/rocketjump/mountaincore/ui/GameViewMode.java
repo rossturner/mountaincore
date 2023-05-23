@@ -1,5 +1,7 @@
 package technology.rocketjump.mountaincore.ui;
 
+import java.util.Locale;
+
 public enum GameViewMode {
 
 	DEFAULT,
@@ -9,7 +11,7 @@ public enum GameViewMode {
 	MECHANISMS;
 
 	public String getButtonStyleName() {
-		return "view_mode_" + name().toLowerCase();
+		return "view_mode_" + name().toLowerCase(Locale.ROOT);
 	}
 
 	public String getI18nKey() {

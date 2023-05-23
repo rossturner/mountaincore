@@ -79,14 +79,14 @@ public class NameGenerator {
 		String adjective = pickFrom(adjectiveDictionary, random, alliterationMatcher, descriptor.getGoodSpheres(), descriptor.getBadSpheres());
 		String noun = pickFrom(nounDictionary, random, null, descriptor.getGoodSpheres(), descriptor.getBadSpheres());
 
-		String lastOfAdjective = adjective.substring(adjective.length() - 1).toLowerCase();
-		String firstOfNoun = noun.substring(0, 1).toLowerCase();
+		String lastOfAdjective = adjective.substring(adjective.length() - 1).toLowerCase(Locale.ROOT);
+		String firstOfNoun = noun.substring(0, 1).toLowerCase(Locale.ROOT);
 		if (lastOfAdjective.equals(firstOfNoun)) {
 			return createAdjectiveNounName(seed + 1, alliterationMatcher, descriptor);
 		}
 
 		String combined = adjective + noun;
-		return WordUtils.capitalize(combined.toLowerCase());
+		return WordUtils.capitalize(combined.toLowerCase(Locale.ROOT));
 	}
 
 	protected String pickFrom(NameWordDictionary adjectiveDictionary, Random random, String alliterationMatcher, List<String> goodSpheres, List<String> badSpheres) {

@@ -12,6 +12,7 @@ import technology.rocketjump.mountaincore.misc.twitch.model.TwitchViewer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 
 public class GetTwitchViewers implements Callable<List<TwitchViewer>> {
@@ -40,7 +41,7 @@ public class GetTwitchViewers implements Callable<List<TwitchViewer>> {
 
 				for (int cursor = 0; cursor < data.size(); cursor++) {
 					String username = data.getJSONObject(cursor).getString("user_name");
-					if (!twitchDataStore.isBotAccount(username.toLowerCase()) && !username.endsWith("bot")) {
+					if (!twitchDataStore.isBotAccount(username.toLowerCase(Locale.ROOT)) && !username.endsWith("bot")) {
 						viewers.add(new TwitchViewer(username));
 					}
 				}

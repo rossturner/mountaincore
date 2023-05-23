@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.misc.versioning;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -24,7 +25,7 @@ public class Version {
 		Qualifier qualifier = Qualifier.Unspecified;
 		if (!StringUtils.isNumeric(versionText.substring(0, 1))) {
 			for (Qualifier qualifierInstance : Qualifier.values()) {
-				if (StringUtils.startsWith(versionText.toUpperCase(), qualifierInstance.name().toUpperCase().replace('_', ' '))) {
+				if (StringUtils.startsWith(versionText.toUpperCase(Locale.ROOT), qualifierInstance.name().toUpperCase(Locale.ROOT).replace('_', ' '))) {
 					qualifier = qualifierInstance;
 					versionText = versionText.substring(qualifier.name().length() + 1);
 					break;

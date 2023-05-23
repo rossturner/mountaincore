@@ -34,10 +34,7 @@ import javax.inject.Singleton;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Singleton
@@ -186,7 +183,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
         for (Map.Entry<String, List<String>> creditsEntry : creditsData.entrySet()) {
             if (!creditsEntry.getKey().equals(FOUNDING_BACKERS) && !creditsEntry.getKey().equals(PATREON_KICKSTARTERS)) {
-                Label titleLabel = i18nTitleRibbon("GUI.CREDITS." + creditsEntry.getKey().toUpperCase() + "_TITLE");
+                Label titleLabel = i18nTitleRibbon("GUI.CREDITS." + creditsEntry.getKey().toUpperCase(Locale.ROOT) + "_TITLE");
                 Table creditsTable = thankYouTable(creditsEntry.getValue());
                 table.add(titleLabel).padTop(68f).padBottom(68).row();
                 table.add(creditsTable).spaceBottom(256).row();

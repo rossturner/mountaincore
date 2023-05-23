@@ -177,7 +177,7 @@ public class CreatureUIFactory implements UIFactory {
                 bodyShape.setValue(CreatureBodyShape.AVERAGE);
                 Race newRace = new Race();
                 newRace.setName(raceName);
-                newRace.setI18nKey("RACE." + raceName.toUpperCase());
+                newRace.setI18nKey("RACE." + raceName.toUpperCase(Locale.ROOT));
                 newRace.setBodyStructureName("pawed-quadruped");
                 newRace.setBodyShapes(new ArrayList<>(List.of(bodyShape))); // Needs to be mutable
                 newRace.setGenders(new HashMap<>(Map.of(
