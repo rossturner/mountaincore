@@ -92,6 +92,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_CONSTRUCTION);
 		messageDispatcher.addListener(this, MessageType.DECONSTRUCT_BRIDGE);
 		messageDispatcher.addListener(this, MessageType.CONSTRUCTION_PRIORITY_CHANGED);
+		messageDispatcher.addListener(this, MessageType.HAULING_ALLOCATION_CANCELLED);
 	}
 
 
@@ -168,6 +169,17 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.CONSTRUCTION_PRIORITY_CHANGED: {
 				constructionStore.priorityChanged();
+				return true;
+			}
+			case MessageType.HAULING_ALLOCATION_CANCELLED : {
+				HaulingAllocation allocation = (HaulingAllocation) msg.extraInfo;
+				Long haulingAllocationId = allocation.getHaulingAllocationId();
+				if (haulingAllocationId != null) {
+					for (Construction construction : constructionStore.getAll()) {
+						construction.getIncomingHaulingAllocations().removeIf(incoming -> haulingAllocationId.equals(incoming.getHaulingAllocationId()));
+					}
+
+				}
 				return true;
 			}
 			default:
