@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.ui.cursor;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public enum GameCursor {
 
@@ -38,7 +39,7 @@ public enum GameCursor {
 	}
 
 	public static GameCursor forName(String name) {
-		return Arrays.stream(values()).filter(c -> c.name().toLowerCase().equals(name)).findFirst().orElse(CURSOR);
+		return Arrays.stream(values()).filter(c -> c.name().toLowerCase(Locale.ROOT).equals(name)).findFirst().orElse(CURSOR);
 	}
 
 }

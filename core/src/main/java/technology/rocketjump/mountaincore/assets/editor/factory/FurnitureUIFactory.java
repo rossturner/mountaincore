@@ -106,7 +106,7 @@ public class FurnitureUIFactory implements UIFactory {
             public void onOk() {
                 String name = furnitureType.getName();
                 //required defaults
-                furnitureType.setI18nKey("FURNITURE."+name.toUpperCase());
+                furnitureType.setI18nKey("FURNITURE."+name.toUpperCase(Locale.ROOT));
                 furnitureType.setRequirements(new HashMap<>());
                 furnitureType.getRequirements().put(GameMaterialType.EARTH, new ArrayList<>());
                 furnitureType.setDefaultLayoutName("1x1");

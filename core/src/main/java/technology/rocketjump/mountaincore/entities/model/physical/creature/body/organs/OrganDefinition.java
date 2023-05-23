@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.entities.model.physical.creature.body
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.mountaincore.misc.Name;
 
+import java.util.Locale;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -51,6 +52,6 @@ public class OrganDefinition {
 	}
 
 	public String getI18nKey() {
-		return "BODY_STRUCTURE.ORGAN."+name.toUpperCase();
+		return "BODY_STRUCTURE.ORGAN."+name.toUpperCase(Locale.ROOT);
 	}
 }

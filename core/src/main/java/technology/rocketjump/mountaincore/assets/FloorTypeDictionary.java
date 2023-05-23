@@ -12,10 +12,7 @@ import technology.rocketjump.mountaincore.guice.FloorDictionaryProvider;
 import technology.rocketjump.mountaincore.jobs.CraftingTypeDictionary;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @ProvidedBy(FloorDictionaryProvider.class)
@@ -36,7 +33,7 @@ public class FloorTypeDictionary {
 				throw new IOException("Duplicate floor for ID: " + floorType.toString());
 			}
 			floorTypeIdMap.put(floorType.getFloorTypeId(), floorType);
-			floorTypeNameMap.put(floorType.getFloorTypeName().toLowerCase(), floorType);
+			floorTypeNameMap.put(floorType.getFloorTypeName().toLowerCase(Locale.ROOT), floorType);
 			if (floorType.getCraftingTypeName() != null) {
 				floorType.setCraftingType(craftingTypeDictionary.getByName(floorType.getCraftingTypeName()));
 				if (floorType.getCraftingType() == null) {
@@ -67,7 +64,7 @@ public class FloorTypeDictionary {
 
 	public FloorType getByFloorTypeName(String name) {
 		// FIXME #87 Default placeholder assets - return default when not found by name
-		return floorTypeNameMap.get(name.toLowerCase());
+		return floorTypeNameMap.get(name.toLowerCase(Locale.ROOT));
 	}
 
 	public Collection<FloorType> getAllDefinitions() {

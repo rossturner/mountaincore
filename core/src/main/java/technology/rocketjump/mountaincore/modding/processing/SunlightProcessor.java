@@ -94,7 +94,7 @@ public class SunlightProcessor extends UntypedJsonProcessor {
 			if (colorValues.size() != 3) {
 				throw new ModLoadingException("Color array in sunlight definition must have 3 values");
 			}
-			namedColors.put(colorName.toLowerCase(), new Color(
+			namedColors.put(colorName.toLowerCase(Locale.ROOT), new Color(
 					colorValues.getIntValue(0) / 255f, colorValues.getIntValue(1) / 255f, colorValues.getIntValue(2) / 255f, 1.0f
 			));
 		}
@@ -103,7 +103,7 @@ public class SunlightProcessor extends UntypedJsonProcessor {
 
 		for (int index = 0; index < phasesJsonArray.size(); index++) {
 			JSONObject phaseJson = phasesJsonArray.getJSONObject(index);
-			results.add(new SunlightPhase(phaseJson.getFloatValue("time"), namedColors.get(phaseJson.getString("color").toLowerCase())));
+			results.add(new SunlightPhase(phaseJson.getFloatValue("time"), namedColors.get(phaseJson.getString("color").toLowerCase(Locale.ROOT))));
 		}
 
 		return results;

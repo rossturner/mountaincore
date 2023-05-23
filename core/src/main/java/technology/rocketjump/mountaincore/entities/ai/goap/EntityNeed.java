@@ -1,5 +1,7 @@
 package technology.rocketjump.mountaincore.entities.ai.goap;
 
+import java.util.Locale;
+
 public enum EntityNeed {
 
 	FOOD,
@@ -11,6 +13,6 @@ public enum EntityNeed {
 	}
 
 	public String iconName() {
-		return "icon_" + name().toLowerCase();
+		return "icon_" + name().toLowerCase(Locale.ROOT);
 	}
 }

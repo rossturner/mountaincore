@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class NavigatorTreeValue {
 
@@ -21,7 +22,7 @@ public class NavigatorTreeValue {
 	public final String label;
 
 	public static NavigatorTreeValue forEntityType(EntityType entityType, Path modDir) {
-		String label = entityType.name().toLowerCase();
+		String label = entityType.name().toLowerCase(Locale.ROOT);
 		return new NavigatorTreeValue(TreeValueType.ENTITY_TYPE, entityType, modDir.resolve("entities").resolve(label), label);
 	}
 

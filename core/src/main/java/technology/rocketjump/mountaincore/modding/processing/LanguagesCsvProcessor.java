@@ -70,8 +70,8 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 						if (key == null || key.isEmpty()) {
 							continue;
 						}
-						key = key.toUpperCase();
-						if (csvRecord.size() <= columnIndices.get(language.getLabelEn().toUpperCase())) {
+						key = key.toUpperCase(Locale.ROOT);
+						if (csvRecord.size() <= columnIndices.get(language.getLabelEn().toUpperCase(Locale.ROOT))) {
 							throw new ModLoadingException(String.format("Not enough columns for language %s on line %s", language.getLabelEn(), csvRecord));
 						}
 						if (encounteredKeys.contains(key)) {
@@ -79,7 +79,7 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 						}
 						encounteredKeys.add(key);
 
-						String value = csvRecord.get(columnIndices.get(language.getLabelEn().toUpperCase()));
+						String value = csvRecord.get(columnIndices.get(language.getLabelEn().toUpperCase(Locale.ROOT)));
 
 						addValue(language, key, value, keysToLanguagesToValues);
 					}
@@ -131,7 +131,7 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 		if (value == null || value.isEmpty()) {
 			return;
 		}
-		keysToLanguagesToValues.computeIfAbsent(key, k -> new LinkedHashMap<>()).put(language.getLabelEn().toUpperCase(), value);
+		keysToLanguagesToValues.computeIfAbsent(key, k -> new LinkedHashMap<>()).put(language.getLabelEn().toUpperCase(Locale.ROOT), value);
 	}
 
 	public void outputTo(Path targetFile) throws IOException {
@@ -140,7 +140,7 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 		// Write first line
 		printer.print("KEY");
 		for (LanguageType language : languages) {
-			printer.print(language.getLabelEn().toUpperCase());
+			printer.print(language.getLabelEn().toUpperCase(Locale.ROOT));
 		}
 		printer.println();
 
@@ -156,7 +156,7 @@ public class LanguagesCsvProcessor extends ModArtifactProcessor {
 			printer.print(key);
 
 			for (LanguageType language : languages) {
-				String value = combinedKeysToLanguagesToValues.get(key).get(language.getLabelEn().toUpperCase());
+				String value = combinedKeysToLanguagesToValues.get(key).get(language.getLabelEn().toUpperCase(Locale.ROOT));
 				if (value == null) {
 					value = "";
 				}

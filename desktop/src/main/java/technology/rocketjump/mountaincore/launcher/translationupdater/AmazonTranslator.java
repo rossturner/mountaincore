@@ -7,10 +7,7 @@ import com.amazonaws.services.translate.model.TranslateTextRequest;
 import com.amazonaws.services.translate.model.TranslateTextResult;
 import org.pmw.tinylog.Logger;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AmazonTranslator {
 
@@ -31,7 +28,7 @@ public class AmazonTranslator {
 	}
 
 	public String getTranslation(String sourceString, String sourceLangCode, String targetLangCode) {
-		if (unsupportedLanguages.contains(targetLangCode.toLowerCase())) {
+		if (unsupportedLanguages.contains(targetLangCode.toLowerCase(Locale.ROOT))) {
 			return "";
 		}
 		TranslateTextRequest request = new TranslateTextRequest();
