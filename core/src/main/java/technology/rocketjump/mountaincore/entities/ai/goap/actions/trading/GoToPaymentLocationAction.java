@@ -55,6 +55,7 @@ public class GoToPaymentLocationAction  extends GoToLocationAction {
 				}
 
 				// Could not find a chest/stockpile to place the payment into, need to re-create the payment allocation
+				paymentItemAllocationComponent.cancelAll(ItemAllocation.Purpose.DUE_TO_BE_HAULED);
 				ItemAllocation recreatedPaymentAllocation = paymentItemAllocationComponent.createAllocation(parent.getPlannedTrade().getPaymentItemAllocation().getAllocationAmount(),
 						parent.parentEntity, ItemAllocation.Purpose.TRADING_PAYMENT);
 				parent.getPlannedTrade().setPaymentItemAllocation(recreatedPaymentAllocation);

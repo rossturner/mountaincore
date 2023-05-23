@@ -5,6 +5,7 @@ Early Access 1.1.34 - 23rd May 2023
 - Fix for a crash when removing a zone from a region that no longer exists
 - Fix for a crash when a doorway was constructed with no materials
 - Fix for a crash when laying power lines along the map edge
+- Hopeful fix for a crash due to misallocation of funds when trading
 - Increased minimum memory usage to 2GB (We want to know if this affects you negatively)
 
 Early Access 1.1.33 - 22nd May 2023
