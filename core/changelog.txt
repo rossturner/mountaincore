@@ -1,6 +1,8 @@
 Early Access 1.1.34 - 23rd May 2023
 
-- Attempted fix for when the game won't start due to running on an OS set to Turkish
+- Reduced repelling force due to many entities in one location to avoid issues in very busy locations
+- Fix for the game not working in a Turkish locale
+- Fix for when cauldrons get stuck in transit between kitchen and feasting hall
 - Fix for a crash due to sorting algorithms making use of a random element
 - Fix for a crash when removing a zone from a region that no longer exists
 - Fix for a crash when a doorway was constructed with no materials

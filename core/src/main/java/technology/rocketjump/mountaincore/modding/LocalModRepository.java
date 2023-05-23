@@ -204,12 +204,7 @@ public class LocalModRepository {
 	}
 
 	public void packageActiveMods() {
-		// Turkish language OS causes the language processing to fail, which leads to no assets being available
-		if (Locale.getDefault().getLanguage().equals("tr")) {
-			Logger.error("Can not package mods because OS is in Turkish, please contact Rocket Jump Technology to fix this issue.");
-		} else {
-			assetsPackager.packageModsToAssets(activeMods, ASSETS_DIR);
-		}
+		assetsPackager.packageModsToAssets(activeMods, ASSETS_DIR);
 	}
 
 	public Collection<ParsedMod> getAll() {
