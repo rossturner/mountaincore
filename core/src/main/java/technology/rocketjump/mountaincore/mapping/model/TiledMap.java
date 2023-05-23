@@ -282,6 +282,10 @@ public class TiledMap {
 	}
 
 	public void removeZone(Zone zoneToRemove) {
+		if (regionsToZonesMap.get(zoneToRemove.getRegionId()) == null) {
+			Logger.error("Could not find region for removed zone with ID " + zoneToRemove.getRegionId());
+			return;
+		}
 		Zone removedZone = regionsToZonesMap.get(zoneToRemove.getRegionId()).remove(zoneToRemove.getZoneId());
 		if (removedZone == null) {
 			Logger.error("Could not find zone to remove with ID " + zoneToRemove.getZoneId());
