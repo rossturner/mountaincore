@@ -121,6 +121,7 @@ public class SteeringComponent implements ChildPersistable {
 					}
 				}
 
+				int repulsionBodyCount = 0;
 				for (Entity otherEntity : tileNearPosition.getEntities()) {
 					if (otherEntity.getId() != parentEntity.getId() && otherEntity.getType().equals(EntityType.CREATURE)) {
 						if (!AWAKE.equals(((CreatureEntityAttributes) otherEntity.getPhysicalEntityComponent().getAttributes()).getConsciousness())) {
@@ -133,9 +134,10 @@ public class SteeringComponent implements ChildPersistable {
 							// Overlapping
 							isSlowed = true;
 						}
-						if (separationDistance < totalRadii + parentEntity.getOwnOrVehicleLocationComponent().getRadius()) {
+						if (separationDistance < totalRadii + parentEntity.getOwnOrVehicleLocationComponent().getRadius() && repulsionBodyCount < 2) {
 							entityAvoidanceForce.add(separation.nor());
 						}
+						repulsionBodyCount++;
 					}
 				}
 			}
