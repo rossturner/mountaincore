@@ -48,6 +48,8 @@ import technology.rocketjump.mountaincore.ui.i18n.I18nWord;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.mountaincore.jobs.model.JobPriority.DISABLED;
 
@@ -461,26 +463,27 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			return List.of();
 		}
 
-		return mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
+		return priorityShuffled(mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
 				.map(gameContext.getAreaMap()::getTile)
 				.flatMap(t -> t.getEntities().stream())
 				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
 				.map(furniture -> furniture.getComponent(ProductionExportFurnitureBehaviour.class))
 				.filter(e -> e.getSelectedItemType() != null && !DISABLED.equals(e.getPriority()))
-				.sorted((a, b) -> exportFurnitureSort(a, b, gameContext.getRandom()))
-				.toList();
+				.toList(), gameContext, FurnitureBehaviour::getPriority);
 	}
 
-	public static int exportFurnitureSort(ProductionExportFurnitureBehaviour a, ProductionExportFurnitureBehaviour b, Random random) {
-		// Furniture of higher priority should come first, but then random for furniture of same priority
-		return ((a.getPriority().ordinal() * 1000) + random.nextInt(1000)) -
-				((b.getPriority().ordinal() * 1000) + random.nextInt(1000));
-	}
-
-	public static int importFurnitureSort(ProductionImportFurnitureBehaviour a, ProductionImportFurnitureBehaviour b, Random random) {
-		// Furniture of higher priority should come first, but then random for furniture of same priority
-		return ((a.getPriority().ordinal() * 1000) + random.nextInt(1000)) -
-				((b.getPriority().ordinal() * 1000) + random.nextInt(1000));
+	public static <T> List<T> priorityShuffled(List<T> input, GameContext gameContext, Function<T, JobPriority> jobPriorityFunction) {
+		Map<JobPriority, ArrayList<T>> grouped = input.stream()
+				.collect(Collectors.groupingBy(jobPriorityFunction, Collectors.toCollection(ArrayList::new)));
+		List<T> toReturn = new ArrayList<>();
+		for (JobPriority value : JobPriority.values()) {
+			ArrayList<T> values = grouped.get(value);
+			if (values != null) {
+				Collections.shuffle(values, gameContext.getRandom());
+				toReturn.addAll(values);
+			}
+		}
+		return toReturn;
 	}
 
 	private void addInputToAssignment(QuantifiedItemTypeWithMaterial inputRequirement, ProductionImportFurnitureBehaviour matchedInputFurniture) {
