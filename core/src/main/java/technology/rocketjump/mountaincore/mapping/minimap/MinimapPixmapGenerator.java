@@ -57,7 +57,7 @@ public class MinimapPixmapGenerator {
 			}
 		} else if (tile.hasDoorway()) {
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) tile.getDoorway().getDoorEntity().getPhysicalEntityComponent().getAttributes();
-			return rgba8888(attributes.getMaterials().get(attributes.getPrimaryMaterialType()).getColor());
+			return rgba8888(attributes.getPrimaryMaterial().getColor());
 
 		} else if (tile.getFloor().hasBridge()) {
 			return rgba8888(tile.getFloor().getBridge().getMaterial().getColor());

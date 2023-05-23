@@ -148,6 +148,8 @@ public class FurnitureEntityAttributes implements EntityAttributes {
 	public GameMaterial getPrimaryMaterial() {
 		if (materials.containsKey(primaryMaterialType)) {
 			return this.materials.get(primaryMaterialType);
+		} else if (this.materials.isEmpty()) {
+			return GameMaterial.NULL_MATERIAL;
 		} else {
 			return this.materials.values().iterator().next();
 		}
