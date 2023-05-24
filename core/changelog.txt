@@ -1,7 +1,8 @@
-Early Access 1.1.35
+Early Access 1.1.35 - 24th May 2023
 
 - Settlers should now collect items needed to work on jobs before waiting until all other work is completed
 - Made the main menu background image smaller to reduce memory usage
+- Fix for a crash when destroying a butchery station
 
 Early Access 1.1.34 - 23rd May 2023
 
