@@ -40,7 +40,9 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		for (Job haulingJob : haulingJobs) {
 			HaulingAllocation haulingAllocation = haulingJob.getHaulingAllocation();
-			messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+			if (haulingAllocation != null) {
+				messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+			}
 
 			messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, haulingJob);
 		}

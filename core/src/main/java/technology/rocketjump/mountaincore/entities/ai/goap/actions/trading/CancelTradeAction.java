@@ -24,7 +24,9 @@ public class CancelTradeAction extends Action {
 		PlannedTrade plannedTrade = parent.getPlannedTrade();
 		if (plannedTrade != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, plannedTrade.getPaymentItemAllocation());
-			parent.messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, plannedTrade.getHaulingAllocation());
+			if (plannedTrade.getHaulingAllocation() != null) {
+				parent.messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, plannedTrade.getHaulingAllocation());
+			}
 
 			if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
 				creatureBehaviour.getCreatureGroup() instanceof TraderCreatureGroup traderCreatureGroup) {

@@ -358,7 +358,9 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 			cookingSession.getInputIngredientJobs().add(haulingJob);
 		} else {
 			// Don't create job
-			messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+			if (haulingAllocation != null) {
+				messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+			}
 		}
 
 	}
