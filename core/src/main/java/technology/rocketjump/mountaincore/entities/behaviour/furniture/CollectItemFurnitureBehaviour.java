@@ -34,7 +34,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 	private boolean allowDuplicates = false;
 	private JobType haulingJobType;
 	private boolean includeFromFurniture = false;
-	private boolean haulingJobInterruptible = true;
+	private boolean haulingJobUninterruptible = false;
 
 	@Override
 	public FurnitureBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -112,7 +112,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		haulingJob.setTargetId(allocation.getHauledEntityId());
 		haulingJob.setHaulingAllocation(allocation);
 		haulingJob.setJobLocation(allocation.getSourcePosition());
-		haulingJob.setInterruptible(haulingJobInterruptible);
+		haulingJob.setUninterruptible(haulingJobUninterruptible);
 
 		if (allocation.getSourcePositionType() == HaulingAllocation.AllocationPositionType.FURNITURE) {
 			Entity containerEntity = gameContext.getEntities().get(allocation.getSourceContainerId());
@@ -186,8 +186,8 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		this.includeFromFurniture = includeFromFurniture;
 	}
 
-	public void setHaulingJobInterruptible(boolean haulingJobInterruptible) {
-		this.haulingJobInterruptible = haulingJobInterruptible;
+	public void setHaulingJobUninterruptible(boolean haulingJobUninterruptible) {
+		this.haulingJobUninterruptible = haulingJobUninterruptible;
 	}
 
 	@Override
@@ -231,8 +231,8 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		asJson.put("haulingJobType", haulingJobType.getName());
 		asJson.put("includeFromFurniture", includeFromFurniture);
 
-		if (!haulingJobInterruptible) {
-			asJson.put("haulingJobInterruptible", false);
+		if (haulingJobUninterruptible) {
+			asJson.put("haulingJobUninterruptible", true);
 		}
 	}
 
@@ -284,11 +284,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 			throw new InvalidSaveException("Could not find job type with name " + asJson.getString("haulingJobType"));
 		}
 		this.includeFromFurniture = asJson.getBooleanValue("includeFromFurniture");
-
-
-		if (asJson.containsKey("haulingJobInterruptible")) {
-			this.haulingJobInterruptible = asJson.getBooleanValue("haulingJobInterruptible");
-		}
+		this.haulingJobUninterruptible = asJson.getBooleanValue("haulingJobUninterruptible");
 	}
 
 }
