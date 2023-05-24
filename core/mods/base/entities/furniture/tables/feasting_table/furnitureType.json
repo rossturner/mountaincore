@@ -16,5 +16,8 @@
         "quantity": 8
       }
     ]
+  },
+  "tags": {
+    "NO_MERGING_INVENTORY": []
   }
 }
