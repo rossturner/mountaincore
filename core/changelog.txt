@@ -1,3 +1,8 @@
+Early Access 1.1.36 - 24th May 2023
+
+- Settlers will now never interrupt a job to move food to the feasting hall
+- Fix for construction of flooring, walls and roofing not working correctly
+
 Early Access 1.1.35 - 24th May 2023
 
 - Settlers should now collect items needed to work on jobs before waiting until all other work is completed
