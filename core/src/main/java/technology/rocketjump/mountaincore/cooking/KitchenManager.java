@@ -98,7 +98,7 @@ public class KitchenManager implements Telegraph, Updatable {
 
 						Job haulingJob = createHaulingJob(matchingEntity, construction);
 						if (haulingJob != null) {
-							haulingJob.setInterruptible(false); //ensure the furniture gets there!
+							haulingJob.setUninterruptible(true); //ensure the furniture gets there!
 							construction.getIncomingHaulingAllocations().add(haulingJob.getHaulingAllocation()); // To track when allocation is cancelled
 
 							// Match priority of hauling job to priority of room it comes from

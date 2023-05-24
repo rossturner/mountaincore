@@ -58,7 +58,7 @@ public class Job implements Persistable {
 
 	private CraftingRecipe craftingRecipe;
 	private CookingRecipe cookingRecipe;
-	private boolean interruptible = true;
+	private boolean uninterruptible = false;
 
 	public Job() {
 
@@ -314,12 +314,12 @@ public class Job implements Persistable {
 		this.workDurationMultiplier = workDurationMultiplier;
 	}
 
-	public boolean isInterruptible() {
-		return interruptible;
+	public boolean isUninterruptible() {
+		return uninterruptible;
 	}
 
-	public void setInterruptible(boolean interruptible) {
-		this.interruptible = interruptible;
+	public void setUninterruptible(boolean uninterruptible) {
+		this.uninterruptible = uninterruptible;
 	}
 
 	@Override
@@ -383,8 +383,8 @@ public class Job implements Persistable {
 			jobJson.put("cookingRecipe", cookingRecipe.getRecipeName());
 		}
 
-		if (!interruptible) {
-			jobJson.put("interruptible", false);
+		if (uninterruptible) {
+			jobJson.put("uninterruptible", true);
 		}
 
 		savedGameStateHolder.jobsJson.add(jobJson);
@@ -475,9 +475,7 @@ public class Job implements Persistable {
 			}
 		}
 
-		if (asJson.containsKey("interruptible")) {
-			this.interruptible = asJson.getBooleanValue("interruptible");
-		}
+		this.uninterruptible = asJson.getBooleanValue("uninterruptible");
 
 		savedGameStateHolder.jobs.put(this.jobId, this);
 	}

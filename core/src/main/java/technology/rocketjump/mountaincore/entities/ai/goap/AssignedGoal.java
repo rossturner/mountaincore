@@ -158,7 +158,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 	private void checkForActionCompletionOrElseUpdate(Action currentAction, float deltaTime, GameContext gameContext) throws SwitchGoalException {
 		Action.CompletionType actionCompletion = currentAction.isCompleted(gameContext);
 		boolean shouldInterrupt = this.interrupted;
-		if (assignedJob != null && !assignedJob.isInterruptible()) {
+		if (assignedJob != null && assignedJob.isUninterruptible()) {
 			shouldInterrupt = false;
 		}
 
