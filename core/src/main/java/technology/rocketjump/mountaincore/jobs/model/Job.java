@@ -58,6 +58,7 @@ public class Job implements Persistable {
 
 	private CraftingRecipe craftingRecipe;
 	private CookingRecipe cookingRecipe;
+	private boolean interruptible = true;
 
 	public Job() {
 
@@ -304,6 +305,23 @@ public class Job implements Persistable {
 		this.cookingRecipe = cookingRecipe;
 	}
 
+
+	public Float getWorkDurationMultiplier() {
+		return workDurationMultiplier;
+	}
+
+	public void setWorkDurationMultiplier(Float workDurationMultiplier) {
+		this.workDurationMultiplier = workDurationMultiplier;
+	}
+
+	public boolean isInterruptible() {
+		return interruptible;
+	}
+
+	public void setInterruptible(boolean interruptible) {
+		this.interruptible = interruptible;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.jobs.containsKey(this.jobId)) {
@@ -363,6 +381,10 @@ public class Job implements Persistable {
 		}
 		if (cookingRecipe != null) {
 			jobJson.put("cookingRecipe", cookingRecipe.getRecipeName());
+		}
+
+		if (!interruptible) {
+			jobJson.put("interruptible", false);
 		}
 
 		savedGameStateHolder.jobsJson.add(jobJson);
@@ -453,14 +475,11 @@ public class Job implements Persistable {
 			}
 		}
 
+		if (asJson.containsKey("interruptible")) {
+			this.interruptible = asJson.getBooleanValue("interruptible");
+		}
+
 		savedGameStateHolder.jobs.put(this.jobId, this);
 	}
 
-	public Float getWorkDurationMultiplier() {
-		return workDurationMultiplier;
-	}
-
-	public void setWorkDurationMultiplier(Float workDurationMultiplier) {
-		this.workDurationMultiplier = workDurationMultiplier;
-	}
 }

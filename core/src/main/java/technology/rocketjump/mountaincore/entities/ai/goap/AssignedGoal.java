@@ -157,8 +157,13 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 
 	private void checkForActionCompletionOrElseUpdate(Action currentAction, float deltaTime, GameContext gameContext) throws SwitchGoalException {
 		Action.CompletionType actionCompletion = currentAction.isCompleted(gameContext);
+		boolean shouldInterrupt = this.interrupted;
+		if (assignedJob != null && !assignedJob.isInterruptible()) {
+			shouldInterrupt = false;
+		}
+
 		if (actionCompletion == null) {
-			if (this.interrupted && currentAction.isInterruptible()) {
+			if (shouldInterrupt && currentAction.isInterruptible()) {
 				currentAction.actionInterrupted(gameContext);
 			} else {
 				currentAction.update(deltaTime, gameContext);
@@ -166,7 +171,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		} else {
 			previousActions.add(actionQueue.poll());
 
-			if (interrupted && suspectedDeadlock(gameContext)) {
+			if (shouldInterrupt && suspectedDeadlock(gameContext)) {
 				Logger.error("Deadlock detected with goal interruption, Goal: {}, Previous Actions: {}", goal.name, previousActions.stream().map(Action::getSimpleName).collect(Collectors.joining(" -> ")));
 				throw new SwitchGoalException(SpecialGoal.IDLE);
 			}
