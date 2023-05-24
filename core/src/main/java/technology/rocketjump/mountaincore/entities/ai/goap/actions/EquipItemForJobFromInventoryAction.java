@@ -1,9 +1,13 @@
 package technology.rocketjump.mountaincore.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
+import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.mountaincore.entities.model.physical.creature.HaulingComponent;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
@@ -25,6 +29,22 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		// See if item is in inventory to equip
 		ItemType requiredItemType = parent.getAssignedJob().getRequiredItemType();
 		GameMaterial requiredMaterial = parent.getAssignedJob().getRequiredItemMaterial();
+
+		HaulingComponent haulingComponent = parent.parentEntity.getComponent(HaulingComponent.class);
+		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+
+		if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
+			if (matches(haulingComponent.getHauledEntity(), requiredItemType, requiredMaterial)) {
+				equippedItemComponent.setMainHandItem(haulingComponent.clearHauledEntity(), parent.parentEntity, parent.messageDispatcher);
+				completionType = SUCCESS;
+			} else {
+				Logger.error("Hauling the wrong item to equip");
+				completionType = FAILURE;
+			}
+			return;
+		}
+
+
 		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		InventoryComponent.InventoryEntry itemInInventory;
 		if (requiredMaterial != null) {
@@ -32,7 +52,6 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		} else {
 			itemInInventory = inventoryComponent.findByItemType(requiredItemType, gameContext.getGameClock());
 		}
-		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 		if (itemInInventory != null && equippedItemComponent.isMainHandEnabled()) {
 			inventoryComponent.remove(itemInInventory.entity.getId());
 			equippedItemComponent.setMainHandItem(itemInInventory.entity, parent.parentEntity, parent.messageDispatcher);
@@ -41,6 +60,18 @@ public class EquipItemForJobFromInventoryAction extends Action {
 			// Interrupt entire goal so we don't then GoToLocation
 			parent.setInterrupted(true);
 			completionType = FAILURE;
+		}
+	}
+
+	private boolean matches(Entity entity, ItemType requiredItemType, GameMaterial requiredMaterial) {
+		if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemEntityAttributes) {
+			if (requiredMaterial != null) {
+				return itemEntityAttributes.getItemType().equals(requiredItemType) && itemEntityAttributes.getPrimaryMaterial().equals(requiredMaterial);
+			} else {
+				return itemEntityAttributes.getItemType().equals(requiredItemType);
+			}
+		} else {
+			return false;
 		}
 	}
 

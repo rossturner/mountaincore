@@ -65,13 +65,15 @@ public class HaulingComponent implements ParentDependentEntityComponent, Destruc
 		hauledEntity.getLocationComponent().setContainerEntity(parentEntity);
 	}
 
-	public void clearHauledEntity() {
+	public Entity clearHauledEntity() {
 		hauledEntity.getLocationComponent().setContainerEntity(null);
 		ItemAllocationComponent itemAllocationComponent = hauledEntity.getComponent(ItemAllocationComponent.class);
 		if (itemAllocationComponent != null) {
 			itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HAULING);
 		}
+		Entity temp = hauledEntity;
 		hauledEntity = null;
+		return temp;
 	}
 
 	@Override

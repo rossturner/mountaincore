@@ -23,7 +23,7 @@ public class CheckToCollectJobItemAction extends Action {
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
 		Job assignedJob = parent.getAssignedJob();
 		if (assignedJob != null) {
-			if (assignedJob.getType().getRequiredItemType() != null && !assignedJob.getType().isUsesWorkstationTool()) {
+			if (assignedJob.getRequiredItemType() != null && !assignedJob.getType().isUsesWorkstationTool()) {
 				if (!haveInventoryItem(assignedJob.getRequiredItemType(), assignedJob.getRequiredItemMaterial(), gameContext.getGameClock())) {
 					completionType = CompletionType.SUCCESS;
 					return;
