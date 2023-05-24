@@ -137,8 +137,8 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				"BLACKSMITH", 40
 			));
 			add(professionList, Map.of(
-				"LUMBERJACK", 50,
-				"CARPENTER", 30
+					"CARPENTER", 50,
+				"LUMBERJACK", 30
 			));
 			add(professionList, Map.of(
 				"FARMER", 50

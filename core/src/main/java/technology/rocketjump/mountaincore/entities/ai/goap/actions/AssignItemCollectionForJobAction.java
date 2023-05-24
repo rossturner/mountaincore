@@ -23,7 +23,7 @@ public class AssignItemCollectionForJobAction extends Action {
 		if (assignedJob != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION,
 					new RequestHaulingAllocationMessage(parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
-							assignedJob.getRequiredItemType(), assignedJob.getRequiredItemMaterial(), true, 1, null,
+							assignedJob.getRequiredItemType(), assignedJob.getRequiredItemMaterial(), true, null, null,
 							haulingAllocation -> {
 								if (haulingAllocation != null) {
 									parent.setAssignedHaulingAllocation(haulingAllocation);

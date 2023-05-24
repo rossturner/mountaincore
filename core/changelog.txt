@@ -1,3 +1,11 @@
+Early Access 1.1.37 - 24th May 2023
+
+- Settlers will now collect a stack of seeds when farming again rather than one seed at once
+- Reduced happiness malus from going sober
+- Fix for duplication of bread and rations placed on a feasting hall table
+- Settlers will no longer use disabled beer tappers
+- One of the starting settlers is now a Carpenter/Woodcutter rather than Woodcutter/Carpenter
+
 Early Access 1.1.36 - 24th May 2023
 
 - Settlers will now never interrupt a job to move food to the feasting hall

@@ -150,7 +150,7 @@ public class HappinessComponent implements InfrequentlyUpdatableComponent {
 		SLEEPING_IN_SNOW(-40, 4),
 
 		DRANK_ALCOHOL(40, 8),
-		ALCOHOL_WITHDRAWAL(-30, 0.5),
+		ALCOHOL_WITHDRAWAL(-20, 0.5),
 
 		HAD_A_TANTRUM(100, 24.0),
 		CAUSE_BREAKDOWN(-180, 1.0),

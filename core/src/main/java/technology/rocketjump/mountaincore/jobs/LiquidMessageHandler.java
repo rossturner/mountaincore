@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.ItemEntityMessageHandler;
+import technology.rocketjump.mountaincore.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
@@ -42,6 +43,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static technology.rocketjump.mountaincore.jobs.model.JobPriority.DISABLED;
 import static technology.rocketjump.mountaincore.rooms.HaulingAllocation.AllocationPositionType.FLOOR;
 import static technology.rocketjump.mountaincore.rooms.HaulingAllocation.AllocationPositionType.ZONE;
 import static technology.rocketjump.mountaincore.zones.ZoneClassification.ZoneType.LIQUID_SOURCE;
@@ -363,6 +365,11 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 							if (liquidContainerComponent == null) {
 								return false;
 							} else {
+								if (liquidContainerComponent.getParentEntity().getBehaviourComponent() instanceof FurnitureBehaviour furnitureBehaviour) {
+									if (DISABLED.equals(furnitureBehaviour.getPriority())) {
+										return false;
+									}
+								}
 								return liquidContainerComponent.getNumUnallocated() >= amountRequired;
 							}
 						}
