@@ -40,7 +40,7 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 	 * or not allocated when added so they can be re-allocated elsewhere (null value)
 	 */
 	private ItemAllocation.Purpose addAsAllocationPurpose = ItemAllocation.Purpose.HELD_IN_INVENTORY;
-
+	private boolean noMerging = false;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -174,29 +174,31 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 		if (entityToAdd.getType().equals(ITEM)) {
 			ItemEntityAttributes attributesToAdd = (ItemEntityAttributes) entityToAdd.getPhysicalEntityComponent().getAttributes();
 
-			// Possibly merge into existing item in inventory
-			InventoryEntry matchingEntry = findMatchingEntry(attributesToAdd);
-			if (matchingEntry != null) {
-				// Try merging into existing item
-				ItemEntityAttributes matchingItemAttributes = (ItemEntityAttributes) matchingEntry.entity.getPhysicalEntityComponent().getAttributes();
-				if (matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity() <= attributesToAdd.getItemType().getMaxStackSize()) {
-					// Can merge into existing item
-					matchingItemAttributes.setQuantity(matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity());
-					if (addAsAllocationPurpose != null) {
-						ItemAllocationComponent itemAllocationComponent = matchingEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-						ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(addAsAllocationPurpose);
-						if (allocation != null) {
-							allocation.setAllocationAmount(itemAllocationComponent.getNumUnallocated() + allocation.getAllocationAmount());
-						} else {
-							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, addAsAllocationPurpose);
+			if (!noMerging) {
+				// Possibly merge into existing item in inventory
+				InventoryEntry matchingEntry = findMatchingEntry(attributesToAdd);
+				if (matchingEntry != null) {
+					// Try merging into existing item
+					ItemEntityAttributes matchingItemAttributes = (ItemEntityAttributes) matchingEntry.entity.getPhysicalEntityComponent().getAttributes();
+					if (matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity() <= attributesToAdd.getItemType().getMaxStackSize()) {
+						// Can merge into existing item
+						matchingItemAttributes.setQuantity(matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity());
+						if (addAsAllocationPurpose != null) {
+							ItemAllocationComponent itemAllocationComponent = matchingEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
+							ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(addAsAllocationPurpose);
+							if (allocation != null) {
+								allocation.setAllocationAmount(itemAllocationComponent.getNumUnallocated() + allocation.getAllocationAmount());
+							} else {
+								itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, addAsAllocationPurpose);
+							}
 						}
-					}
 
-					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entityToAdd);
-					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, matchingEntry.entity);
-					inventoryEntityModified(matchingEntry.entity, gameClock);
-					return matchingEntry;
-				} // else can't merge into existing item, fall through to addition as new item below
+						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entityToAdd);
+						messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, matchingEntry.entity);
+						inventoryEntityModified(matchingEntry.entity, gameClock);
+						return matchingEntry;
+					} // else can't merge into existing item, fall through to addition as new item below
+				}
 			}
 
 			// Add as new item in inventory
@@ -238,7 +240,9 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		// Cloning inventory component does not clone contained items!
-		return new InventoryComponent();
+		InventoryComponent inventoryComponent = new InventoryComponent();
+		inventoryComponent.noMerging = this.noMerging;
+		return inventoryComponent;
 	}
 
 	public Entity getById(long entityId) {
@@ -292,6 +296,10 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 		return null;
 	}
 
+	public void setNoMerging(boolean noMerging) {
+		this.noMerging = noMerging;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (!inventoryEntries.isEmpty()) {
@@ -312,6 +320,10 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 		if (addAsAllocationPurpose != null) {
 			asJson.put("addAsAllocationPurpose", addAsAllocationPurpose.name());
 		}
+
+		if (noMerging) {
+			asJson.put("noMerging", true);
+		}
 	}
 
 	@Override
@@ -329,6 +341,7 @@ public class InventoryComponent implements ParentDependentEntityComponent, Destr
 		}
 
 		this.addAsAllocationPurpose = EnumParser.getEnumValue(asJson, "addAsAllocationPurpose", ItemAllocation.Purpose.class, null);
+		this.noMerging = asJson.getBooleanValue("noMerging");
 	}
 
 	public static class InventoryEntry {

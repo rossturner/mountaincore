@@ -1426,7 +1426,9 @@
       "liquid" : false
     } ]
   },
-  "tags" : { },
+  "tags" : {
+    "NO_MERGING_INVENTORY" : [ ]
+  },
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "KITCHEN_WORKTOP",
