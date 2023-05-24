@@ -68,6 +68,7 @@ public class CollectItemsBehaviourTag extends Tag {
 						}
 					}
 					newBehaviour.setItemsToCollect(new ArrayList<>(itemsToCollect));
+					newBehaviour.setHaulingJobUninterruptible(true);
 					break;
 				default:
 					throw new NotImplementedException("Not yet implemented, argument to " + this.getTagName() + " tag: " + behaviourArg.name());
