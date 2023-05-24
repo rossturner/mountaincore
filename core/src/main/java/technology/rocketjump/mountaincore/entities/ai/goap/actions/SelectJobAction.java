@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.SwitchGoalException;
-import technology.rocketjump.mountaincore.entities.ai.memory.Memory;
-import technology.rocketjump.mountaincore.entities.ai.memory.MemoryType;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
-import technology.rocketjump.mountaincore.entities.components.creature.MemoryComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemType;
+import technology.rocketjump.mountaincore.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.mountaincore.entities.planning.JobAssignmentCallback;
 import technology.rocketjump.mountaincore.environment.GameClock;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
@@ -22,6 +20,7 @@ import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException
 import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SelectJobAction extends Action implements JobAssignmentCallback, InitialisableAction {
 
@@ -79,11 +78,9 @@ public class SelectJobAction extends Action implements JobAssignmentCallback, In
 
 				if (potentialJob.getRequiredItemType() != null && !jobUsesWorkstationTool(potentialJob)) {
 					if (!haveInventoryItem(potentialJob.getRequiredItemType(), potentialJob.getRequiredItemMaterial(), gameContext.getGameClock())) {
-						Memory itemRequiredMemory = new Memory(MemoryType.LACKING_REQUIRED_ITEM, gameContext.getGameClock());
-						itemRequiredMemory.setRelatedItemType(potentialJob.getRequiredItemType());
-						itemRequiredMemory.setRelatedMaterial(potentialJob.getRequiredItemMaterial()); // Might be null
-						parent.parentEntity.getComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-						continue;
+						if (!itemIsAvailable(potentialJob.getRequiredItemType(), potentialJob.getRequiredItemMaterial())) {
+							continue;
+						}
 					}
 				}
 
@@ -99,6 +96,18 @@ public class SelectJobAction extends Action implements JobAssignmentCallback, In
 			// No jobs found
 			completionType = CompletionType.FAILURE;
 		}
+	}
+
+	private boolean itemIsAvailable(ItemType requiredItemType, GameMaterial requiredItemMaterial) {
+		AtomicBoolean itemAvailable = new AtomicBoolean(false);
+		parent.messageDispatcher.dispatchMessage(MessageType.CHECK_ITEM_AVAILABILITY,
+				new MessageType.CheckItemAvailabilityMessage(new ItemTypeWithMaterial() {{
+					setItemType(requiredItemType);
+					setMaterial(requiredItemMaterial);
+				}}, numAvailable -> {
+					itemAvailable.set(numAvailable > 0);
+				}));
+		return itemAvailable.get();
 	}
 
 	private boolean haveInventoryItem(ItemType itemTypeRequired, GameMaterial requiredItemMaterial, GameClock gameClock) {

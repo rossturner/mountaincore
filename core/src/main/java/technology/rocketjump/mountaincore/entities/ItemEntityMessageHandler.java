@@ -314,10 +314,10 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(MessageType.CheckItemAvailabilityMessage message) {
 		if (message.requirement().getMaterial() != null) {
-			List<Entity> items = settlementItemTracker.getItemsByType(message.requirement().getItemType(), true);
+			List<Entity> items = settlementItemTracker.getItemsByTypeAndMaterial(message.requirement().getItemType(), message.requirement().getMaterial(), true);
 			message.callback().accept(countAvailability(items));
 		} else {
-			List<Entity> items = settlementItemTracker.getItemsByTypeAndMaterial(message.requirement().getItemType(), message.requirement().getMaterial(), true);
+			List<Entity> items = settlementItemTracker.getItemsByType(message.requirement().getItemType(), true);
 			message.callback().accept(countAvailability(items));
 		}
 		return true;

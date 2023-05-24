@@ -36,7 +36,23 @@
   "initialActions": ["SelectJob"],
   "actionRelationships": {
     "SelectJob": {
-      "pass": ["EquipItemForJobFromInventory", "GoToLocation"]
+      "pass": ["CheckToCollectJobItem"]
+    },
+    "CheckToCollectJobItem": {
+      "pass": ["AssignItemCollectionForJob"],
+      "fail": ["EquipItemForJobFromInventory", "GoToLocation"]
+    },
+    "AssignItemCollectionForJob": {
+      "pass": ["GoToHaulingSourceLocation"],
+      "fail": ["UnassignJob"]
+    },
+    "GoToHaulingSourceLocation": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "PickUpEntity": {
+      "pass": ["CancelHaulingAllocation", "EquipItemForJobFromInventory", "GoToLocation"],
+      "fail": ["CancelHaulingAllocation","UnassignJob"]
     },
     "EquipItemForJobFromInventory": {
       "fail": ["UnassignJob"]
@@ -53,6 +69,7 @@
     "FaceTowardsLocation": {},
     "EquipItemForJobFromFurniture": {},
     "UnassignJob": {},
+    "CancelHaulingAllocation": {},
     "RequeueThisGoal": {}
   }
 }

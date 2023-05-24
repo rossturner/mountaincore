@@ -15,6 +15,7 @@ import java.util.List;
 
 import static technology.rocketjump.mountaincore.entities.ai.memory.MemoryType.LACKING_REQUIRED_ITEM;
 
+@Deprecated
 public class RememberRequiredItemAction extends Action {
 	public RememberRequiredItemAction(AssignedGoal parent) {
 		super(parent);

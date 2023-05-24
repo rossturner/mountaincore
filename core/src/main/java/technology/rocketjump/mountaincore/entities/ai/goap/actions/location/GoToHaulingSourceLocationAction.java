@@ -25,4 +25,9 @@ public class GoToHaulingSourceLocationAction extends GoToLocationAction {
         }
         return null;
     }
+
+    @Override
+    public String getDescriptionOverrideI18nKey() {
+        return "GOAL.ADD_TO_INVENTORY.DESCRIPTION";
+    }
 }

@@ -1,3 +1,8 @@
+Early Access 1.1.35
+
+- Settlers should now collect items needed to work on jobs before waiting until all other work is completed
+- Made the main menu background image smaller to reduce memory usage
+
 Early Access 1.1.34 - 23rd May 2023
 
 - Reduced repelling force due to many entities in one location to avoid issues in very busy locations

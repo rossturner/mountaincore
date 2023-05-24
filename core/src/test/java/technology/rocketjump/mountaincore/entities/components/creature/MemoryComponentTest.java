@@ -30,8 +30,8 @@ public class MemoryComponentTest {
 
 	@Test
 	public void add_ignoresEqualMemories() throws Exception {
-		Memory first = new Memory(MemoryType.LACKING_REQUIRED_ITEM, mockClock);
-		Memory second = new Memory(MemoryType.LACKING_REQUIRED_ITEM, mockClock);
+		Memory first = new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, mockClock);
+		Memory second = new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, mockClock);
 
 		memoryComponent.addShortTerm(first, mockClock);
 		memoryComponent.addShortTerm(second, mockClock);
@@ -43,12 +43,12 @@ public class MemoryComponentTest {
 
 	@Test
 	public void getShortTermMemories_removesExpiredMemories() {
-		Memory first = new Memory(MemoryType.LACKING_REQUIRED_ITEM, mockClock);
+		Memory first = new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, mockClock);
 
 		memoryComponent.addShortTerm(first, mockClock);
 
 		when(mockClock.getCurrentGameTime()).thenReturn(100.0);
-		Memory second = new Memory(MemoryType.LACKING_REQUIRED_ITEM, mockClock);
+		Memory second = new Memory(MemoryType.CONSUMED_ALCOHOLIC_DRINK, mockClock);
 
 		memoryComponent.addShortTerm(second, mockClock);
 

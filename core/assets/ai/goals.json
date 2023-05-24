@@ -1115,7 +1115,10 @@
       "fail" : [ "UnequipItemForJob", "UnassignJob" ],
       "pass" : [ "UnequipItemForJob", "RequeueThisGoal" ]
     },
-    "UnequipItemForJob" : { },
+    "CheckToCollectJobItem" : {
+      "fail" : [ "EquipItemForJobFromInventory", "GoToLocation" ],
+      "pass" : [ "AssignItemCollectionForJob" ]
+    },
     "GoToLocation" : {
       "fail" : [ "UnequipItemForJob", "UnassignJob" ],
       "pass" : [ "FaceTowardsLocation", "EquipItemForJobFromFurniture", "WorkOnJob" ]
@@ -1123,12 +1126,26 @@
     "EquipItemForJobFromFurniture" : { },
     "RequeueThisGoal" : { },
     "SelectJob" : {
-      "pass" : [ "EquipItemForJobFromInventory", "GoToLocation" ]
+      "pass" : [ "CheckToCollectJobItem" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation", "UnassignJob" ],
+      "pass" : [ "CancelHaulingAllocation", "EquipItemForJobFromInventory", "GoToLocation" ]
+    },
+    "CancelHaulingAllocation" : { },
+    "UnequipItemForJob" : { },
+    "GoToHaulingSourceLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
     },
     "EquipItemForJobFromInventory" : {
       "fail" : [ "UnassignJob" ]
     },
     "UnassignJob" : { },
+    "AssignItemCollectionForJob" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "GoToHaulingSourceLocation" ]
+    },
     "FaceTowardsLocation" : { }
   },
   "selectors" : [ {
