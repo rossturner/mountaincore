@@ -147,6 +147,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 				if (inventory != null) {
 					ingredientCount += inventory.getInventoryEntries().size();
 				}
+				ingredientCount += cookingSession.getInputIngredientJobs().size();
 				return ingredientCount == 0;
 			}
 			return false;
