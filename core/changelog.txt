@@ -1,3 +1,13 @@
+Early Access 1.2.0 - 25th May 2023
+
+- Updated underlying engine library to latest version
+    - This fixes some small issues like being able to launch the browser on Mac
+    - It also means we can have a splash screen!
+- Settlers can no longer die due to food poisoning (there is still a happiness malus)
+- Disabled beer tappers will no longer bring beer barrels to themselves
+- Farmers are now responsible for harvesting crops, rather than Haulers
+- Stonemasons are now responsible for placing pipes, rather than Haulers
+
 Early Access 1.1.37 - 24th May 2023
 
 - Settlers will now collect a stack of seeds when farming again rather than one seed at once
