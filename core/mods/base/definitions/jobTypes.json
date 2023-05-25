@@ -117,6 +117,7 @@
     "maximumTimeToCompleteJob": 5.25,
     "overrideI18nKey": "ACTION.JOB.HARVESTING",
     "activeSoundAssetName": "HarvestingCrops",
+    "requiredProfessionName": "FARMER",
     "workOnJobParticleEffectNames": ["Small leaf explosion"]
   },
   {
@@ -323,6 +324,7 @@
     "accessedFromAdjacentTile": true,
     "requiredItemTypeName": "Product-Stone-Pipe",
     "haulItemWhileWorking": true,
+    "requiredProfessionName": "STONEMASON",
     "workOnJobParticleEffectNames": ["Digging ground same tile"]
   },
   {
@@ -332,6 +334,7 @@
     "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DECONSTRUCT_PIPING",
     "accessedFromAdjacentTile": true,
+    "requiredProfessionName": "STONEMASON",
     "workOnJobParticleEffectNames": ["Digging ground same tile"]
   },
   {

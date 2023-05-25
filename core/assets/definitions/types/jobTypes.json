@@ -146,6 +146,7 @@
   "minimumTimeToCompleteJob" : 0.75,
   "maximumTimeToCompleteJob" : 5.25,
   "experienceAwardedOnCompletion" : 1,
+  "requiredProfessionName" : "FARMER",
   "activeSoundAssetName" : "HarvestingCrops",
   "workOnJobParticleEffectNames" : [ "Small leaf explosion" ],
   "accessedFromAdjacentTile" : false
@@ -391,6 +392,7 @@
   "minimumTimeToCompleteJob" : 1.75,
   "maximumTimeToCompleteJob" : 6.25,
   "experienceAwardedOnCompletion" : 2,
+  "requiredProfessionName" : "STONEMASON",
   "requiredItemTypeName" : "Product-Stone-Pipe",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
@@ -403,6 +405,7 @@
   "minimumTimeToCompleteJob" : 1.75,
   "maximumTimeToCompleteJob" : 6.25,
   "experienceAwardedOnCompletion" : 1,
+  "requiredProfessionName" : "STONEMASON",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
 }, {
