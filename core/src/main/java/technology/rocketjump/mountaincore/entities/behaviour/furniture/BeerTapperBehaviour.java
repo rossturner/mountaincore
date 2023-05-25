@@ -35,6 +35,7 @@ import java.util.Map;
 
 import static technology.rocketjump.mountaincore.entities.ai.goap.actions.nourishment.LocateDrinkAction.LIQUID_AMOUNT_FOR_DRINK_CONSUMPTION;
 import static technology.rocketjump.mountaincore.entities.behaviour.furniture.BeerTapperBehaviour.BeerTapperState.*;
+import static technology.rocketjump.mountaincore.jobs.model.JobPriority.DISABLED;
 
 public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructible, SelectableDescription, Prioritisable {
 
@@ -79,23 +80,33 @@ public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructi
 
 		switch (state) {
 			case IDLE: {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-								parentEntity, parentEntity.getLocationComponent().getWorldPosition(), relatedItemTypes.get(0), null, true, 1,
-								relatedMaterials.get(0), haulingAllocation -> {
-							if (haulingAllocation != null) {
-								createHaulingJob(haulingAllocation);
-							}
-						})
-				);
+				if (!priority.equals(DISABLED)) {
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
+									parentEntity, parentEntity.getLocationComponent().getWorldPosition(), relatedItemTypes.get(0), null, true, 1,
+									relatedMaterials.get(0), haulingAllocation -> {
+								if (haulingAllocation != null) {
+									createHaulingJob(haulingAllocation);
+								}
+							})
+					);
+				}
 				break;
 			}
 			case BEER_BARREL_INCOMING: {
 				InventoryComponent.InventoryEntry barrelInInventory = parentInventory.findByItemType(relatedItemTypes.get(0), gameContext.getGameClock());
 				if (barrelInInventory != null) {
 					tapBarrel(barrelInInventory, gameContext);
-				} else if (haulingJobs.isEmpty()) {
-					state = BeerTapperState.IDLE;
-					this.infrequentUpdate(gameContext);
+				} else {
+					if (haulingJobs.isEmpty()) {
+						state = BeerTapperState.IDLE;
+						this.infrequentUpdate(gameContext);
+					} else {
+						if (priority.equals(DISABLED)) {
+							haulingJobs.forEach(job -> messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, job));
+							haulingJobs.clear();
+							state = BeerTapperState.IDLE;
+						}
+					}
 				}
 				break;
 			}
