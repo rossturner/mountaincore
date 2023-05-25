@@ -1,8 +1,11 @@
 package technology.rocketjump.mountaincore.screens.menus.options;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -50,6 +53,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 	private CheckBox weatherEffectsCheckbox;
 	private EventListener fullscreenSelectListener;
 	private boolean restartRequiredNotified;
+	private Resolution userSelectedResolution;
 
 
 	private final Map<String, UserPreferences.FullscreenMode> translatedFullscreenModes = new LinkedHashMap<>();
@@ -105,6 +109,34 @@ public class GraphicsOptionsTab implements OptionsTab {
 		fullscreenSelect.addListener(fullscreenSelectListener);
 	}
 
+	private void toggleResolutionSelect(UserPreferences.FullscreenMode currentlySelected) {
+
+		if (currentlySelected == UserPreferences.FullscreenMode.EXCLUSIVE_FULLSCREEN) {
+			disableResolutionSelect();
+			Graphics.DisplayMode monitorDisplayMode = Gdx.graphics.getDisplayMode();
+			resolutionSelect.setSelected(new Resolution(monitorDisplayMode.width, monitorDisplayMode.height));
+		} else {
+			enableResolutionSelect();
+			resolutionSelect.setSelected(userSelectedResolution);
+		}
+	}
+
+	private void enableResolutionSelect() {
+		if (resolutionSelect != null) {
+			resolutionSelect.setDisabled(false);
+			resolutionSelect.setTouchable(Touchable.enabled);
+			resolutionSelect.getColor().a = 1.0f;
+		}
+	}
+
+	private void disableResolutionSelect() {
+		if (resolutionSelect != null) {
+			resolutionSelect.setDisabled(true);
+			resolutionSelect.setTouchable(Touchable.disabled);
+			resolutionSelect.getColor().a = 0.5f;
+		}
+	}
+
 	public static UserPreferences.FullscreenMode getFullscreenMode(UserPreferences userPreferences) {
 		return UserPreferences.FullscreenMode.valueOf(userPreferences.getPreference(UserPreferences.PreferenceKey.FULLSCREEN_MODE));
 	}
@@ -119,6 +151,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				UserPreferences.FullscreenMode selectedMode = translatedFullscreenModes.get(fullscreenSelect.getSelected());
 				userPreferences.setPreference(UserPreferences.PreferenceKey.FULLSCREEN_MODE, selectedMode.name());
+				toggleResolutionSelect(selectedMode);
 				if (!restartRequiredNotified) {
 					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
 					restartRequiredNotified = true;
@@ -137,6 +170,7 @@ public class GraphicsOptionsTab implements OptionsTab {
 			resolutionList.insert(0, DisplaySettings.currentResolution);
 		}
 		resolutionSelect.setItems(resolutionList);
+		userSelectedResolution = DisplaySettings.currentResolution;
 		resolutionSelect.setSelected(DisplaySettings.currentResolution);
 		resolutionSelect.addListener(new ChangeListener() {
 			@Override
@@ -144,15 +178,20 @@ public class GraphicsOptionsTab implements OptionsTab {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				Resolution selectedResolution = resolutionSelect.getSelected();
 				DisplaySettings.currentResolution = selectedResolution;
+				userSelectedResolution = selectedResolution;
 				userPreferences.setPreference(UserPreferences.PreferenceKey.DISPLAY_RESOLUTION, selectedResolution.toString());
 				if (!restartRequiredNotified) {
+					//TODO: should be able to update this window without restart
+					//https://libgdx.com/wiki/graphics/querying-and-configuring-graphics
 					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
 					restartRequiredNotified = true;
 				}
 			}
 		});
+		resolutionSelect.getSelection().setProgrammaticChangeEvents(false);
 		resolutionSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		resolutionSelect.addListener(new ChangeCursorOnHover(resolutionSelect, GameCursor.SELECT, messageDispatcher));
+		toggleResolutionSelect(translatedFullscreenModes.get(fullscreenSelect.getSelected()));
 
 		uiScaleLabel = new Label(i18nTranslator.translate("GUI.UI_SCALE"), skin, "options_menu_label");
 		uiScaleSlider = new Slider(ViewportUtils.MIN_VIEWPORT_SCALE, ViewportUtils.MAX_VIEWPORT_SCALE, 0.01f, false, skin); //Uses Viewport domain

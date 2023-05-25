@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.misc;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.brsanthu.googleanalytics.GoogleAnalytics;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.rendering.camera.GlobalSettings;
@@ -21,6 +22,8 @@ public class AnalyticsManager {
 		t.setDaemon(true);
 		return t;
 	});
+
+	private static final Graphics graphics = Gdx.graphics;
 
 	static {
 		ga = GoogleAnalytics.builder()
@@ -43,7 +46,7 @@ public class AnalyticsManager {
 					.applicationName("King under the Mountain")
 					.applicationVersion(GlobalSettings.VERSION.toString())
 					.clientId(clientId)
-					.screenResolution(Gdx.graphics.getDisplayMode(Gdx.graphics.getMonitor()).toString())
+					.screenResolution(AnalyticsManager.graphics.getDisplayMode(AnalyticsManager.graphics.getMonitor()).toString())
 					.userLanguage(languageCode)
 					.send();
 		} catch (Exception e) {

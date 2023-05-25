@@ -1,6 +1,7 @@
 package technology.rocketjump.mountaincore.modding.authentication;
 
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.*;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Singleton
-public class ModioRequestAdapter {
+public class ModioRequestAdapter implements Disposable {
 
 	private static final String MODIO_API_BASE_URL = "https://api.mod.io/v1";
 	private static final String MODIO_API_KEY = "7aa85917a6decae0093157bd668d64c5"; // This is read-only access so probably okay to include here
@@ -102,6 +103,22 @@ public class ModioRequestAdapter {
 				Logger.error("Failed to get subscribed mods: " + response.body().string());
 				throw new IOException("Request to mod.io subscriptions failed: " + response.code());
 			}
+		}
+	}
+
+
+	@Override
+	public void dispose() {
+		client.dispatcher().executorService().shutdown();
+		client.connectionPool().evictAll();
+		try {
+			Cache cache = client.cache();
+			if (cache != null) {
+				cache.close();
+
+			}
+		} catch (IOException e) {
+			Logger.error("Something failed when closing cache", e);
 		}
 	}
 }

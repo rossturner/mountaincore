@@ -34,6 +34,7 @@ import technology.rocketjump.mountaincore.misc.twitch.TwitchMessageHandler;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchTaskRunner;
 import technology.rocketjump.mountaincore.modding.LocalModRepository;
 import technology.rocketjump.mountaincore.modding.ModSyncMessageHandler;
+import technology.rocketjump.mountaincore.modding.authentication.ModioRequestAdapter;
 import technology.rocketjump.mountaincore.modding.authentication.SteamUserManager;
 import technology.rocketjump.mountaincore.modding.model.ParsedMod;
 import technology.rocketjump.mountaincore.persistence.UserFileManager;
@@ -74,6 +75,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 	private ScreenManager screenManager;
 	private ConstantsRepo constantsRepo;
 	private TwitchTaskRunner twitchTaskRunner;
+	private ModioRequestAdapter modioRequestAdapter;
 	private boolean crashHappened;
 
 	@Override
@@ -105,6 +107,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			gameUpdateRegister = injector.getInstance(GameUpdateRegister.class);
 			displaysTextRegister = injector.getInstance(DisplaysTextRegister.class);
 			assetDisposableRegister = injector.getInstance(AssetDisposableRegister.class);
+			modioRequestAdapter = injector.getInstance(ModioRequestAdapter.class);
 			UserFileManager userFileManager = injector.getInstance(UserFileManager.class);
 
 			Reflections reflections = new Reflections("technology.rocketjump.mountaincore", new SubTypesScanner());
@@ -191,6 +194,8 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
 		SteamAPI.shutdown();
+		backgroundTaskManager.shutdown();
+		modioRequestAdapter.dispose();
 		Gdx.app.exit();
 	}
 
@@ -210,6 +215,12 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			CrashHandler.logCrash(e);
 			throw e;
 		}
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		onExit();
 	}
 
 	private void submitErrorDialog(Throwable e) {

@@ -63,7 +63,10 @@ project(":desktop") {
 //        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion" // Now part of core module (code smell)
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        api "games.spooky.gdx:gdx-nativefilechooser-desktop:1.0.0"
+        api ("games.spooky.gdx:gdx-nativefilechooser-desktop:1.0.0") {
+            exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
+        }
+        api "com.badlogicgames.gdx:gdx-lwjgl3-glfw-awt-macos:$gdxVersion"
         api group: 'com.amazonaws', name: 'aws-java-sdk-translate', version: '1.11.708'
     }
 
@@ -201,7 +204,7 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion" // This is only here to multi-thread audio
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion" // This is only here to multi-thread audio
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api("com.badlogicgames.gdx:gdx-tools:$gdxVersion") {
             exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'

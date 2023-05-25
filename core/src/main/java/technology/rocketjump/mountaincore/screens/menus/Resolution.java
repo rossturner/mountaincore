@@ -2,6 +2,8 @@ package technology.rocketjump.mountaincore.screens.menus;
 
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Objects;
+
 public class Resolution {
 
 	public static final Array<Resolution> defaultResolutions = new Array<>();
@@ -45,4 +47,16 @@ public class Resolution {
 		return new Resolution(Integer.valueOf(parts[0]), Integer.valueOf(parts[1]));
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Resolution that = (Resolution) o;
+		return width == that.width && height == that.height;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(width, height);
+	}
 }
