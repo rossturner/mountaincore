@@ -1,8 +1,7 @@
 package technology.rocketjump.mountaincore.assets.editor.widgets.propertyeditor;
 
-import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -283,7 +282,8 @@ public class SpriteDescriptorsPane extends VisTable {
         spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
 
         Path generatedNormalFile = normalMapGenerator.generate(fileHandle.file().toPath());
-        Texture normalTexture = new Texture(new LwjglFileHandle(generatedNormalFile.toAbsolutePath().toFile(), Files.FileType.Absolute));
+        FileHandle normalFileHandle = Gdx.files.absolute(generatedNormalFile.toAbsolutePath().toString());
+        Texture normalTexture = new Texture(normalFileHandle);
         Sprite normalSprite = new Sprite(normalTexture);
         sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
         spriteDescriptor.setSprite(RenderMode.NORMALS, normalSprite);

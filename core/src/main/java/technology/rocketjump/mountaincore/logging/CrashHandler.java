@@ -13,7 +13,6 @@ import okhttp3.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.lwjgl.opengl.Display;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.persistence.UserPreferences;
@@ -40,7 +39,9 @@ public class CrashHandler implements Telegraph {
 	}
 
 	public static void displayCrashDialog(Throwable e) {
-		Display.destroy(); //ensure opengl is destroyed
+
+//		Display.destroy(); //ensure opengl is destroyed todo
+
 
 		Throwable exceptionToDisplay = e;
 		if (e instanceof ProvisionException) {

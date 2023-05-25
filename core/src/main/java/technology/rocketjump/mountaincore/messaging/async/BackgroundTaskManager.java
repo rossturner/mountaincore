@@ -126,4 +126,13 @@ public class BackgroundTaskManager implements Telegraph {
 		}
 		this.outstandingTasks = newOutstandingTasks;
 	}
+
+	public void shutdown() {
+		executorService.shutdown();
+		try {
+			executorService.awaitTermination(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			Logger.warn("Shutdown interrupted", e);
+		}
+	}
 }

@@ -1,7 +1,7 @@
 package technology.rocketjump.mountaincore.audio.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.audio.OpenALSound;
+import com.badlogic.gdx.backends.lwjgl3.audio.OpenALSound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
