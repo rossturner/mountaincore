@@ -52,7 +52,7 @@ public class DesktopLauncher {
             public void create() {
                 super.create();
                 spriteBatch = new SpriteBatch();
-                splashTexture = new Texture(Gdx.files.classpath("splash.jpg"));
+                splashTexture = new Texture(Gdx.files.absolute("assets/main_menu/splash.jpg"));
                 splashWindow = ((Lwjgl3Graphics)Gdx.graphics).getWindow();
             }
 
