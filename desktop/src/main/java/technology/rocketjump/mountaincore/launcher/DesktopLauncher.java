@@ -1,8 +1,15 @@
 package technology.rocketjump.mountaincore.launcher;
 
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.pmw.tinylog.Logger;
@@ -35,11 +42,54 @@ public class DesktopLauncher {
     }
 
     private static void launchMainWindow() {
+        ApplicationListener splashScreenListener = new ApplicationAdapter() {
+            private SpriteBatch spriteBatch;
+            private Texture splashTexture;
+            private Lwjgl3Window splashWindow;
+            private boolean requestStart = true;
+
+            @Override
+            public void create() {
+                super.create();
+                spriteBatch = new SpriteBatch();
+                splashTexture = new Texture(Gdx.files.classpath("splash.jpg"));
+                splashWindow = ((Lwjgl3Graphics)Gdx.graphics).getWindow();
+            }
+
+            @Override
+            public void render() {
+                super.render();
+                spriteBatch.begin();
+                spriteBatch.draw(splashTexture, 0, 0);
+                spriteBatch.end();
+                if (requestStart) {
+                    requestStart = false;
+
+                    splashWindow.postRunnable(() -> {
+                        startGame((Lwjgl3Application) Gdx.app);
+                        splashWindow.closeWindow();
+                    });
+                }
+            }
+
+            @Override
+            public void dispose() {
+                super.dispose();
+                splashTexture.dispose();
+                spriteBatch.dispose();
+            }
+        };
+        Lwjgl3ApplicationConfiguration splashConfig = new Lwjgl3ApplicationConfiguration();
+        splashConfig.setTitle("Mountaincore");
+        splashConfig.setWindowedMode(600, 600);
+        splashConfig.setDecorated(false);
+        splashConfig.setWindowIcon("assets/icon/Steam_Icon_128x128.png", "assets/icon/Steam_Icon_32x32.png", "assets/icon/Steam_Icon_16x16.png");
+        Lwjgl3Application application = new Lwjgl3Application(splashScreenListener, splashConfig);
+    }
+
+    private static void startGame(Lwjgl3Application application) {
         // config for main window
-
-
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-
         config.setTitle("Mountaincore");
 
         Injector preInjector = Guice.createInjector(new MountaincoreGuiceModule());
@@ -61,9 +111,8 @@ public class DesktopLauncher {
 
         config.setWindowIcon("assets/icon/Steam_Icon_128x128.png", "assets/icon/Steam_Icon_32x32.png", "assets/icon/Steam_Icon_16x16.png");
 
-
         MountaincoreApplicationAdapter gameInstance = new MountaincoreApplicationAdapter();
-        new Lwjgl3Application(gameInstance, config);
+        application.newWindow(gameInstance, config);
     }
 
 
