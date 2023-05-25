@@ -2,7 +2,6 @@ package technology.rocketjump.mountaincore.entities.model.physical.creature.stat
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.mountaincore.entities.components.creature.HappinessComponent;
-import technology.rocketjump.mountaincore.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 
 public class Poisoned extends StatusEffect {
@@ -10,7 +9,7 @@ public class Poisoned extends StatusEffect {
 	private static final float CHANCE_TO_REMOVE_ON_TICK = 1f / 25f;
 
 	public Poisoned() {
-		super(Death.class, 4.0, DeathReason.FOOD_POISONING, null);
+		super(null, 4.0, null, null);
 	}
 
 	@Override
