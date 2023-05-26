@@ -139,7 +139,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		}
 
 		if (colorCode == null) {
-			color = null;
+			color = Color.WHITE;
 		} else if (colorCode.length() == 7) {
 			color = new Color(
 					Integer.parseInt(colorCode.substring(1, 3), 16) / 255f,
@@ -147,7 +147,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 					Integer.parseInt(colorCode.substring(5, 7), 16) / 255f,
 					1f);
 		} else {
-			color = null;
+			color = Color.MAGENTA;
 			Logger.error("Unrecognised color code " + colorCode + " for GameMaterial " + this.materialName);
 		}
 	}
