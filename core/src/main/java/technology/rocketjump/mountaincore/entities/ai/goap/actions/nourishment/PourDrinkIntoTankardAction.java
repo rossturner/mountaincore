@@ -7,6 +7,7 @@ import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.EntityCreatedCallback;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.ItemTypeLookupCallback;
+import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
 import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
 import technology.rocketjump.mountaincore.entities.components.LiquidContainerComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -71,6 +72,11 @@ public class PourDrinkIntoTankardAction extends Action implements EntityCreatedC
 					EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 
 					if (tankardEntity != null && equippedItemComponent.isMainHandEnabled()) {
+						if (equippedItemComponent.getMainHandItem() != null) {
+							parent.parentEntity.getComponent(InventoryComponent.class).add(
+									equippedItemComponent.clearMainHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock()
+							);
+						}
 						equippedItemComponent.setMainHandItem(tankardEntity, parent.parentEntity, parent.messageDispatcher);
 
 						// Pseudo-create food allocation so PlaceFoodOrDrinkOnFurniture action works

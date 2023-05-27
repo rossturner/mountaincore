@@ -53,7 +53,7 @@ public class ConsumeLiquidFromContainerAction extends Action {
 			return;
 		}
 
-		Entity inventoryContainer = tryEquipContainerFromInventory();
+		Entity inventoryContainer = tryEquipContainerFromInventory(gameContext);
 
 		GameMaterial consumedLiquid = GameMaterial.NULL_MATERIAL;
 		elapsedTime += deltaTime;
@@ -104,7 +104,7 @@ public class ConsumeLiquidFromContainerAction extends Action {
 		}
 	}
 
-	private Entity tryEquipContainerFromInventory() {
+	private Entity tryEquipContainerFromInventory(GameContext gameContext) {
 		LiquidAllocation liquidAllocation = parent.getLiquidAllocation();
 		if (LiquidAllocation.LiquidAllocationType.REQUESTER_INVENTORY == liquidAllocation.getType()) {
 			InventoryComponent inventory = parent.parentEntity.getComponent(InventoryComponent.class);
@@ -119,7 +119,9 @@ public class ConsumeLiquidFromContainerAction extends Action {
 					return mainHandItem;
 				} else if (inInventory != null && equipped.isMainHandEnabled()) {
 					inInventory = inventory.remove(inInventory.getId());
-					equipped.clearMainHandItem();
+					if (equipped.getMainHandItem() != null) {
+						inventory.add(equipped.clearMainHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+					}
 					equipped.setMainHandItem(inInventory, parent.parentEntity, parent.messageDispatcher);
 					return inInventory;
 				}

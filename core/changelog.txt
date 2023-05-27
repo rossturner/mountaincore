@@ -1,3 +1,8 @@
+Early Access 1.2.1 - 27th May 2023
+
+- Attempted fix for weapons sometimes going missing
+- Disabled exclusive full screen mode on Mac until we can fix the OS-level crash this is causing
+
 Early Access 1.2.0 - 25th May 2023
 
 - Updated underlying engine library to latest version

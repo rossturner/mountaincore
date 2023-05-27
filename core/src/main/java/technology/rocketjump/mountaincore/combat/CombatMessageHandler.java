@@ -202,7 +202,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	private boolean applyAttackDamage(CombatAttackMessage attackMessage) {
 		int damageAmount = attackMessage.weaponAttack.getMinDamage() + gameContext.getRandom().nextInt(
-				attackMessage.weaponAttack.getMaxDamage() - attackMessage.weaponAttack.getMinDamage()
+				Math.max(attackMessage.weaponAttack.getMaxDamage(), 1) - Math.min(attackMessage.weaponAttack.getMinDamage(), 0)
 		);
 		damageAmount = scaleDamageByWeaponQuality(damageAmount, attackMessage.weaponAttack.getWeaponQuality());
 

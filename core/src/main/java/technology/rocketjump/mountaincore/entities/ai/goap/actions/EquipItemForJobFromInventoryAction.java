@@ -32,9 +32,14 @@ public class EquipItemForJobFromInventoryAction extends Action {
 
 		HaulingComponent haulingComponent = parent.parentEntity.getComponent(HaulingComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 
 		if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
 			if (matches(haulingComponent.getHauledEntity(), requiredItemType, requiredMaterial)) {
+				if (equippedItemComponent.getMainHandItem() != null) {
+					inventoryComponent.add(equippedItemComponent.clearMainHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+				}
+
 				equippedItemComponent.setMainHandItem(haulingComponent.clearHauledEntity(), parent.parentEntity, parent.messageDispatcher);
 				completionType = SUCCESS;
 			} else {
@@ -45,7 +50,6 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		}
 
 
-		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		InventoryComponent.InventoryEntry itemInInventory;
 		if (requiredMaterial != null) {
 			itemInInventory = inventoryComponent.findByItemTypeAndMaterial(requiredItemType, requiredMaterial, gameContext.getGameClock());
@@ -54,6 +58,9 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		}
 		if (itemInInventory != null && equippedItemComponent.isMainHandEnabled()) {
 			inventoryComponent.remove(itemInInventory.entity.getId());
+			if (equippedItemComponent.getMainHandItem() != null) {
+				inventoryComponent.add(equippedItemComponent.clearMainHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+			}
 			equippedItemComponent.setMainHandItem(itemInInventory.entity, parent.parentEntity, parent.messageDispatcher);
 			completionType = SUCCESS;
 		} else {

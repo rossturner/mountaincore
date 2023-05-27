@@ -27,6 +27,7 @@ public class EquipItemFromFoodAllocationAction extends Action {
 				completionType = CompletionType.FAILURE;
 			} else {
 				EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+				equippedItemComponent.clearHeldEquipment().forEach(e -> inventoryComponent.add(e, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock()));
 				boolean successful = equippedItemComponent.setEquippedToAnyHand(itemInInventory, parent.parentEntity, parent.messageDispatcher);
 				if (successful) {
 					completionType = CompletionType.SUCCESS;

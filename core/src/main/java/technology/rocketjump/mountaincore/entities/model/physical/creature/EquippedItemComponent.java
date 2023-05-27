@@ -55,12 +55,17 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
-	public void clearFromEquippedHand(Entity targetEntity) {
-		if (targetEntity.equals(mainHandItem)) {
-			clearMainHandItem();
-		} else if (targetEntity.equals(offHandItem)) {
-			clearOffHandItem();
+	public List<Entity> clearHeldEquipment() {
+		List<Entity> equipment = new ArrayList<>();
+		Entity handItem = clearMainHandItem();
+		if (handItem != null) {
+			equipment.add(handItem);
 		}
+		Entity offHandItem = clearOffHandItem();
+		if (offHandItem != null) {
+			equipment.add(offHandItem);
+		}
+		return equipment;
 	}
 
 	public boolean setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
@@ -69,6 +74,9 @@ public class EquippedItemComponent implements EntityComponent {
 				(mainHandEnabled && !requiresTwoHands)
 				|| (requiresTwoHands && mainHandEnabled && offHandEnabled)
 		) {
+			if (this.mainHandItem != null) {
+				throw new RuntimeException("Setting main hand item when already holding an item");
+			}
 			this.mainHandItem = itemToEquip;
 			this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
 			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
@@ -88,6 +96,9 @@ public class EquippedItemComponent implements EntityComponent {
 
 	public boolean setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		if (offHandEnabled) {
+			if (this.offHandItem != null) {
+				throw new RuntimeException("Setting main hand item when already holding an item");
+			}
 			this.offHandItem = itemToEquip;
 			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
 			return true;
@@ -99,19 +110,6 @@ public class EquippedItemComponent implements EntityComponent {
 	public void setEquippedClothing(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		this.equippedClothing = itemToEquip;
 		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
-	}
-
-	public List<Entity> clearHeldEquipment() {
-		List<Entity> equipment = new ArrayList<>();
-		Entity handItem = clearMainHandItem();
-		if (handItem != null) {
-			equipment.add(handItem);
-		}
-		Entity offHandItem = clearOffHandItem();
-		if (offHandItem != null) {
-			equipment.add(offHandItem);
-		}
-		return equipment;
 	}
 
 	public Entity disableMainHand() {

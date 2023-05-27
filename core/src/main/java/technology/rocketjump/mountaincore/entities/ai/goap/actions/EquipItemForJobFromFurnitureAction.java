@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.entities.ai.goap.actions;
 import com.alibaba.fastjson.JSONObject;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
 import technology.rocketjump.mountaincore.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
@@ -52,6 +53,10 @@ public class EquipItemForJobFromFurnitureAction extends Action {
 						}
 						EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 						if (itemInInventory != null && equippedItemComponent.isMainHandEnabled()) {
+							if (equippedItemComponent.getMainHandItem() != null) {
+								Entity oldEquippedItem = equippedItemComponent.clearMainHandItem();
+								parent.parentEntity.getComponent(InventoryComponent.class).add(oldEquippedItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+							}
 							inventoryComponent.remove(itemInInventory.getId());
 							equippedItemComponent.setMainHandItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
 							completionType = SUCCESS;

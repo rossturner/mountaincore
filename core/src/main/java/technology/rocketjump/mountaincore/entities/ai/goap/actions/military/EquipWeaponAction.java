@@ -46,6 +46,9 @@ public class EquipWeaponAction extends Action {
 		} else {
 			Entity weaponInInventory = inventoryComponent.getById(assignedWeaponId);
 			if (weaponInInventory != null && equippedItemComponent.isMainHandEnabled()) {
+				if (equippedItemComponent.getMainHandItem() != null) {
+					inventoryComponent.add(equippedItemComponent.clearMainHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+				}
 				inventoryComponent.remove(weaponInInventory.getId());
 				equippedItemComponent.setMainHandItem(weaponInInventory, parent.parentEntity, parent.messageDispatcher);
 				completionType = CompletionType.SUCCESS;
@@ -59,6 +62,9 @@ public class EquipWeaponAction extends Action {
 			Entity shieldInInventory = inventoryComponent.getById(assignedShieldId);
 			if (shieldInInventory != null) {
 				inventoryComponent.remove(shieldInInventory.getId());
+				if (equippedItemComponent.getOffHandItem() != null) {
+					inventoryComponent.add(equippedItemComponent.clearOffHandItem(), parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+				}
 				equippedItemComponent.setOffHandItem(shieldInInventory, parent.parentEntity, parent.messageDispatcher);
 			}
 		}
