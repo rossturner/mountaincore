@@ -2,6 +2,9 @@ Early Access 1.2.1 - 27th May 2023
 
 - Attempted fix for weapons sometimes going missing
 - Disabled exclusive full screen mode on Mac until we can fix the OS-level crash this is causing
+- Dwarves can no longer drink from the water barrel in a brewery to avoid blocking the production of wort
+    - Note that this change will auto-deconstruct any existing brewery water barrels
+- Health and Safety inspectors have banned the dwarves from drinking beer directly from fermentation tanks
 
 Early Access 1.2.0 - 25th May 2023
 
