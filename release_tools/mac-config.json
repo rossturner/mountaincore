@@ -6,7 +6,7 @@
 		"../desktop/build/libs/mountaincore.jar"
 	],
 	"mainclass": "technology.rocketjump.mountaincore.launcher.DesktopLauncher",
-	"vmargs": ["Xms2048m", "-Dfile.encoding=UTF-8", "-XX:-OmitStackTraceInFastThrow"],
+	"vmargs": ["Xms2048m", "-Dfile.encoding=UTF-8", "-XstartOnFirstThread", "-XX:-OmitStackTraceInFastThrow"],
 	"resources": [
 		"../core/changelog.txt",
 		"../core/assets",

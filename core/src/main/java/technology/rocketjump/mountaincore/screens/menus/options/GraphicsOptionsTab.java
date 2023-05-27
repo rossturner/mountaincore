@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.apache.commons.lang3.SystemUtils;
 import technology.rocketjump.mountaincore.audio.model.SoundAsset;
 import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
 import technology.rocketjump.mountaincore.messaging.MessageType;
@@ -96,6 +97,9 @@ public class GraphicsOptionsTab implements OptionsTab {
 		UserPreferences.FullscreenMode currentlySelected = getFullscreenMode(userPreferences);
 		String selectedValue = "";
 		for (UserPreferences.FullscreenMode fullscreenMode : UserPreferences.FullscreenMode.values()) {
+			if (SystemUtils.IS_OS_MAC && fullscreenMode == UserPreferences.FullscreenMode.EXCLUSIVE_FULLSCREEN) {
+				continue;
+			}
 			String translatedMode = i18nTranslator.getTranslatedString(fullscreenMode.i18nKey).toString();
 			translatedFullscreenModes.put(translatedMode, fullscreenMode);
 			fullscreenModeList.add(translatedMode);
@@ -138,7 +142,11 @@ public class GraphicsOptionsTab implements OptionsTab {
 	}
 
 	public static UserPreferences.FullscreenMode getFullscreenMode(UserPreferences userPreferences) {
-		return UserPreferences.FullscreenMode.valueOf(userPreferences.getPreference(UserPreferences.PreferenceKey.FULLSCREEN_MODE));
+		UserPreferences.FullscreenMode fullscreenMode = UserPreferences.FullscreenMode.valueOf(userPreferences.getPreference(UserPreferences.PreferenceKey.FULLSCREEN_MODE));
+		if (SystemUtils.IS_OS_MAC && fullscreenMode == UserPreferences.FullscreenMode.EXCLUSIVE_FULLSCREEN) {
+			fullscreenMode = UserPreferences.FullscreenMode.WINDOWED;
+		}
+		return fullscreenMode;
 	}
 
 	public void rebuildUI() {
