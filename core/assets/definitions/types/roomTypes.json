@@ -112,7 +112,7 @@
   "i18nKey" : "ROOMS.BREWERY",
   "drawableName" : "btn_room_brewery",
   "colorCode" : "#a08750",
-  "furnitureNames" : [ "WATER_BARREL", "MALTING_STATION", "MASH_TUN", "BREW_KETTLE", "FERMENTATION_TANK", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "furnitureNames" : [ "INDUSTRIAL_WATER_BARREL", "MALTING_STATION", "MASH_TUN", "BREW_KETTLE", "FERMENTATION_TANK", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "TEXTILE_WORKSHOP",

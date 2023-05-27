@@ -557,7 +557,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				.filter(l -> requirement.getMaterial().equals(l.getTargetLiquidMaterial()))
 				.filter(l -> l.getNumUnallocated() >= (float) requirement.getQuantity())
 				.filter(l -> !l.getAccessZone().isEmpty())
-				.findAny().orElse(null);
+				.findAny()
+				.orElse(null);
 	}
 
 	private int getAmountRequired(ProductionExportFurnitureBehaviour exportFurnitureBehaviour) {

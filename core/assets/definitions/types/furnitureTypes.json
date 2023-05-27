@@ -423,7 +423,7 @@
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "FERMENTING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel" ],
-    "LIQUID_CONTAINER" : [ "12", "Hopped Wort" ]
+    "LIQUID_CONTAINER" : [ "12", "Hopped Wort", "ALWAYS_INACTIVE" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -1025,6 +1025,24 @@
     "LIQUID_CONTAINER" : [ "12", "Water", "ALWAYS_INACTIVE" ],
     "CONSTRUCTION_OVERRIDE" : [ "DO_NOT_ALLOCATE", "REQUIRES_EDIBLE_LIQUID" ],
     "FURNITURE_BEHAVIOUR" : [ "EDIBLE_LIQUID_SOURCE", "ItemType_Ingredient-Soup-Bowl" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "INDUSTRIAL_WATER_BARREL",
+  "i18nKey" : "FURNITURE.WATER_BARREL",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Barrel",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "6", "Water", "ALWAYS_INACTIVE" ],
+    "FURNITURE_BEHAVIOUR" : [ "FILL_LIQUID_CONTAINER", "ItemType_Product-Bucket" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

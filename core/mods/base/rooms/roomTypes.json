@@ -181,7 +181,7 @@
     "colorCode": "#a08750",
     "drawableName": "btn_room_brewery",
     "furnitureNames": [
-      "WATER_BARREL",
+      "INDUSTRIAL_WATER_BARREL",
       "MALTING_STATION",
       "MASH_TUN",
       "BREW_KETTLE",

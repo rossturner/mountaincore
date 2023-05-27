@@ -19,6 +19,6 @@
   },
   "tags": {
     "CRAFTING_STATION_BEHAVIOUR": ["FERMENTING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel"],
-    "LIQUID_CONTAINER": ["12", "Hopped Wort"]
+    "LIQUID_CONTAINER": ["12", "Hopped Wort", "ALWAYS_INACTIVE"]
   }
 }
