@@ -296,7 +296,7 @@ public class ConstructionManager implements Updatable {
 
 		tempAllocation = null;
 		messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-				null, constructionLocation, requirement.getItemType(), requirement.getMaterial(), true,
+				construction.getEntity(), constructionLocation, requirement.getItemType(), requirement.getMaterial(), true,
 				amountRequired, null, haulingAllocation -> tempAllocation = haulingAllocation));
 
 

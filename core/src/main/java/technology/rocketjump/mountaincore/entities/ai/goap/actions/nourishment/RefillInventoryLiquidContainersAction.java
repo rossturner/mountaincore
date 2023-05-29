@@ -1,5 +1,6 @@
 package technology.rocketjump.mountaincore.entities.ai.goap.actions.nourishment;
 
+import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.mountaincore.entities.ai.goap.actions.Action;
@@ -10,6 +11,9 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.materials.model.GameMaterial;
+import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
+import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
+import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -60,5 +64,13 @@ public class RefillInventoryLiquidContainersAction extends Action {
     private void refill(GameMaterial material, LiquidContainerComponent liquidContainer) {
         liquidContainer.setTargetLiquidMaterial(material);
         liquidContainer.setLiquidQuantity(parent.getLiquidAllocation().getAllocationAmount());
+    }
+
+    @Override
+    public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+    }
+
+    @Override
+    public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
     }
 }

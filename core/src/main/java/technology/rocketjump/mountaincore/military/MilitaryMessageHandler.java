@@ -143,7 +143,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 	private void interruptCurrentBehaviour(Squad squad) {
 		for (Long memberEntityId : squad.getMemberEntityIds()) {
 			Entity squadMember = gameContext.getEntities().get(memberEntityId);
-			if (squadMember.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			if (squadMember != null && squadMember.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				if (creatureBehaviour.getCurrentGoal() != null) {
 					creatureBehaviour.getCurrentGoal().setInterrupted(true);
 				}

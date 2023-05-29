@@ -16,16 +16,17 @@ import java.util.Set;
 public class AssetDisposableRegister implements Telegraph {
 
 	private final Map<String, AssetDisposable> registered = new HashMap<>();
+	private boolean shutdownTriggered = false;
 
 	@Inject
 	public AssetDisposableRegister(MessageDispatcher messageDispatcher) {
 		messageDispatcher.addListener(this, MessageType.SHUTDOWN_IN_PROGRESS);
 	}
 
-	public void registerClasses(Set<Class<? extends AssetDisposable>> updatableClasses, Injector injector) {
-		for (Class updatableClass : updatableClasses) {
-			if (!updatableClass.isInterface()) {
-				register((AssetDisposable)injector.getInstance(updatableClass));
+	public void registerClasses(Set<Class<? extends AssetDisposable>> assetDisposableClasses, Injector injector) {
+		for (Class assetDisposableClass : assetDisposableClasses) {
+			if (!assetDisposableClass.isInterface()) {
+				register((AssetDisposable)injector.getInstance(assetDisposableClass));
 			}
 		}
 	}
@@ -34,8 +35,11 @@ public class AssetDisposableRegister implements Telegraph {
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
 			case MessageType.SHUTDOWN_IN_PROGRESS: {
-				for (AssetDisposable disposable : registered.values()) {
-					disposable.dispose();
+				if (!shutdownTriggered) {
+					shutdownTriggered = true;
+					for (AssetDisposable disposable : registered.values()) {
+						disposable.dispose();
+					}
 				}
 				return true;
 			}

@@ -124,9 +124,9 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			displaysTextClasses.forEach(MountaincoreGuiceModule::checkForSingleton);
 			displaysTextRegister.registerClasses(displaysTextClasses, injector);
 
-			Set<Class<? extends AssetDisposable>> assetUpdatableClasses = reflections.getSubTypesOf(AssetDisposable.class);
-			assetUpdatableClasses.forEach(MountaincoreGuiceModule::checkForSingleton);
-			assetDisposableRegister.registerClasses(assetUpdatableClasses, injector);
+			Set<Class<? extends AssetDisposable>> assetDisposableClasses = reflections.getSubTypesOf(AssetDisposable.class);
+			assetDisposableClasses.forEach(MountaincoreGuiceModule::checkForSingleton);
+			assetDisposableRegister.registerClasses(assetDisposableClasses, injector);
 
 			Set<Class<? extends OptionsTab>> optionsTabClasses = reflections.getSubTypesOf(OptionsTab.class);
 			List<OptionsTab> optionsTabInstances = new ArrayList<>();

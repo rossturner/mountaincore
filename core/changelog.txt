@@ -1,6 +1,13 @@
 Early Access 1.2.2 - 29th May 2023
 
 - Reduced toughness of the undead (though they're still very hard to kill - bring hammers)
+- Made collection of ammo while in military more important than other goals (i.e. standing on guard)
+- Fix for a crash when attempting to attack but no opponent is selected
+- Fix for a crash when a military squad member has been completely obliterated from the world
+- Fix for a crash when spawning a particle effect for an item and the target material can not be found
+- Fix for a crash that can happen when requesting items to a construction
+- Fix for a crash when closing the game multiple times(!)
+- Fix for a crash due to missing code in an AI action to refill waterskins
 
 Early Access 1.2.1 - 27th May 2023
 

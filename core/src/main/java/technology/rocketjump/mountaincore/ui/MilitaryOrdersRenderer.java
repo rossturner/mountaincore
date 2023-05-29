@@ -83,6 +83,9 @@ public class MilitaryOrdersRenderer {
 			GridPoint2 formationPosition = squad.getFormation().getFormationPosition(cursor, centralLocation, gameContext, squad.getMemberEntityIds().size());
 			if (formationPosition != null && boundingBox.contains(formationPosition)) {
 				Entity squadMember = gameContext.getEntities().get(squad.getMemberEntityIds().get(cursor));
+				if (squadMember == null) {
+					continue;
+				}
 				Vector2 currentWorldPosition = squadMember.getLocationComponent().getWorldPosition();
 				Vector2 currentFacing = squadMember.getLocationComponent().getFacing();
 				float currentRotation = squadMember.getLocationComponent().getRotation();

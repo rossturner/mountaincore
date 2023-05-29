@@ -15,7 +15,7 @@
           "targetQuantity": 20
         }
       ],
-      "priority": "JOB_NORMAL",
+      "priority": "JOB_URGENT",
       "scheduleCategory": "ANY"
     }
   ],

@@ -305,7 +305,7 @@ public class TiledMap {
 
 	public int getNavigableRegionId(Entity requestingEntity, Vector2 requesterPosition) {
 		MapTile tile = getTile(requesterPosition);
-		if (tile == null) {
+		if (tile == null || requestingEntity == null) {
 			return -1;//ick
 		}
 		int requesterRegionId = tile.getRegionId();

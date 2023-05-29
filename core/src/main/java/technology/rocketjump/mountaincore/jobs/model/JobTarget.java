@@ -183,7 +183,12 @@ public class JobTarget {
 					}
 					case ITEM: {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-						return attributes.getPrimaryMaterial().getColor();
+						GameMaterial itemMaterial = attributes.getPrimaryMaterial();
+						if (itemMaterial != null) {
+							return itemMaterial.getColor();
+						} else {
+							return Color.WHITE;
+						}
 					}
 					default: {
 						return null;

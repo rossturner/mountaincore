@@ -388,7 +388,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 				return new FleeFromCombatAction(parentEntity);
 			} else if (hasNoAmmo()) {
 				return new FleeFromCombatAction(parentEntity);
-			} else if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
+			} else if (combatStateComponent.getTargetedOpponentId() != null && isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 				return new AttackCreatureCombatAction(parentEntity);
 			} else {
 				return new MoveInRangeOfTargetCombatAction(parentEntity);
