@@ -248,7 +248,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			if (!SteamAPI.init() && GlobalSettings.DEV_MODE) {
 				Logger.info("Steam API init() failed, probably not running under Steam");
 			}
-		} catch (SteamException e) {
+		} catch (Throwable e) {
 			Logger.error(e, "SteamAPI.loadLibraries() failed");
 		}
 
