@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.codedisaster.steamworks.SteamAPI;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.Call;
@@ -548,7 +547,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText, T
 			if (GlobalSettings.DEV_MODE) {
 				Logger.debug("Not authenticated with Mod.io");
 			}
-			if (SteamAPI.isSteamRunning() && steamUserManager.isEncryptedAppTicketReady()) {
+			if (SteamUtils.isSteamRunning() && steamUserManager.isEncryptedAppTicketReady()) {
 				if (GlobalSettings.DEV_MODE) {
 					Logger.debug("Attempting authentication with Steam");
 				}

@@ -7,9 +7,9 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.codedisaster.steamworks.SteamAPI;
-import com.codedisaster.steamworks.SteamException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.apache.commons.lang3.SystemUtils;
 import org.pmw.tinylog.Logger;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -30,6 +30,7 @@ import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.async.BackgroundTaskManager;
 import technology.rocketjump.mountaincore.messaging.types.GameSaveMessage;
 import technology.rocketjump.mountaincore.misc.AnalyticsManager;
+import technology.rocketjump.mountaincore.misc.SteamUtils;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchMessageHandler;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchTaskRunner;
 import technology.rocketjump.mountaincore.modding.LocalModRepository;
@@ -165,7 +166,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		if (SteamAPI.isSteamRunning()) {
+		if (SteamUtils.isSteamRunning()) {
 			SteamAPI.runCallbacks();
 		}
 		try {
@@ -193,7 +194,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
 		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
-		try { SteamAPI.shutdown(); } catch (Throwable ignored) {}
+		SteamUtils.shutdown();
 		backgroundTaskManager.shutdown();
 		modioRequestAdapter.dispose();
 		Gdx.app.exit();
@@ -243,15 +244,16 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 	}
 
 	private static void initSteamAPI() {
-		try {
-			SteamAPI.loadLibraries();
-			if (!SteamAPI.init() && GlobalSettings.DEV_MODE) {
-				Logger.info("Steam API init() failed, probably not running under Steam");
+		if (!SystemUtils.IS_OS_MAC) {
+			try {
+				SteamAPI.loadLibraries();
+				if (!SteamAPI.init() && GlobalSettings.DEV_MODE) {
+					Logger.info("Steam API init() failed, probably not running under Steam");
+				}
+			} catch (Throwable e) {
+				Logger.error(e, "SteamAPI.loadLibraries() failed");
 			}
-		} catch (Throwable e) {
-			Logger.error(e, "SteamAPI.loadLibraries() failed");
 		}
-
 	}
 
 }

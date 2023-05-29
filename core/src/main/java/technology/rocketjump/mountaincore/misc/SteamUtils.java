@@ -14,8 +14,18 @@ public class SteamUtils {
 		} catch (Throwable ignored) {}
 	}
 
+	public static boolean isSteamRunning() {
+		return !SystemUtils.IS_OS_MAC && SteamAPI.isSteamRunning();
+	}
+
 	public static boolean isRunningOnSteamDeck() {
 		return utils != null && SteamAPI.isSteamRunning() && utils.isSteamRunningOnSteamDeck();
+	}
+
+	public static void shutdown() {
+		if (!SystemUtils.IS_OS_MAC) {
+			SteamAPI.shutdown();
+		}
 	}
 
 }

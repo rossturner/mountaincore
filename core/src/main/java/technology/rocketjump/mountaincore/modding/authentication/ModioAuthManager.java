@@ -2,7 +2,6 @@ package technology.rocketjump.mountaincore.modding.authentication;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.codedisaster.steamworks.SteamAPI;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.Call;
@@ -10,6 +9,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import org.apache.http.HttpStatus;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.mountaincore.misc.SteamUtils;
 import technology.rocketjump.mountaincore.persistence.UserPreferences;
 
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class ModioAuthManager {
 	}
 
 	public String getModioGameHomepage() {
-		if (SteamAPI.isSteamRunning()) {
+		if (SteamUtils.isSteamRunning()) {
 			return MODIO_GAME_URL + "?portal=steam";
 		} else {
 			return MODIO_GAME_URL + "?portal=email";
