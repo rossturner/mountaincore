@@ -295,7 +295,7 @@
   "progressDescriptors" : [ {
     "type" : "PROFESSIONS_ASSIGNED",
     "targetTypeName" : "FARMER",
-    "quantityRequired" : 3,
+    "quantityRequired" : 4,
     "displayAsCheckbox" : false,
     "ignoreOnSteamDeck" : false
   } ],

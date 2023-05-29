@@ -394,7 +394,7 @@
   },
   "selectors" : [ ],
   "initialActions" : [ "Idle" ],
-  "interruptedByLowNeeds" : true
+  "interruptedByLowNeeds" : false
 }, {
   "i18nDescription" : "GOAL.INVADER.CREATE_CAMP.DESCRIPTION",
   "creatureCategories" : [ "INVADER" ],
@@ -800,7 +800,7 @@
       "operator" : "LESS_THAN",
       "targetQuantity" : 20
     } ],
-    "priority" : "JOB_NORMAL"
+    "priority" : "JOB_URGENT"
   } ],
   "interruptedByCombat" : true,
   "initialActions" : [ "FindAmmoForAssignedWeapon" ],
