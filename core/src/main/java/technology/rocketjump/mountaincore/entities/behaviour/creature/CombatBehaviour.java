@@ -279,6 +279,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	public void attackedInCombat(Entity attackerEntity) {
+		if (attackerEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(this.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
+			// attacked by same faction member, ignore
+			return;
+		}
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		combatStateComponent.getOpponentEntityIds().add(attackerEntity.getId());
 

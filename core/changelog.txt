@@ -2,6 +2,8 @@ Early Access 1.2.2 - 29th May 2023
 
 - Reduced toughness of the undead (though they're still very hard to kill - bring hammers)
 - Made collection of ammo while in military more important than other goals (i.e. standing on guard)
+- Dwarves will no longer fight each other to the death because of a stray arrow hitting a friend in the back
+- Idling is no longer interrupted by low needs to ensure dwarves get themselves unstuck from under furniture
 - Fix for a crash when attempting to attack but no opponent is selected
 - Fix for a crash when a military squad member has been completely obliterated from the world
 - Fix for a crash when spawning a particle effect for an item and the target material can not be found
