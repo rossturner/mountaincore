@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,Vandpumper
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,Flytter vand fra floden til rørsystemet.
 FURNITURE.WEAPON_RACK,,Weapon Rack,Våbenstativ
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,Brugt til at lagre våben.
-FURNITURE.WELL,,Well,Brønd
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.","En brønd er en vandkilde, men den skal være forbundet til et fungerende rørsystem."
+FURNITURE.WELL,,Cistern,Brønd
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.","En brønd er en vandkilde, men den skal være forbundet til et fungerende rørsystem."
 FURNITURE.WINDMILL,,Windmill,Vindmølle
 FURNITURE.WINDMILL.PLURAL,,Windmills,Vindmøller
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,Giver mekanisk kraft til andre indretninger via {{PRODUCT.STONE.GEAR.PLURAL}} og aksler.

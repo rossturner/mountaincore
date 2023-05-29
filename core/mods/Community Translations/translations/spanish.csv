@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,Bombas de agua
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,Mueve el agua del río a un sistema de tuberías.
 FURNITURE.WEAPON_RACK,,Weapon Rack,Estante de armas
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,Se utiliza para almacenar armas.
-FURNITURE.WELL,,Well,Pozo
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.","Un pozo proporciona una fuente de agua, pero debe estar conectado a un sistema de tuberías en funcionamiento."
+FURNITURE.WELL,,Cistern,Pozo
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.","Un pozo proporciona una fuente de agua, pero debe estar conectado a un sistema de tuberías en funcionamiento."
 FURNITURE.WINDMILL,,Windmill,Molino de viento
 FURNITURE.WINDMILL.PLURAL,,Windmills,Molinos de viento
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,Proporciona energía mecánica a otras construcciones a través de {{PRODUCT.STONE.GEAR.PLURAL}} y ejes.

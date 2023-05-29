@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,水泵
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,它能将河水运送至管道系统。
 FURNITURE.WEAPON_RACK,,Weapon Rack,武器架
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,能用来存放武器。
-FURNITURE.WELL,,Well,水井
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.",井能提供水资源，但必须与切实有效的管道系统相连。
+FURNITURE.WELL,,Cistern,水井
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.",井能提供水资源，但必须与切实有效的管道系统相连。
 FURNITURE.WINDMILL,,Windmill,风车
 FURNITURE.WINDMILL.PLURAL,,Windmills,风车
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,通过{{PRODUCT.STONE.GEAR.PLURAL}}和轴为其他装置提供动力。

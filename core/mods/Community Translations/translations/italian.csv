@@ -193,7 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,Invasore ostile
 FACTION.MERCHANTS,,Merchant,Commerciante
 FACTION.MONSTERS,,Monster,Mostro
-FACTION.PIRATES,,Pirate,
+FACTION.PIRATES,,Pirate,Pirata
 FACTION.SETTLEMENT,,Settler,Colono
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,Animale addomesticato
 FACTION.WILD_ANIMALS,,Wild Animal,Animale selvatico
@@ -250,8 +250,8 @@ FURNITURE.BREW_KETTLE,,Brew kettle,Bollitore
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,Questo è usato per produrre il mosto finale (birra non fermentata) usando {{VEGETABLE.HOPS}} e il mosto dal {{FURNITURE.MASH_TUN}}.
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,Piano di lavoro macelleria
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,Qui si preparano carcasse di pesce e di animali in carne utilizzabile.
-FURNITURE.BUYING_PALLET,,Buying pallet,
-FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,
+FURNITURE.BUYING_PALLET,,Buying pallet,Pallet d'acquisto
+FURNITURE.BUYING_PALLET.TOOLTIP,,Use this to determine which items to buy from the merchants.,Utilizzatela per determinare quali articoli acquistare dai commercianti.
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,Banco dell'artigiano
 FURNITURE.CARPENTRY_WORKBENCH.TOOLTIP,,"Most wooden items and tools are produced here, such as {{PRODUCT.BUCKET.PLURAL}} and {{PRODUCT.BARREL.PLURAL}}.","La maggior parte degli oggetti e degli utensili in legno sono prodotti qui, come {PRODUCT.BUCKET.PLURAL}} e {PRODUCT.BARREL.PLURAL}}."
 FURNITURE.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Calderone
@@ -318,8 +318,8 @@ FURNITURE.RETTING_TANK,,Retting tank,Serbatoio di reticolazione
 FURNITURE.RETTING_TANK.TOOLTIP,,This is used to process raw {{VEGETABLE.HEMP}} into hemp fibre that can be worked into useful materials.,Si usa per lavorare la {{VEGETABLE.HEMP}} grezza in fibra di canapa che può essere lavorata in materiali utili.
 FURNITURE.SARCOPHAGUS,A stone tomb,Sarcophagus,Sarcofago
 FURNITURE.SARCOPHAGUS.TOOLTIP,,This elaborate stone container is the final resting place of a deceased settler.,Questo elaborato contenitore di pietra è il luogo di riposo finale di un colono defunto.
-FURNITURE.SELLING_PALLET,,Selling pallet,
-FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,
+FURNITURE.SELLING_PALLET,,Selling pallet,Pallet di vendita
+FURNITURE.SELLING_PALLET.TOOLTIP,,Use this to determine which items to sell to the merchants.,Utilizza questo parametro per determinare quali articoli vendere ai commercianti.
 FURNITURE.SERVING_TABLE,A table used to hold food for serving,Serving table,Tavolo di servizio
 FURNITURE.SERVING_TABLE.TOOLTIP,,{{PRODUCT.BREAD.LOAF.PLURAL}} are placed here for serving after being baked in a {{FURNITURE.BAKING_OVEN}}.,{{PRODUCT.BREAD.LOAF.PLURAL}} vengono posti qui per servire dopo essere stati cotti in un {{FURNITURE.BAKING_OVEN}}.
 FURNITURE.SINGLE_BED,,Bed,Letto
@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,Pompe per acqua
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,Sposta l'acqua dal fiume a un sistema di tubature.
 FURNITURE.WEAPON_RACK,,Weapon Rack,Porta-armi
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,Utilizzato per conservare le armi.
-FURNITURE.WELL,,Well,Pozzo
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.","Un pozzo fornisce una fonte d'acqua, ma deve essere collegato a un sistema di tubature funzionante."
+FURNITURE.WELL,,Cistern,Pozzo
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.","Un pozzo fornisce una fonte d'acqua, ma deve essere collegato a un sistema di tubature funzionante."
 FURNITURE.WINDMILL,,Windmill,Mulino a vento
 FURNITURE.WINDMILL.PLURAL,,Windmills,Mulini a vento
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,Fornisce potenza meccanica ad altri aggeggi tramite {{PRODUCT.STONE.GEAR.PLURAL}} e alberi.
@@ -482,11 +482,11 @@ GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items i
 GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}}),{{craftingType}} ({{profession}})
 GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With,Realizzato con
 GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item,Oggetto
-GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT,,Management,
-GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT,,Limit,
-GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY,,Quantity,
-GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT,,Decrement,
-GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT,,Increment,
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT,,Management,Gestione
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.LIMIT,,Limit,Limite
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY,,Quantity,Quantità
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.DECREMENT,,Decrement,Decremento
+GUI.CRAFTING_MANAGEMENT.TABLE.MANAGEMENT.QUANTITY.INCREMENT,,Increment,Incremento
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,"Creazione di "
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},Totale attuale: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),({{quantity}} in totale)
@@ -502,7 +502,7 @@ GUI.CREDITS.DEVELOPERS.PROGRAMMING,,Programming,Programmazione
 GUI.CREDITS.DEVELOPERS.SPECIAL_THANKS,,Special Thanks,Ringraziamenti speciali
 GUI.CREDITS.FOUNDING_BACKERS_TITLE,,Special Thanks to our Founding Backers,Un ringraziamento speciale ai nostri finanziatori
 GUI.CREDITS.PATREON_KICKSTARTER_TITLE,,Additional Thanks to our Patreon and Kickstarter Backers,Ulteriori ringraziamenti ai nostri sostenitori di Patreon e Kickstarter
-GUI.CREDITS.TRANSLATORS_TITLE,,Translations,
+GUI.CREDITS.TRANSLATORS_TITLE,,Translations,Traduzioni
 GUI.CROP_SELECTION,,Crop:,Coltura:
 GUI.CROP_SELECTION.DESCRIPTION,,{{plantDescription}} - {{planting}} - {{usage}},{{plantDescription}} - {{planting}} - {{usage}}
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted,Non può essere piantato
@@ -591,7 +591,7 @@ GUI.KEY_BINDING.ROTATE,,Rotate,Ruota
 GUI.KEY_BINDING.ZOOM_IN,,Zoom in,Ingrandisci
 GUI.KEY_BINDING.ZOOM_OUT,,Zoom out,Rimpicciolisci
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted,Nessuna (lascia incolto)
-GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,
+GUI.LOAD_GAME.TABLE.COPY_SEED,,Copy Seed,Copia seme
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified,Ultima modifica
 GUI.LOAD_GAME.TABLE.DELETE,,Delete,Elimina
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time,Tempo del mondo
@@ -677,7 +677,7 @@ GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_wind
 {{drawable|tooltip_icon_waterwheel}} si collegano alle linee elettriche {{drawable|tooltip_icon_power}}{{n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{n}}Le linee elettriche {{drawable|tooltip_icon_power}} alimentano {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} e altri mobili alimentati{{n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} e l'irrigazione {{drawable|tooltip_icon_irrigation}} sono collegati a {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}"
 GUI.PRIORITY_LABEL,,Priority,Priorità
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Scegliere l'oggetto da esportare
-GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},Produzione interrotta - il limite è impostato su {{quantity}}
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Scegliere l'oggetto da importare
 GUI.REMOVE_LABEL,,Remove,Rimuovi
 GUI.REMOVE_TILES,,Remove tiles,Rimuovi caselle
@@ -702,8 +702,8 @@ GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction,{{item}} sono in fase di costruzione
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT,,{{item}} is on an import pallet,{{item}} è su un pallet di importazione
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_IMPORT.PLURAL,,{{item}} are on an import pallet,{{item}} sono su un pallet di importazione
-GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,
-GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT,,{{item}} is being moved to an export palle,{{item}} viene spostato in un pallet di esportazione.
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PRODUCTION_OUTPUT.PLURAL,,{{item}} are being moved to an export pallet,{{item}} sono stati spostati su un pallet di esportazione
 GUI.RESOURCE_MANAGEMENT.QUANTIFIED_ITEM,,{{quantity}} {{item}},{{quantity}} {{item}}
 GUI.RESOURCE_MANAGEMENT.SEARCH,,Search,Ricerca
 GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By,Ordina per
@@ -892,7 +892,7 @@ MEAT.DEER_MEAT,,Deer,Cervo
 MEAT.DWARF_FLESH,,Dwarf flesh,Carne di nano
 MEAT.ELEPHANT_MEAT,,Elephant,Elefante
 MEAT.FOX_MEAT,,Fox,Volpe
-MEAT.HORSE_MEAT,,Horse,
+MEAT.HORSE_MEAT,,Horse,Cavallo
 MEAT.PERCH_MEAT.NOUN,,Perch,Persico
 MEAT.PERCH_MEAT.PLURAL,,Perch,Persico
 MEAT.PIKE_MEAT.NOUN,,Pike,Luccio
@@ -1024,14 +1024,14 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Crollo minerario
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,Un oggetto o un mobile è stato distrutto a causa dell'esposizione prolungata alla pioggia.nAlcuni materiali come il ferro e l'acciaio non dovrebbero essere lasciati fuori per un lungo periodo.
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Arrugginito
-NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
-NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,Sono arrivati i pirati! Non lasciate che rubino le vostre cose!
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,Pirati!
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Un tetto è crollato per mancanza di pilastri e supporti.
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Tetto crollato
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,L'estenuante difficoltà ha dimostrato di essere troppo da gestire per {{character}}.
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break,Pausa mentale
-NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",
-NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,
+NOTIFICATION.SETTLER_STUCK.DESCRIPTION,,"A settler has become stuck, unable to find a drink. Act quickly!",Un colono è rimasto bloccato e non riesce a trovare da bere. Agite in fretta!
+NOTIFICATION.SETTLER_STUCK.TITLE,,Trapped!,Intrappolati!
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!,{{character}} è diventato così infelice che sta facendo i irritato!
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!,Ira!
 NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.,Si dirigono al vostro Deposito Commerciale per acquistare e vendere merci.
@@ -1235,9 +1235,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Nobildonna
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Nobiluomo
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","I nobili non svolgono lavori allo stesso modo dei coloni comuni, ma portano fama e prestigio al vostro insediamento."
 PROFESSION.NOBLE.VERB,,Reigning,Sta regnando
-PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
-PROFESSION.PIRATE.MALE_NOUN,,Pirate,
-PROFESSION.PIRATE.VERB,,Pilfering,
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,Pirata
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,Pirata
+PROFESSION.PIRATE.VERB,,Pilfering,Saccheggio
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Forgiarune
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Forgiarune
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Incanta armi, armature e oggetti con rune magiche per potenziare le loro abilità."
@@ -1680,7 +1680,7 @@ TUTORIAL.WORKSHOPS.A,,Wooden Planks are produced in a Sawmill by a Woodcutter. S
 TUTORIAL.WORKSHOPS.B,,Select Rooms and place a Sawmill and a Masonry Workshop. They both require a crafting station to be constructed.,Selezionare le stanze e posizionare una Segheria e un'Officina di muratura. Entrambi richiedono una stazione di crafting per essere costruiti.
 TUTORIAL.WORKSHOPS.C,,You can press the R key to Rotate most furniture.,È possibile premere il tasto R per ruotare la maggior parte dei mobili.
 TUTORIAL.WORKSHOPS.C.STEAMDECK,,You can press the X button to Rotate most furniture.,È possibile premere il pulsante X per ruotare la maggior parte dei mobili.
-TUTORIAL.WORKSHOPS.D,,Crafting stations have a Crafting button which shows what can be produced.,
+TUTORIAL.WORKSHOPS.D,,Crafting stations have a Crafting button which shows what can be produced.,Le stazioni di creazione hanno un pulsante di creazione che mostra ciò che può essere prodotto.
 
 VEGETABLE.BARLEY,,Barley,Orzo
 VEGETABLE.BARLEY.PLURAL,,Barley,Orzo
@@ -1706,9 +1706,9 @@ VEGETABLE.FIST_MUSHROOM,,Fist mushroom,Fungo Pugno
 VEGETABLE.FIST_MUSHROOM.PLURAL,,Fist mushrooms,Funghi Pugno
 VEGETABLE.FIST_MUSHROOM.TOOLTIP,,A black-blue mushroom with a metallic taste. It is named for a group of bards from the age of darkness.,Un fungo nero-blu dal sapore metallico. Prende il nome da un gruppo di bardi dall'era delle tenebre.
 VEGETABLE.FOR_BEER.USAGE,,used in the brewing of {{LIQUID.BEER}},{{LIQUID.BEER}} utilizzato per la produzione di birra
-VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,
-VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,
-VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,
+VEGETABLE.FUNGOLEM_MUSHROOM,,Fungolem mushroom meat,Carne di fungo Fungolem
+VEGETABLE.FUNGOLEM_MUSHROOM.PLURAL,,Fungolem mushroom meat,Carni di fungo Fungolem
+VEGETABLE.FUNGOLEM_MUSHROOM.TOOLTIP,,A tasteless fungus-like material harvested from the corpse of a fungolem.,Materiale insapore simile a un fungo raccolto dal cadavere di un fungo.
 VEGETABLE.GLOW_MUSHROOM,,Glow mushroom,Fungo Brillante
 VEGETABLE.GLOW_MUSHROOM.PLURAL,,Glow mushrooms,Funghi Brillante
 VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light and changes colour with the seasons.,Un fungo magico che emana luce e cambia colore con le stagioni.

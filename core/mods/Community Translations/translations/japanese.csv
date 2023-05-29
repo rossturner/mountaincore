@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,配管を使い、川の水を他の場所に移します。
 FURNITURE.WEAPON_RACK,,Weapon Rack,
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,
-FURNITURE.WELL,,Well,井戸
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.",井戸は水源になります。使用するには配管を敷設する必要があります。
+FURNITURE.WELL,,Cistern,井戸
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.",井戸は水源になります。使用するには配管を敷設する必要があります。
 FURNITURE.WINDMILL,,Windmill,風車
 FURNITURE.WINDMILL.PLURAL,,Windmills,
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,{{PRODUCT.STONE.GEAR.PLURAL}}とシャフトを使って動力を引き出します。

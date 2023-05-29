@@ -193,7 +193,7 @@ ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 FACTION.HOSTILE_INVASION,,Hostile Invader,Feindlicher Eindringling
 FACTION.MERCHANTS,,Merchant,Händler
 FACTION.MONSTERS,,Monster,Monster
-FACTION.PIRATES,,Pirate,
+FACTION.PIRATES,,Pirate,Piraten
 FACTION.SETTLEMENT,,Settler,Siedler
 FACTION.SETTLEMENT.ANIMAL,,Domesticated Animal,Domestiziertes Tier
 FACTION.WILD_ANIMALS,,Wild Animal,Wildtier
@@ -347,8 +347,8 @@ FURNITURE.WATER_PUMP.PLURAL,,Water Pumps,Wasserpumpen
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,Bewegt Wasser aus dem Fluss zu einem Rohrsystem.
 FURNITURE.WEAPON_RACK,,Weapon Rack,Waffenhalter
 FURNITURE.WEAPON_RACK.TOOLTIP,,Used to store weapons.,Dient zur Aufbewahrung von Waffen.
-FURNITURE.WELL,,Well,Brunnen
-FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.","Ein Brunnen stellt eine Wasserquelle dar, muss jedoch an ein funktionierendes Rohrsystem angeschlossen werden."
+FURNITURE.WELL,,Cistern,Brunnen
+FURNITURE.WELL.TOOLTIP,,"A cistern provides a source of water, but must be connected to a working pipe system.","Ein Brunnen stellt eine Wasserquelle dar, muss jedoch an ein funktionierendes Rohrsystem angeschlossen werden."
 FURNITURE.WINDMILL,,Windmill,Windmühle
 FURNITURE.WINDMILL.PLURAL,,Windmills,Windmühlen
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,Versorgt andere Geräte mit mechanischer Kraft über Zahnräder und Wellen.
@@ -676,7 +676,7 @@ GUI.POWER_LABEL,,Power & Water,Energie & Wasser
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},Windmühlen {{drawable|tooltip_icon_windmill}} und Wasserräder {{drawable|tooltip_icon_waterwheel}} verbinden sich mit Energieleitungen {{drawable|tooltip_icon_power}}{{\n}}Energieleitungen {{drawable|tooltip_icon_power}} treiben Wasserpumpen {{drawable|tooltip_icon_pump}} und andere angetriebene Möbel an{{\n}}Wasserpumpen {{drawable|tooltip_icon_pump}} und Bewässerung {{drawable|tooltip_icon_irrigation}} sind mit Rohren verbunden {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority,Priorität
 GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export,Zu exportierenden Artikel auswählen
-GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},
+GUI.PRODUCTION_EXPORT.LIMIT.REACHED,,Production halted - limit is set to {{quantity}},Produktion angehalten - Maximale Anzahl ist auf {{quantity}} gesetzt
 GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import,Zu importierenden Artikel auswählen
 GUI.REMOVE_LABEL,,Remove,Entfernen
 GUI.REMOVE_TILES,,Remove tiles,Felder entfernen
@@ -891,7 +891,7 @@ MEAT.DEER_MEAT,,Deer,Hirsch
 MEAT.DWARF_FLESH,,Dwarf flesh,Zwergenfleisch
 MEAT.ELEPHANT_MEAT,,Elephant,Elefant
 MEAT.FOX_MEAT,,Fox,Fuchs
-MEAT.HORSE_MEAT,,Horse,
+MEAT.HORSE_MEAT,,Horse,Pferd
 MEAT.PERCH_MEAT.NOUN,,Perch,Barsch
 MEAT.PERCH_MEAT.PLURAL,,Perch,Barsche
 MEAT.PIKE_MEAT.NOUN,,Pike,Hecht
@@ -1023,8 +1023,8 @@ NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of 
 NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse,Mineneinsturz
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.,Ein Gegenstand oder ein Möbelstück wurde durch längere Regeneinwirkung zerstört. Einige Materialien wie Eisen und Stahl sollten nicht für längere Zeit im Freien gelassen werden.
 NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away,Verrostet
-NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,
-NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,
+NOTIFICATION.PIRATE_INVASION.DESCRIPTION,,Pirates have arrived! Don't let them steal your stuff!,Die Piraten sind da! Lass sie nicht deine Sachen stehlen!
+NOTIFICATION.PIRATE_INVASION.TITLE,,Pirates!,Piraten!
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.,Ein Dach ist mangels Stützen eingestürzt.
 NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed,Dach eingestürzt
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.,Die zermürbende Not konnte von {{character}} nicht mehr ertragen werden.
@@ -1234,9 +1234,9 @@ PROFESSION.NOBLE.FEMALE_NOUN,,Noble,Adlige
 PROFESSION.NOBLE.MALE_NOUN,,Noble,Adliger
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement.","Adlige übernehmen keine Aufgaben wie gewöhnliche Siedler, sondern bringen Ruhm und Prestige in deine Siedlung."
 PROFESSION.NOBLE.VERB,,Reigning,Regiert
-PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,
-PROFESSION.PIRATE.MALE_NOUN,,Pirate,
-PROFESSION.PIRATE.VERB,,Pilfering,
+PROFESSION.PIRATE.FEMALE_NOUN,,Pirate,Piratin
+PROFESSION.PIRATE.MALE_NOUN,,Pirate,Pirat
+PROFESSION.PIRATE.VERB,,Pilfering,Stiehlt
 PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith,Runenschmiedin
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Runenschmied
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Verzaubert Waffen, Rüstungen und Gegenstände mit magischen Runen, um ihre Fähigkeiten zu verbessern."
