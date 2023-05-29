@@ -24,7 +24,7 @@ public class SteamUserManager implements SteamUserCallback, Disposable {
 	@Inject
 	public SteamUserManager(MessageDispatcher messageDispatcher) {
 		this.messageDispatcher = messageDispatcher;
-		if (technology.rocketjump.mountaincore.misc.SteamUtils.isSteamRunning()) {
+		if (SteamAPI.isSteamRunning()) {
 			if (GlobalSettings.DEV_MODE) {
 				Logger.debug("Steam is running, requesting encrypted app ticket");
 			}
