@@ -193,7 +193,7 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
 		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
-		SteamAPI.shutdown();
+		try { SteamAPI.shutdown(); } catch (Throwable ignored) {}
 		backgroundTaskManager.shutdown();
 		modioRequestAdapter.dispose();
 		Gdx.app.exit();
