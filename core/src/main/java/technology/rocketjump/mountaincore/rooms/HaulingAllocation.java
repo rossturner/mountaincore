@@ -6,6 +6,7 @@ import technology.rocketjump.mountaincore.entities.SequentialIdGenerator;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
+import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.InvalidSaveException;
@@ -26,6 +27,7 @@ public class HaulingAllocation implements Persistable {
 	private AllocationPositionType targetPositionType;
 	private GridPoint2 targetPosition;
 	private Long targetId; // ID of whatever type of thing targetPositionType is
+	private JobPriority targetPriority;
 
 	private ItemAllocation itemAllocation; // When hauling an item, the allocation
 	private LiquidAllocation liquidAllocation; // When item contains liquid, the liquid allocation
@@ -42,6 +44,7 @@ public class HaulingAllocation implements Persistable {
 		cloned.targetId = this.targetId;
 		cloned.hauledEntityId = this.hauledEntityId;
 		cloned.targetPosition = this.targetPosition;
+		cloned.targetPriority = this.targetPriority;
 		return cloned;
 	}
 
@@ -155,6 +158,14 @@ public class HaulingAllocation implements Persistable {
 		return sb.toString();
 	}
 
+	public void setTargetPriority(JobPriority targetPriority) {
+		this.targetPriority = targetPriority;
+	}
+
+	public JobPriority getTargetPriority() {
+		return targetPriority;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.haulingAllocations.containsKey(this.haulingAllocationId)) {
@@ -181,6 +192,9 @@ public class HaulingAllocation implements Persistable {
 		}
 		if (targetId != null) {
 			asJson.put("targetId", targetId);
+		}
+		if (targetPriority != null) {
+			asJson.put("targetPriority", targetPriority);
 		}
 
 		if (!hauledEntityType.equals(EntityType.ITEM)) {
@@ -218,6 +232,7 @@ public class HaulingAllocation implements Persistable {
 			this.targetPosition = new GridPoint2(targetPositionJson.getIntValue("x"), targetPositionJson.getIntValue("y"));
 		}
 		this.targetId = asJson.getLong("targetId");
+		this.targetPriority = EnumParser.getEnumValue(asJson, "targetPriority", JobPriority.class, null);
 
 		this.hauledEntityType = EnumParser.getEnumValue(asJson, "hauledType", EntityType.class, EntityType.ITEM);
 		this.hauledEntityId = asJson.getLong("hauledEntityId");

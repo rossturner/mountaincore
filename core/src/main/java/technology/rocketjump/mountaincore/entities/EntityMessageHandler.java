@@ -570,6 +570,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								}
 							}
 							case ZONE -> {} // Hauling to zone doesn't matter about cancelling
+							case VEHICLE -> {} // Think this doesn't matter but not sure
 							default -> Logger.error("HAULING_ALLOCATION_CANCELLED message received with unrecognised targetPositionType");
 						}
 					}

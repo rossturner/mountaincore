@@ -434,7 +434,13 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		if (haulingAllocation != null) {
-			Job haulingJob = createHaulingJob(haulingAllocation, message.getEntityToBeMoved(), haulingJobType, message.jobPriority);
+			JobPriority targetPriority = JobPriority.NORMAL;
+			if (message.jobPriority != null) {
+				targetPriority = message.jobPriority;
+			} else if (haulingAllocation.getTargetPriority() != null) {
+				targetPriority = haulingAllocation.getTargetPriority();
+			}
+			Job haulingJob = createHaulingJob(haulingAllocation, message.getEntityToBeMoved(), haulingJobType, targetPriority);
 
 			Entity itemToBeMoved = message.getEntityToBeMoved();
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();

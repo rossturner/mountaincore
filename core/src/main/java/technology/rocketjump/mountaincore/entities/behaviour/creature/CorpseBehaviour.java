@@ -16,7 +16,6 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.Death
 import technology.rocketjump.mountaincore.entities.model.physical.creature.Gender;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.jobs.SkillDictionary;
-import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.RequestHaulingMessage;
@@ -86,7 +85,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 
 				if (!inStockpile) {
 					// Not in a stockpile and some unallocated, so see if we can be hauled to a stockpile
-					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, null, null));
 				}
 			}
 		}

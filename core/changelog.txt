@@ -1,7 +1,10 @@
-Early Access 1.2.3
+Early Access 1.2.3 - 31st May 2023
 
 - Settlers will now hold on to their waterskins for a lot longer
 - Fix for walls and bridges not being built
+- Attempted fix for trading chests getting stuck and no longer collecting coins
+- Hauling items to stockpiles will now default the job to the priority of the target stockpile (room or furniture)
+    - Note that this does not affect the priority of jobs already created
 
 Early Access 1.2.2 - 29th May 2023
 

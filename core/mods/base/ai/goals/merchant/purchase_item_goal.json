@@ -45,7 +45,7 @@
     },
     "PlacePayment": {
       "pass": ["TradeCompleted", "RequeueThisGoal"],
-      "fail": ["GoToRandomEmptyLocation"]
+      "fail": ["CancelHaulingAllocation", "GoToRandomEmptyLocation"]
     },
     "TradeCompleted": {},
     "RequeueThisGoal": {},

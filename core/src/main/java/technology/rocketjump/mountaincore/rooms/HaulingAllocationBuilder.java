@@ -5,9 +5,11 @@ import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocation;
 import technology.rocketjump.mountaincore.entities.components.ItemAllocationComponent;
 import technology.rocketjump.mountaincore.entities.components.LiquidAllocation;
+import technology.rocketjump.mountaincore.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
+import technology.rocketjump.mountaincore.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.mountaincore.rooms.constructions.Construction;
 
 import static technology.rocketjump.mountaincore.rooms.HaulingAllocation.AllocationPositionType.*;
@@ -98,7 +100,12 @@ public class HaulingAllocationBuilder {
 
 		// might be able to eliminate hauling to item
 		switch (targetEntity.getType()) {
-			case FURNITURE -> allocation.setTargetPositionType(FURNITURE);
+			case FURNITURE -> {
+				allocation.setTargetPositionType(FURNITURE);
+				if (targetEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+					allocation.setTargetPriority(targetEntity.getComponent(FurnitureStockpileComponent.class).getPriority());
+				}
+			}
 			case VEHICLE -> allocation.setTargetPositionType(VEHICLE);
 			case CREATURE -> allocation.setTargetPositionType(CREATURE);
 			case ITEM -> allocation.setTargetPositionType(FLOOR);
@@ -118,6 +125,9 @@ public class HaulingAllocationBuilder {
 		allocation.setTargetPosition(location);
 		allocation.setTargetPositionType(ROOM);
 		allocation.setTargetId(room.getRoomId());
+		if (room.getComponent(StockpileRoomComponent.class) != null) {
+			allocation.setTargetPriority(room.getComponent(StockpileRoomComponent.class).getPriority());
+		}
 		return build();
 	}
 

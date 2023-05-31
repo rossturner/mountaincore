@@ -610,7 +610,7 @@
     },
     "RequeueThisGoal" : { },
     "PlacePayment" : {
-      "fail" : [ "GoToRandomEmptyLocation" ],
+      "fail" : [ "CancelHaulingAllocation", "GoToRandomEmptyLocation" ],
       "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
     },
     "CancelTrade" : { },

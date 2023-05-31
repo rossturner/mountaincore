@@ -15,7 +15,6 @@ import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.physical.LocationComponent;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
-import technology.rocketjump.mountaincore.jobs.model.JobPriority;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
@@ -74,14 +73,14 @@ public class ItemBehaviour implements BehaviourComponent {
 
 	@Override
 	public void infrequentUpdate(GameContext gameContext) {
-		ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+ 		ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		ItemAllocationComponent itemAllocationComponent = parentEntity.getComponent(ItemAllocationComponent.class);
 		Vector2 worldPosition = locationComponent.getWorldPosition();
 
 		if (itemAllocationComponent.getNumUnallocated() > 0 && parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND)) {
 				// This should haul to a stockpile or to a higher priority stockpile
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, null, null));
 			}
 
 			Entity container = parentEntity.getLocationComponent().getContainerEntity();
@@ -95,7 +94,7 @@ public class ItemBehaviour implements BehaviourComponent {
 					attemptToHaul = false;
 				}
 				if (attemptToHaul) {
-					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, forceRemoval, JobPriority.NORMAL, null));
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, forceRemoval, null, null));
 				}
 			}
 		}
