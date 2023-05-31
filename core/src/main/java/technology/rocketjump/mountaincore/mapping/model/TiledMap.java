@@ -305,12 +305,13 @@ public class TiledMap {
 
 	public int getNavigableRegionId(Entity requestingEntity, Vector2 requesterPosition) {
 		MapTile tile = getTile(requesterPosition);
-		if (tile == null || requestingEntity == null) {
-			return -1;//ick
+		if (tile == null) {
+			return -1;
 		}
 		int requesterRegionId = tile.getRegionId();
 
 		if (tile.getRegionType() == MapTile.RegionType.MOVEMENT_BLOCKING_ENTITY &&
+				requestingEntity != null &&
 				requestingEntity.getType() == EntityType.FURNITURE) {
 			FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(requestingEntity, this);
 			if (workspace != null) {

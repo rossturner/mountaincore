@@ -1,7 +1,8 @@
 {
   "itemTypeName" : "Product-Waterskin",
-  "maxStackSize" : 50,
-  "maxHauledAtOnce" : 10,
+  "maxStackSize" : 12,
+  "maxHauledAtOnce" : 4,
+  "hoursInInventoryUntilUnused": 240,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
   "baseValuePerItem": 3,

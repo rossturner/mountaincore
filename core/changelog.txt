@@ -1,3 +1,8 @@
+Early Access 1.2.3
+
+- Settlers will now hold on to their waterskins for a lot longer
+- Fix for walls and bridges not being built
+
 Early Access 1.2.2 - 29th May 2023
 
 - Reduced toughness of the undead (though they're still very hard to kill - bring hammers)
