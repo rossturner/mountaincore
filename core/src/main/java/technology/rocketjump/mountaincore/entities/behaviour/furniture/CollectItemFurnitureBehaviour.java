@@ -22,7 +22,9 @@ import technology.rocketjump.mountaincore.persistence.model.SavedGameStateHolder
 import technology.rocketjump.mountaincore.rooms.HaulingAllocation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable {
 
@@ -69,25 +71,36 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 
 		// Try to create new assignments up to maxNumItemStacks
 		if (inventoryAssignments.size() < maxNumItemStacks) {
-			ItemTypeWithMaterial potentialItemTypeWithMaterial = itemsToCollect.get(gameContext.getRandom().nextInt(itemsToCollect.size()));
-			if (allowDuplicates || !inventoryAssignments.contains(potentialItemTypeWithMaterial)) {
-				Vector2 location = parentEntity.getLocationComponent().getWorldOrParentPosition();
-				FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
-				if (workspace != null) {
-					location = VectorUtils.toVector(workspace.getAccessedFrom());
-				}
+			ArrayList<ItemTypeWithMaterial> potentialList = new ArrayList<>(itemsToCollect);
+			Collections.shuffle(potentialList, gameContext.getRandom());
 
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-						parentEntity, location, potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
-						includeFromFurniture, null, null, allocation -> {
-							if (allocation != null) {
-								createHaulingJobForAllocation(potentialItemTypeWithMaterial, allocation);
-							}
+			potentialList.stream()
+					.filter(itemTypeWithMaterial -> allowDuplicates || !inventoryAssignments.contains(itemTypeWithMaterial))
+					.filter(this::isAvailable)
+					.findFirst()
+					.ifPresent(itemTypeWithMaterial -> {
+						Vector2 location = parentEntity.getLocationComponent().getWorldOrParentPosition();
+						FurnitureLayout.Workspace workspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+						if (workspace != null) {
+							location = VectorUtils.toVector(workspace.getAccessedFrom());
 						}
-				));
-			}
+
+						messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
+								parentEntity, location, itemTypeWithMaterial.getItemType(), itemTypeWithMaterial.getMaterial(),
+								includeFromFurniture, null, null, allocation -> {
+							if (allocation != null) {
+								createHaulingJobForAllocation(itemTypeWithMaterial, allocation);
+							}
+						}));
+					});
 
 		}
+	}
+
+	private boolean isAvailable(ItemTypeWithMaterial itemTypeWithMaterial) {
+		AtomicInteger availableAmount = new AtomicInteger();
+		messageDispatcher.dispatchMessage(MessageType.CHECK_ITEM_AVAILABILITY, new MessageType.CheckItemAvailabilityMessage(itemTypeWithMaterial, availableAmount::set));
+		return availableAmount.get() > 0;
 	}
 
 	public boolean canAccept(Entity itemEntity) {

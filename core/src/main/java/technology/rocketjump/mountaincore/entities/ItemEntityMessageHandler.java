@@ -186,7 +186,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	private boolean handle(RequestHaulingAllocationMessage message) {
 		TiledMap areaMap = gameContext.getAreaMap();
 
-		final int requesterRegionId = areaMap.getNavigableRegionId(null, message.requesterPosition);
+		final int requesterRegionId = areaMap.getNavigableRegionId(message.requestingEntity, message.requesterPosition);
 
 		List<Entity> unallocatedItems = new ArrayList<>();
 		Set<ItemType> requiredItemTypes = new HashSet<>();
