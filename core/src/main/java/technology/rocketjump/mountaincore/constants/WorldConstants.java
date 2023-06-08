@@ -20,7 +20,11 @@ public class WorldConstants {
 	private Color corpseDecayColorInstance;
 
 	private String stoneHarvestedItemType;
+	private float stoneHarvestMinSkillChance;
+	private float stoneHarvestMaxSkillChance;
 	private String oreHarvestedItemType;
+	private float oreHarvestMinSkillChance;
+	private float oreHarvestMaxSkillChance;
 	private String gemHarvestedItemType;
 	private int roofSupportMaxDistance;
 
@@ -104,5 +108,37 @@ public class WorldConstants {
 
 	public void setRoofSupportMaxDistance(int roofSupportMaxDistance) {
 		this.roofSupportMaxDistance = roofSupportMaxDistance;
+	}
+
+	public float getStoneHarvestMinSkillChance() {
+		return stoneHarvestMinSkillChance;
+	}
+
+	public void setStoneHarvestMinSkillChance(float stoneHarvestMinSkillChance) {
+		this.stoneHarvestMinSkillChance = stoneHarvestMinSkillChance;
+	}
+
+	public float getStoneHarvestMaxSkillChance() {
+		return stoneHarvestMaxSkillChance;
+	}
+
+	public void setStoneHarvestMaxSkillChance(float stoneHarvestMaxSkillChance) {
+		this.stoneHarvestMaxSkillChance = stoneHarvestMaxSkillChance;
+	}
+
+	public float getOreHarvestMinSkillChance() {
+		return oreHarvestMinSkillChance;
+	}
+
+	public void setOreHarvestMinSkillChance(float oreHarvestMinSkillChance) {
+		this.oreHarvestMinSkillChance = oreHarvestMinSkillChance;
+	}
+
+	public float getOreHarvestMaxSkillChance() {
+		return oreHarvestMaxSkillChance;
+	}
+
+	public void setOreHarvestMaxSkillChance(float oreHarvestMaxSkillChance) {
+		this.oreHarvestMaxSkillChance = oreHarvestMaxSkillChance;
 	}
 }

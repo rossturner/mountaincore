@@ -116,8 +116,8 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private final ItemType largeBone;
 	private final ItemType mediumBone;
 	private final ItemType smallBone;
-
 	private final Map<String, technology.rocketjump.mountaincore.jobs.completion.OnJobCompletion> onJobCompletionFor;
+
 	@Inject
 	public JobMessageHandler(MessageDispatcher messageDispatcher, JobStore jobStore,
 							 ItemEntityFactory itemEntityFactory, ItemEntityAttributesFactory itemEntityAttributesFactory,

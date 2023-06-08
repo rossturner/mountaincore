@@ -1,5 +1,6 @@
 Early Access 1.2.5
 
+- Adjusted chances of creating items from mining (stone is less likely, ore is more likely) and made this moddable
 - Deconstruction of furniture can now be cancelled
 - Skeletons will now eventually disappear
 
