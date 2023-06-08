@@ -90,29 +90,33 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 			}
 		}
 
+		double elapsedTime = gameContext.getGameClock().getCurrentGameTime() - lastUpdateGameTime;
+		decayedAmount += elapsedTime;
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+
 		if (decayedAmount < HOURS_TO_FULLY_DECAY) {
-			double elapsedTime = gameContext.getGameClock().getCurrentGameTime() - lastUpdateGameTime;
-			decayedAmount += elapsedTime;
-
 			Color newSkinColor = ColorMixer.interpolate(0, (float) HOURS_TO_FULLY_DECAY, (float) decayedAmount, originalSkinColor, FULLY_DECAYED_COLOR);
-			CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 			attributes.setSkinColor(newSkinColor);
+		}
 
-			if (decayedAmount >= HOURS_TO_FULLY_DECAY) {
-				// Switch to fully decayed
-				setToFullyDecayed(attributes);
-			}
+		if (decayedAmount >= HOURS_TO_FULLY_DECAY && !attributes.getGender().equals(Gender.NONE)) {
+			// Switch to fully decayed
+			setToFullyDecayed(attributes);
 		}
 
 		if (parentEntity.getPhysicalEntityComponent().getBaseAsset() == null) {
 			// No asset for skeleton or whatever, so just destroy
 			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
 		}
+
+		if (decayedAmount >= 2 * HOURS_TO_FULLY_DECAY && parentEntity.getLocationComponent().getContainerEntity() == null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
+		}
+
 		lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
 	}
 
 	public void setToFullyDecayed(CreatureEntityAttributes attributes) {
-		decayedAmount = HOURS_TO_FULLY_DECAY;
 		attributes.setGender(Gender.NONE);
 		SkillsComponent skillsComponent = parentEntity.getComponent(SkillsComponent.class);
 		if (skillsComponent != null) {
@@ -160,18 +164,6 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 	}
 
 	@Override
-	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		asJson.put("originalSkin", HexColors.toHexString(originalSkinColor));
-		asJson.put("decayed", decayedAmount);
-	}
-
-	@Override
-	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		originalSkinColor = HexColors.get(asJson.getString("originalSkin"));
-		decayedAmount = asJson.getDoubleValue("decayed");
-	}
-
-	@Override
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		HistoryComponent historyComponent = parentEntity.getComponent(HistoryComponent.class);
 		if (historyComponent != null && historyComponent.getDeathReason() != null) {
@@ -195,5 +187,17 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 		} else {
 			return List.of(i18nTranslator.getTranslatedString("CREATURE.STATUS.DEAD"));
 		}
+	}
+
+	@Override
+	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+		asJson.put("originalSkin", HexColors.toHexString(originalSkinColor));
+		asJson.put("decayed", decayedAmount);
+	}
+
+	@Override
+	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+		originalSkinColor = HexColors.get(asJson.getString("originalSkin"));
+		decayedAmount = asJson.getDoubleValue("decayed");
 	}
 }

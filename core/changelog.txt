@@ -1,3 +1,7 @@
+Early Access 1.2.5
+
+- Skeletons will now eventually disappear
+
 Early Access 1.2.4 - 1st June 2023
 
 - Fix for liquid hauling jobs not working i.e. filling of water barrel
