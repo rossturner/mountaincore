@@ -450,15 +450,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 
 				Button deconstructButton = buttonFactory.buildDrawableButton("btn_demolish_small", "GUI.DECONSTRUCT_LABEL", () -> {
-					if (!constructedEntityComponent.isBeingDeconstructed()) {
+					if (constructedEntityComponent.isBeingDeconstructed()) {
+						messageDispatcher.dispatchMessage(MessageType.CANCEL_FURNITURE_REMOVAL, entity);
+						update();
+					} else {
 						messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, entity);
 						update();
 					}
 				});
 
-				if (constructedEntityComponent.isBeingDeconstructed()) {
-					buttonFactory.disable(deconstructButton);
-				}
 				deconstructContainer.setActor(deconstructButton);
 				table.add(deconstructContainer);
 			}

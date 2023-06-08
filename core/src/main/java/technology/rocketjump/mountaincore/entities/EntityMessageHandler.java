@@ -164,6 +164,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.ITEM_PRIMARY_MATERIAL_CHANGED);
 		messageDispatcher.addListener(this, MessageType.REQUEST_DOOR_OPEN);
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_REMOVAL);
+		messageDispatcher.addListener(this, MessageType.CANCEL_FURNITURE_REMOVAL);
 		messageDispatcher.addListener(this, MessageType.HAULING_ALLOCATION_CANCELLED);
 		messageDispatcher.addListener(this, MessageType.CHANGE_PROFESSION);
 		messageDispatcher.addListener(this, MessageType.REMOVE_PROFESSION);
@@ -416,6 +417,21 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 							if (constructedEntityComponent != null) {
 								constructedEntityComponent.setDeconstructionJob(null);
+
+								if (deconstructDesignation != null) {
+									Set<MapTile> locations = new HashSet<>();
+									MapTile entityTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
+									locations.add(entityTile);
+									for (GridPoint2 extraOffset : ((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getCurrentLayout().getExtraTiles()) {
+										locations.add(gameContext.getAreaMap().getTile(entityTile.getTilePosition().cpy().add(extraOffset)));
+									}
+
+									for (MapTile location : locations) {
+										if (deconstructDesignation.equals(location.getDesignation())) {
+											location.setDesignation(null);
+										}
+									}
+								}
 							}
 						}
 					}
@@ -479,6 +495,17 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								}
 							}
 						}
+					}
+				}
+				return true;
+			}
+			case MessageType.CANCEL_FURNITURE_REMOVAL: {
+				Entity entity = (Entity) msg.extraInfo;
+				ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
+				MapTile entityTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
+				if (entityTile != null) {
+					if (constructedEntityComponent.isBeingDeconstructed()) {
+						messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, constructedEntityComponent.getDeconstructionJob());
 					}
 				}
 				return true;

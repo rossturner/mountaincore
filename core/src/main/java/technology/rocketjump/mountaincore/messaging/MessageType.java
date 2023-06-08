@@ -240,6 +240,7 @@ public class MessageType {
 	public static final int MECHANISM_CONSTRUCTION_REMOVED = 918;
 	public static final int MECHANISM_DECONSTRUCTION_QUEUE_CHANGE = 919;
 	public static final int MECHANISM_CONSTRUCTED = 920;
+	public static final int CANCEL_FURNITURE_REMOVAL = 921;
 
 	// Production messages
 

@@ -1,5 +1,6 @@
 Early Access 1.2.5
 
+- Deconstruction of furniture can now be cancelled
 - Skeletons will now eventually disappear
 
 Early Access 1.2.4 - 1st June 2023
