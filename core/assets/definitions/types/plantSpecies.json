@@ -523,7 +523,7 @@
   }, {
     "name" : "Stage 1",
     "nextGrowthStage" : 2,
-    "seasonsUntilComplete" : 0.3,
+    "seasonsUntilComplete" : 0.2,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -536,7 +536,7 @@
   }, {
     "name" : "Stage 2",
     "nextGrowthStage" : 3,
-    "seasonsUntilComplete" : 0.5,
+    "seasonsUntilComplete" : 0.4,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -549,7 +549,7 @@
   }, {
     "name" : "Stage 3",
     "nextGrowthStage" : 4,
-    "seasonsUntilComplete" : 0.5,
+    "seasonsUntilComplete" : 0.4,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,
@@ -562,7 +562,7 @@
   }, {
     "name" : "Stage 4",
     "nextGrowthStage" : 5,
-    "seasonsUntilComplete" : 0.3,
+    "seasonsUntilComplete" : 0.2,
     "initialPlantScale" : 1.0,
     "completionPlantScale" : 1.0,
     "initialFruitScale" : 1.0,

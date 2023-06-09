@@ -38,25 +38,25 @@
     {
       "name": "Stage 1",
       "nextGrowthStage": 2,
-      "seasonsUntilComplete": 0.3,
+      "seasonsUntilComplete": 0.2,
       "tileHeight": 1
     },
     {
       "name": "Stage 2",
       "nextGrowthStage": 3,
-      "seasonsUntilComplete": 0.5,
+      "seasonsUntilComplete": 0.4,
       "tileHeight": 1
     },
     {
       "name": "Stage 3",
       "nextGrowthStage": 4,
-      "seasonsUntilComplete": 0.5,
+      "seasonsUntilComplete": 0.4,
       "tileHeight": 1
     },
     {
       "name": "Stage 4",
       "nextGrowthStage": 5,
-      "seasonsUntilComplete": 0.3,
+      "seasonsUntilComplete": 0.2,
       "showFruit": true,
       "tileHeight": 1
     },

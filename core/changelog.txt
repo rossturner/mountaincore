@@ -3,6 +3,12 @@ Early Access 1.2.5
 - Adjusted chances of creating items from mining (stone is less likely, ore is more likely) and made this moddable
 - Deconstruction of furniture can now be cancelled
 - Skeletons will now eventually disappear
+- Made hops quicker to grow
+- Fire now lasts longer between state transitions (more time to extinguish it)
+- Fix for a crash when a creature has no schedule
+- Ignoring save file location when under Microsoft OneDrive as this causes many saves to fail.
+    - If affected, you will need to move your save files out of OneDrive to a different location (see preferences.properties file for your new location) if you want to continue using them.
+- Fix for a crash when a cooking job ingredient hauling has been cancelled
 
 Early Access 1.2.4 - 1st June 2023
 

@@ -473,7 +473,13 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			}
 		}
 		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
-			return attributes.getRace().getBehaviour().getSchedule();
+			Schedule schedule = attributes.getRace().getBehaviour().getSchedule();
+			if (schedule != null) {
+				return schedule;
+			} else {
+				Logger.error("Creature with CreatureEntityAttributes " + attributes + " has no schedule");
+				return ScheduleDictionary.NULL_SCHEDULE;
+			}
 		} else {
 			Logger.error("Looking for a schedule on " + this.getClass().getSimpleName() + " with no " + CreatureEntityAttributes.class.getSimpleName());
 			return ScheduleDictionary.NULL_SCHEDULE;

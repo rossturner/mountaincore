@@ -275,10 +275,14 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 			}
 		}
 
+		cookingSession.getInputIngredientJobs().removeIf(j -> j.getJobState().equals(REMOVED));
+
 		// Add any incoming hauling jobs
 		for (Job job : cookingSession.getInputIngredientJobs()) {
 			if (job.getType().equals(haulingJobType)) {
-				totalItems += job.getHaulingAllocation().getItemAllocation().getAllocationAmount();
+				if (job.getHaulingAllocation() != null) {
+					totalItems += job.getHaulingAllocation().getItemAllocation().getAllocationAmount();
+				}
 			}
 		}
 

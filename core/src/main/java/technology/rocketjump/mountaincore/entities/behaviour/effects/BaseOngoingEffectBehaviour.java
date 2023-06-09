@@ -49,6 +49,24 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 	}
 
 	@Override
+	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		ParticleEffectInstance effectInstance = currentParticleEffect.get();
+		if (effectInstance != null) {
+			messageDispatcher.dispatchMessage(MessageType.PARTICLE_RELEASE, effectInstance);
+			currentParticleEffect.set(null);
+		}
+
+		if (activeSoundEffect != null) {
+			stopSound(parentEntity, messageDispatcher);
+		}
+
+		FurnitureParticleEffectsComponent particleEffectsComponent = parentEntity.getComponent(FurnitureParticleEffectsComponent.class);
+		if (particleEffectsComponent != null) {
+			particleEffectsComponent.releaseParticles();
+		}
+	}
+
+	@Override
 	public BaseOngoingEffectBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		BaseOngoingEffectBehaviour cloned = new BaseOngoingEffectBehaviour();
 		cloned.init(parentEntity, messageDispatcher, gameContext);
@@ -144,24 +162,6 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 
 	public boolean shouldNotificationApply(GameContext gameContext) {
 		return true;
-	}
-
-	@Override
-	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		ParticleEffectInstance effectInstance = currentParticleEffect.get();
-		if (effectInstance != null) {
-			messageDispatcher.dispatchMessage(MessageType.PARTICLE_RELEASE, effectInstance);
-			currentParticleEffect.set(null);
-		}
-
-		if (activeSoundEffect != null) {
-			stopSound(parentEntity, messageDispatcher);
-		}
-
-		FurnitureParticleEffectsComponent particleEffectsComponent = parentEntity.getComponent(FurnitureParticleEffectsComponent.class);
-		if (particleEffectsComponent != null) {
-			particleEffectsComponent.releaseParticles();
-		}
 	}
 
 	private void stopSound(Entity parentEntity, MessageDispatcher messageDispatcher) {

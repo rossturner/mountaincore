@@ -40,7 +40,7 @@
   "oreHarvestMaxSkillChance" : 1.0,
   "roofSupportMaxDistance" : 3,
   "corpseDecayHours" : 480.0,
-  "oreHarvestMinSkillChance" : 0.4,
+  "oreHarvestMinSkillChance" : 0.3,
   "stoneHarvestedItemType" : "Resource-Stone-Unrefined",
   "corpseDecayColor" : "#8b9d89",
   "maxNeighbouringShrubs" : 4

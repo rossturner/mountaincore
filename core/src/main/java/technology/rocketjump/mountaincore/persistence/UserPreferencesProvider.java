@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.persistence;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +39,16 @@ public class UserPreferencesProvider implements Provider<UserPreferences> {
 	private static String getSaveLocation(UserFileManager userFileManager) throws IOException {
 		Path systemSavedGamesDir = userFileManager.userFileDirectoryForGame.toPath().resolve("../../Saved Games");
 		if (Files.exists(systemSavedGamesDir)) {
-			return systemSavedGamesDir.toFile().getCanonicalFile() + File.separator + GAME_NAME_FOR_FILESYSTEM;
+			if (systemSavedGamesDir.toRealPath().toString().contains("OneDrive")) {
+				Logger.warn("Saved Games directory is in OneDrive, using installation directory instead");
+			} else {
+				return systemSavedGamesDir.toFile().getCanonicalFile() + File.separator + GAME_NAME_FOR_FILESYSTEM;
+			}
 		} else {
-			return userFileManager.userFileDirectoryForGame.getAbsolutePath() + File.separator + "saves";
+			Logger.warn("Can not find Saved Games directory at %s, using installation directory instead".formatted(systemSavedGamesDir));
 		}
+
+		return userFileManager.userFileDirectoryForGame.getAbsolutePath() + File.separator + "saves";
 	}
 
 	@Override
