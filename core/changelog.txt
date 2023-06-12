@@ -1,9 +1,11 @@
-Early Access 1.2.5
+Early Access 1.2.5 - 12th June 2023
 
 - Adjusted chances of creating items from mining (stone is less likely, ore is more likely) and made this moddable
 - Deconstruction of furniture can now be cancelled
 - Skeletons will now eventually disappear
 - Made hops quicker to grow
+- Reduced the chance of fire from jobs that can cause fires
+- Barrels now need 2x staves and hoops to craft
 - Fire now lasts longer between state transitions (more time to extinguish it)
 - Fix for a crash when a creature has no schedule
 - Ignoring save file location when under Microsoft OneDrive as this causes many saves to fail.

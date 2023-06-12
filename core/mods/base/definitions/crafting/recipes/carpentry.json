@@ -5,11 +5,11 @@
     "input": [
       {
         "itemTypeName": "Product-Barrel-Staves",
-        "quantity": 1
+        "quantity": 2
       },
       {
         "itemTypeName": "Product-Barrel-Hoops",
-        "quantity": 1
+        "quantity": 2
       }
     ],
     "output": {

@@ -144,7 +144,7 @@
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CHEF",
-    "mightStartFire": 0.01
+    "mightStartFire": 0.005
   },
   {
     "name": "FISHING",
