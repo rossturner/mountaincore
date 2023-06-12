@@ -9,6 +9,7 @@ Early Access 1.2.5
 - Ignoring save file location when under Microsoft OneDrive as this causes many saves to fail.
     - If affected, you will need to move your save files out of OneDrive to a different location (see preferences.properties file for your new location) if you want to continue using them.
 - Fix for a crash when a cooking job ingredient hauling has been cancelled
+- Fix for a crash when attempting to dump a stack of items that are partly allocated elsewhere
 
 Early Access 1.2.4 - 1st June 2023
 

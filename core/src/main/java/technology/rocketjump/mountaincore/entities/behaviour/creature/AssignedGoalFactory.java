@@ -156,7 +156,7 @@ public class AssignedGoalFactory {
 						if (stockpileAllocation == null) {
 
 							AssignedGoal dumpItemGoal = new AssignedGoal(SpecialGoal.DUMP_ITEM.getInstance(), parentEntity, messageDispatcher, gameContext);
-							dumpItemGoal.setAssignedHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(quantity, entry.entity, parentEntity).toUnspecifiedLocation());
+							dumpItemGoal.setAssignedHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(itemAllocationComponent.getNumUnallocated(), entry.entity, parentEntity).toUnspecifiedLocation());
 							return dumpItemGoal;
 						} else {
 
