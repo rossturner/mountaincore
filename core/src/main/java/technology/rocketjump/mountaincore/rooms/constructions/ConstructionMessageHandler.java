@@ -337,10 +337,11 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 
 	private void handleBridgeConstructionCompleted(BridgeConstruction construction) {
 
-		Map<Integer, MapTile> landTilesByRegion = new TreeMap<>();
+		Set<MapTile> allTiles = new HashSet<>();
 
 		for (Map.Entry<GridPoint2, BridgeTile> bridgeEntry : construction.getBridge().entrySet()) {
 			MapTile tile = gameContext.getAreaMap().getTile(bridgeEntry.getKey());
+			allTiles.add(tile);
 			tile.setConstruction(null);
 
 			for (Entity entity : tile.getEntities()) {
@@ -357,32 +358,14 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 					Optional.empty(), Optional.of(new JobTarget(tile)), (p) -> {}));
 
 			tile.getFloor().setBridgeTile(construction.getBridge(), bridgeEntry.getValue());
-
-			if (!tile.getFloor().isRiverTile()) {
-				landTilesByRegion.put(tile.getRegionId(), tile);
-			}
-		}
-
-		List<Integer> landRegionIdList = new ArrayList<>(landTilesByRegion.keySet());
-		int firstRegionId = landRegionIdList.get(0);
-		for (int cursor = 1; cursor < landRegionIdList.size(); cursor++) {
-			int otherRegionId = landRegionIdList.get(cursor);
-			MapTile otherRegionTile = landTilesByRegion.get(otherRegionId);
-
-			messageDispatcher.dispatchMessage(MessageType.REPLACE_REGION, new ReplaceRegionMessage(otherRegionTile, firstRegionId));
-		}
-
-		for (GridPoint2 bridgeLocation : construction.getBridge().getLocations()) {
-			MapTile tile = gameContext.getAreaMap().getTile(bridgeLocation);
-			if (tile.getFloor().isBridgeNavigable()) {
-				tile.setRegionId(firstRegionId);
-			}
 		}
 
 		SoundAsset soundAsset = completionSoundMapping.get(construction.getPrimaryMaterialType());
 		if (soundAsset != null) {
 			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(soundAsset, null, construction.getBridge().getAvgWorldPosition(), null));
 		}
+
+		messageDispatcher.dispatchMessage(MessageType.UPDATE_REGIONS, allTiles);
 
 		constructionStore.remove(construction);
 	}
@@ -464,7 +447,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 
 	private void deconstructBridge(Bridge bridgeToRemove) {
 		Set<GridPoint2> assignedToGroup = new HashSet<>();
-		List<List<MapTile>> tilesGroupedByGroundType = new ArrayList<>();
+		List<Set<MapTile>> tilesGroupedByGroundType = new ArrayList<>();
 
 		Set<GridPoint2> bridgeLocations = bridgeToRemove.getLocations();
 		for (GridPoint2 bridgeLocation : bridgeLocations) {
@@ -476,7 +459,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 					Optional.empty(), Optional.of(new JobTarget(bridgeTile)), (p) -> {}));
 
 			if (!assignedToGroup.contains(bridgeLocation)) {
-				List<MapTile> tilesInGroup = new ArrayList<>();
+				Set<MapTile> tilesInGroup = new HashSet<>();
 				tilesInGroup.add(bridgeTile);
 				assignedToGroup.add(bridgeLocation);
 				boolean riverGroup = bridgeTile.getFloor().isRiverTile();
@@ -515,32 +498,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 			}
 		}
 
-		// Should now have 3 or more lists of tiles in different areas
-
-		// First set each group to be a new region
-		for (List<MapTile> tileGroup : tilesGroupedByGroundType) {
-			int newRegionId = gameContext.getAreaMap().createNewRegionId();
-			for (MapTile groupTile : tileGroup) {
-				groupTile.setRegionId(newRegionId);
-			}
-		}
-
-		// For river groups, take on the surrounding region
-		// For ground regions, spread to surrounding regions
-		// This should deal with the ground regions potentially being split up or not
-		for (List<MapTile> tileGroup : tilesGroupedByGroundType) {
-			boolean riverGroup = tileGroup.get(0).getFloor().isRiverTile();
-			MapTile neighbourRegionTile = pickRandomNeighbourRegionOfSameType(tileGroup);
-			if (neighbourRegionTile != null) {
-				if (riverGroup) {
-					messageDispatcher.dispatchMessage(MessageType.REPLACE_REGION, new ReplaceRegionMessage(tileGroup.get(0), neighbourRegionTile.getRegionId()));
-				} else {
-					messageDispatcher.dispatchMessage(MessageType.REPLACE_REGION, new ReplaceRegionMessage(neighbourRegionTile, tileGroup.get(0).getRegionId()));
-				}
-			} else {
-				Logger.warn("Could not expand new region after removing bridge");
-			}
-		}
+		tilesGroupedByGroundType.forEach(group -> messageDispatcher.dispatchMessage(MessageType.UPDATE_REGIONS, group));
 
 		// Regions reset, can now remove bridge
 		int amountToRefund = bridgeToRemove.getBridgeType().getBuildingRequirement().getQuantity() / 2;

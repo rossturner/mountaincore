@@ -155,6 +155,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.REMOVE_PIPE);
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED_AND_REGISTERED);
 		messageDispatcher.addListener(this, MessageType.ENTITY_DESTROYED_AND_UNREGISTERED);
+		messageDispatcher.addListener(this, MessageType.UPDATE_REGIONS);
 	}
 
 	@Override
@@ -235,6 +236,11 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				replaceRegion(message.tileToReplace, message.replacementRegionId);
 				return true;
 			}
+			case MessageType.UPDATE_REGIONS: {
+				Set<MapTile> tiles = (Set<MapTile>) msg.extraInfo;
+				updateMultipleRegions(tiles);
+				return true;
+			}
 			case MessageType.FLOORING_CONSTRUCTED: {
 				FloorConstructionMessage message = (FloorConstructionMessage) msg.extraInfo;
 				FloorType floorType = floorTypesByInputRequirement.get(message.constructionItem);
@@ -299,6 +305,10 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			tiles = Collections.emptySet();
 		}
 
+		updateMultipleRegions(tiles);
+	}
+
+	private void updateMultipleRegions(Set<MapTile> tiles) {
 		if (!tiles.isEmpty()) {
 			// The set of tiles can potentially be in different regions e.g. a piece of furniture destroyed as part of a mining collapse
 			Map<MapTile.RegionType, Set<MapTile>> byRegionType = new HashMap<>();
@@ -309,7 +319,6 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 
 			byRegionType.values().forEach(this::updateRegions);
 		}
-
 	}
 
 	//todo: this is duplicated in few places

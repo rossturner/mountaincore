@@ -623,7 +623,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					break;
 				case "DECONSTRUCT":
 					MapTile targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
-					// Might be wall, doorway or furniture entity
+					// Might be a wall, doorway or furniture entity
 					if (targetTile.hasWall()) {
 						Wall wall = targetTile.getWall(); // Need to grab wall before it is destroyed
 						messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, completedJob.getJobLocation());
