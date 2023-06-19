@@ -548,7 +548,13 @@ public class MapTile implements Persistable {
 	}
 
 	public RegionType getRegionType() {
-		if (getFloor().isRiverTile()) {
+		if (getFloor().hasBridge()) {
+			if (getFloor().isBridgeNavigable()) {
+				return RegionType.GENERIC;
+			} else {
+				return RegionType.BRIDGE_EDGE;
+			}
+		} else if (getFloor().isRiverTile()) {
 			return RegionType.RIVER;
 		} else if (hasWall()) {
 			return RegionType.WALL;
@@ -823,6 +829,6 @@ public class MapTile implements Persistable {
 	}
 	
 	public enum RegionType {
-		RIVER, WALL, CHANNEL, MOVEMENT_BLOCKING_ENTITY, GENERIC
+		RIVER, WALL, CHANNEL, MOVEMENT_BLOCKING_ENTITY, GENERIC, BRIDGE_EDGE
 	}
 }

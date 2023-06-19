@@ -293,7 +293,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					}
 
 					if (removedEntity.getLocationComponent().getWorldPosition() != null) {
-						List<MapTile> allTiles = new ArrayList<>();
 						MapTile mapTile = gameContext.getAreaMap().getTile(removedEntity.getLocationComponent().getWorldPosition());
 						if (mapTile != null) {
 							mapTile.removeEntity(removedEntity.getId());

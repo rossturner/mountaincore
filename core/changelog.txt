@@ -1,4 +1,6 @@
+Early Access 1.2.6
 
+- Corrected regional pathfinding that can be broken when bridges that block off an area are removed
 - Exposed global ambient light colour to modding
 
 Early Access 1.2.5 - 12th June 2023

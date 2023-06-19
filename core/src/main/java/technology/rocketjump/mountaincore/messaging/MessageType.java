@@ -271,6 +271,7 @@ public class MessageType {
 	public static final int REPLACE_REGION = 1302;
 	public static final int AMBIENCE_UPDATE = 1303;
 	public static final int AMBIENCE_PAUSE = 1304;
+	public static final int UPDATE_REGIONS = 1305;
 
 	// Sound/audio messages
 	public static final int REQUEST_SOUND = 1400;
