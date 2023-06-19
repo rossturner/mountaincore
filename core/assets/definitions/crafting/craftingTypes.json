@@ -36,7 +36,7 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "mightStartFire" : 0.03,
+  "mightStartFire" : 0.01,
   "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAPONSMITHING",
@@ -45,7 +45,7 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "mightStartFire" : 0.03,
+  "mightStartFire" : 0.01,
   "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAVING",
@@ -58,7 +58,7 @@
   "professionRequiredName" : "BLACKSMITH",
   "defaultItemTypeName" : "Tool-Tongs",
   "usesWorkstationTool" : true,
-  "mightStartFire" : 0.02,
+  "mightStartFire" : 0.01,
   "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "ORE_CRUSHING",
@@ -70,7 +70,7 @@
   "i18nKey" : "CRAFTING_TYPE.COKE_OVEN_BAKING",
   "professionRequiredName" : "BLACKSMITH",
   "usesWorkstationTool" : false,
-  "mightStartFire" : 0.02
+  "mightStartFire" : 0.01
 }, {
   "name" : "MILLING",
   "i18nKey" : "CRAFTING_TYPE.MILLING",

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.mountaincore.assets.AssetDisposable;
+import technology.rocketjump.mountaincore.constants.ConstantsRepo;
 import technology.rocketjump.mountaincore.environment.SunlightCalculator;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
@@ -18,7 +19,6 @@ import technology.rocketjump.mountaincore.mapping.model.TiledMap;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
 import technology.rocketjump.mountaincore.mapping.tile.MapVertex;
-import technology.rocketjump.mountaincore.rendering.ScreenWriter;
 import technology.rocketjump.mountaincore.rendering.custom_libgdx.ShaderLoader;
 
 import java.util.List;
@@ -31,17 +31,17 @@ import static technology.rocketjump.mountaincore.rendering.camera.TileBoundingBo
 public class WorldLightingRenderer implements GameContextAware, AssetDisposable {
 
 	private final LightRenderer lightRenderer;
-	private final ScreenWriter screenWriter;
 	private final SunlightCalculator sunlightCalculator;
 	private final AmbientLightingBatch outdoorLightingBatch;
 	private final ShaderProgram outdoorShader;
+	private final Color ambientLightingColor;
 	private GameContext gameContext;
 
 	@Inject
-	public WorldLightingRenderer(LightRenderer lightRenderer, ScreenWriter screenWriter, SunlightCalculator sunlightCalculator) {
+	public WorldLightingRenderer(LightRenderer lightRenderer, ConstantsRepo constantsRepo, SunlightCalculator sunlightCalculator) {
 		this.lightRenderer = lightRenderer;
-		this.screenWriter = screenWriter;
 		this.sunlightCalculator = sunlightCalculator;
+		this.ambientLightingColor = constantsRepo.getWorldConstants().getAmbientLightingColorInstance();
 
 		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/ambient_lighting_vertex_shader.glsl");
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/ambient_lighting_fragment_shader.glsl");
@@ -52,7 +52,7 @@ public class WorldLightingRenderer implements GameContextAware, AssetDisposable 
 	}
 
 	public void renderWorldLighting(GameContext gameContext, List<PointLight> lightList, OrthographicCamera camera, TextureRegion bumpMapTextureRegion) {
-		Gdx.gl.glClearColor(0.25f, 0.25f, 0.32f, 1); // Global ambient lighting - dark blue // MODDING expose this
+		Gdx.gl.glClearColor(ambientLightingColor.r, ambientLightingColor.g, ambientLightingColor.b, ambientLightingColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		Gdx.gl.glBlendEquation(GL20.GL_FUNC_ADD);

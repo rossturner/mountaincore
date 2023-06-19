@@ -1,3 +1,6 @@
+
+- Exposed global ambient light colour to modding
+
 Early Access 1.2.5 - 12th June 2023
 
 - Adjusted chances of creating items from mining (stone is less likely, ore is more likely) and made this moddable

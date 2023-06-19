@@ -1,5 +1,6 @@
 {
   "backgroundColor": "#666666FF",
+  "ambientLightingColor": "#404052FF",
 
   "maxNeighbouringShrubs": 4,
   "attachedLightSourceTogglePoint": 0.75,

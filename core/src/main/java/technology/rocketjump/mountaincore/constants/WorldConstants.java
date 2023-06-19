@@ -12,6 +12,10 @@ public class WorldConstants {
 	@JsonIgnore
 	private Color backgroundColorInstance;
 
+	private String ambientLightingColor;
+	@JsonIgnore
+	private Color ambientLightingColorInstance;
+
 	private int maxNeighbouringShrubs;
 	private float attachedLightSourceTogglePoint;
 	private double corpseDecayHours;
@@ -39,6 +43,19 @@ public class WorldConstants {
 	public void setBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
 		this.backgroundColorInstance = HexColors.get(backgroundColor);
+	}
+
+	public String getAmbientLightingColor() {
+		return ambientLightingColor;
+	}
+
+	public Color getAmbientLightingColorInstance() {
+		return ambientLightingColorInstance;
+	}
+
+	public void setAmbientLightingColor(String ambientLightingColor) {
+		this.ambientLightingColor = ambientLightingColor;
+		this.ambientLightingColorInstance = HexColors.get(ambientLightingColor);
 	}
 
 	public String getStoneHarvestedItemType() {
