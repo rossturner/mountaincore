@@ -1,6 +1,7 @@
 Early Access 1.2.6
 
 - Corrected regional pathfinding that can be broken when bridges that block off an area are removed
+- Fix for a crash when a stockpile allocation has no material set
 
 Early Access 1.2.5 - 12th June 2023
 

@@ -180,7 +180,7 @@
   "usesWorkstationTool" : false,
   "minimumTimeToCompleteJob" : 0.75,
   "maximumTimeToCompleteJob" : 9.25,
-  "mightStartFire" : 0.01,
+  "mightStartFire" : 0.005,
   "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CHEF",
   "accessedFromAdjacentTile" : true

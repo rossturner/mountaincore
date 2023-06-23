@@ -121,7 +121,7 @@ public class StockpileRoomComponent extends RoomComponent implements SelectableD
 		} else {
 			// Placed an item which does match the existing allocation
 			StockpileAllocation replacementAllocation = new StockpileAllocation(targetTile.getTilePosition());
-			replacementAllocation.setGameMaterial(placedItemAttributes.getMaterial(placedItemAttributes.getItemType().getPrimaryMaterialType()));
+			replacementAllocation.setGameMaterial(placedItemAttributes.getPrimaryMaterial());
 			replacementAllocation.setItemType(placedItemAttributes.getItemType());
 			replacementAllocation.refreshQuantityInTile(targetTile);
 
