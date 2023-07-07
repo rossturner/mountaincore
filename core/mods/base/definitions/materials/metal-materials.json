@@ -88,5 +88,12 @@
     "valueMultiplier": 1,
     "colorCode": "#f3f3f3",
     "useInRandomGeneration": false
+  },
+  {
+    "materialName": "Duraluminium",
+    "materialType": "METAL",
+    "valueMultiplier": 1.4,
+    "colorCode": "#f7f7f7",
+    "useInRandomGeneration": false
   }
 ]

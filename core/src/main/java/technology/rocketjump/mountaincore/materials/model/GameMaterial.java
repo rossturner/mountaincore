@@ -57,6 +57,9 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private boolean excludeFromItemDescription;
 	private boolean hiddenFromUI;
 
+	private Hardness hardness;
+	private MaterialWeight weight; // heavy good for crushing weapons
+
 	private MaterialOxidisation oxidisation;
 
 	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1, GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,

@@ -48,7 +48,7 @@
   {
     "materialName": "Pyrite",
     "materialType": "ORE",
-    "prevalence": 0.2,
+    "prevalence": 0,
     "valueMultiplier": 0.4,
     "colorCode": "#f3f48e"
   },
@@ -90,14 +90,14 @@
   {
     "materialName": "Wolframite",
     "materialType": "ORE",
-    "prevalence": 0.2,
+    "prevalence": 0,
     "valueMultiplier": 1.8,
     "colorCode": "#96a7bf"
   },
   {
     "materialName": "Thorium",
     "materialType": "ORE",
-    "prevalence": 0.1,
+    "prevalence": 0,
     "valueMultiplier": 2.5,
     "colorCode": "#f1f1ef"
   },
@@ -111,14 +111,14 @@
   {
     "materialName": "Pollucite",
     "materialType": "ORE",
-    "prevalence": 0.05,
+    "prevalence": 0,
     "valueMultiplier": 2,
     "colorCode": "#f2c6ce"
   },
   {
     "materialName": "Ilmenite",
     "materialType": "ORE",
-    "prevalence": 0.1,
+    "prevalence": 0,
     "valueMultiplier": 1.9,
     "colorCode": "#60605d"
   },

@@ -953,6 +953,9 @@ METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for supe
 METAL.TIN.ADJECTIVE,,Tin
 METAL.TIN.NOUN,,Tin
 METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented)
+METAL.DURALUMINIUM.ADJECTIVE,,Duraluminium
+METAL.DURALUMINIUM.NOUN,,Duraluminium
+METAL.DURALUMINIUM.TOOLTIP,,A silvery alloy made from copper and aluminium. It is light and strong.
 
 MILITARY.FORMATION.COLUMN,,Column - Narrow
 MILITARY.FORMATION.COLUMN_DOUBLE,,Column - Wide
