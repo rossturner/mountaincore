@@ -46,13 +46,6 @@
     "colorCode": "#f6f6f6"
   },
   {
-    "materialName": "Pyrite",
-    "materialType": "ORE",
-    "prevalence": 0,
-    "valueMultiplier": 0.4,
-    "colorCode": "#f3f48e"
-  },
-  {
     "materialName": "Cassiterite",
     "materialType": "ORE",
     "prevalence": 0.3,

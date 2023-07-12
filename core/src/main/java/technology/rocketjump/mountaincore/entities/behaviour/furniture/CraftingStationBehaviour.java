@@ -274,7 +274,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		} else if (outputFurniture != null) {
 			if (outputFurniture.getSelectedMaterial() != null && outputItem.getMaterial() != null) {
 				return outputItem.getItemType().equals(outputFurniture.getSelectedItemType()) &&
-					outputItem.getMaterial().equals(outputFurniture.getSelectedMaterial());
+						outputItem.getMaterial().equals(outputFurniture.getSelectedMaterial());
 			} else {
 				return outputItem.getItemType().equals(outputFurniture.getSelectedItemType());
 			}
@@ -339,10 +339,10 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				continue;
 			}
 			GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
-			List<CraftingRecipe> potentialRecipes = new ArrayList<>(recipesForCraftingType.stream()
+			List<CraftingRecipe> potentialRecipes = recipesForCraftingType.stream()
 					.filter(r -> desiredItemType.equals(r.getOutput().getItemType()))
 					.filter(r -> desiredMaterial == null || r.getOutput().getMaterial() == null || desiredMaterial.equals(r.getOutput().getMaterial()))
-					.toList());
+					.collect(Collectors.toList());
 			Collections.shuffle(potentialRecipes, gameContext.getRandom());
 			for (CraftingRecipe craftingRecipe : potentialRecipes) {
 				int quantityRequired = getAmountRequired(exportFurnitureBehaviour);

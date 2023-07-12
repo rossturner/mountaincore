@@ -24,7 +24,7 @@ public class EA_1_2_5 implements SavedGameMigration {
 
     /**
      * Removes materials:
-     * Wolframite, Thorium, Pollucite, Ilmenite
+     * Wolframite, Thorium, Pollucite, Ilmenite, Pyrite
      *
      * @return
      */
@@ -33,7 +33,7 @@ public class EA_1_2_5 implements SavedGameMigration {
         String rawJsonString = saveFileJson.toJSONString();
 
         List<GameMaterial> otherOres = relatedStores.gameMaterialDictionary.getByType(GameMaterialType.ORE);
-        for (String removedMaterialName : List.of("Wolframite", "Thorium", "Pollucite", "Ilmenite")) {
+        for (String removedMaterialName : List.of("Wolframite", "Thorium", "Pollucite", "Ilmenite", "Pyrite")) {
             GameMaterial replacementMaterial = otherOres.get(random.nextInt(otherOres.size()));
             rawJsonString = StringUtils.replace(rawJsonString, "\"" + removedMaterialName + "\"", "\"" + replacementMaterial.getMaterialName() + "\"");
         }
