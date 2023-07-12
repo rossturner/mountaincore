@@ -10,7 +10,7 @@ import java.util.Objects;
  * This class represents the constituent parts of a game version e.g. "Alpha 2.1", "Beta 3", "1.0"
  * or a mod version using Major.Minor.Patch semantic versioning
  */
-public class Version {
+public class Version implements Comparable<Version> {
 
 	public final Qualifier qualifier; // e.g. Early Access
 	public final int major;
@@ -96,6 +96,11 @@ public class Version {
 	@Override
 	public int hashCode() {
 		return Objects.hash(qualifier, major, minor, revision);
+	}
+
+	@Override
+	public int compareTo(Version o) {
+		return this.toInteger() - o.toInteger();
 	}
 
 	public enum Qualifier {

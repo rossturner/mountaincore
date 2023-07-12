@@ -88,39 +88,11 @@
     "colorCode": "#8CC87E"
   },
   {
-    "materialName": "Wolframite",
-    "materialType": "ORE",
-    "prevalence": 0,
-    "valueMultiplier": 1.8,
-    "colorCode": "#96a7bf"
-  },
-  {
-    "materialName": "Thorium",
-    "materialType": "ORE",
-    "prevalence": 0,
-    "valueMultiplier": 2.5,
-    "colorCode": "#f1f1ef"
-  },
-  {
     "materialName": "Chrysocolla",
     "materialType": "ORE",
     "prevalence": 0.2,
     "valueMultiplier": 1.8,
     "colorCode": "#54DDF2"
-  },
-  {
-    "materialName": "Pollucite",
-    "materialType": "ORE",
-    "prevalence": 0,
-    "valueMultiplier": 2,
-    "colorCode": "#f2c6ce"
-  },
-  {
-    "materialName": "Ilmenite",
-    "materialType": "ORE",
-    "prevalence": 0,
-    "valueMultiplier": 1.9,
-    "colorCode": "#60605d"
   },
   {
     "materialName": "Bauxite",

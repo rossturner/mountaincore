@@ -1,5 +1,6 @@
-Early Access 1.2.6
+Early Access 2.0.0
 
+- Added a save file migration system so that saved games can be reused between compatibility-breaking changes to the game
 - Corrected regional pathfinding that can be broken when bridges that block off an area are removed
 - Fix for a crash when a stockpile allocation has no material set
 

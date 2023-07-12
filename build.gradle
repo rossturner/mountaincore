@@ -67,7 +67,6 @@ project(":desktop") {
             exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
         }
         api "com.badlogicgames.gdx:gdx-lwjgl3-glfw-awt-macos:$gdxVersion"
-        api group: 'com.amazonaws', name: 'aws-java-sdk-translate', version: '1.11.708'
     }
 
     clean.doFirst {

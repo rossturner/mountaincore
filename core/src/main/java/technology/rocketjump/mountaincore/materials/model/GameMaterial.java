@@ -57,8 +57,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private boolean excludeFromItemDescription;
 	private boolean hiddenFromUI;
 
-	private Hardness hardness;
-	private MaterialWeight weight; // heavy good for crushing weapons
+//	private Hardness hardness;
+//	private MaterialWeight weight; // heavy good for crushing weapons
 
 	private MaterialOxidisation oxidisation;
 
