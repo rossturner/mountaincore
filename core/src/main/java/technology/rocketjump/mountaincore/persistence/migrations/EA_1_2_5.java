@@ -25,8 +25,6 @@ public class EA_1_2_5 implements SavedGameMigration {
     /**
      * Removes materials:
      * Wolframite, Thorium, Pollucite, Ilmenite, Pyrite
-     *
-     * @return
      */
     @Override
     public JSONObject apply(JSONObject saveFileJson, SavedGameDependentDictionaries relatedStores) {

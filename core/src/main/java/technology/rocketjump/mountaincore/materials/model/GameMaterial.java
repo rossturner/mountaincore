@@ -57,13 +57,16 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private boolean excludeFromItemDescription;
 	private boolean hiddenFromUI;
 
-//	private Hardness hardness;
-//	private MaterialWeight weight; // heavy good for crushing weapons
+	// TODO show these in UI when not average
+	private MaterialHardness hardness = MaterialHardness.AVERAGE;
+	private MaterialWeight weight = MaterialWeight.AVERAGE; // heavy good for crushing weapons
 
 	private MaterialOxidisation oxidisation;
 
-	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1, GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,
-			1f, false, false,false, false, false, null, false, false, false);
+	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1,
+			GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,
+			1f, false, false,false, false, false,
+			null, false, false, false, null, null);
 
 	// Empty constructor for initialising from saved game
 	public GameMaterial() {
@@ -73,7 +76,9 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	// Simple constructor for testing
 	public GameMaterial(String materialName, long materialId, GameMaterialType type) {
-		this(materialName, materialId, type, null, null, null, null, 1f, false, false, false, false, false, null, false, false, false);
+		this(materialName, materialId, type, null, null, null, null, 1f,
+				false, false, false, false, false, null,
+				false, false, false, null, null);
 	}
 
 	// TODO try to remove usage of this
@@ -102,6 +107,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.valueMultiplier = constituentMaterials.stream().map(GameMaterial::getValueMultiplier).reduce(1f, (a, b) -> a * b);
 		this.dynamicMaterialId = dynamicMaterialId;
 		this.excludeFromItemDescription = false;
+
+		// TODO combined hardness/weight for combined materials
 	}
 
 	@JsonCreator
@@ -116,7 +123,9 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 						@JsonProperty("oxidisation") MaterialOxidisation oxidisation,
 						@JsonProperty("includeInItemDescription") boolean excludeFromItemDescription,
 						@JsonProperty("useAsExampleMaterialForMaterialType") boolean useAsExampleMaterialForMaterialType,
-						@JsonProperty("hiddenFromUI") boolean hiddenFromUI) {
+						@JsonProperty("hiddenFromUI") boolean hiddenFromUI,
+						@JsonProperty("hardness") MaterialHardness hardness,
+						@JsonProperty("weight") MaterialWeight weight) {
 		this.materialName = materialName;
 		this.materialId = materialId;
 		this.colorCode = colorCode;
@@ -140,6 +149,15 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		} else {
 			this.materialType = GameMaterialType.OTHER;
 		}
+
+		if (this.hardness == null) {
+			this.hardness = MaterialHardness.AVERAGE;
+		}
+		this.hardness = this.hardness;
+		if (this.weight == null) {
+			this.weight = MaterialWeight.AVERAGE;
+		}
+		this.weight = this.weight;
 
 		if (colorCode == null) {
 			color = Color.WHITE;
@@ -257,6 +275,14 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	public MaterialOxidisation getOxidisation() {
 		return oxidisation;
+	}
+
+	public MaterialHardness getHardness() {
+		return hardness;
+	}
+
+	public MaterialWeight getWeight() {
+		return weight;
 	}
 
 	@Override
@@ -378,6 +404,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		if (useInRandomGeneration) {
 			asJson.put("useInRandomGeneration", true);
 		}
+
+		// not currently persisting hardness/weight
 
 		savedGameStateHolder.dynamicMaterials.put(dynamicMaterialId, this);
 		savedGameStateHolder.dynamicMaterialsJson.add(asJson);

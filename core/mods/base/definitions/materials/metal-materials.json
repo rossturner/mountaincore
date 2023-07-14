@@ -10,7 +10,9 @@
       "changesTo": "Rusted Iron",
       "hoursToConvert": 580,
       "setsItemQualityTo": "AWFUL"
-    }
+    },
+    "hardness": "HARD",
+    "weight": "AVERAGE"
   },
   {
     "materialName": "Steel",
@@ -22,7 +24,9 @@
       "changesTo": "Rusted Iron",
       "hoursToConvert": 680,
       "setsItemQualityTo": "AWFUL"
-    }
+    },
+    "hardness": "VERY_HARD",
+    "weight": "AVERAGE"
   },
   {
     "materialName": "Rusted Iron",
@@ -34,7 +38,9 @@
       "effect": "DESTROY_PARENT",
       "changesTo": "Rusted scrap",
       "hoursToConvert": 448
-    }
+    },
+    "hardness": "SOFT",
+    "weight": "LIGHT"
   },
   {
     "materialName": "Copper",
@@ -46,54 +52,70 @@
       "effect": "CONVERT_MATERIAL",
       "changesTo": "Copper Patina",
       "hoursToConvert": 248
-    }
+    },
+    "hardness": "AVERAGE",
+    "weight": "HEAVY"
   },
   {
     "materialName": "Copper Patina",
     "materialType": "METAL",
     "valueMultiplier": 1.5,
     "colorCode": "#70d0b5",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "AVERAGE",
+    "weight": "HEAVY"
   },
   {
     "materialName": "Tin",
     "materialType": "METAL",
     "valueMultiplier": 1.5,
-    "colorCode": "#c9c6b9"
+    "colorCode": "#c9c6b9",
+    "hardness": "VERY_SOFT",
+    "weight": "LIGHT"
   },
   {
     "materialName": "Bronze",
     "materialType": "METAL",
     "valueMultiplier": 1.1,
     "colorCode": "#9d6d34",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "HARD",
+    "weight": "HEAVY"
   },
   {
     "materialName": "Gold",
     "materialType": "METAL",
     "valueMultiplier": 10,
     "colorCode": "#ffcd46",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "SOFT",
+    "weight": "VERY_HEAVY"
   },
   {
     "materialName": "Platinum",
     "materialType": "METAL",
     "valueMultiplier": 15,
     "colorCode": "#f6f6f6",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "SOFT",
+    "weight": "VERY_HEAVY"
   },
   {
     "materialName": "Silver",
     "materialType": "METAL",
     "valueMultiplier": 1,
     "colorCode": "#f3f3f3",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "SOFT",
+    "weight": "HEAVY"
   },
   {
     "materialName": "Duraluminium",
     "materialType": "METAL",
     "valueMultiplier": 1.4,
     "colorCode": "#f7f7f7",
-    "useInRandomGeneration": false
+    "useInRandomGeneration": false,
+    "hardness": "AVERAGE",
+    "weight": "VERY_LIGHT"
   }
 ]
