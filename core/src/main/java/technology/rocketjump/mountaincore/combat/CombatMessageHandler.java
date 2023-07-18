@@ -44,6 +44,7 @@ import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
+import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.*;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
@@ -204,7 +205,9 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		int damageAmount = attackMessage.weaponAttack.getMinDamage() + gameContext.getRandom().nextInt(
 				Math.max(attackMessage.weaponAttack.getMaxDamage(), 1) - Math.min(attackMessage.weaponAttack.getMinDamage(), 0)
 		);
-		damageAmount = scaleDamageByWeaponQuality(damageAmount, attackMessage.weaponAttack.getWeaponQuality());
+		damageAmount = Math.round((float) damageAmount * weaponDamageScalar(attackMessage.weaponAttack.getWeaponQuality(),
+				attackMessage.weaponAttack.isRanged(),
+				attackMessage.weaponAttack.getWeaponMaterial(), attackMessage.weaponAttack.getDamageType()));
 
 		if (attackMessage.weaponAttack.isModifiedByStrength()) {
 			damageAmount += getStrengthModifier(attackMessage.attackerEntity);
@@ -594,8 +597,12 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		return (score / 3) - 3;
 	}
 
-	private int scaleDamageByWeaponQuality(int damageAmount, ItemQuality weaponQuality) {
-		return Math.round((float) damageAmount * weaponQuality.combatMultiplier);
+	public static float weaponDamageScalar(ItemQuality weaponQuality, GameMaterial weaponMaterial, CombatDamageType damageType, boolean isRanged) {
+		if (isRanged) {
+			return weaponQuality.combatMultiplier;
+		} else {
+			return weaponQuality.combatMultiplier * damageType.weaponDamageScalar(weaponMaterial.getHardness(), weaponMaterial.getWeight());
+		}
 	}
 
 	@Override

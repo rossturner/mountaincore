@@ -7,6 +7,7 @@ import technology.rocketjump.mountaincore.audio.model.SoundAsset;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.mountaincore.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemQuality;
+import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.persistence.EnumParser;
 import technology.rocketjump.mountaincore.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.mountaincore.persistence.model.ChildPersistable;
@@ -28,12 +29,14 @@ public class WeaponAttack implements ChildPersistable {
 	@JsonIgnore
 	private SoundAsset weaponMissSoundAsset;
 	private boolean modifiedByStrength;
+	private boolean isRanged;
+	private GameMaterial weaponMaterial;
 
 	public WeaponAttack() {
 
 	}
 
-	public WeaponAttack(WeaponInfo weaponInfo, ItemQuality weaponQuality) {
+	public WeaponAttack(WeaponInfo weaponInfo, ItemQuality weaponQuality, GameMaterial weaponMaterial) {
 		this.damageType = weaponInfo.getDamageType();
 		this.minDamage = weaponInfo.getMinDamage();
 		this.maxDamage = weaponInfo.getMaxDamage();
@@ -42,6 +45,8 @@ public class WeaponAttack implements ChildPersistable {
 		this.weaponHitSoundAsset = weaponInfo.getWeaponHitSoundAsset();
 		this.weaponMissSoundAsset = weaponInfo.getWeaponMissSoundAsset();
 		this.modifiedByStrength = weaponInfo.isModifiedByStrength();
+		this.isRanged = weaponInfo.isRanged();
+		this.weaponMaterial = weaponMaterial;
 	}
 
 	public CombatDamageType getDamageType() {
@@ -126,6 +131,10 @@ public class WeaponAttack implements ChildPersistable {
 		if (modifiedByStrength) {
 			asJson.put("modifiedByStrength", true);
 		}
+		if (isRanged) {
+			asJson.put("isRanged", true);
+		}
+		asJson.put("weaponMaterial", weaponMaterial.getMaterialName());
 	}
 
 	@Override
@@ -153,6 +162,11 @@ public class WeaponAttack implements ChildPersistable {
 		}
 
 		this.modifiedByStrength = asJson.getBooleanValue("modifiedByStrength");
+		this.isRanged = asJson.getBooleanValue("isRanged");
+		this.weaponMaterial = relatedStores.gameMaterialDictionary.getByName(asJson.getString("weaponMaterial"));
+		if (this.weaponMaterial == null) {
+			this.weaponMaterial = GameMaterial.NULL_MATERIAL;
+		}
 	}
 
 	public boolean isModifiedByStrength() {
@@ -161,6 +175,10 @@ public class WeaponAttack implements ChildPersistable {
 
 	public void setModifiedByStrength(boolean modifiedByStrength) {
 		this.modifiedByStrength = modifiedByStrength;
+	}
+
+	public boolean isRanged() {
+		return isRanged;
 	}
 
 	public int getArmorNegation() {
