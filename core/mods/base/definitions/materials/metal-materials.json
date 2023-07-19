@@ -112,7 +112,7 @@
   {
     "materialName": "Duraluminium",
     "materialType": "METAL",
-    "valueMultiplier": 1.4,
+    "valueMultiplier": 2.3,
     "colorCode": "#f7f7f7",
     "useInRandomGeneration": false,
     "hardness": "AVERAGE",

@@ -21,7 +21,6 @@ public class WeaponAttack implements ChildPersistable {
 	private int minDamage;
 	private int maxDamage;
 	private int armorNegation;
-	private ItemQuality weaponQuality = ItemQuality.STANDARD;
 	private String weaponHitSoundAssetName;
 	@JsonIgnore
 	private SoundAsset weaponHitSoundAsset;
@@ -30,7 +29,6 @@ public class WeaponAttack implements ChildPersistable {
 	private SoundAsset weaponMissSoundAsset;
 	private boolean modifiedByStrength;
 	private boolean isRanged;
-	private GameMaterial weaponMaterial;
 
 	public WeaponAttack() {
 
@@ -38,15 +36,24 @@ public class WeaponAttack implements ChildPersistable {
 
 	public WeaponAttack(WeaponInfo weaponInfo, ItemQuality weaponQuality, GameMaterial weaponMaterial) {
 		this.damageType = weaponInfo.getDamageType();
-		this.minDamage = weaponInfo.getMinDamage();
-		this.maxDamage = weaponInfo.getMaxDamage();
+		float damageScalar = weaponDamageScalar(weaponQuality, weaponMaterial, damageType, weaponInfo.isRanged());
+		this.minDamage = Math.max(Math.round((float) weaponInfo.getMinDamage() * damageScalar), 0);
+		this.maxDamage = Math.max(Math.round((float) weaponInfo.getMaxDamage() * damageScalar), 1);
 		this.armorNegation = weaponInfo.getArmorNegation();
 		this.weaponQuality = weaponQuality;
 		this.weaponHitSoundAsset = weaponInfo.getWeaponHitSoundAsset();
 		this.weaponMissSoundAsset = weaponInfo.getWeaponMissSoundAsset();
 		this.modifiedByStrength = weaponInfo.isModifiedByStrength();
 		this.isRanged = weaponInfo.isRanged();
-		this.weaponMaterial = weaponMaterial;
+	}
+
+	private static float weaponDamageScalar(ItemQuality weaponQuality, GameMaterial weaponMaterial, CombatDamageType damageType, boolean isRanged) {
+		if (!isRanged && weaponMaterial != null) {
+			return weaponQuality.combatMultiplier * damageType.weaponDamageScalar(weaponMaterial.getHardness(), weaponMaterial.getWeight());
+		}
+
+		// else ranged
+		return weaponQuality.combatMultiplier;
 	}
 
 	public CombatDamageType getDamageType() {
@@ -61,56 +68,24 @@ public class WeaponAttack implements ChildPersistable {
 		return minDamage;
 	}
 
-	public void setMinDamage(int minDamage) {
-		this.minDamage = minDamage;
-	}
-
 	public int getMaxDamage() {
 		return maxDamage;
-	}
-
-	public void setMaxDamage(int maxDamage) {
-		this.maxDamage = maxDamage;
-	}
-
-	public ItemQuality getWeaponQuality() {
-		return weaponQuality;
-	}
-
-	public void setWeaponQuality(ItemQuality weaponQuality) {
-		this.weaponQuality = weaponQuality;
 	}
 
 	public SoundAsset getWeaponHitSoundAsset() {
 		return weaponHitSoundAsset;
 	}
 
-	public void setWeaponHitSoundAsset(SoundAsset weaponHitSoundAsset) {
-		this.weaponHitSoundAsset = weaponHitSoundAsset;
-	}
-
 	public String getWeaponMissSoundAssetName() {
 		return weaponMissSoundAssetName;
-	}
-
-	public void setWeaponMissSoundAssetName(String weaponMissSoundAssetName) {
-		this.weaponMissSoundAssetName = weaponMissSoundAssetName;
 	}
 
 	public SoundAsset getWeaponMissSoundAsset() {
 		return weaponMissSoundAsset;
 	}
 
-	public void setWeaponMissSoundAsset(SoundAsset weaponMissSoundAsset) {
-		this.weaponMissSoundAsset = weaponMissSoundAsset;
-	}
-
 	public String getWeaponHitSoundAssetName() {
 		return weaponHitSoundAssetName;
-	}
-
-	public void setWeaponHitSoundAssetName(String weaponHitSoundAssetName) {
-		this.weaponHitSoundAssetName = weaponHitSoundAssetName;
 	}
 
 	@Override
@@ -119,9 +94,6 @@ public class WeaponAttack implements ChildPersistable {
 		asJson.put("minDamage", minDamage);
 		asJson.put("maxDamage", maxDamage);
 		asJson.put("armorNegation", armorNegation);
-		if (!weaponQuality.equals(ItemQuality.STANDARD)) {
-			asJson.put("weaponQuality", weaponQuality.name());
-		}
 		if (weaponHitSoundAsset != null) {
 			asJson.put("weaponHitSoundAssetName", weaponHitSoundAsset.getName());
 		}
@@ -134,7 +106,18 @@ public class WeaponAttack implements ChildPersistable {
 		if (isRanged) {
 			asJson.put("isRanged", true);
 		}
-		asJson.put("weaponMaterial", weaponMaterial.getMaterialName());
+	}
+
+	public boolean isModifiedByStrength() {
+		return modifiedByStrength;
+	}
+
+	public int getArmorNegation() {
+		return armorNegation;
+	}
+
+	public void setArmorNegation(int armorNegation) {
+		this.armorNegation = armorNegation;
 	}
 
 	@Override
@@ -143,7 +126,6 @@ public class WeaponAttack implements ChildPersistable {
 		this.minDamage = asJson.getIntValue("minDamage");
 		this.maxDamage = asJson.getIntValue("maxDamage");
 		this.armorNegation = asJson.getIntValue("armorNegation");
-		this.weaponQuality = EnumParser.getEnumValue(asJson, "weaponQuality", ItemQuality.class, ItemQuality.STANDARD);
 
 		this.weaponHitSoundAssetName = asJson.getString("weaponHitSoundAssetName");
 		if (weaponHitSoundAssetName != null) {
@@ -163,29 +145,6 @@ public class WeaponAttack implements ChildPersistable {
 
 		this.modifiedByStrength = asJson.getBooleanValue("modifiedByStrength");
 		this.isRanged = asJson.getBooleanValue("isRanged");
-		this.weaponMaterial = relatedStores.gameMaterialDictionary.getByName(asJson.getString("weaponMaterial"));
-		if (this.weaponMaterial == null) {
-			this.weaponMaterial = GameMaterial.NULL_MATERIAL;
-		}
 	}
 
-	public boolean isModifiedByStrength() {
-		return modifiedByStrength;
-	}
-
-	public void setModifiedByStrength(boolean modifiedByStrength) {
-		this.modifiedByStrength = modifiedByStrength;
-	}
-
-	public boolean isRanged() {
-		return isRanged;
-	}
-
-	public int getArmorNegation() {
-		return armorNegation;
-	}
-
-	public void setArmorNegation(int armorNegation) {
-		this.armorNegation = armorNegation;
-	}
 }

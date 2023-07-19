@@ -19,6 +19,7 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
+import technology.rocketjump.mountaincore.combat.model.WeaponAttack;
 import technology.rocketjump.mountaincore.entities.EntityStore;
 import technology.rocketjump.mountaincore.entities.ai.combat.CombatAction;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CorpseBehaviour;
@@ -32,6 +33,7 @@ import technology.rocketjump.mountaincore.entities.components.furniture.Furnitur
 import technology.rocketjump.mountaincore.entities.model.Entity;
 import technology.rocketjump.mountaincore.entities.model.EntityType;
 import technology.rocketjump.mountaincore.entities.model.physical.EntityAttributes;
+import technology.rocketjump.mountaincore.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.*;
 import technology.rocketjump.mountaincore.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -640,6 +642,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					for (ItemAllocation itemAllocation : itemAllocations) {
 						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
 						Label label = new Label(itemAllocation.toString(), debugLabelStyle);
+						table.add(label).grow().row();
+					}
+				}
+				if (entityAttributes instanceof ItemEntityAttributes itemAttributes) {
+					WeaponInfo weaponInfo = itemAttributes.getItemType().getWeaponInfo();
+					if (weaponInfo != null) {
+						WeaponAttack weaponAttack = new WeaponAttack(weaponInfo, itemAttributes.getItemQuality(), itemAttributes.getPrimaryMaterial());
+
+						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
+						Label label = new Label("Weapon stats - min damage %s max damage %s damage type %s AP %s".formatted(weaponAttack.getMinDamage(), weaponAttack.getMaxDamage(), weaponAttack.getDamageType(), weaponAttack.getArmorNegation()), debugLabelStyle);
 						table.add(label).grow().row();
 					}
 				}

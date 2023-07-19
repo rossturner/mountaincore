@@ -150,14 +150,12 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 			this.materialType = GameMaterialType.OTHER;
 		}
 
-		if (this.hardness == null) {
-			this.hardness = MaterialHardness.AVERAGE;
+		if (hardness != null) {
+			this.hardness = hardness;
 		}
-		this.hardness = this.hardness;
-		if (this.weight == null) {
-			this.weight = MaterialWeight.AVERAGE;
+		if (weight != null) {
+			this.weight = weight;
 		}
-		this.weight = this.weight;
 
 		if (colorCode == null) {
 			color = Color.WHITE;

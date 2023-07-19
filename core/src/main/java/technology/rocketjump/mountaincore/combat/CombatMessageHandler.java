@@ -39,12 +39,10 @@ import technology.rocketjump.mountaincore.entities.model.physical.creature.statu
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.EntityDestructionCause;
 import technology.rocketjump.mountaincore.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.mountaincore.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.mountaincore.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.mountaincore.gamecontext.GameContext;
 import technology.rocketjump.mountaincore.gamecontext.GameContextAware;
 import technology.rocketjump.mountaincore.mapping.tile.CompassDirection;
 import technology.rocketjump.mountaincore.mapping.tile.MapTile;
-import technology.rocketjump.mountaincore.materials.model.GameMaterial;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.types.*;
 import technology.rocketjump.mountaincore.misc.VectorUtils;
@@ -202,12 +200,11 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private boolean applyAttackDamage(CombatAttackMessage attackMessage) {
-		int damageAmount = attackMessage.weaponAttack.getMinDamage() + gameContext.getRandom().nextInt(
-				Math.max(attackMessage.weaponAttack.getMaxDamage(), 1) - Math.min(attackMessage.weaponAttack.getMinDamage(), 0)
-		);
-		damageAmount = Math.round((float) damageAmount * weaponDamageScalar(attackMessage.weaponAttack.getWeaponQuality(),
-				attackMessage.weaponAttack.isRanged(),
-				attackMessage.weaponAttack.getWeaponMaterial(), attackMessage.weaponAttack.getDamageType()));
+		int damageAmount = attackMessage.weaponAttack.getMinDamage();
+		int damageRange = attackMessage.weaponAttack.getMaxDamage() - attackMessage.weaponAttack.getMinDamage();
+		if (damageRange > 0) {
+			damageAmount += gameContext.getRandom().nextInt(damageRange);
+		}
 
 		if (attackMessage.weaponAttack.isModifiedByStrength()) {
 			damageAmount += getStrengthModifier(attackMessage.attackerEntity);
@@ -597,13 +594,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		return (score / 3) - 3;
 	}
 
-	public static float weaponDamageScalar(ItemQuality weaponQuality, GameMaterial weaponMaterial, CombatDamageType damageType, boolean isRanged) {
-		if (isRanged) {
-			return weaponQuality.combatMultiplier;
-		} else {
-			return weaponQuality.combatMultiplier * damageType.weaponDamageScalar(weaponMaterial.getHardness(), weaponMaterial.getWeight());
-		}
-	}
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
