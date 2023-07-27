@@ -156,6 +156,10 @@ CREATURE.DESCRIPTION,,{{gender.adjective}} {{race.noun}}
 CREATURE.STATUS.BLINDED,,Blinded
 CREATURE.STATUS.DEAD,,Dead
 
+COMBAT.DAMAGE_TYPE.STABBING,,Piercing
+COMBAT.DAMAGE_TYPE.SLASHING,,Slashing
+COMBAT.DAMAGE_TYPE.CRUSHING,,Crushing
+
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!
 CROP.DESCRIPTION,,{{materialType.noun}} plant
@@ -743,6 +747,8 @@ GUI.VIEW_MODE.PIPING,,Piping view
 GUI.VIEW_MODE.ROOFING_INFO,,Roof view
 GUI.VIEW_ROADMAP,,View development roadmap
 GUI.YEAR_LABEL,,Year {{year}}
+GUI.ITEM.WEAPON_ATTACK_DESCRIPTION,,{{damageType}} damage ({{min}} - {{max}})
+GUI.ITEM.WEAPON_ARMOR_NEGATION_DESCRIPTION,,Ignores {{value}} points of armour
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal

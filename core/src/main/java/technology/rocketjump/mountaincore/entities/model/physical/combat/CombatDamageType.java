@@ -17,4 +17,8 @@ public enum CombatDamageType {
 		};
 	}
 
+	public String i18nKey() {
+		return "COMBAT.DAMAGE_TYPE." + this.name();
+	}
+
 }

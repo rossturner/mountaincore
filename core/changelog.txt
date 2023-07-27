@@ -1,6 +1,9 @@
 Early Access 2.0.0
 
 - Added a save file migration system so that saved games can be reused between compatibility-breaking changes to the game
+- Added material hardness and weight, which is currently different for types of metal
+- Weapon damage adjusted by material properties
+- Display of weapon damage range in UI
 - Corrected regional pathfinding that can be broken when bridges that block off an area are removed
 - Fix for a crash when a stockpile allocation has no material set
 

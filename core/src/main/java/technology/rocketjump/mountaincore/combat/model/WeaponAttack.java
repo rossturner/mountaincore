@@ -40,7 +40,6 @@ public class WeaponAttack implements ChildPersistable {
 		this.minDamage = Math.max(Math.round((float) weaponInfo.getMinDamage() * damageScalar), 0);
 		this.maxDamage = Math.max(Math.round((float) weaponInfo.getMaxDamage() * damageScalar), 1);
 		this.armorNegation = weaponInfo.getArmorNegation();
-		this.weaponQuality = weaponQuality;
 		this.weaponHitSoundAsset = weaponInfo.getWeaponHitSoundAsset();
 		this.weaponMissSoundAsset = weaponInfo.getWeaponMissSoundAsset();
 		this.modifiedByStrength = weaponInfo.isModifiedByStrength();

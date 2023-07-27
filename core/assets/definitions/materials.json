@@ -1198,7 +1198,7 @@
   "materialId" : 57,
   "materialType" : "METAL",
   "colorCode" : "#f7f7f7",
-  "valueMultiplier" : 1.4,
+  "valueMultiplier" : 2.3,
   "alcoholic" : false,
   "combustible" : false,
   "edible" : false,
