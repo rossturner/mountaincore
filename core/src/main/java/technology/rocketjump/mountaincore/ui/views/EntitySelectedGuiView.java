@@ -19,6 +19,7 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.mountaincore.audio.model.SoundAssetDictionary;
+import technology.rocketjump.mountaincore.combat.model.WeaponAttack;
 import technology.rocketjump.mountaincore.entities.EntityStore;
 import technology.rocketjump.mountaincore.entities.ai.combat.CombatAction;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CorpseBehaviour;
@@ -617,15 +618,30 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 
-			if (entityAttributes instanceof ItemEntityAttributes item) {
+			if (entityAttributes instanceof ItemEntityAttributes itemAttributes) {
 				List<String> haulingDescriptions = getHaulingDescriptions(entity);
 				descriptions.addAll(haulingDescriptions); //TODO: this might be where we want them clustered/ordered together
 
-				if (item.isDestroyed()) {
-					descriptions.add(i18nTranslator.getTranslatedString(item.getDestructionCause().i18nKey).toString());
+				if (itemAttributes.isDestroyed()) {
+					descriptions.add(i18nTranslator.getTranslatedString(itemAttributes.getDestructionCause().i18nKey).toString());
 				}
 
-				descriptions.addAll(craftingHintWidgetFactory.getCraftingRecipeDescriptions(item.getItemType(), item.getPrimaryMaterial()));
+				descriptions.addAll(craftingHintWidgetFactory.getCraftingRecipeDescriptions(itemAttributes.getItemType(), itemAttributes.getPrimaryMaterial()));
+
+				if (itemAttributes.getItemType().getWeaponInfo() != null) {
+					WeaponAttack weaponAttack = new WeaponAttack(itemAttributes.getItemType().getWeaponInfo(), itemAttributes.getItemQuality(), itemAttributes.getPrimaryMaterial());
+
+					descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("GUI.ITEM.WEAPON_ATTACK_DESCRIPTION", Map.of(
+							"damageType", i18nTranslator.getWord(weaponAttack.getDamageType().i18nKey()),
+							"min", new I18nWord(String.valueOf(weaponAttack.getMinDamage())),
+							"max", new I18nWord(String.valueOf(weaponAttack.getMaxDamage()))
+					)).toString());
+					if (itemAttributes.getItemType().getWeaponInfo().getArmorNegation() > 0) {
+						descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("GUI.ITEM.WEAPON_ARMOR_NEGATION_DESCRIPTION",
+								Map.of("value", new I18nWord(String.valueOf(itemAttributes.getItemType().getWeaponInfo().getArmorNegation())))
+						).toString());
+					}
+				}
 			}
 
 			table.clear();

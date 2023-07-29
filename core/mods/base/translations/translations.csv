@@ -156,6 +156,10 @@ CREATURE.DESCRIPTION,,{{gender.adjective}} {{race.noun}}
 CREATURE.STATUS.BLINDED,,Blinded
 CREATURE.STATUS.DEAD,,Dead
 
+COMBAT.DAMAGE_TYPE.STABBING,,Piercing
+COMBAT.DAMAGE_TYPE.SLASHING,,Slashing
+COMBAT.DAMAGE_TYPE.CRUSHING,,Crushing
+
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!
 CROP.DESCRIPTION,,{{materialType.noun}} plant
@@ -743,6 +747,8 @@ GUI.VIEW_MODE.PIPING,,Piping view
 GUI.VIEW_MODE.ROOFING_INFO,,Roof view
 GUI.VIEW_ROADMAP,,View development roadmap
 GUI.YEAR_LABEL,,Year {{year}}
+GUI.ITEM.WEAPON_ATTACK_DESCRIPTION,,{{damageType}} damage ({{min}} - {{max}})
+GUI.ITEM.WEAPON_ARMOR_NEGATION_DESCRIPTION,,Ignores {{value}} points of armour
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal
@@ -953,6 +959,10 @@ METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for supe
 METAL.TIN.ADJECTIVE,,Tin
 METAL.TIN.NOUN,,Tin
 METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented)
+METAL.DURALUMINIUM.ADJECTIVE,,Duraluminium
+METAL.DURALUMINIUM.NOUN,,Duraluminium
+METAL.DURALUMINIUM.TOOLTIP,,A silvery alloy made from copper and aluminium. It is light and strong.
+
 
 MILITARY.FORMATION.COLUMN,,Column - Narrow
 MILITARY.FORMATION.COLUMN_DOUBLE,,Column - Wide

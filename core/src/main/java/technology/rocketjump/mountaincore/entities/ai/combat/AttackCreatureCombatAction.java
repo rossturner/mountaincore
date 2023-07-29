@@ -120,7 +120,9 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		CreatureCombat creatureCombat = new CreatureCombat(parentEntity);
 		ItemEntityAttributes ammoAttributes = decrementAmmoFromInventory(creatureCombat.getEquippedWeapon().getRequiresAmmoType(), messageDispatcher);
 		messageDispatcher.dispatchMessage(MessageType.MAKE_ATTACK_WITH_WEAPON, new CombatAttackMessage(
-				parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(), creatureCombat.getEquippedWeaponQuality()),
+				parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(),
+				creatureCombat.getEquippedWeaponQuality(),
+				creatureCombat.getEquippedWeaponAttributes().getPrimaryMaterial()),
 				ammoAttributes));
 		attackMade = true;
 	}

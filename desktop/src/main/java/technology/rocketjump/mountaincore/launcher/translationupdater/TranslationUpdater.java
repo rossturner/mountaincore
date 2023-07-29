@@ -24,8 +24,6 @@ import java.util.regex.Pattern;
 public class TranslationUpdater {
 
 	private Map<String, Map<String, String>> combinedKeysToLanguagesToValues = new LinkedHashMap<>();
-	private final AmazonTranslator amazonTranslator = new AmazonTranslator();
-	private static final boolean USE_AWS_TRANSLATE = false;
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
@@ -165,10 +163,6 @@ public class TranslationUpdater {
 				String value = languageToValueMap.get(targetLanguage.getCode());
 				if (value == null) {
 					value = "";
-					if (useAwsTranslate(targetLanguage) && englishValue.length() > 0) {
-						value = amazonTranslator.getTranslation(englishValue, "en", targetLanguage.getCode());
-						value = fixReplacements(value, englishValue);
-					}
 				}
 				printer.print(value);
 			}
@@ -254,10 +248,6 @@ public class TranslationUpdater {
 
 	private static List<String> autotranslatedLanguages = Arrays.asList("German", "French", "Italian", "Spanish", "Portuguese",
 			"Polish", "Russian", "Danish", "Swedish", "Japanese", "Simplified Chinese", "Korean");
-
-	private boolean useAwsTranslate(LanguageType targetLanguage) {
-		return USE_AWS_TRANSLATE && autotranslatedLanguages.contains(targetLanguage.getLabelEn());
-	}
 
 	private String firstPart(String key) {
 		if (key.indexOf('.') > 0) {

@@ -1,0 +1,89 @@
+[
+  {
+    "recipeName": "Alloy duraluminiuum from native copper",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Bauxite",
+        "quantity": 5
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Copper",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6,
+      "materialName": "Duraluminium"
+    },
+    "extraGameHoursToComplete": 4.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Alloy duraluminiuum from malachite",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Bauxite",
+        "quantity": 5
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Malachite",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6,
+      "materialName": "Duraluminium"
+    },
+    "extraGameHoursToComplete": 4.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Alloy duraluminiuum from chrysocolla",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Bauxite",
+        "quantity": 5
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Chrysocolla",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6,
+      "materialName": "Duraluminium"
+    },
+    "extraGameHoursToComplete": 4.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  }
+]

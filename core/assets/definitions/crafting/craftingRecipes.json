@@ -964,6 +964,78 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
+  "recipeName" : "Alloy duraluminiuum from native copper",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 5,
+    "materialName" : "Bauxite"
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 1,
+    "materialName" : "Native Copper"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 6,
+    "materialName" : "Duraluminium"
+  },
+  "extraGameHoursToComplete" : 4.0,
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 3.5
+}, {
+  "recipeName" : "Alloy duraluminiuum from malachite",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 5,
+    "materialName" : "Bauxite"
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 1,
+    "materialName" : "Malachite"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 6,
+    "materialName" : "Duraluminium"
+  },
+  "extraGameHoursToComplete" : 4.0,
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 3.5
+}, {
+  "recipeName" : "Alloy duraluminiuum from chrysocolla",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 5,
+    "materialName" : "Bauxite"
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 1,
+    "materialName" : "Chrysocolla"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 6,
+    "materialName" : "Duraluminium"
+  },
+  "extraGameHoursToComplete" : 4.0,
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 3.5
+}, {
   "recipeName" : "Cut stone blocks",
   "craftingTypeName" : "STONEMASONRY",
   "itemTypeRequiredName" : "Tool-Chisel",

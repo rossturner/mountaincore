@@ -23,7 +23,7 @@
     "prevalence": 1,
     "colorCode": "#F3D8D8",
     "isFluxMaterial": true,
-    "oreNames": ["Hematite", "Bituminous Coal", "Cassiterite", "Pyrite", "Ilmenite", "Bauxite"]
+    "oreNames": ["Hematite", "Bituminous Coal", "Cassiterite", "Pyrite", "Bauxite"]
   },
   {
     "materialName": "Shale",
@@ -31,7 +31,7 @@
     "rockGroup": "Sedimentary",
     "prevalence": 1,
     "colorCode": "#ce9999",
-    "oreNames": ["Hematite", "Chrysocolla", "Bituminous Coal", "Cassiterite", "Ilmenite", "Bauxite"]
+    "oreNames": ["Hematite", "Chrysocolla", "Bituminous Coal", "Cassiterite", "Bauxite"]
   },
   {
     "materialName": "Slate",
@@ -41,7 +41,7 @@
     "valueMultiplier": 1.3,
     "colorCode": "#c3c6ce",
     "useAsExampleMaterialForMaterialType": true,
-    "oreNames": ["Malachite", "Chrysocolla", "Galena", "Thorium", "Pyrite", "Ilmenite"]
+    "oreNames": ["Malachite", "Chrysocolla", "Galena", "Pyrite"]
   },
   {
     "materialName": "Marble",
@@ -50,7 +50,7 @@
     "prevalence": 1,
     "valueMultiplier": 2,
     "colorCode": "#ffffff",
-    "oreNames": ["Malachite", "Chrysocolla", "Galena", "Wolframite", "Pyrite", "Ilmenite"]
+    "oreNames": ["Malachite", "Chrysocolla", "Galena", "Pyrite"]
   },
   {
     "materialName": "Granite",
@@ -59,7 +59,7 @@
     "prevalence": 4,
     "valueMultiplier": 2.5,
     "colorCode": "#816e6e",
-    "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Native Silver", "Wolframite", "Pollucite"]
+    "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Native Silver"]
   },
   {
     "materialName": "Basalt",
@@ -68,7 +68,7 @@
     "prevalence": 1,
     "valueMultiplier": 1.4,
     "colorCode": "#7f9199",
-    "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Wolframite", "Ilmenite"]
+    "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper"]
   },
   {
     "materialName": "Fronite",

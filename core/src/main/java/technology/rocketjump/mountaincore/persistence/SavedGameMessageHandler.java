@@ -75,6 +75,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 	private final ConstantsRepo constantsRepo;
 	private final SavedGameStore savedGameStore;
 	private final I18nTranslator i18nTranslator;
+	private final SavedGameMigrationService savedGameMigrationService;
 	private GameContext gameContext;
 
 	private final ConcurrentLinkedQueue<CompletableFuture<?>> saveTasks = new ConcurrentLinkedQueue<>(); //should only ever be one
@@ -87,7 +88,8 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 								   BackgroundTaskManager backgroundTaskManager, PrimaryCameraWrapper primaryCameraWrapper,
 								   GameContextRegister gameContextRegister, GameContextFactory gameContextFactory,
 								   LocalModRepository localModRepository, GameDialogDictionary gameDialogDictionary,
-								   ConstantsRepo constantsRepo, SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+								   ConstantsRepo constantsRepo, SavedGameStore savedGameStore, I18nTranslator i18nTranslator,
+								   SavedGameMigrationService savedGameMigrationService) {
 		this.relatedStores = savedGameDependentDictionaries;
 		this.messageDispatcher = messageDispatcher;
 		this.userFileManager = userFileManager;
@@ -100,6 +102,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		this.constantsRepo = constantsRepo;
 		this.savedGameStore = savedGameStore;
 		this.i18nTranslator = i18nTranslator;
+		this.savedGameMigrationService = savedGameMigrationService;
 
 		messageDispatcher.addListener(this, MessageType.REQUEST_SAVE);
 		messageDispatcher.addListener(this, MessageType.PERFORM_LOAD);
@@ -400,6 +403,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		}
 
 		JSONObject storedJson = JSON.parseObject(jsonString);
+		storedJson = savedGameMigrationService.migrate(savedGameInfo, storedJson);
 		SavedGameStateHolder stateHolder = new SavedGameStateHolder(storedJson);
 		try {
 			stateHolder.jsonToObjects(relatedStores);
