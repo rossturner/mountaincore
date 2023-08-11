@@ -387,6 +387,17 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "CRUCIBLE_FURNACE",
+  "i18nKey" : "FURNITURE.CRUCIBLE_FURNACE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "crucible-furnace-layout",
+  "autoConstructed" : false,
+  "requirements" : {
+    "METAL" : [ ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "Dough_Proofing_Table",
   "i18nKey" : "FURNITURE.DOUGH_PROOFING_TABLE",
   "blocksMovement" : true,
