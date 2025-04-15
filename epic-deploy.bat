@@ -1,2 +1,0 @@
-%~dp0/release_tools/Epic_BuildPatchTool_1.5.1/Engine/Binaries/Win64/BuildPatchTool.exe -ClientId="xyza7891V44W4RAVHy6IwDFq37jtpkAQ" -ClientSecretEnvVar="EPIC_SECRET" -OrganizationId="o-9wdpdvs2cxr8wmqdmwwaqclav8gbec" -ProductId="dc4547eedc0d450eb22bf89c192117cd" -ArtifactId="0d16fe61e67745a3a4d3e39076e39d21" -mode=UploadBinary -BuildRoot="%~dp0release_tools/win64_release" -CloudDir="%~dp0release_tools/epic_upload" -BuildVersion="Early_Access_1.1.2" -AppLaunch="Mountaincore.exe" -AppArgs=""
-
