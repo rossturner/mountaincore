@@ -2,13 +2,13 @@ package technology.rocketjump.mountaincore.modding.authentication;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.net.HttpStatus;
 import com.codedisaster.steamworks.SteamAPI;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import org.apache.http.HttpStatus;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.persistence.UserPreferences;
 

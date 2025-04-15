@@ -4186,6 +4186,236 @@
     }
   }
 }, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Base_Layer-Metal",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Base_Layer-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 106.0,
+        "y" : 43.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_4",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_5",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_1-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_1-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_2-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_2",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_2-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_3-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_3",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_3-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_4-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_4",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_4-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_5-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_5",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_5-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Crucible_Furnace-crucible-furnace-layout-Furniture_Above_Layer_6-Metal",
+  "type" : "FURNITURE_BELOW_LAYER_6",
+  "furnitureTypeName" : "CRUCIBLE_FURNACE",
+  "furnitureLayoutName" : "crucible-furnace-layout",
+  "validMaterialTypes" : [ "METAL" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Crucible_Furnace-Crucible-Furnace-Layout-Furniture_Above_Layer_6-Metal_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "templatedAnimationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Dough_Proofing_Table-1x1-Base_Layer-Stone",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Dough_Proofing_Table",

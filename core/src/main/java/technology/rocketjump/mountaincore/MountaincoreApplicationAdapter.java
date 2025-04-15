@@ -28,7 +28,6 @@ import technology.rocketjump.mountaincore.messaging.InfoType;
 import technology.rocketjump.mountaincore.messaging.MessageType;
 import technology.rocketjump.mountaincore.messaging.async.BackgroundTaskManager;
 import technology.rocketjump.mountaincore.messaging.types.GameSaveMessage;
-import technology.rocketjump.mountaincore.misc.AnalyticsManager;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchMessageHandler;
 import technology.rocketjump.mountaincore.misc.twitch.TwitchTaskRunner;
 import technology.rocketjump.mountaincore.modding.LocalModRepository;
@@ -144,7 +143,6 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_MENU");
 
 			messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
-			AnalyticsManager.startAnalytics(userFileManager.readClientId());
 
 			LocalModRepository localModRepository = injector.getInstance(LocalModRepository.class);
 			List<ParsedMod> incompatibleMods = localModRepository.getIncompatibleMods();
@@ -187,7 +185,6 @@ public class MountaincoreApplicationAdapter extends ApplicationAdapter {
 	}
 
 	public void onExit() {
-		AnalyticsManager.stopAnalytics();
 		if (!crashHappened) {
 			messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
 		}
