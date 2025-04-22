@@ -15,6 +15,7 @@ import technology.rocketjump.mountaincore.ui.widgets.MenuButtonFactory;
 
 public abstract class BannerMenu implements Menu {
     public static final String DISCORD_URL = "https://discord.gg/M57GrFp";
+    public static final String GITHUB_REPO_URL = "https://github.com/rossturner/mountaincore";
     protected final Skin menuSkin;
     protected final MenuButtonFactory menuButtonFactory;
     protected final MessageDispatcher messageDispatcher;
@@ -68,6 +69,12 @@ public abstract class BannerMenu implements Menu {
                 })
                 .build();
 
+        Container<TextButton> sourceCodeButton = menuButtonFactory.createButton("MENU.SOURCE_CODE", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3_36PT)
+                .withAction(() -> {
+                    Gdx.net.openURI(GITHUB_REPO_URL);
+                })
+                .build();
+
         Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_36PT)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TWITCH_OPTIONS_MENU);
@@ -82,7 +89,8 @@ public abstract class BannerMenu implements Menu {
 
         Table table = new Table();
         table.defaults().padBottom(88f);
-        table.add(twitchButton).padLeft(82f);
+//        table.add(twitchButton).padLeft(82f);
+        table.add(sourceCodeButton).padLeft(82f);
         table.add(discordButton).padLeft(72f);
         table.bottom().left();
 
@@ -162,6 +170,6 @@ public abstract class BannerMenu implements Menu {
 
     @Override
     public boolean showVersionDetails() {
-        return true;
+        return false; // Hiding version on main menu now the game has stopped being updated, set this to true to show
     }
 }

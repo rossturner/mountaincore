@@ -83,7 +83,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 		Table buttonsTable = new Table();
 		buttonsTable.defaults().uniformX();
 
-		for (OptionsTabName tab : OptionsTabName.values()) {
+		for (OptionsTabName tab : OptionsTabName.displayedOptionsTabs()) {
 
 			Container<TextButton> tabButton = menuButtonFactory.createButton(tab.getI18nKey(), menuSkin, MenuButtonFactory.ButtonStyle.BTN_SMALL_1_50PT)
 					.withAction(() -> {

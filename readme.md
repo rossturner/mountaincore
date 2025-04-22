@@ -2,6 +2,8 @@
 
 Mountaincore was developed by Rocket Jump Technology, and has now been released as open-source under the very permissive MIT license.
 
+[You can play it for free on Steam!](https://store.steampowered.com/app/2370310/Mountaincore/)
+
 ## Setup
 
 Download and extract Adoptium JDK releases from https://adoptium.net/temurin/releases 
