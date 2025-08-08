@@ -3,10 +3,13 @@ package technology.rocketjump.mountaincore.assets.editor;
 import com.google.inject.Singleton;
 import technology.rocketjump.mountaincore.persistence.FileUtils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,10 +25,28 @@ public class NormalMapGenerator {
 
         if (foundFiles.isEmpty()) {
             throw new RuntimeException("Cannot find laigter.exe in " + directory.toAbsolutePath());
-        } else {
-            laigterExe = foundFiles.get(0).toString();
-            defaultSettings = Paths.get(FileUtils.getDirectory(foundFiles.get(0)).toString(), "Default.preset").toString();
         }
+
+        defaultSettings = Paths.get(FileUtils.getDirectory(foundFiles.get(0)).toString(), "Default.preset").toString();
+
+        if (! System.getProperty("os.name", "unknown").toLowerCase().contains("win")) {
+            // attempt to discover path of laigter on Linux/...
+            String[] whichCmd = {"command", "-v", "laigter"};
+            try {
+                Process which = Runtime.getRuntime().exec(whichCmd);
+                if(0 == which.waitFor()) {
+                    BufferedReader whichOutputStream = new BufferedReader(new InputStreamReader(which.getInputStream()));
+                    foundFiles = whichOutputStream.lines().map(Path::of).toList();
+                } else {
+                    BufferedReader whichErrorStream = new BufferedReader(new InputStreamReader(which.getErrorStream()));
+                    throw new RuntimeException("Failed 'command -v laigter' on non-Windows OS, exit code: " + which.exitValue() + ", stderr: " + String.join("\n", whichErrorStream.lines().toList()));
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException("Cannot find laigter in PATH on non-Windows OS (get it from https://github.com/azagaya/laigter)", ex);
+            }
+        }
+
+        laigterExe = foundFiles.get(0).toString();
     }
 
     public Path generate(Path inputImageFile) {
