@@ -3,6 +3,7 @@ package technology.rocketjump.mountaincore.entities.components.creature;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.apache.commons.lang3.NotImplementedException;
+import technology.rocketjump.mountaincore.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.mountaincore.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.mountaincore.entities.components.*;
 import technology.rocketjump.mountaincore.entities.model.Entity;
@@ -177,9 +178,12 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 
 	private HaulingAllocation getCurrentHaulingAllocation(Long itemId) {
 		if (parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-			HaulingAllocation currentlyHauling = creatureBehaviour.getCurrentGoal().getAssignedHaulingAllocation();
-			if (currentlyHauling != null && Objects.equals(currentlyHauling.getHauledEntityId(), itemId)) {
-				return currentlyHauling;
+			AssignedGoal currentGoal = creatureBehaviour.getCurrentGoal();
+			if (currentGoal != null) {
+				HaulingAllocation currentlyHauling = currentGoal.getAssignedHaulingAllocation();
+				if (currentlyHauling != null && Objects.equals(currentlyHauling.getHauledEntityId(), itemId)) {
+					return currentlyHauling;
+				}
 			}
 		}
 		ItemAssignmentComponent itemAssignmentComponent = parentEntity.getOrCreateComponent(ItemAssignmentComponent.class);
