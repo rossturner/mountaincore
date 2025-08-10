@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.mountaincore.combat.model.WeaponAttack;
 import technology.rocketjump.mountaincore.entities.components.InventoryComponent;
 import technology.rocketjump.mountaincore.entities.components.creature.CombatStateComponent;
@@ -119,11 +120,23 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 	private void triggerAttack(Entity targetedEntity, MessageDispatcher messageDispatcher) {
 		CreatureCombat creatureCombat = new CreatureCombat(parentEntity);
 		ItemEntityAttributes ammoAttributes = decrementAmmoFromInventory(creatureCombat.getEquippedWeapon().getRequiresAmmoType(), messageDispatcher);
-		messageDispatcher.dispatchMessage(MessageType.MAKE_ATTACK_WITH_WEAPON, new CombatAttackMessage(
-				parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(),
-				creatureCombat.getEquippedWeaponQuality(),
-				creatureCombat.getEquippedWeaponAttributes().getPrimaryMaterial()),
-				ammoAttributes));
+		try {
+			messageDispatcher.dispatchMessage(MessageType.MAKE_ATTACK_WITH_WEAPON, new CombatAttackMessage(
+						parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(),
+							creatureCombat.getEquippedWeaponQuality(),
+							creatureCombat.getEquippedWeaponAttributes().getPrimaryMaterial()),
+						ammoAttributes));
+		} catch (NullPointerException exc) {
+			// Suspect it may be UNARMED weapon, need to confirm somehow
+			Logger.error("Entity {} unable to attack {} with {} (unarmed: {}, sprite: {}, damageType: {}))",
+					parentEntity,
+					targetedEntity,
+					creatureCombat.getEquippedWeapon(),
+					WeaponInfo.UNARMED.equals(creatureCombat.getEquippedWeapon()),
+					creatureCombat.getEquippedWeapon().getAnimatedSpriteEffectName(),
+					creatureCombat.getEquippedWeapon().getDamageType().name());
+			throw exc;
+		}
 		attackMade = true;
 	}
 
